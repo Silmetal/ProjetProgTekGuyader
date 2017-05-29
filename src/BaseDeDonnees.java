@@ -29,7 +29,7 @@ public BaseDeDonnees {
 	/**
 	 *
 	 */
-	private void connexion(String adresse, String motDePasse) {
+	private boolean connexion(String adresse, String motDePasse) {
 		
 	}
 	
@@ -56,7 +56,7 @@ public BaseDeDonnees {
 	
 	/**
 	 *
-	 
+	 */	 
 	public void read(){
 		
 	}
