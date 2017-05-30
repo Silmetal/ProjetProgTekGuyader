@@ -8,13 +8,20 @@ public class BaseDeDonneesTest{
 	}
 
 
-
+	@Before()
+	protected void miseEnPlace(){
+		
+	}
 
 
 	@Test()
 	public void testVerifDriver(){
 		assertTrue(BaseDeDonnees.verifDriver())
 	}
+
+
+
+
 
 
 
