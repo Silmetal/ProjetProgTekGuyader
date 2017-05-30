@@ -32,6 +32,9 @@ public class BaseDeDonnees {
 	 */
 	private boolean verifPilote() {
 		
+		boolean ret = false;
+		
+		return ret;
 	}
 	
 	/**
@@ -39,6 +42,9 @@ public class BaseDeDonnees {
 	 */
 	private boolean connexion(String adresse, String motDePasse) {
 		
+		boolean ret = false;
+		
+		return ret;
 	}
 	
 	/**
@@ -46,6 +52,9 @@ public class BaseDeDonnees {
 	 */
 	private Statement creerRequete(){
 		
+		Statement test = null;
+		
+		return test;		
 	}
 	
 	/**
