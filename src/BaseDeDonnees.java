@@ -8,21 +8,20 @@ import java.sql.*;
  * Exemple pour oracle : 
  * /n BaseDeDonnees bdd = new BaseDeDonnees("jdbc:oracle:thin:@localhsot:1521:xe", "root", "root")
  * "jdbc:oracle:thin:" indique que l'on se connect à une BDD oracle.
- * /n "localhost" correspond au nom d'hôte
- * /n "1521" correspond au port de la base
- * /n "xe" correspond au SID.
- * Les deux derniers champs sont, respectivement, le nom d'utilisateur et le mot de passe.
- * 
+ * /n"localhost" correspond au nom d'hôte
+ * /n"1521" correspond au port de la base
+ * /n"xe" correspond au SID.
+ * Les deux derniers champs sont, respectivement, le nom d'utilisateur et le mot de passe. 
  */
-public BaseDeDonnees {
+public class BaseDeDonnees {
 	
 	/**
-	 *
+	 * L'objet Connection représente le lien entre l'application et la base de données. Il est défini lors de l'appel à la méthode connexion.
 	 */
-	private Connection connection;
+	private Connection connexion;
 	
 	/**
-	 *
+	 * Constructeur de la classe. 
 	 */
 	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse){
 		
@@ -31,7 +30,7 @@ public BaseDeDonnees {
 	/**
 	 *
 	 */
-	private boolean verifDriver() {
+	private boolean verifPilote() {
 		
 	}
 	
@@ -45,28 +44,28 @@ public BaseDeDonnees {
 	/**
 	 *
 	 */
-	private Statement createStatement(){
+	private Statement creerRequete(){
 		
 	}
 	
 	/**
 	 *
 	 */
-	public void addNewID(){
+	public void ajouterNouvelUtilisateur(){
 		
 	}
 	
 	/**
 	 *
 	 */
-	public void write(){
+	public void ecrire(){
 		
 	}
 	
 	/**
 	 *
 	 */	 
-	public void read(){
+	public void lire(){
 		
 	}
 	

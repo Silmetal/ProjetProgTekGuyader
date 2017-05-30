@@ -16,7 +16,7 @@ public class BaseDeDonneesTest{
 
 	@Test()
 	public void testVerifDriver(){
-		assertTrue(BaseDeDonnees.verifDriver())
+		assertTrue(BaseDeDonnees.verifDriver());
 	}
 
 
