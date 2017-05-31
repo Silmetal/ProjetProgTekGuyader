@@ -17,9 +17,27 @@ public class BaseDeDonneesTest{
 
 
 	@Test()
-	public void testVerifDriver(){
-		assertTrue(BaseDeDonnees.verifDriver());
+	public void testVerifPilote(){
+
+		boolean test=true;
+		
+		try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+        } catch (ClassNotFoundException e) {
+            test=false;
+        }
+
+        assertEquals(test,BaseDeDonnees.verifPilote());
+
+
 	}
+
+
+
+
+
+
+
 
 
 
