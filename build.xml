@@ -14,7 +14,7 @@
 	
 	<target name="javaDoc" depends="clean">
 		<mkdir dir="${javaDoc}"/>
-		<javadoc sourcepath="${src}" destdir="${javaDoc}" packagenames="model"/>
+		<javadoc sourcepath="${src}" destdir="${javaDoc}" packagenames="*" encoding="UTF8"/>
 	</target>
 
 
