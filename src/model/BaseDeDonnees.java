@@ -64,15 +64,19 @@ public class BaseDeDonnees {
 	 */
 	private boolean connexion(String adresse, String nomUtili, String motDePasse) {
 		
+		boolean ret = false;
+		
 		try {
 			
 			connexion = DriverManager.getConnection(adresse, nomUtili, motDePasse);
+			ret = true;
 		}
 		
-		catch(SQLExeception e) {
+		catch(SQLException e) {
 			
 			System.out.println("Connexion échouée ! Vérifiez vos identifiants et l'adresse de connexion");
-			e.print
+			e.printStackTrace();
+		}
 		
 		return ret;
 	}
@@ -82,7 +86,7 @@ public class BaseDeDonnees {
 	 * si l'attribut connexion est non null.
 	 * @return l'objet Statement crée
 	 */
-	private Statement creerRequete(){
+	public Statement creerRequete(){
 		
 		Statement requete = null;
 		
