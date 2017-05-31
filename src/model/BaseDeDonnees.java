@@ -39,6 +39,18 @@ public class BaseDeDonnees {
 		
 		boolean ret = false;
 		
+		try {
+			
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			ret = true;
+		}
+		
+		catch (ClassNotFoundException e) {
+			
+			System.out.println("Pilote non trouvé");
+			e.printStackTrace();
+		}
+		
 		return ret;
 	}
 	
@@ -52,18 +64,35 @@ public class BaseDeDonnees {
 	 */
 	private boolean connexion(String adresse, String nomUtili, String motDePasse) {
 		
-		boolean ret = false;
+		try {
+			
+			connexion = DriverManager.getConnection(adresse, nomUtili, motDePasse);
+		}
+		
+		catch(SQLExeception e) {
+			
+			System.out.println("Connexion échouée ! Vérifiez vos identifiants et l'adresse de connexion");
+			e.print
 		
 		return ret;
 	}
 	
 	/**
-	 * Créer un objet Statement qui permettra d'exécuter des requêtes SQL
+	 * Créer un objet Statement qui permettra d'exécuter des requêtes SQL 
+	 * si l'attribut connexion est non null.
 	 * @return l'objet Statement crée
 	 */
 	private Statement creerRequete(){
 		
-		Statement requete = connexion.createStatement();
+		Statement requete = null;
+		
+		try {
+			requete = connexion.createStatement();
+		}
+		catch (SQLException se) {
+		
+			se.printStackTrace();
+		}		
 		
 		return requete;		
 	}
