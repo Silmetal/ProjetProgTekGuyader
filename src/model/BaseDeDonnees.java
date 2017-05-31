@@ -43,7 +43,8 @@ public class BaseDeDonnees {
 	}
 	
 	/**
-	 * Appelle la méthode verifPilote, puis, si le pilote est présent, essaye d'établir une connexion avec les paramètres en appellant les méthodes de JDBC.
+	 * Appelle la méthode verifPilote, puis, si le pilote est présent, essaye d'établir une connexion en créant un objet Connection avec les paramètres en appellant les méthodes de JDBC.
+	 * Si la connexion est établit, place l'objet Connection crée dans l'attribut connexion
 	 * @param adresse l'adresse de la base à laquelle on essaye de se connecter.
 	 * @param nomUtili le nom d'utilisateur utilisé pour se connecter.
 	 * @param motDePasse le mot de passe correspondant au nom d'utilisateur.
