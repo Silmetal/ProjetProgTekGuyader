@@ -6,12 +6,12 @@ import java.sql.*;
  * Cette classe établit une connexion à une base de données grâce à JDBC et les classes de java.sql.
  * La classe crée un objet Connnection sur lequel on peut effectuer des requêtes grâce à l'objet Statement également crée et à la classe Requête.
  * Exemple pour oracle : 
- * /n BaseDeDonnees bdd = new BaseDeDonnees("jdbc:oracle:thin:@localhsot:1521:xe", "root", "root")
+ * <P>BaseDeDonnees bdd = new BaseDeDonnees("jdbc:oracle:thin:@localhsot:1521:xe", "root", "root")
  * "jdbc:oracle:thin:" indique que l'on se connect à une BDD oracle.
- * /n"localhost" correspond au nom d'hôte
- * /n"1521" correspond au port de la base
- * /n"xe" correspond au SID.
- * /nLes deux derniers champs sont, respectivement, le nom d'utilisateur et le mot de passe. 
+ * <P>"localhost" correspond au nom d'hôte
+ * <P>"1521" correspond au port de la base
+ * <P>"xe" correspond au SID.
+ * <P>Les deux derniers champs sont, respectivement, le nom d'utilisateur et le mot de passe. 
  */
 public class BaseDeDonnees {
 	
