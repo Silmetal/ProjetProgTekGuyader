@@ -21,14 +21,16 @@ public class BaseDeDonnees {
 	private Connection connexion;
 	
 	/**
-	 * Constructeur de la classe. 
+	 * Constructeur de la classe. Utilise les paramètres pour créer l'objet connexion avec la méthode connexion, puis utilise la
+	 * méthode créerRequete pour créer l'objet requete.
 	 */
 	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse){
 		
 	}
 	
 	/**
-	 *
+	 * Vérifie la présence du pilote correspondant à la base à laquelle on essaye de se connecter.
+	 * @return true si le pilote est présent, false sinon.
 	 */
 	private boolean verifPilote() {
 		
@@ -38,9 +40,13 @@ public class BaseDeDonnees {
 	}
 	
 	/**
-	 *
+	 * Appelle la méthode verifPilote, puis, si le pilote est présent, essaye d'établir une connexion avec les paramètres en appellant les méthodes de JDBC.
+	 * @param adresse l'adresse de la base à laquelle on essaye de se connecter.
+	 * @param nomUtili le nom d'utilisateur utilisé pour se connecter.
+	 * @param motDePasse le mot de passe correspondant au nom d'utilisateur.
+	 * @return true si la connexion est établie, false sinon.
 	 */
-	private boolean connexion(String adresse, String motDePasse) {
+	private boolean connexion(String adresse, String nomUtili, String motDePasse) {
 		
 		boolean ret = false;
 		
@@ -48,33 +54,42 @@ public class BaseDeDonnees {
 	}
 	
 	/**
-	 *
+	 * Créer un objet Statement qui permettra d'exécuter des requêtes SQL
 	 */
 	private Statement creerRequete(){
 		
-		Statement test = null;
+		Statement requete = connexion.createStatement();
 		
-		return test;		
+		return requete;		
 	}
 	
 	/**
-	 *
+	 * Prend en paramètre un nom d'utilisateur et un mot de passe pour créer un nouvel utilisateur et l'ajouter à la base.
+	 * L'utilsiateur ainsi crée pourra se connecter à la base de données avec ces identifiants.
+	 * @param nouvIdenti l'identifiant du nouvel utilisateur
+	 * @param nouvMDP le mot de passe du nouvel utilisateur
 	 */
-	public void ajouterNouvelUtilisateur(){
+	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP){
+		
+		
 		
 	}
 	
 	/**
-	 *
+	 * Enregistre la base de données dans un fichier.
+	 * Le fichier contiendra toutes les requêtes SQL nécessaires pour créer une nouvelle base de données
+	 * identique à celle à laquelle l'utilsiateur est connecté.
+	 * @param fileName le nom du fichier crée
 	 */
-	public void ecrire(){
+	public void ecrire(String fileName){
 		
 	}
 	
 	/**
-	 *
+	 * Exécute les requêtes SQL de création d'une base de données stockées dans un fichier.
+	 * @param fileName le nom du fichier à lire
 	 */	 
-	public void lire(){
+	public void lire(String fileName){
 		
 	}
 	
