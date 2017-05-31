@@ -11,7 +11,7 @@ import java.sql.*;
  * /n"localhost" correspond au nom d'hôte
  * /n"1521" correspond au port de la base
  * /n"xe" correspond au SID.
- * Les deux derniers champs sont, respectivement, le nom d'utilisateur et le mot de passe. 
+ * /nLes deux derniers champs sont, respectivement, le nom d'utilisateur et le mot de passe. 
  */
 public class BaseDeDonnees {
 	
@@ -23,6 +23,9 @@ public class BaseDeDonnees {
 	/**
 	 * Constructeur de la classe. Utilise les paramètres pour créer l'objet connexion avec la méthode connexion, puis utilise la
 	 * méthode créerRequete pour créer l'objet requete.
+	 * @param adresse l'adresse de la base de données
+	 * @param nomUtili le nom d'utilisateur utilisé pour se connecter
+	 * @param motDePasse le mot de passe correspondant au nom d'utilisateur utilisé pour se connecter.
 	 */
 	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse){
 		
@@ -55,6 +58,7 @@ public class BaseDeDonnees {
 	
 	/**
 	 * Créer un objet Statement qui permettra d'exécuter des requêtes SQL
+	 * @return l'objet Statement crée
 	 */
 	private Statement creerRequete(){
 		

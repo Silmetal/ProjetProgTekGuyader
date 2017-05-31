@@ -4,18 +4,24 @@
 	<property name="src" location="src"/>
 	<property name="class" location="class"/>
 	<property name="exe" location="exe"/>
+	<property name="javaDoc" location="javaDoc"/>
 
 	<target name="clean">
 		<delete dir="${class}"/>
 		<delete dir="${exe}"/>
 	</target>
+	
+	
+	<target name="javaDoc" depends="clean">
+		<mkdir dir="${javaDoc}"/>
+		<javadoc sourcepath="${src}" destdir="${javaDoc}" packagenames="model"/>
+	</target>
 
 
-	<target name="compile" depends="clean">
+	<target name="compile" depends="javaDoc">
 		<mkdir dir="${class}"/>
 		<javac srcdir="${src}" destdir="${class}"/>
 	</target>
-
 
 	<target name="jar" depends="compile">
 		<mkdir dir="${exe}"/>
