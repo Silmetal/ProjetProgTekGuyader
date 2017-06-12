@@ -15,51 +15,51 @@ public class Requete {
 	
 	public int MenuChoix() {
 		
-		return null;
+		return 0;
 	
 	}
 	
 	public int ajouterTable() {
 		
-		return null;
+		return 0;
 	}
 	
 	public int ajouterTuple() {
 		
-		return null;
+		return 0;
 	}
 	
 	public int ajouterTrigger() {
 		
-		return null;
+		return 0;
 	}
 	
 	public int ajouterVue() {
 		
-		return null;
+		return 0;
 	}
 	
 	public int enleverTable() {
 		
-		return null;
+		return 0;
 	}
 	
 	public int enleverTuple() {
-		return null;
+		return 0;
 	}
 	
 	public int enleverTrigger() {
 		
-		return null;
+		return 0;
 	}
 	
 	public int enleverVue() {
 		
-		return null;
+		return 0;
 	}
 	
 	public int manuel() {
 		
-		return null;
+		return 0;
 	}
 }
