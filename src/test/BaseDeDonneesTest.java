@@ -1,12 +1,9 @@
 package test;
-<<<<<<< HEAD
 import model.*;
-=======
-
->>>>>>> origin/master
 import org.junit.*;
 import static org.junit.Assert.*;
-import model.*;
+import java.sql.*;
+
 
 public class BaseDeDonneesTest{
 
@@ -22,43 +19,14 @@ public class BaseDeDonneesTest{
 	}
 
 	@Test()
-	public void testVerifPilote(){
+	public void testConstructeur(){
 		boolean test=true;
 		
-		try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-        } catch (ClassNotFoundException e) {
-            test=false;
-        }
+		BaseDeDonnees maBase = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","root", "root");
+    	Assert.assertTrue(maBase.getConnection()!=null);
 
-        Assert.assertEquals(test,BaseDeDonnees.verifPilote());
 	}
 	
-
-	@Test() // valeur local actuellement
-	public void testConnexion(){
-		boolean res;
-
-		//Test de la connexion avec des valeurs valides
-
-		res = BaseDeDonnees.connexion("jdbc:oracle:thin:@localhost:1521:xe","root", "root"); 
-		Assert.assertTrue(res);
-
-
-		//Test de la connexion avec des valeurs erronées
-
-		//Adresse erronée
-
-		res = BaseDeDonnees.connexion("jdbc:oracle:thin:@localhost:1521:orcl","root", "root"); 
-		Assert.assertFalse(res);
-		//Nom Utilisateur erroné
-		res = BaseDeDonnees.connexion("jdbc:oracle:thin:@localhost:1521:xe","admin", "root"); 
-		Assert.assertFalse(res);
-		//Mot de Passe erroné
-		res = BaseDeDonnees.connexion("jdbc:oracle:thin:@localhost:1521:xe","root", "admin"); 
-		Assert.assertFalse(res);
-	}
-
 
 	@Test() // valeur local actuellement
 	public void testCreerRequete(){
