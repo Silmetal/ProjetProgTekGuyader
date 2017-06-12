@@ -27,5 +27,7 @@ public class Utilisateur {
 	
 	public String toString() {
 		
+		return "";
+		
 	}
 }
