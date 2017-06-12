@@ -33,12 +33,12 @@ public class BaseDeDonnees {
 			
 			boolean test = connexion(adresse, nomUtili, motDePasse);
 			if (test) {
-				System.out.println("Connexion établie");
+				System.out.println("Connexion etablie");
 			}
-			else System.out.println("Connexion échouée");
+			else System.out.println("Connexion echouee");
 		}
 		
-		else System.out.println("Vérifiez votre pilote");
+		else System.out.println("Verifiez votre pilote");
 		
 	}
 	
