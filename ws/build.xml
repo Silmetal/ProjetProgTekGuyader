@@ -37,7 +37,7 @@
 
 	<target name="compile" depends="javaDoc">
 		<mkdir dir="${class.model}"/>
-		<javac srcdir="${src.model}" destdir="${class}" includeantruntime="false"/>
+		<javac srcdir="${src.model}" encoding="UTF-8" destdir="${class}" includeantruntime="false"/>
 	</target>
 
 
