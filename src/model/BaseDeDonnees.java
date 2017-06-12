@@ -81,12 +81,60 @@ public class BaseDeDonnees {
 			ret = true;
 		}
 		
-		catch(SQLException e) {
+		catch(SQLException se) {
 			
 			System.out.println("Connexion échouée ! Vérifiez vos identifiants et l'adresse de connexion");
 			e.printStackTrace();
 		}
+		catch(Exception e){ 
+			System.out.println("Autre erreur : "); 
+			e.printStackTrace(); 
+		}
 		
+		finally { 
+		
+			if(connection!=null){
+				try{
+					connection.close();
+				}
+				catch(Exception eC){
+					e.printStackTrace();
+				}
+			} 
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * Vérifie si l'objet Connection passé en paramètre est valide ou non.
+	 * Si la connexion est créée, envoie un ping à la base de données. Si le ping retourne un résultat, la connexion est valide. Sinon, la connexion est invalide.
+	 * @param connexion la connexion à tester
+	 * @return le résultat du test de connexion : true si la connexion est valide, false sinon.
+	 */
+	private static boolean estValid(Connection connexion){ 
+		
+		boolean ret = false;
+		
+		if(connexion==null){ 
+			ret = false; 
+		} 
+		ResultSet ping = null; 
+		try{ 
+			if(connexion.isClosed()){ret = false;} 
+			ping = connexion.createStatement().executeQuery("SELECT 1"); 
+			ret = ping.next(); 
+		}
+		catch(SQLException sqle){ 
+			ret = false; 
+		} 
+		finally{ 
+			
+			if(ping!=null){
+				try{ping.close();}
+				catch(Exception e){}
+			} 
+		} 
 		return ret;
 	}
 	
