@@ -162,15 +162,113 @@ public class BaseDeDonnees {
 	}
 	
 	/**
-	 * Prend en paramètre un nom d'utilisateur et un mot de passe pour créer un nouvel utilisateur et l'ajouter à la base.
+	 * Prend en paramètre un nom d'utilisateur et un mot de passe pour créer un nouvel utilisateur et l'ajouter à la base. Le type de l'utilsiateur dépend du paramètre userType.
 	 * L'utilsiateur ainsi crée pourra se connecter à la base de données avec ces identifiants.
+	 * Un super utilisateur local ne peut se connecter que en localhost, et a tous les privilèges sur toutes les bases de données. Un super utilisateur global peut se connecter depuis n'importe quel hôte et a tous les
+	 * privilèges sur toutes les bases de données. Un utilisateur local a des privilèges limités sur la base de données à laquelle le créateur est connecté. un utilisateur local ne peut se connecter qu'en localhost,
+	 * un utilisateur global peut se connecter depuis n'importe quel hôte.
 	 * @param nouvIdenti l'identifiant du nouvel utilisateur
 	 * @param nouvMDP le mot de passe du nouvel utilisateur
+	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur local, 1 pour un super utilisateur global, 2 pour un utilisateur local, 3 pour un utilisateur global
 	 */
-	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP){
+	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, int userType){
 		
+		PreparedStatement creerGlobalSuperUser = null;
+		PreparedStatement creerLocalSuperUser = null;
+		PreparedStatement creerLocalUser = null;
+		PreparedStatement creerGlobalUser = null;
 		
+		try {
+			creerLocalSuperUser = connexion.prepareStatement("CREATE USER '?'@'localhost' IDENTIFIED BY '?'; GRANT ALL PRIVILEGES ON *.* TO '?'@'localhost' WITH GRANT OPTION;");
+			creerLocalSuperUser.setString(1,nouvIdenti);
+			creerLocalSuperUser.setString(2,nouvMDP);
+			creerLocalSuperUser.setString(3,nouvIdenti);
+		}
+		catch(SQLException se) {
+			System.out.println("Erreur SQL");
+			se.printStackTrace();
+		}
 		
+		try{
+			creerGlobalSuperUser = connexion.prepareStatement("CREATE USER '?'@'%' IDENTIFIED BY '?'; GRANT ALL PRIVILEGES ON *.* TO '?'@'%' WITH GRANT OPTION;");
+			creerGlobalSuperUser.setString(1,nouvIdenti);
+			creerGlobalSuperUser.setString(2,nouvMDP);
+			creerGlobalSuperUser.setString(3,nouvIdenti);
+		}
+		catch(SQLException se) {
+			System.out.println("Erreur SQL");
+			se.printStackTrace();
+		}
+		
+		try{
+			creerLocalUser = connexion.prepareStatement("CREATE USER '?'@'localhost' IDENTIFIED BY '?'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON ?.* TO '?'@'localhost';");
+			creerLocalUser.setString(1,nouvIdenti);
+			creerLocalUser.setString(2,nouvMDP);
+			creerLocalUser.setString(3,connexion.getMetaData().getDatabaseProductName());
+			creerLocalUser.setString(4,nouvIdenti);
+		}
+		catch(SQLException se) {
+			System.out.println("Erreur SQL");
+			se.printStackTrace();
+		}
+		
+		try {
+			creerGlobalUser = connexion.prepareStatement("CREATE USER '?'@'?' IDENTIFIED BY '?'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON ?.* TO '?'@'?';");
+			creerGlobalUser.setString(1,nouvIdenti);
+			creerGlobalUser.setString(2,connexion.getMetaData().getURL());
+			creerGlobalUser.setString(3,nouvMDP);
+			creerGlobalUser.setString(4,connexion.getMetaData().getDatabaseProductName());
+			creerGlobalUser.setString(5,nouvIdenti);
+			creerGlobalUser.setString(6,connexion.getMetaData().getURL());
+		}
+		catch(SQLException se) {
+			System.out.println("Erreur SQL");
+			se.printStackTrace();
+		}
+		
+		if (userType == 0) {
+			
+			try {
+				creerLocalSuperUser.execute();
+			}
+			catch(SQLException se) {
+				System.out.println("Erreur SQL");
+				se.printStackTrace();
+			}
+		}
+		
+		else if (userType == 1) {
+			
+			try{
+				creerGlobalSuperUser.execute();
+			}
+			catch(SQLException se) {
+				System.out.println("Erreur SQL");
+				se.printStackTrace();
+			}
+		}
+		
+		else if (userType == 2) {
+			
+			try{
+				creerLocalUser.execute();
+			}
+			catch(SQLException se) {
+				System.out.println("Erreur SQL");
+				se.printStackTrace();
+			}
+		}
+		
+		else if (userType == 3) {
+			
+			try {
+				creerGlobalUser.execute();
+			}
+			catch(SQLException se) {
+				System.out.println("Erreur SQL");
+				se.printStackTrace();
+			}
+		}
 	}
 	
 	/**
