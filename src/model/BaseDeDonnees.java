@@ -185,7 +185,7 @@ public class BaseDeDonnees {
 			creerLocalSuperUser.setString(3,nouvIdenti);
 		}
 		catch(SQLException se) {
-			System.out.println("Erreur SQl");
+			System.out.println("Erreur SQL");
 			se.printStackTrace();
 		}
 		
@@ -196,7 +196,7 @@ public class BaseDeDonnees {
 			creerGlobalSuperUser.setString(3,nouvIdenti);
 		}
 		catch(SQLException se) {
-			System.out.println("Erreur SQl");
+			System.out.println("Erreur SQL");
 			se.printStackTrace();
 		}
 		
@@ -208,7 +208,7 @@ public class BaseDeDonnees {
 			creerLocalUser.setString(4,nouvIdenti);
 		}
 		catch(SQLException se) {
-			System.out.println("Erreur SQl");
+			System.out.println("Erreur SQL");
 			se.printStackTrace();
 		}
 		
@@ -222,7 +222,7 @@ public class BaseDeDonnees {
 			creerGlobalUser.setString(6,connexion.getMetaData().getURL());
 		}
 		catch(SQLException se) {
-			System.out.println("Erreur SQl");
+			System.out.println("Erreur SQL");
 			se.printStackTrace();
 		}
 		
@@ -232,7 +232,7 @@ public class BaseDeDonnees {
 				creerLocalSuperUser.execute();
 			}
 			catch(SQLException se) {
-				System.out.println("Erreur SQl");
+				System.out.println("Erreur SQL");
 				se.printStackTrace();
 			}
 		}
@@ -243,7 +243,7 @@ public class BaseDeDonnees {
 				creerGlobalSuperUser.execute();
 			}
 			catch(SQLException se) {
-				System.out.println("Erreur SQl");
+				System.out.println("Erreur SQL");
 				se.printStackTrace();
 			}
 		}
@@ -254,7 +254,7 @@ public class BaseDeDonnees {
 				creerLocalUser.execute();
 			}
 			catch(SQLException se) {
-				System.out.println("Erreur SQl");
+				System.out.println("Erreur SQL");
 				se.printStackTrace();
 			}
 		}
@@ -265,7 +265,7 @@ public class BaseDeDonnees {
 				creerGlobalUser.execute();
 			}
 			catch(SQLException se) {
-				System.out.println("Erreur SQl");
+				System.out.println("Erreur SQL");
 				se.printStackTrace();
 			}
 		}
