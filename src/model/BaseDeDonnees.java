@@ -294,7 +294,10 @@ public class BaseDeDonnees {
 		
 	}
 
-
+	/**
+	 * Retourne l'objet Connection créé par l'instance
+	 * @return l'objet Connection créé par l'instance
+	 */	
 	public Connection getConnection(){
 		return this.connexion;
 	}
