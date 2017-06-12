@@ -126,7 +126,7 @@ public class BaseDeDonnees {
 		ResultSet ping = null; 
 		try{ 
 			if(connexion.isClosed()){ret = false;} 
-			ping = connexion.createStatement().executeQuery("SELECT 1"); 
+			ping = connexion.createStatement().executeQuery("SELECT 1 FROM ALL_TABLE"); 
 			ret = ping.next();
 			if (ret == false) System.out.println("Ping échoué");
 		}
