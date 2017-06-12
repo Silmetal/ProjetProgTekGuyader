@@ -31,8 +31,11 @@ public class BaseDeDonnees {
 		
 		if (verifPilote()) {
 			
-			connexion = connexion(adresse, nomUtili, motDePasse);
-			System.out.println("Connexion établie");
+			boolean test = connexion(adresse, nomUtili, motDePasse);
+			if (test) {
+				System.out.println("Connexion établie");
+			}
+			else System.out.println("Connexion échouée");
 		}
 		
 		else System.out.println("Vérifiez votre pilote");
@@ -78,13 +81,13 @@ public class BaseDeDonnees {
 		try {
 			
 			connexion = DriverManager.getConnection(adresse, nomUtili, motDePasse);
-			ret = true;
+			ret = estValide(connexion);
 		}
 		
 		catch(SQLException se) {
 			
 			System.out.println("Connexion échouée ! Vérifiez vos identifiants et l'adresse de connexion");
-			e.printStackTrace();
+			se.printStackTrace();
 		}
 		catch(Exception e){ 
 			System.out.println("Autre erreur : "); 
@@ -93,12 +96,12 @@ public class BaseDeDonnees {
 		
 		finally { 
 		
-			if(connection!=null){
+			if(connexion!=null){
 				try{
-					connection.close();
+					connexion.close();
 				}
 				catch(Exception eC){
-					e.printStackTrace();
+					eC.printStackTrace();
 				}
 			} 
 		}
@@ -112,7 +115,7 @@ public class BaseDeDonnees {
 	 * @param connexion la connexion à tester
 	 * @return le résultat du test de connexion : true si la connexion est valide, false sinon.
 	 */
-	private static boolean estValid(Connection connexion){ 
+	private static boolean estValide(Connection connexion){ 
 		
 		boolean ret = false;
 		
