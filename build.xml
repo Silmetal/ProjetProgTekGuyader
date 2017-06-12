@@ -1,10 +1,12 @@
 <project name="MyProject"  basedir="." default="jar">
 
 
+
 	<property name="src" location="src"/>
 	<property name="class" location="class"/>
 	<property name="exe" location="exe"/>
 	<property name="javaDoc" location="javaDoc"/>
+	<property name="tests.dir" location="test" />
 
 	<target name="clean">
 		<delete dir="${class}"/>
