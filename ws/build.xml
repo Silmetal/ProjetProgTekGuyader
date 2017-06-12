@@ -31,20 +31,20 @@
 	
 	<target name="javaDoc" depends="clean">
 		<mkdir dir="${javaDoc}"/>
-		<javadoc charset="UTF-8" sourcepath="${src}" destdir="${javaDoc}" packagenames="*"/>
+		<javadoc charset="utf8" sourcepath="${src}" destdir="${javaDoc}" packagenames="*"/>
 	</target>
 
 
 	<target name="compile" depends="javaDoc">
 		<mkdir dir="${class.model}"/>
-		<javac srcdir="${src.model}" encoding="UTF-8" destdir="${class}" includeantruntime="false"/>
+		<javac srcdir="${src.model}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
 	</target>
 
 
 
 	<target name="compile-test" depends="compile">
 		<mkdir dir="${class.test}"/>
-		<javac srcdir="${src.test}" destdir="${class}" includeantruntime="false">
+		<javac srcdir="${src.test}" encoding="utf8" destdir="${class}" includeantruntime="false">
 			<classpath refid="classpath.test"/>
 		</javac>
 	</target>
