@@ -29,6 +29,14 @@ public class BaseDeDonnees {
 	 */
 	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse){
 		
+		if (verifPilote) {
+			
+			connexion = connexion(adresse, nomUtili, motDePasse);
+			System.out.println("Connexion établie");
+		}
+		
+		else System.out.println("Vérifiez votre pilote");
+		
 	}
 	
 	/**
@@ -42,6 +50,7 @@ public class BaseDeDonnees {
 		try {
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("Pilote oracle trouvé");
 			ret = true;
 		}
 		
@@ -98,7 +107,7 @@ public class BaseDeDonnees {
 			se.printStackTrace();
 		}		
 		
-		return requete;		
+		return requete;
 	}
 	
 	/**
@@ -120,6 +129,7 @@ public class BaseDeDonnees {
 	 * @param fileName le nom du fichier crée
 	 */
 	public void ecrire(String fileName){
+		
 		
 	}
 	
