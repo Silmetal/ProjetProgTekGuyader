@@ -1,7 +1,12 @@
 package test;
+<<<<<<< HEAD
 import model.*;
+=======
+
+>>>>>>> origin/master
 import org.junit.*;
 import static org.junit.Assert.*;
+import model.*;
 
 public class BaseDeDonneesTest{
 
