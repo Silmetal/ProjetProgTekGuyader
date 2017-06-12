@@ -29,7 +29,7 @@ public class BaseDeDonnees {
 	 */
 	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse){
 		
-		if (verifPilote) {
+		if (verifPilote()) {
 			
 			connexion = connexion(adresse, nomUtili, motDePasse);
 			System.out.println("Connexion établie");
