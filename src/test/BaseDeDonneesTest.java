@@ -9,13 +9,13 @@ public class BaseDeDonneesTest{
 
 	private BaseDeDonnees maBase;
 
-	public BaseDeDonneesTest(String name){
-		super(name);
+	public BaseDeDonneesTest(){
+		
 	}
 
 
 	@Before()
-	protected void miseEnPlace(){		
+	public void miseEnPlace(){		
 	}
 
 	@Test()
@@ -27,7 +27,7 @@ public class BaseDeDonneesTest{
 
 	}
 	
-
+/*
 	@Test() // valeur local actuellement
 	public void testCreerRequete(){
 
@@ -47,7 +47,7 @@ public class BaseDeDonneesTest{
 
 
 	}
-
+*/
 
 
 
