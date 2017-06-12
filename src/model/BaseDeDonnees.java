@@ -120,16 +120,19 @@ public class BaseDeDonnees {
 		boolean ret = false;
 		
 		if(connexion==null){ 
-			ret = false; 
+			ret = false;
+			System.out.println("connexion = null");
 		} 
 		ResultSet ping = null; 
 		try{ 
 			if(connexion.isClosed()){ret = false;} 
 			ping = connexion.createStatement().executeQuery("SELECT 1"); 
-			ret = ping.next(); 
+			ret = ping.next();
+			if (ret == false) System.out.println("Ping échoué");
 		}
 		catch(SQLException sqle){ 
-			ret = false; 
+			ret = false;
+			System.out.println("exception SQL");
 		} 
 		finally{ 
 			
