@@ -188,5 +188,10 @@ public class BaseDeDonnees {
 	public void lire(String fileName){
 		
 	}
+
+
+	public Connection getConnection(){
+		return this.connexion;
+	}
 	
 }
