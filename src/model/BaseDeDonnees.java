@@ -133,6 +133,7 @@ public class BaseDeDonnees {
 		catch(SQLException sqle){ 
 			ret = false;
 			System.out.println("exception SQL");
+			sqle.printStackTrace();
 		} 
 		finally{ 
 			
