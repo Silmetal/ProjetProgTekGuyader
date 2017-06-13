@@ -58,8 +58,8 @@
 	          <path refid="classpath.test"/>
 	          <pathelement location="${class}"/>
 	        </classpath>
-	        <formatter type="brief" usefile="false" />
-	        <batchtest>
+	        <formatter type="brief" usefile="true" />
+	        <batchtest todir="${reports}">
 	            <fileset dir="${src}" includes="**/*Test*.java" />
 	        </batchtest>
 	    </junit>
