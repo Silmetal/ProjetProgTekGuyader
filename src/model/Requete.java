@@ -3,7 +3,10 @@ package model;
 import java.sql.*;
 
 /**
- * Cette classe prend en paramètre un objet Statement et y intègre des requêtes SQL suivant la méthode appelée.
+ * Cette classe prend en paramètre un objet Connexion et créée un objet Statement avec lequel on peut effectuer des commandes SQL sur la base de données.
+ * Les méthodes de la classe prennent une chaîne de caractère qui représente une commande SQL. Ces méthodes ont des usages différents :
+ * <P> manuel() permet d'exécuter n'importe quelle commande SQL
+ * <P> 
  * Le constructore ne fait qu'initialiser le paramètre Statement, que les méthodes pourront modifier et exécuter.
  */
 public class Requete {

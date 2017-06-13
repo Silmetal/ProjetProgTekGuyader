@@ -1,16 +1,16 @@
 <project name="MyProject"  basedir="." default="jar">
 
-
-
 	<property name="src" location="../src"/>
 	<property name="class" location="../class"/>
 	<property name="exe" location="../exe"/>
 	<property name="javaDoc" location="../javaDoc"/>
 	<property name="reports" location="../reports" />
 	<property name="class.model" location="../class/model" />
+	<property name="class.vue" location="../class/vue" />
 	<property name="class.test" value="../class/test"/>
 	<property name="src.test" value="../src/test"/>
 	<property name="src.model" value="../src/model"/>
+	<property name="src.vue" value="../src/vue"/>
 
 
 	<path id="classpath.test">
@@ -31,27 +31,37 @@
 	
 	<target name="javaDoc" depends="clean">
 		<mkdir dir="${javaDoc}"/>
-		<javadoc charset="utf8" sourcepath="${src}" destdir="${javaDoc}" packagenames="*"/>
+		<javadoc charset="utf8" sourcepath="${src}" private="true" destdir="${javaDoc}" packagenames="*"/>
 	</target>
 
 
-	<target name="compile" depends="javaDoc">
+	<target name="compile-model" depends="javaDoc">
 		<mkdir dir="${class.model}"/>
 		<javac srcdir="${src.model}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
 	</target>
 
+	<target name="compile-vue" depends="compile-model">
+		<mkdir dir="${class.vue}"/>
+		<javac srcdir="${src.vue}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
+	</target>
 
-
-	<target name="compile-test" depends="compile">
+	<target name="compile-test" depends="compile-vue">
 		<mkdir dir="${class.test}"/>
 		<javac srcdir="${src.test}" encoding="utf8" destdir="${class}" includeantruntime="false">
+			<classpath refid="classpath.test"/>
+		</javac>
+	</target>
+	
+	<target name="compile-launcher" depends="compile-test">
+		<mkdir dir="${class}"/>
+		<javac srcdir="${src}" encoding="utf8" destdir="${class}" includeantruntime="false">
 			<classpath refid="classpath.test"/>
 		</javac>
 	</target>
 
 
 
-	<target name="test" depends="compile-test">
+	<target name="test" depends="compile-launcher">
 		<mkdir dir="${reports}"/>
 	    <junit printsummary="on" haltonfailure="yes" fork="true">
 	        <classpath>
