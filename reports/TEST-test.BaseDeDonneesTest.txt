@@ -1,5 +1,5 @@
 Testsuite: test.BaseDeDonneesTest
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4,241 sec
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4,263 sec
 
 ------------- Standard Output ---------------
 Pilote oracle trouvé
@@ -47,7 +47,7 @@ Caused by: oracle.net.ns.NetException: The Network Adapter could not establish t
 	at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:1438)
 	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:518)
 	... 30 more
-Caused by: java.io.IOException: Connection refused: connect, socket connect lapse 1002 ms. localhost/0:0:0:0:0:0:0:1 1521 0 2 true
+Caused by: java.io.IOException: Connection refused: connect, socket connect lapse 1001 ms. localhost/0:0:0:0:0:0:0:1 1521 0 2 true
 	at oracle.net.nt.TcpNTAdapter.connect(TcpNTAdapter.java:209)
 	at oracle.net.nt.ConnOption.connect(ConnOption.java:161)
 	at oracle.net.nt.ConnStrategy.execute(ConnStrategy.java:470)

@@ -76,6 +76,7 @@ public class Requete {
 
 	/** 
 	 * Intègre à l'attribut state la commande SQL passée en paramètre, puis exécute cette requête. Retourne le nombre de tuples modifiés par la requête
+	 * Cette méthode est utilisée pour créer ou supprimer des tables, vues ou triggers, mais aussi modifier, supprimer ou ajouter des tuples à une table existante.
 	 * @param requete la requete à exécuter
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
 	 */
@@ -91,18 +92,29 @@ public class Requete {
 			System.out.println("Erreur SQL : ");
 			sqle.printStackTrace();
 		}
+		finally{ 
+			if(state !=null){
+				try{
+					state.close();
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+			} 
+		}
 		return ret;
 	}
 	
 	/**
-	 * Intègre à l'attribut state la commande SQL écrite par l'utilisateur, puis exécute cette requête.
+	 * Intègre à l'attribut state la commande SQL donnée en paramètre, puis exécute cette requête.
+	 * Cette commande est générale, elle peut être utilisée pour créer, supprimer ou modifier des éléments, mais aussi pour faire des requêtes et en récupérer le résultat.
 	 * @param requete la requete à exécuter
+	 * @param resultat le ResultSet dans lequel sera stocké le résultat s'il y en a un.
 	 * @return true si l'instruction renvoie un ResultSet, false sinon
 	 */
-	public boolean manuel(String requete) {
+	public boolean manuel(String requete, ResultSet resultat) {
 		
 		boolean ret = false;
-		ResultSet resultat;
 		int nbTuples;
 		
 		try {
@@ -118,8 +130,8 @@ public class Requete {
 			System.out.println("Erreur SQL : ");
 			sqle.printStackTrace();
 		}
-		/* finally{ 
-			if(statement !=null){
+		finally{ 
+			if(state !=null){
 				try{
 					state.close();
 				}
@@ -127,7 +139,7 @@ public class Requete {
 					e.printStackTrace();
 				}
 			} 
-		} */
+		}
 		return ret;
 	}	
 	
