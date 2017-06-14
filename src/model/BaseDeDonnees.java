@@ -179,7 +179,7 @@ public class BaseDeDonnees {
 		
 		try {
 			creerLocalSuperUser = connexion.prepareStatement("CREATE USER ?@'localhost' IDENTIFIED BY ?; GRANT ALL PRIVILEGES ON *.* TO ?@'localhost' WITH GRANT OPTION;");
-			creerGlobalSuperUser.setString(1,"'"+nouvIdenti+"'");
+			creerLocalSuperUser.setString(1,"'"+nouvIdenti+"'");
 			creerLocalSuperUser.setString(2,"'"+nouvMDP+"'");
 			creerLocalSuperUser.setString(3,"'"+nouvIdenti+"'");
 		}
@@ -188,10 +188,10 @@ public class BaseDeDonnees {
 		}
 		
 		try{
-			creerGlobalSuperUser = connexion.prepareStatement("CREATE USER '?'@'%' IDENTIFIED BY '?'; GRANT ALL PRIVILEGES ON *.* TO '?'@'%' WITH GRANT OPTION;");
-			creerGlobalSuperUser.setString(1,nouvIdenti);
-			creerGlobalSuperUser.setString(2,nouvMDP);
-			creerGlobalSuperUser.setString(3,nouvIdenti);
+			creerGlobalSuperUser = connexion.prepareStatement("CREATE USER ?@'%' IDENTIFIED BY ?; GRANT ALL PRIVILEGES ON *.* TO ?@'%' WITH GRANT OPTION;");
+			creerGlobalSuperUser.setString(1,"'"+nouvIdenti+"'");
+			creerGlobalSuperUser.setString(2,"'"+nouvMDP+"'");
+			creerGlobalSuperUser.setString(3,"'"+nouvIdenti+"'");
 		}
 		catch(SQLException se) {
 			throw se;
