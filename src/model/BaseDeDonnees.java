@@ -188,10 +188,10 @@ public class BaseDeDonnees {
 		}
 		
 		try{
-			creerGlobalSuperUser = connexion.prepareStatement("CREATE USER "+nouvIdenti+"@'%' IDENTIFIED BY "+nouvMDP+"; GRANT ALL PRIVILEGES ON *.* TO "+nouvIdenti+"@'%' WITH GRANT OPTION;");
-/* 			creerGlobalSuperUser.setString(1,"'"+nouvIdenti+"'");
+			creerGlobalSuperUser = connexion.prepareStatement("CREATE USER ?@'%' IDENTIFIED BY ?; GRANT ALL PRIVILEGES ON *.* TO ?@'%' WITH GRANT OPTION;");
+			creerGlobalSuperUser.setString(1,"'"+nouvIdenti+"'");
 			creerGlobalSuperUser.setString(2,"'"+nouvMDP+"'");
-			creerGlobalSuperUser.setString(3,"'"+nouvIdenti+"'"); */
+			creerGlobalSuperUser.setString(3,"'"+nouvIdenti+"'");
 		}
 		catch(SQLException se) {
 			throw se;
