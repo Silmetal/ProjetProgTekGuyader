@@ -1,23 +1,31 @@
 Testsuite: test.BaseDeDonneesTest
-Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 8,267 sec
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1,018 sec
 
 ------------- Standard Output ---------------
 Pilote oracle trouvé
-Connexion échouée ! Vérifiez vos identifiants et l'adresse de connexion
+Connexion etablie
 Pilote oracle trouvé
 Connexion échouée ! Vérifiez vos identifiants et l'adresse de connexion
+Pilote oracle trouvé
+Connexion etablie
 test ajout échoué
 ------------- ---------------- ---------------
 ------------- Standard Error -----------------
-java.sql.SQLRecoverableException: Erreur d'E/S: The Network Adapter could not establish the connection
-	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:774)
-	at oracle.jdbc.driver.PhysicalConnection.connect(PhysicalConnection.java:688)
-	at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:39)
-	at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:691)
-	at java.sql.DriverManager.getConnection(DriverManager.java:664)
-	at java.sql.DriverManager.getConnection(DriverManager.java:247)
-	at model.BaseDeDonnees.connexion(Unknown Source)
-	at model.BaseDeDonnees.<init>(Unknown Source)
+java.sql.SQLSyntaxErrorException: ORA-00922: missing or invalid option
+
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:494)
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:446)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1054)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:623)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:252)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:612)
+	at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:213)
+	at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:37)
+	at oracle.jdbc.driver.T4CStatement.executeForRows(T4CStatement.java:896)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1119)
+	at oracle.jdbc.driver.OracleStatement.executeQuery(OracleStatement.java:1276)
+	at oracle.jdbc.driver.OracleStatementWrapper.executeQuery(OracleStatementWrapper.java:366)
+	at model.BaseDeDonnees.ajouterNouvelUtilisateur(Unknown Source)
 	at test.BaseDeDonneesTest.testAjouterSupprimerUtilisateur(Unknown Source)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -41,35 +49,11 @@ java.sql.SQLRecoverableException: Erreur d'E/S: The Network Adapter could not es
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:535)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1182)
 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1033)
-Caused by: oracle.net.ns.NetException: The Network Adapter could not establish the connection
-	at oracle.net.nt.ConnStrategy.execute(ConnStrategy.java:523)
-	at oracle.net.resolver.AddrResolution.resolveAndExecute(AddrResolution.java:521)
-	at oracle.net.ns.NSProtocol.establishConnection(NSProtocol.java:660)
-	at oracle.net.ns.NSProtocol.connect(NSProtocol.java:286)
-	at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:1438)
-	at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:518)
-	... 30 more
-Caused by: java.io.IOException: Connection refused: connect, socket connect lapse 1001 ms. localhost/0:0:0:0:0:0:0:1 1521 0 2 true
-	at oracle.net.nt.TcpNTAdapter.connect(TcpNTAdapter.java:209)
-	at oracle.net.nt.ConnOption.connect(ConnOption.java:161)
-	at oracle.net.nt.ConnStrategy.execute(ConnStrategy.java:470)
+Caused by: Error : 922, Position : 17, Sql = CREATE USER admin@localhost IDENTIFIED BY admin; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON Oracle.* TO admin@localhost;, OriginalSql = CREATE USER admin@localhost IDENTIFIED BY admin; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON Oracle.* TO admin@localhost;, Error Msg = ORA-00922: missing or invalid option
+
+	at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:498)
 	... 35 more
-Caused by: java.net.ConnectException: Connection refused: connect
-	at sun.nio.ch.Net.connect0(Native Method)
-	at sun.nio.ch.Net.connect(Net.java:454)
-	at sun.nio.ch.Net.connect(Net.java:446)
-	at sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:648)
-	at java.nio.channels.SocketChannel.open(SocketChannel.java:189)
-	at oracle.net.nt.TimeoutSocketChannel.<init>(TimeoutSocketChannel.java:81)
-	at oracle.net.nt.TcpNTAdapter.connect(TcpNTAdapter.java:169)
-	... 37 more
 ------------- ---------------- ---------------
-Testcase: testConstructeur(test.BaseDeDonneesTest):	FAILED
-null
-junit.framework.AssertionFailedError
-	at test.BaseDeDonneesTest.testConstructeur(Unknown Source)
-
-
 Testcase: testAjouterSupprimerUtilisateur(test.BaseDeDonneesTest):	FAILED
 null
 junit.framework.AssertionFailedError
