@@ -108,7 +108,7 @@ public class BaseDeDonnees {
 			throw e;
 		}
 		
-		finally { 
+		/* finally { 
 		
 			if(connexion!=null){
 				try{
@@ -118,7 +118,7 @@ public class BaseDeDonnees {
 					eC.printStackTrace();
 				}
 			} 
-		}
+		} */
 		
 		return ret;
 	}
