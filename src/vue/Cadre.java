@@ -6,6 +6,7 @@ import java.awt.*;
 public class Cadre extends JFrame{
 	
 	private PanneauConnexion pannConnex;
+	private PanneauPrincipal pannPrinc;
 	
 	public Cadre(String titre){
 		super(titre);
@@ -18,9 +19,10 @@ public class Cadre extends JFrame{
 	private void miseEnPlace(){
 		
 		pannConnex = new PanneauConnexion();
+		pannPrinc = new PanneauPrincipal();
 		Container p = this.getContentPane();
 		
-		p.add(pannConnex);
+		p.add(pannPrinc);
 	}
 	
 }
