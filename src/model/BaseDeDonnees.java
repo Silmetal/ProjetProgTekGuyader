@@ -108,7 +108,7 @@ public class BaseDeDonnees {
 			throw e;
 		}
 		
-		/* finally { 
+		finally { 
 		
 			if(connexion!=null){
 				try{
@@ -118,7 +118,7 @@ public class BaseDeDonnees {
 					eC.printStackTrace();
 				}
 			} 
-		} */
+		}
 		
 		return ret;
 	}
@@ -179,9 +179,9 @@ public class BaseDeDonnees {
 		
 		try {
 			creerLocalSuperUser = connexion.prepareStatement("CREATE USER '?'@'localhost' IDENTIFIED BY '?'; GRANT ALL PRIVILEGES ON *.* TO '?'@'localhost' WITH GRANT OPTION;");
-			creerLocalSuperUser.setString(0,nouvIdenti);
-			creerLocalSuperUser.setString(1,nouvMDP);
-			creerLocalSuperUser.setString(2,nouvIdenti);
+			creerLocalSuperUser.setString(1,nouvIdenti);
+			creerLocalSuperUser.setString(2,nouvMDP);
+			creerLocalSuperUser.setString(3,nouvIdenti);
 		}
 		catch(SQLException se) {
 			throw se;
@@ -189,9 +189,9 @@ public class BaseDeDonnees {
 		
 		try{
 			creerGlobalSuperUser = connexion.prepareStatement("CREATE USER '?'@'%' IDENTIFIED BY '?'; GRANT ALL PRIVILEGES ON *.* TO '?'@'%' WITH GRANT OPTION;");
-			creerGlobalSuperUser.setString(0,nouvIdenti);
-			creerGlobalSuperUser.setString(1,nouvMDP);
-			creerGlobalSuperUser.setString(2,nouvIdenti);
+			creerGlobalSuperUser.setString(1,nouvIdenti);
+			creerGlobalSuperUser.setString(2,nouvMDP);
+			creerGlobalSuperUser.setString(3,nouvIdenti);
 		}
 		catch(SQLException se) {
 			throw se;
@@ -199,10 +199,10 @@ public class BaseDeDonnees {
 		
 		try{
 			creerLocalUser = connexion.prepareStatement("CREATE USER '?'@'localhost' IDENTIFIED BY '?'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON ?.* TO '?'@'localhost';");
-			creerLocalUser.setString(0,nouvIdenti);
-			creerLocalUser.setString(1,nouvMDP);
-			creerLocalUser.setString(2,connexion.getMetaData().getDatabaseProductName());
-			creerLocalUser.setString(3,nouvIdenti);
+			creerLocalUser.setString(1,nouvIdenti);
+			creerLocalUser.setString(2,nouvMDP);
+			creerLocalUser.setString(3,connexion.getMetaData().getDatabaseProductName());
+			creerLocalUser.setString(4,nouvIdenti);
 		}
 		catch(SQLException se) {
 			throw se;
@@ -210,12 +210,12 @@ public class BaseDeDonnees {
 		
 		try {
 			creerGlobalUser = connexion.prepareStatement("CREATE USER '?'@'?' IDENTIFIED BY '?'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON ?.* TO '?'@'?';");
-			creerGlobalUser.setString(0,nouvIdenti);
-			creerGlobalUser.setString(1,connexion.getMetaData().getURL());
-			creerGlobalUser.setString(2,nouvMDP);
-			creerGlobalUser.setString(3,connexion.getMetaData().getDatabaseProductName());
-			creerGlobalUser.setString(4,nouvIdenti);
-			creerGlobalUser.setString(5,connexion.getMetaData().getURL());
+			creerGlobalUser.setString(1,nouvIdenti);
+			creerGlobalUser.setString(2,connexion.getMetaData().getURL());
+			creerGlobalUser.setString(3,nouvMDP);
+			creerGlobalUser.setString(4,connexion.getMetaData().getDatabaseProductName());
+			creerGlobalUser.setString(5,nouvIdenti);
+			creerGlobalUser.setString(6,connexion.getMetaData().getURL());
 		}
 		catch(SQLException se) {
 			throw se;
@@ -273,7 +273,7 @@ public class BaseDeDonnees {
 		
 		try {
 			supprimerUtilisateur = connexion.prepareStatement("DROP USER ?;");
-			supprimerUtilisateur.setString(0,nomUtilis);
+			supprimerUtilisateur.setString(1,nomUtilis);
 		}
 		catch(SQLException se) {
 			throw se;
