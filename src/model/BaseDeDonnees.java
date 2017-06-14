@@ -108,7 +108,7 @@ public class BaseDeDonnees {
 			throw e;
 		}
 		
-		finally { 
+		/* finally { 
 		
 			if(connexion!=null){
 				try{
@@ -118,7 +118,7 @@ public class BaseDeDonnees {
 					eC.printStackTrace();
 				}
 			} 
-		}
+		} */
 		
 		return ret;
 	}
@@ -210,12 +210,12 @@ public class BaseDeDonnees {
 		
 		try {
 			creerGlobalUser = connexion.prepareStatement("CREATE USER '?'@'?' IDENTIFIED BY '?'; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON ?.* TO '?'@'?';");
-			creerGlobalUser.setString(1,nouvIdenti);
-			creerGlobalUser.setString(2,connexion.getMetaData().getURL());
-			creerGlobalUser.setString(3,nouvMDP);
-			creerGlobalUser.setString(4,connexion.getMetaData().getDatabaseProductName());
-			creerGlobalUser.setString(5,nouvIdenti);
-			creerGlobalUser.setString(6,connexion.getMetaData().getURL());
+			creerGlobalUser.setString(0,nouvIdenti);
+			creerGlobalUser.setString(1,connexion.getMetaData().getURL());
+			creerGlobalUser.setString(2,nouvMDP);
+			creerGlobalUser.setString(3,connexion.getMetaData().getDatabaseProductName());
+			creerGlobalUser.setString(4,nouvIdenti);
+			creerGlobalUser.setString(5,connexion.getMetaData().getURL());
 		}
 		catch(SQLException se) {
 			throw se;
@@ -273,7 +273,7 @@ public class BaseDeDonnees {
 		
 		try {
 			supprimerUtilisateur = connexion.prepareStatement("DROP USER ?;");
-			supprimerUtilisateur.setString(1,nomUtilis);
+			supprimerUtilisateur.setString(0,nomUtilis);
 		}
 		catch(SQLException se) {
 			throw se;
