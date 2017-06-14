@@ -26,6 +26,9 @@ public class BaseDeDonnees {
 	 * @param adresse l'adresse de la base de données
 	 * @param nomUtili le nom d'utilisateur utilisé pour se connecter
 	 * @param motDePasse le mot de passe correspondant au nom d'utilisateur utilisé pour se connecter.
+	 * @throws ClassNotFoundException si le pilote correspondant n'est pas trouvé
+	 * @throws SQLException si la connexion ne peut pas être établie à cause d'une erreur SQL
+	 * @throws Exception si la connexion ne peut pas être établie à cause d'une autre erreur
 	 */
 	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse) throws ClassNotFoundException,SQLException,Exception{
 		
@@ -55,6 +58,7 @@ public class BaseDeDonnees {
 	/**
 	 * Vérifie la présence du pilote correspondant à la base à laquelle on essaye de se connecter.
 	 * @return true si le pilote est présent, false sinon.
+	 * @throws ClassNotFoundException si le pilote correspondant n'est pas trouvé
 	 */
 	private boolean verifPilote() throws ClassNotFoundException {
 		
@@ -83,6 +87,8 @@ public class BaseDeDonnees {
 	 * @param nomUtili le nom d'utilisateur utilisé pour se connecter.
 	 * @param motDePasse le mot de passe correspondant au nom d'utilisateur.
 	 * @return true si la connexion est établie, false sinon.
+	 * @throws SQLException si la connexion ne peut pas être établie à cause d'une erreur SQL
+	 * @throws Exception si la connexion ne peut pas être établie à cause d'une autre erreur
 	 */
 	private boolean connexion(String adresse, String nomUtili, String motDePasse) throws Exception,SQLException {
 		
@@ -124,6 +130,7 @@ public class BaseDeDonnees {
 	 * Si la connexion est créée, envoie un ping à la base de données. Si le ping retourne un résultat, la connexion est valide. Sinon, la connexion est invalide.
 	 * @param connexion la connexion à tester
 	 * @return le résultat du test de connexion : true si la connexion est valide, false sinon.
+	 * @throws SQLException si le ping n'est pas effectué à cause d'une erreur SQL
 	 */
 	private static boolean estValide(Connection connexion) throws SQLException{ 
 		
@@ -163,6 +170,7 @@ public class BaseDeDonnees {
 	 * @param nouvIdenti l'identifiant du nouvel utilisateur
 	 * @param nouvMDP le mot de passe du nouvel utilisateur
 	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur local, 1 pour un super utilisateur global, 2 pour un utilisateur local, 3 pour un utilisateur global
+	 * @throws SQLException si l'utilisateur ne peut pas être être créé à cause d'une erreur SQL
 	 */
 	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, int userType) throws SQLException{
 		

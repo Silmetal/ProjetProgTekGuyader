@@ -19,6 +19,7 @@ public class Requete {
 	/**
 	 * Constructeur de la classe. Prend en paramètre un objet Connection en paramètre et créé un objet Statement sur cette connexion. Stocke le Statement dans son attribut state.
 	 * @param connexion la connexion sur laquelle créer un Statement
+	 * @throws SQLException si la connexion est invalide, ou qu'une autre erreur SQL survient
 	 */
 	public Requete(Connection connexion) throws SQLException{
 		
@@ -82,8 +83,10 @@ public class Requete {
 	 * Cette méthode est utilisée pour créer ou supprimer des tables, vues ou triggers, mais aussi modifier, supprimer ou ajouter des tuples à une table existante.
 	 * @param requete la requete à exécuter
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	 * @throws SQLException si la requete est incorrecte, que state n'est pas initialisé ou si une autre erreur SQL survient
+	 * @throws Exception si la connexion ne peut pas être fermée ou si une autre erreur survient
 	 */
-	public int creerOuModifier(String requete) throws SQLException{			
+	public int creerOuModifier(String requete) throws SQLException, Exception{			
 		
 		int ret = 0;
 		
@@ -101,7 +104,8 @@ public class Requete {
 					state.close();
 				}
 				catch(Exception e){
-					e.printStackTrace();
+					System.out.println("Impossible de fermer la connexion");
+					throw e;
 				}
 			} 
 		}
@@ -114,8 +118,10 @@ public class Requete {
 	 * @param requete la requete à exécuter
 	 * @param resultat le ResultSet dans lequel sera stocké le résultat s'il y en a un.
 	 * @return true si l'instruction renvoie un ResultSet, false sinon
+	 * @throws SQLException si la requete est incorrecte, que state n'est pas initialisé ou si une autre erreur SQL survient
+	 * @throws Exception si la connexion ne peut pas être fermée ou si une autre erreur survient
 	 */
-	public boolean manuel(String requete, ResultSet resultat) throws SQLException{
+	public boolean manuel(String requete, ResultSet resultat) throws SQLException, Exception{
 		
 		boolean ret = false;
 		int nbTuples;
@@ -139,7 +145,8 @@ public class Requete {
 					state.close();
 				}
 				catch(Exception e){
-					e.printStackTrace();
+					System.out.println("Impossible de fermer la connexion");
+					throw e;
 				}
 			} 
 		}
