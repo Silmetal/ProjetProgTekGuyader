@@ -27,26 +27,36 @@ public class BaseDeDonnees {
 	 * @param nomUtili le nom d'utilisateur utilisé pour se connecter
 	 * @param motDePasse le mot de passe correspondant au nom d'utilisateur utilisé pour se connecter.
 	 */
-	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse){
+	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse) throws ClassNotFoundException,SQLException,Exception{
 		
-		if (verifPilote()) {
-			
-			boolean test = connexion(adresse, nomUtili, motDePasse);
-			if (test) {
-				System.out.println("Connexion etablie");
+		try{	
+			if (verifPilote()) {
+				
+				try{
+					boolean test = connexion(adresse, nomUtili, motDePasse);
+					System.out.println("Connexion etablie");
+				}
+				catch(SQLException se){
+					System.out.println("Connexion echouee");
+					throw se;
+				}
+				catch(Exception e){
+					System.out.println("Connexion echouee");
+					throw e;
+				}
 			}
-			else System.out.println("Connexion echouee");
+
+		} catch(ClassNotFoundException ce){
+			System.out.println("Verifiez votre pilote");
+			throw ce;
 		}
-		
-		else System.out.println("Verifiez votre pilote");
-		
 	}
 	
 	/**
 	 * Vérifie la présence du pilote correspondant à la base à laquelle on essaye de se connecter.
 	 * @return true si le pilote est présent, false sinon.
 	 */
-	private boolean verifPilote() {
+	private boolean verifPilote() throws ClassNotFoundException {
 		
 		boolean ret = false;
 		
@@ -60,7 +70,7 @@ public class BaseDeDonnees {
 		catch (ClassNotFoundException e) {
 			
 			System.out.println("Pilote non trouvé");
-			e.printStackTrace();
+			throw e;
 		}
 		
 		return ret;
@@ -74,7 +84,7 @@ public class BaseDeDonnees {
 	 * @param motDePasse le mot de passe correspondant au nom d'utilisateur.
 	 * @return true si la connexion est établie, false sinon.
 	 */
-	private boolean connexion(String adresse, String nomUtili, String motDePasse) {
+	private boolean connexion(String adresse, String nomUtili, String motDePasse) throws Exception,SQLException {
 		
 		boolean ret = false;
 		
@@ -87,11 +97,11 @@ public class BaseDeDonnees {
 		catch(SQLException se) {
 			
 			System.out.println("Connexion échouée ! Vérifiez vos identifiants et l'adresse de connexion");
-			se.printStackTrace();
+			throw se;
 		}
 		catch(Exception e){ 
 			System.out.println("Autre erreur : "); 
-			e.printStackTrace(); 
+			throw e;
 		}
 		
 		finally { 
@@ -115,7 +125,7 @@ public class BaseDeDonnees {
 	 * @param connexion la connexion à tester
 	 * @return le résultat du test de connexion : true si la connexion est valide, false sinon.
 	 */
-	private static boolean estValide(Connection connexion){ 
+	private static boolean estValide(Connection connexion) throws SQLException{ 
 		
 		boolean ret = false;
 		
@@ -130,10 +140,9 @@ public class BaseDeDonnees {
 			ret = ping.next();
 			if (ret == false) System.out.println("Ping échoué");
 		}
-		catch(SQLException sqle){ 
+		catch(SQLException se){ 
 			ret = false;
-			System.out.println("exception SQL");
-			sqle.printStackTrace();
+			throw se;
 		} 
 		finally{ 
 			
@@ -155,7 +164,7 @@ public class BaseDeDonnees {
 	 * @param nouvMDP le mot de passe du nouvel utilisateur
 	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur local, 1 pour un super utilisateur global, 2 pour un utilisateur local, 3 pour un utilisateur global
 	 */
-	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, int userType){
+	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, int userType) throws SQLException{
 		
 		PreparedStatement creerGlobalSuperUser = null;
 		PreparedStatement creerLocalSuperUser = null;
@@ -169,8 +178,7 @@ public class BaseDeDonnees {
 			creerLocalSuperUser.setString(3,nouvIdenti);
 		}
 		catch(SQLException se) {
-			System.out.println("Erreur SQL");
-			se.printStackTrace();
+			throw se;
 		}
 		
 		try{
@@ -180,8 +188,7 @@ public class BaseDeDonnees {
 			creerGlobalSuperUser.setString(3,nouvIdenti);
 		}
 		catch(SQLException se) {
-			System.out.println("Erreur SQL");
-			se.printStackTrace();
+			throw se;
 		}
 		
 		try{
@@ -192,8 +199,7 @@ public class BaseDeDonnees {
 			creerLocalUser.setString(4,nouvIdenti);
 		}
 		catch(SQLException se) {
-			System.out.println("Erreur SQL");
-			se.printStackTrace();
+			throw se;
 		}
 		
 		try {
@@ -206,8 +212,7 @@ public class BaseDeDonnees {
 			creerGlobalUser.setString(6,connexion.getMetaData().getURL());
 		}
 		catch(SQLException se) {
-			System.out.println("Erreur SQL");
-			se.printStackTrace();
+			throw se;
 		}
 		
 		if (userType == 0) {
@@ -216,8 +221,7 @@ public class BaseDeDonnees {
 				creerLocalSuperUser.execute();
 			}
 			catch(SQLException se) {
-				System.out.println("Erreur SQL");
-				se.printStackTrace();
+				throw se;
 			}
 		}
 		
@@ -227,8 +231,7 @@ public class BaseDeDonnees {
 				creerGlobalSuperUser.execute();
 			}
 			catch(SQLException se) {
-				System.out.println("Erreur SQL");
-				se.printStackTrace();
+				throw se;
 			}
 		}
 		
@@ -238,8 +241,7 @@ public class BaseDeDonnees {
 				creerLocalUser.execute();
 			}
 			catch(SQLException se) {
-				System.out.println("Erreur SQL");
-				se.printStackTrace();
+				throw se;
 			}
 		}
 		
@@ -249,8 +251,7 @@ public class BaseDeDonnees {
 				creerGlobalUser.execute();
 			}
 			catch(SQLException se) {
-				System.out.println("Erreur SQL");
-				se.printStackTrace();
+				throw se;
 			}
 		}
 	}
