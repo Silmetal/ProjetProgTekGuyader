@@ -273,11 +273,12 @@ public class BaseDeDonnees {
 		
 		try {
 			supprimerUtilisateur = connexion.prepareStatement("DROP USER ?;");
-			creerLocalSuperUser.setString(1,nomUtilis);
+			supprimerUtilisateur.setString(1,nomUtilis);
 		}
 		catch(SQLException se) {
 			throw se;
 		}
+	}
 	
 	/**
 	 * Enregistre la base de données dans un fichier.
