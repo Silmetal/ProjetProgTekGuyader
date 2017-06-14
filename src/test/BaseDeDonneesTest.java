@@ -36,8 +36,6 @@ public class BaseDeDonneesTest{
 			assertFalse(true);
 		}
 
-			
-    	
 
     	try{
     		BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:orcl","root", "root");
@@ -56,23 +54,22 @@ public class BaseDeDonneesTest{
 	}
 	
 
-/*	@Test()
+	@Test()
 	public void testAjouterSupprimerUtilisateur(){
 		boolean test=true;
 		
-		BaseDeDonnees maBase = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","root", "root");
-		maBase.ajouterNouvelUtilisateur("admin","admin",1);
-
-		BaseDeDonnes maBase = new BaseDeDonnes("jdbc:oracle:thin:@localhost:1521:xe","root", "root");
-
-
-
+		try{
+			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","root", "root");
+			maBase.ajouterNouvelUtilisateur("admin","admin",1);
+			// BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","admin", "admin");
+			maBase.supprimerUtilisateur("admin");
+			System.out.println("test ajout fait");
+		}
+		catch(Exception e){
+			System.out.println("test ajout échoué");
+			e.printStackTrace();
+			assertTrue(false);
+		}
 	}
-*/
-
-
-
-
-
 
 }
