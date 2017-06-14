@@ -20,7 +20,7 @@ public class Requete {
 	 * Constructeur de la classe. Prend en paramètre un objet Connection en paramètre et créé un objet Statement sur cette connexion. Stocke le Statement dans son attribut state.
 	 * @param connexion la connexion sur laquelle créer un Statement
 	 */
-	public Requete(Connection connexion) {
+	public Requete(Connection connexion) throws SQLException{
 		
 		try {
 			this.state = connexion.createStatement();
@@ -28,7 +28,7 @@ public class Requete {
 		catch(SQLException sqle) {
 			
 			System.out.println("Erreur SQL : ");
-			sqle.printStackTrace();
+			throw sqle;
 		}
 	}
 	
@@ -83,7 +83,7 @@ public class Requete {
 	 * @param requete la requete à exécuter
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
 	 */
-	public int creerOuModifier(String requete) {			
+	public int creerOuModifier(String requete) throws SQLException{			
 		
 		int ret = 0;
 		
@@ -93,7 +93,7 @@ public class Requete {
 		}
 		catch(SQLException sqle) {
 			System.out.println("Erreur SQL : ");
-			sqle.printStackTrace();
+			throw sqle;
 		}
 		finally{ 
 			if(state !=null){
@@ -115,7 +115,7 @@ public class Requete {
 	 * @param resultat le ResultSet dans lequel sera stocké le résultat s'il y en a un.
 	 * @return true si l'instruction renvoie un ResultSet, false sinon
 	 */
-	public boolean manuel(String requete, ResultSet resultat) {
+	public boolean manuel(String requete, ResultSet resultat) throws SQLException{
 		
 		boolean ret = false;
 		int nbTuples;
@@ -131,7 +131,7 @@ public class Requete {
 		}
 		catch(SQLException sqle) {
 			System.out.println("Erreur SQL : ");
-			sqle.printStackTrace();
+			throw sqle;
 		}
 		finally{ 
 			if(state !=null){
