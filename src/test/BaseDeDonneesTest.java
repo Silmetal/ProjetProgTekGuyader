@@ -27,27 +27,8 @@ public class BaseDeDonneesTest{
 
 	}
 	
-/*
-	@Test() // valeur local actuellement
-	public void testCreerRequete(){
-
-		// test avec l'attribut connexion qui existe
-
-		BaseDeDonnees maBase = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","root", "root");
-		Statement maRequete = maBase.creerRequete();
-
-		Assert.assertTrue(maRequete!=null);
-
-		// test sans l'attribut connexion
-
-		BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:orcl","root", "root");
-		Statement maRequete2 = maBase.creerRequete();
-
-		Assert.assertTrue(maRequete2==null);
 
 
-	}
-*/
 
 
 

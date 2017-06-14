@@ -146,26 +146,6 @@ public class BaseDeDonnees {
 	}
 	
 	/**
-	 * Créer un objet Statement qui permettra d'exécuter des requêtes SQL 
-	 * si l'attribut connexion est non null.
-	 * @return l'objet Statement crée
-	 */
-	public Statement creerRequete(){
-		
-		Statement requete = null;
-		
-		try {
-			requete = connexion.createStatement();
-		}
-		catch (SQLException se) {
-		
-			se.printStackTrace();
-		}		
-		
-		return requete;
-	}
-	
-	/**
 	 * Prend en paramètre un nom d'utilisateur et un mot de passe pour créer un nouvel utilisateur et l'ajouter à la base. Le type de l'utilsiateur dépend du paramètre userType.
 	 * L'utilsiateur ainsi crée pourra se connecter à la base de données avec ces identifiants.
 	 * Un super utilisateur local ne peut se connecter que en localhost, et a tous les privilèges sur toutes les bases de données. Un super utilisateur global peut se connecter depuis n'importe quel hôte et a tous les
