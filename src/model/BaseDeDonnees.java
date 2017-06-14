@@ -168,7 +168,7 @@ public class BaseDeDonnees {
 	 * @param nouvIdenti l'identifiant du nouvel utilisateur
 	 * @param nouvMDP le mot de passe du nouvel utilisateur
 	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur local, 1 pour un super utilisateur global, 2 pour un utilisateur local, 3 pour un utilisateur global
-	 * @throws SQLException si l'utilisateur ne peut pas être être créé à cause d'une erreur SQL
+	 * @throws SQLException si l'utilisateur ne peut pas être créé à cause d'une erreur SQL
 	 */
 	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, int userType) throws SQLException{
 		
@@ -261,6 +261,23 @@ public class BaseDeDonnees {
 			}
 		}
 	}
+	
+	/**
+	 * Supprime de la base de données l'utilisateur dont l'identifiant est passé en paramètre
+	 * @param nomUtilis l'identifiant de l'utilisateur à supprimer
+	 * @throws SQLException si l'utilisateur ne peut pas être supprimé à cause d'une erreur SQL
+	 */
+	public void supprimerUtilisateur(String nomUtilis) throws SQLException{
+		
+		PreparedStatement supprimerUtilisateur = null;
+		
+		try {
+			supprimerUtilisateur = connexion.prepareStatement("DROP USER ?;");
+			creerLocalSuperUser.setString(1,nomUtilis);
+		}
+		catch(SQLException se) {
+			throw se;
+		}
 	
 	/**
 	 * Enregistre la base de données dans un fichier.
