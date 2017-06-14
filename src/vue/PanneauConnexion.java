@@ -54,7 +54,6 @@ public class PanneauConnexion extends JPanel{
 		nomUtiliTF = new JTextField();
 		adresseTF = new JTextField();
 		mdpPF = new JPasswordField();
-		mdpPF.setEchoChar("&bull;");
 		
 		// Création des sous-panneaux
 		JPanel panneauBoutton = new JPanel(new FlowLayout(FlowLayout.CENTER));
