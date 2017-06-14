@@ -198,7 +198,7 @@ public class BaseDeDonnees {
 		}
 		
 		try{
-			creerLocalUser = connexion.createStatement("CREATE USER "+nouvIdenti+"@localhost IDENTIFIED BY "+nouvMDP"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@localhost;");
+			creerLocalUser = connexion.createStatement("CREATE USER "+nouvIdenti+"@localhost IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@localhost;");
 			/* creerLocalUser.setString(1,nouvIdenti);
 			creerLocalUser.setString(2,nouvMDP);
 			creerLocalUser.setString(3,connexion.getMetaData().getDatabaseProductName());
@@ -209,8 +209,8 @@ public class BaseDeDonnees {
 		}
 		
 		try {
-			creerGlobalUser = connexion.createStatement("CREATE USER "+nouvIdenti+"@"+connexion.getMetaData().getURL()+" IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@"+connexion.getMetaData().getURL();");
-			/* creerGlobalUser.setString(1,nouvIdenti);
+			creerGlobalUser = connexion.createStatement("CREATE USER "+nouvIdenti+"@"+connexion.getMetaData().getURL()+" IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@"+connexion.getMetaData().getURL()+";");
+			/* creerGlobalUser.setSt	ring(1,nouvIdenti);
 			creerGlobalUser.setString(2,connexion.getMetaData().getURL());
 			creerGlobalUser.setString(3,nouvMDP);
 			creerGlobalUser.setString(4,connexion.getMetaData().getDatabaseProductName());
