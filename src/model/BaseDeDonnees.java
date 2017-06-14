@@ -40,11 +40,9 @@ public class BaseDeDonnees {
 					System.out.println("Connexion etablie");
 				}
 				catch(SQLException se){
-					System.out.println("Connexion echouee");
 					throw se;
 				}
 				catch(Exception e){
-					System.out.println("Connexion echouee");
 					throw e;
 				}
 			}
