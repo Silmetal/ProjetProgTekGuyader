@@ -1,6 +1,8 @@
 package model;
 
 import java.sql.*;
+import java.util.*;
+
 
 /** Cette classe permet d'instancier des utilisateurs de la base de donnée
  *  La classe permet de se connecter/déconnecter à différentes bases de données
@@ -24,12 +26,14 @@ public class Utilisateur {
 	public Utilisateur(String id) {
 		this.id=id;
 		lesBasesDeDonnees = new ArrayList<BaseDeDonnees>();
+		this.selection = -1 ;
 	}
 	
 
-	/** Permet de se connecter a 
-	*
-	*
+	/** Permet de se connecter a une base de donnée oracle ou mySQL.
+	* @param url L'adresse de la base de donnée
+	* @param user Un nom d'utilisateur ()
+	* @param 
 	*/
 	public void connect(String url,String user, String password) {
 		lesBasesDeDonnees.add(new BaseDeDonnees(url,user,password));
@@ -37,10 +41,10 @@ public class Utilisateur {
 	}
 	
 	public void disconnect() throws NullPointerException {
-		if(this.selection!=null && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
+		if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
 			lesBasesDeDonnees.get(this.selection).deconnexion();
 			lesBasesDeDonnees.get(this.selection).remove();
-			this.selection=null;
+			this.selection=-1;
 		}
 		else{
 			throw new NullPointerException("Attention selection incorect");
