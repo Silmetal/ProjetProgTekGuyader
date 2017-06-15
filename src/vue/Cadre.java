@@ -5,24 +5,24 @@ import java.awt.*;
 
 public class Cadre extends JFrame{
 	
-	private PanneauConnexion pannConnex;
-	private PanneauPrincipal pannPrinc;
+	private FenetreRequete panRequete;
+
 	
 	public Cadre(String titre){
 		super(titre);
 		this.miseEnPlace();
+		this.setSize(800,600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.pack();
 		this.setVisible(true);
 	}
 	
 	private void miseEnPlace(){
 		
-		pannConnex = new PanneauConnexion();
-		pannPrinc = new PanneauPrincipal();
+		panRequete = new FenetreRequete();
+
 		Container p = this.getContentPane();
 		
-		p.add(pannPrinc);
+		p.add(panRequete);
 	}
 	
 }
