@@ -213,7 +213,7 @@ public class BaseDeDonnees {
 		if (userType == 0) {
 			
 			try {
-				creerLocalSuperUser.executeQuery("CREATE USER "+nouvIdenti+"@localhost IDENTIFIED BY "+nouvMDP+"; GRANT ALL PRIVILEGES ON *.* TO "+nouvIdenti+"@localhost WITH GRANT OPTION;");
+				creerSuperUser.executeQuery("CREATE USER "+nouvIdenti+"@% IDENTIFIED BY "+nouvMDP+"; GRANT ALL PRIVILEGES ON *.* TO "+nouvIdenti+"@localhost WITH GRANT OPTION;");
 			}
 			catch(SQLException se) {
 				throw se;
@@ -222,28 +222,8 @@ public class BaseDeDonnees {
 		
 		else if (userType == 1) {
 			
-			try{
-				creerLocalUser.executeQuery("CREATE USER "+nouvIdenti+"@localhost IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@localhost;");
-			}
-			catch(SQLException se) {
-				throw se;
-			}
-		}
-		
-		else if (userType == 2) {
-			
-			try{
-				creerLocalUser.executeQuery("CREATE USER "+nouvIdenti+"@localhost IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@localhost;");
-			}
-			catch(SQLException se) {
-				throw se;
-			}
-		}
-		
-		else if (userType == 3) {
-			
 			try {
-				creerGlobalUser.executeQuery("CREATE USER "+nouvIdenti+"@"+connexion.getMetaData().getURL()+" IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@"+connexion.getMetaData().getURL()+";");
+				creerGlobalUser.executeQuery("CREATE USER "+nouvIdenti+"@% IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@"+connexion.getMetaData().getURL()+";");
 			}
 			catch(SQLException se) {
 				throw se;
