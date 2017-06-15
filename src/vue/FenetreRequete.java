@@ -13,7 +13,6 @@ public class FenetreRequete extends JPanel{
 
 	public FenetreRequete(){
 		this.setLayout(new GridBagLayout());
-		super(new GridLayout(3,1,0,20));
 		miseEnPlace();
 		
 	}
@@ -29,23 +28,28 @@ public class FenetreRequete extends JPanel{
 
 		//Placement boutons
 
-
-
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = gbc.gridy = 0;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.gridheight = 1;
+		gbc.anchor= GridBagConstraints.LINE_START;
+		gbc.insets = new Insets(10,10,10,10);
+		this.add(monPanneauButton2,gbc);
 
 		//Placement TextArea
 
+		gbc.gridx = 0;
+		gbc.gridy = 1;
 
+		gbc.weightx = 1.;
+		gbc.weighty = 1.;
+
+		this.add(monTextArea,gbc);
 
 		//Placement TextPane
-
-
-
-
-
-
-		this.add(monPanneauButton2);
-		this.add(monTextArea);
-		this.add(monTextPane);
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		this.add(monTextPane,gbc);
 	}
 
 
