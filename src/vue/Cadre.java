@@ -12,7 +12,7 @@ public class Cadre extends JFrame{
 		super(titre);
 		this.miseEnPlace();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.pack();
+		this.setSize(800,600);
 		this.setVisible(true);
 	}
 	
