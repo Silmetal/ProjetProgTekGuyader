@@ -1,18 +1,18 @@
 package controleur;
-
+import vue.*;
+import model.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
-import IHM.*;
 
 
 
-public class EcouteurJButton implements ActionListener {
+public class EcouteurJButtonRequete implements ActionListener {
 
 	private JFrame jf;
 	private FenetreRequete fr;
 
-	public ButtonParamListener(JFrame jf,FenetreRequete fr){
+	public EcouteurJButtonRequete(JFrame jf,FenetreRequete fr){
 		this.jf=jf;
 		this.fr=fr;
 	}
@@ -56,7 +56,10 @@ public class EcouteurJButton implements ActionListener {
 
 
 	public void addListener(){
-		
+		fr.getMonPanneauButton2().getButtonLanceur().addActionListener(this);
+		fr.getMonPanneauButton2().getButtonEnregistrer().addActionListener(this);
+		fr.getMonPanneauButton2().getButtonEnregisterSous().addActionListener(this);
+		fr.getMonPanneauButton2().getButtonOuvrir().addActionListener(this);
 	}
 
 }

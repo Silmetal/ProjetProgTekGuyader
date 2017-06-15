@@ -26,6 +26,12 @@ public class PanneauButton2 extends JPanel{
 		this.buttonEnregistrerSous = new JButton("ENREGISTRER SOUS");
 		this.buttonOuvrir = new JButton("OUVRIR");
 
+
+		this.buttonLanceur.setName("lancer");
+		this.buttonEnregistrer.setName("enregistrer");
+		this.buttonEnregistrerSous.setName("enregistrerSous");
+		this.buttonOuvrir.setName("ouvrir");
+
 		this.add(this.buttonLanceur);
 		this.add(this.buttonEnregistrer);
 		this.add(this.buttonEnregistrerSous);

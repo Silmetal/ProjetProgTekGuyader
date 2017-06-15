@@ -1,13 +1,12 @@
 package utilitaire;
 import java.io.*;
 import java.util.*;
-import tri.*;
-import pays.*;
+
 
 public class RWFile {
 	
 	public static String readFile(String fileName){
-		String ret;
+		String ret="";
 		String ligne;
 		try{
 			FileReader file = new FileReader(fileName);
