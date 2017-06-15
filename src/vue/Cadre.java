@@ -21,7 +21,7 @@ public class Cadre extends JFrame{
 	
 	private void miseEnPlace(){
 		
-		panRequete = new FenetreRequete();
+		panRequete = new FenetreRequete(this);
 
 		Container p = this.getContentPane();
 		

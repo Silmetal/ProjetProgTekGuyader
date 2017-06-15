@@ -9,11 +9,13 @@ public class FenetreRequete extends JPanel{
 	private JTextArea monTextArea;
 	private JTextPane monTextPane;
 	private PanneauButton2 monPanneauButton2;
+	private JFrame laJFrame;
 
-
-	public FenetreRequete(){
+	public FenetreRequete(JFrame laJFrame){
 		this.setLayout(new GridBagLayout());
+		this.laJFrame= laJFrame;
 		miseEnPlace();
+
 		
 	}
 	
@@ -25,6 +27,8 @@ public class FenetreRequete extends JPanel{
 
 		monTextPane.setEditable(false);
 
+		monTextPane.setPreferredSize(new Dimension(680,200));
+		monTextArea.setPreferredSize(new Dimension(680,200));
 
 		//Placement boutons
 
@@ -41,14 +45,14 @@ public class FenetreRequete extends JPanel{
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 
-		gbc.weightx = 1.;
-		gbc.weighty = 1.;
-
 		this.add(monTextArea,gbc);
 
 		//Placement TextPane
 		gbc.gridx = 0;
 		gbc.gridy = 2;
+
+		gbc.gridwidth = 2;
+		gbc.gridheight = 1;
 		this.add(monTextPane,gbc);
 	}
 

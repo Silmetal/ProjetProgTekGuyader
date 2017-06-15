@@ -32,9 +32,9 @@ public class PanneauButton2 extends JPanel{
 		this.add(this.buttonOuvrir);
 
 		this.buttonLanceur.setPreferredSize(new Dimension(150,50));
-		this.buttonEnregistrer.setPreferredSize(new Dimension(150,100));
-		this.buttonEnregistrerSous.setPreferredSize(new Dimension(150,100));
-		this.buttonOuvrir.setPreferredSize(new Dimension(150,100));
+		this.buttonEnregistrer.setPreferredSize(new Dimension(150,50));
+		this.buttonEnregistrerSous.setPreferredSize(new Dimension(150,50));
+		this.buttonOuvrir.setPreferredSize(new Dimension(150,50));
 
 
 	}
