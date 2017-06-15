@@ -7,7 +7,7 @@ public class Launcher {
 		
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 		public void run() {
-		Cadre leCadre = new Cadre("Test");
+		Cadre leCadre = new Cadre("Gestionnaire de base de données");
 		}});
 		
 	}

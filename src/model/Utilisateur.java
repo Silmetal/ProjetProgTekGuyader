@@ -35,6 +35,9 @@ public class Utilisateur {
 	* @param user Un nom d'utilisateur (Attention selon l'endroit où vous vous connectez 
 	* , il est nécéssaire d'avoir des droits particuliers, prenez donc en compte se détail)
 	* @param password Le mot de passe de l'utilisateur pour accéder à la base de donnée
+	* @throws ClassNotFoundException si le driver correspondant n'est pas trouvé
+	* @throws SQLException si une erreur SQL empêche la connexion à la base de données
+	* @throws Exception si une autre erreur empe^che la connexion
 	*/
 	public void connect(String url,String user, String password) throws ClassNotFoundException, SQLException, Exception{
 		try {
@@ -69,7 +72,8 @@ public class Utilisateur {
 
 	/** Fait appel a la base de donnée séléctionnée pour créer une nouvelle instance
 	* de la classe requete.
-	*
+	* @throws SQLException si une erreur SQL empêche la création de la requête
+	* @throws NullPointerException si le curseur selection n'est pas à une valeur valide
 	*/
 	
 	public void nouvelleRequete() throws SQLException, NullPointerException{
