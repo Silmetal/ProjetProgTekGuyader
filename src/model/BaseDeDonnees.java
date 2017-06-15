@@ -64,7 +64,7 @@ public class BaseDeDonnees {
 		
 		try {
 			
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Pilote oracle trouvé");
 			ret = true;
 		}
@@ -161,10 +161,8 @@ public class BaseDeDonnees {
 	 */
 	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, int userType) throws SQLException{
 		
-		Statement creerGlobalSuperUser = connexion.createStatement();
-		Statement creerLocalSuperUser = connexion.createStatement();
-		Statement creerLocalUser = connexion.createStatement();
-		Statement creerGlobalUser = connexion.createStatement();
+		Statement creerSuperUser = connexion.createStatement();
+		Statement creerUser = connexion.createStatement();
 		
 		/* try {
 			creerLocalSuperUser = connexion.execute("CREATE USER "+nouvIdenti+"@localhost IDENTIFIED BY "+nouvMDP+"; GRANT ALL PRIVILEGES ON *.* TO "+nouvIdenti+"@localhost WITH GRANT OPTION;");
@@ -223,7 +221,7 @@ public class BaseDeDonnees {
 		else if (userType == 1) {
 			
 			try {
-				creerGlobalUser.executeQuery("CREATE USER "+nouvIdenti+"@% IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@"+connexion.getMetaData().getURL()+";");
+				creerUser.executeQuery("CREATE USER "+nouvIdenti+"@% IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@"+connexion.getMetaData().getURL()+";");
 			}
 			catch(SQLException se) {
 				throw se;

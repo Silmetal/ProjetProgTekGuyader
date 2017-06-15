@@ -23,7 +23,7 @@ public class BaseDeDonneesTest{
 		boolean test=true;
 		
 		try{
-			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","root", "root");
+			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://raspberry.arthurguyader.fr:3306/","admin", "admin");
 			assertNotNull(maBase.getConnection());
 		}
 		catch(ClassNotFoundException ce){
