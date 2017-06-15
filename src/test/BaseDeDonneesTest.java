@@ -38,7 +38,7 @@ public class BaseDeDonneesTest{
 
 
     	try{
-    		BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:orcl","root", "root");
+    		BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:mysql://raspberry.arthurguyader.fr:3306/","qfqsfn", "admin");
     	}
     	catch(ClassNotFoundException ce){
 			assertFalse(false);
@@ -59,7 +59,7 @@ public class BaseDeDonneesTest{
 		boolean test=true;
 		
 		try{
-			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","root", "root");
+			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://raspberry.arthurguyader.fr:3306/","admin", "admin");
 			maBase.ajouterNouvelUtilisateur("admin","admin",1);
 			// BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","admin", "admin");
 			maBase.supprimerUtilisateur("admin");

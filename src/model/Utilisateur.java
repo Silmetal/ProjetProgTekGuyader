@@ -36,9 +36,20 @@ public class Utilisateur {
 	* , il est nécéssaire d'avoir des droits particuliers, prenez donc en compte se détail)
 	* @param password Le mot de passe de l'utilisateur pour accéder à la base de donnée
 	*/
-	public void connect(String url,String user, String password) {
-		lesBasesDeDonnees.add(new BaseDeDonnees(url,user,password));
-		selection = lesBasesDeDonnees.size();
+	public void connect(String url,String user, String password) throws ClassNotFoundException, SQLException, Exception{
+		try {
+			lesBasesDeDonnees.add(new BaseDeDonnees(url,user,password));
+			selection = lesBasesDeDonnees.size();
+		}
+		catch (ClassNotFoundException cnfe) {
+			throw cnfe;
+		}
+		catch (SQLException sqle) {
+			throw sqle;
+		}
+		catch (Exception e) {
+			throw e;
+		}
 	}
 	
 
@@ -48,7 +59,7 @@ public class Utilisateur {
 	public void disconnect() throws NullPointerException {
 		if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
 			lesBasesDeDonnees.get(this.selection).deconnexion();
-			lesBasesDeDonnees.get(this.selection).remove();
+			lesBasesDeDonnees.remove(this.selection);
 			this.selection=-1;
 		}
 		else{
@@ -61,9 +72,19 @@ public class Utilisateur {
 	*
 	*/
 	
-	public void nouvelleRequete() {
+	public void nouvelleRequete() throws SQLException, NullPointerException{
 		
-		Requete nouvelleRequete = new Requete(this.lesBasesDeDonnees.get(this.selection));
+		try {
+			
+			if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
+				Requete nouvelleRequete = new Requete(this.lesBasesDeDonnees.get(this.selection).getConnection());
+			}
+			else throw new NullPointerException("Attention selection incorect");
+		}
+		catch(SQLException sqle) {
+			
+			throw sqle;
+		}
 		
 	}
 	
