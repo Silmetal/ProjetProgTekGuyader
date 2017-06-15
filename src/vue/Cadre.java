@@ -13,10 +13,9 @@ public class Cadre extends JFrame{
 		this.miseEnPlace();
 		this.setSize(800,600);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-<<<<<<< HEAD
-=======
+		
 		this.setSize(800,600);
->>>>>>> origin/master
+		
 		this.setVisible(true);
 	}
 	
