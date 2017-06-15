@@ -38,5 +38,25 @@ public class PanneauButton2 extends JPanel{
 
 
 	}
+
+
+	public JButton getButtonLanceur(){
+		return this.buttonLanceur;
+	}
+
+	public JButton getButtonEnregistrer(){
+		return this.buttonEnregistrer;
+	}
+
+	public JButton getButtonEnregisterSous(){
+		return this.buttonEnregistrerSous;
+	}
+
+	public JButton getButtonOuvrir(){
+		return this.buttonOuvrir;
+	}
+
+
+
 	
 }
