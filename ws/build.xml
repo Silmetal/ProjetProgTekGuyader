@@ -6,11 +6,17 @@
 	<property name="javaDoc" location="../javaDoc"/>
 	<property name="reports" location="../reports" />
 	<property name="class.model" location="../class/model" />
+	<property name="class.controleur" location="../class/controleur" />
 	<property name="class.vue" location="../class/vue" />
 	<property name="class.test" value="../class/test"/>
+	<property name="class.launcher" value="../class/launcher"/>
+	<property name="class.utilitaire" value="../class/utilitaire"/>
 	<property name="src.test" value="../src/test"/>
+	<property name="src.controleur" value="../src/controleur"/>
 	<property name="src.model" value="../src/model"/>
+	<property name="src.utilitaire" value="../src/utilitaire"/>
 	<property name="src.vue" value="../src/vue"/>
+	<property name="src.launcher" value="../src/launcher"/>
 
 
 	<path id="classpath.test">
@@ -41,12 +47,18 @@
 		<javac srcdir="${src.model}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
 	</target>
 
-	<target name="compile-vue" depends="compile-model">
-		<mkdir dir="${class.vue}"/>
-		<javac srcdir="${src.vue}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
+	<target name="compile-utilitaire" depends="compile-model">
+		<mkdir dir="${class.utilitaire}"/>
+		<javac srcdir="${src.utilitaire}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
 	</target>
-
-	<target name="compile-test" depends="compile-vue">
+	
+	<target name="compile-controleurAndVue" depends="compile-utilitaire">
+		<mkdir dir="${class.controleur}"/>
+		<mkdir dir="${class.vue}"/>
+		<javac srcdir="${src.controleur};${src.vue}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
+	</target>
+	
+	<target name="compile-test" depends="compile-controleurAndVue">
 		<mkdir dir="${class.test}"/>
 		<javac srcdir="${src.test}" encoding="utf8" destdir="${class}" includeantruntime="false">
 			<classpath refid="classpath.test"/>
@@ -54,13 +66,11 @@
 	</target>
 	
 	<target name="compile-launcher" depends="compile-test">
-		<mkdir dir="${class}"/>
-		<javac srcdir="${src}" encoding="utf8" destdir="${class}" includeantruntime="false">
+		<mkdir dir="${class.launcher}"/>
+		<javac srcdir="${src.launcher}" encoding="utf8" destdir="${class}" includeantruntime="false">
 			<classpath refid="classpath.test"/>
 		</javac>
 	</target>
-
-
 
 	<target name="test" depends="compile-launcher">
 		<mkdir dir="${reports}"/>

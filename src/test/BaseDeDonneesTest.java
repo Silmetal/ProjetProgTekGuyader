@@ -23,7 +23,7 @@ public class BaseDeDonneesTest{
 		boolean test=true;
 		
 		try{
-			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","admin", "admin");
+			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","arthur", "root");
 			assertNotNull(maBase.getConnection());
 		}
 		catch(ClassNotFoundException ce){
@@ -60,7 +60,7 @@ public class BaseDeDonneesTest{
 		
 		try{
 			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","admin", "admin");
-			maBase.ajouterNouvelUtilisateur("admin","admin",1);
+			maBase.ajouterNouvelUtilisateur("testa","root", "projet",1);
 			// BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","admin", "admin");
 			maBase.supprimerUtilisateur("admin");
 			System.out.println("test ajout fait");

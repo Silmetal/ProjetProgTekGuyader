@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import java.sql.*;
 
 
-public class BaseDeDonneesTest{
+public class RequeteTest{
 
 	private BaseDeDonnees maBase;
 
-	public BaseDeDonneesTest(){
+	public RequeteTest(){
 		
 	}
 

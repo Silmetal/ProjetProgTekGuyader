@@ -159,7 +159,7 @@ public class BaseDeDonnees {
 	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur local, 1 pour un super utilisateur global, 2 pour un utilisateur local, 3 pour un utilisateur global
 	 * @throws SQLException si l'utilisateur ne peut pas être créé à cause d'une erreur SQL
 	 */
-	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, int userType) throws SQLException{
+	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, String dbName, int userType) throws SQLException{
 		
 		Statement creerSuperUser = connexion.createStatement();
 		Statement creerUser = connexion.createStatement();
@@ -211,7 +211,7 @@ public class BaseDeDonnees {
 		if (userType == 0) {
 			
 			try {
-				creerSuperUser.executeQuery("CREATE USER "+nouvIdenti+"@% IDENTIFIED BY "+nouvMDP+"; GRANT ALL PRIVILEGES ON *.* TO "+nouvIdenti+"@localhost WITH GRANT OPTION;");
+				creerSuperUser.executeUpdate("CREATE USER '"+nouvIdenti+"'@'%' IDENTIFIED BY '"+nouvMDP+"'; GRANT ALL PRIVILEGES ON *.* TO '"+nouvIdenti+"'@'%' WITH GRANT OPTION;");;
 			}
 			catch(SQLException se) {
 				throw se;
@@ -221,7 +221,10 @@ public class BaseDeDonnees {
 		else if (userType == 1) {
 			
 			try {
-				creerUser.executeQuery("CREATE USER "+nouvIdenti+"@% IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@"+connexion.getMetaData().getURL()+";");
+				creerUser.executeUpdate("use "+dbName);
+				creerUser.executeUpdate("CREATE USER '"+nouvIdenti+"'@'%' IDENTIFIED BY '"+nouvMDP+"';");
+				creerUser.executeUpdate("GRANT ALL PRIVILEGES ON *.* TO '"+nouvIdenti+"'@'%' IDENTIFIED BY '"+nouvMDP+"';");
+				creerUser.executeUpdate("FLUSH PRIVILEGES;");
 			}
 			catch(SQLException se) {
 				throw se;
