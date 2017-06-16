@@ -1,34 +1,49 @@
 package vue;
-
+import controleur.*;
+import model.*;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.*;
 
 
-public class FenetreRequete extends JPanel{
+public class FenetreRequete extends JFrame{
 
-	private JTextArea monTextArea;
-	private JTextPane monTextPane;
+	private JTextPane monTextPane1;
+	private JTextPane monTextPane2;
 	private PanneauButton2 monPanneauButton2;
-	private JFrame laJFrame;
+	private EcouteurJButtonRequete monEcouteur;
+	private JScrollPane jspan1;
+	private JScrollPane jspan2;
 
-	public FenetreRequete(JFrame laJFrame){
-		this.setLayout(new GridBagLayout());
-		this.laJFrame= laJFrame;
-		miseEnPlace();
 
+	public FenetreRequete(String titre, Connection maConnexion){
+		super(titre);
+		this.miseEnPlace();
+		this.setSize(800,600);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		this.setVisible(true);
 		
+		monEcouteur = new EcouteurJButtonRequete(this,maConnexion);
+
 	}
 	
 
 	private void miseEnPlace(){
-		monTextPane = new JTextPane();
-		monTextArea = new JTextArea();
+		JPanel panPrincipal = new JPanel();
+		panPrincipal.setLayout(new GridBagLayout());
+		monTextPane1 = new JTextPane();
+		monTextPane2 = new JTextPane();	
 		monPanneauButton2 = new PanneauButton2();
 
-		monTextPane.setEditable(false);
+		monTextPane2.setEditable(false);
 
-		monTextPane.setPreferredSize(new Dimension(680,200));
-		monTextArea.setPreferredSize(new Dimension(680,200));
+		monTextPane1.setPreferredSize(new Dimension(680,200));
+		monTextPane2.setPreferredSize(new Dimension(680,200));
+
+
+		JScrollPane span1 = new JScrollPane(monTextPane1);
+		JScrollPane span2 = new JScrollPane(monTextPane2);
+
 
 		//Placement boutons
 
@@ -38,14 +53,14 @@ public class FenetreRequete extends JPanel{
 		gbc.gridheight = 1;
 		gbc.anchor= GridBagConstraints.LINE_START;
 		gbc.insets = new Insets(10,10,10,10);
-		this.add(monPanneauButton2,gbc);
+		panPrincipal.add(monPanneauButton2,gbc);
 
 		//Placement TextArea
 
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 
-		this.add(monTextArea,gbc);
+		panPrincipal.add(span1,gbc);
 
 		//Placement TextPane
 		gbc.gridx = 0;
@@ -53,7 +68,8 @@ public class FenetreRequete extends JPanel{
 
 		gbc.gridwidth = 2;
 		gbc.gridheight = 1;
-		this.add(monTextPane,gbc);
+		panPrincipal.add(span2,gbc);
+		this.add(panPrincipal);
 	}
 
 
@@ -62,12 +78,13 @@ public class FenetreRequete extends JPanel{
 		return this.monPanneauButton2;
 	}
 
-	public JTextArea getMonTextArea(){
-		return this.monTextArea;
+	public JTextPane getMonTextPane1(){
+		return this.monTextPane1;
 	}
 
-	public JTextPane getMonTextPane(){
-		return this.monTextPane;
+	public JTextPane getMonTextPane2(){
+		return this.monTextPane2;
 	}
-	
+
+
 }

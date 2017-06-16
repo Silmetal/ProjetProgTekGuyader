@@ -121,25 +121,24 @@ public class Requete {
 	 * @throws SQLException si la requete est incorrecte, que state n'est pas initialisé ou si une autre erreur SQL survient
 	 * @throws Exception si la connexion ne peut pas être fermée ou si une autre erreur survient
 	 */
-	public boolean manuel(String requete, ResultSet resultat) throws SQLException, Exception{
-		
-		boolean ret = false;
-		int nbTuples;
+	public Object[] manuel(String requete) throws SQLException, Exception{
+		Object[] ret = new Object[3];
+		ret[2] = 0;
 		
 		try {
-			ret = state.execute(requete);
-			if (ret) {
-				 resultat = state.getResultSet();
+			ret[0] = state.execute(requete);
+			if ((boolean)ret[0]) {
+				 ret[1] = state.getResultSet();
 			}
 			else {
-				nbTuples = state.getUpdateCount();
+				ret[2] = state.getUpdateCount();
 			}
 		}
 		catch(SQLException sqle) {
 			System.out.println("Erreur SQL : ");
 			throw sqle;
 		}
-		finally{ 
+		/*finally{ 
 			if(state !=null){
 				try{
 					state.close();
@@ -149,7 +148,8 @@ public class Requete {
 					throw e;
 				}
 			} 
-		}
+		}*/
+		System.out.println(ret[2]);
 		return ret;
 	}	
 	
