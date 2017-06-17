@@ -41,6 +41,7 @@ public class PanneauGauche extends JPanel{
 		// Initialisation des composants
 		arborescence = new JTree();
 		connexion = new JButton("Nouvelle Connexion");
+		connexion.setName("connexion");
 		
 		// Création des sous-panneaux
 		JPanel arbre = new JPanel();

@@ -41,13 +41,15 @@ public class FenetrePrincipale extends JFrame{
 
 	private EcouteurMouseAdapter monEcouteur;
 	
+	private Utilisateur lUtilisateur;
+
 	
 	/**
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
 	 * et les placer dans le panneau.
 	 */
 	public FenetrePrincipale(){
-		
+		lUtilisateur = new Utilisateur("52535")
 		this.setLayout(new BorderLayout(25, 25));
 		panneauGauche = new PanneauGauche();
 		miseEnPlace();
@@ -81,13 +83,21 @@ public class FenetrePrincipale extends JFrame{
 		vueMenu = new JPopupMenu();
 		
 		nouvTable = new JMenuItem("Créer une nouvelle table");
+		nouvTable.setName("nouvTable");
 		supprTable = new JMenuItem("Supprimer une table");
+		supprTable.setName("supprTable");
 		nouvTuple = new JMenuItem("Ajouter un tuple");
+		nouvTuple.setName("nouvTuple");
 		supprTuple = new JMenuItem("Retirer un tuple");
+		supprTuple.setName("supprTuple");
 		nouvTrigger = new JMenuItem("Créer un nouveau trigger");
+		nouvTrigger.setName("nouvTrigger");
 		supprTrigger = new JMenuItem("Supprimer un trigger");
+		supprTrigger.setName("supprTrigger");
 		nouvVue = new JMenuItem("Créer une nouvelle vue");
+		nouvVue.setName("nouvVue");
 		supprVue = new JMenuItem("Supprimer une vue");
+		supprVue.setName("supprVue");
 		
 		tableMenu.add(nouvTable);
 		tableMenu.add(supprTable);
@@ -173,6 +183,51 @@ public class FenetrePrincipale extends JFrame{
 	public JPopupMenu getVueMenu(){
 		return this.vueMenu;
 	}
+
+
+
+
+	public JMenuItem getNouvTable(){
+		return this.nouvTable;
+	}
+
+	public JMenuItem getSupprTable(){
+		return this.supprTable;
+	}
+
+	public JMenuItem getNouvTuple(){
+		return this.nouvTuple;
+	}
+
+	public JMenuItem getSupprTuple(){
+		return this.supprTuple;
+	}
+
+	public JMenuItem getNouvTrigger(){
+		return this.nouvTrigger;
+	}
+
+	public JMenuItem getSupprTrigger(){
+		return this.supprTrigger;
+	}
+
+	public JMenuItem getNouvVue(){
+		return this.nouvVue;
+	}
+
+	public JMenuItem getSupprVue(){
+		return this.supprVue;
+	}
+
+
+	public PanneauGauche getPanneauGauche(){
+		return this.panneauGauche;
+	}
+
+	public Utilisateur getUtilisateur(){
+		return this.lUtilisateur;
+	}
+
 
 
 
