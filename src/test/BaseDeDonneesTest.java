@@ -23,7 +23,7 @@ public class BaseDeDonneesTest{
 		boolean test=true;
 		
 		try{
-			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","arthur", "root");
+			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","admin", "admin");
 			assertNotNull(maBase.getConnection());
 		}
 		catch(ClassNotFoundException ce){
@@ -53,16 +53,16 @@ public class BaseDeDonneesTest{
 
 	}
 	
-
+/*
 	@Test()
 	public void testAjouterSupprimerUtilisateur(){
 		boolean test=true;
 		
 		try{
-			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","admin", "admin");
-			maBase.ajouterNouvelUtilisateur("testa","root", "projet",1);
+			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","user", "pass");
+			maBase.ajouterNouvelUtilisateur("testk","root", "projet",1);
 			// BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","admin", "admin");
-			maBase.supprimerUtilisateur("admin");
+			
 			System.out.println("test ajout fait");
 		}
 		catch(Exception e){
@@ -70,6 +70,16 @@ public class BaseDeDonneesTest{
 			e.printStackTrace();
 			assertTrue(false);
 		}
+
+		try{
+			maBase.supprimerUtilisateur("testk");
+		}
+		catch(Exception e){
+
+		}
+
+
 	}
+	*/
 
 }

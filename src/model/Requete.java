@@ -1,5 +1,5 @@
 package model;
-
+import java.util.*;
 import java.sql.*;
 
 /**
@@ -153,74 +153,106 @@ public class Requete {
 	}	
 	
 	
-	// /** 
-	 // * Intègre à l'attribut state la commande SQL permettant de créer une nouvelle table à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.
-	 // * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 // */
-	// public int ajouterTable(String requete) {			
+	/** 
+	  * Intègre à l'attribut state la commande SQL permettant de créer une nouvelle table à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.
+	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	  */
+	 public int ajouterTable(String nomTable, ArrayList<Attribut> listeAttibut) throws SQLException,Exception {			
+		int ret;
+	 	try{
+	 		manuel("DROP TABLE "+nomTable);
+	 	}
+	 	catch (SQLException se){
+	 		throw se;
+	 	}
+	 	catch (Exception e){
+	 		throw e;
+	 	}
+
+
+
+		String requete = "CREATE TABLE(\n";
 		
-		// ret 0;
-	// }
-	
-	// /** 
-	 // * Intègre à l'attribut state la commande SQL permettant d'ajouter un tuple à la table précisée par l'utilisateur, puis exécute cette requête.
-	 // * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 // */
-	// public int ajouterTuple() {
+		for(Attribut monAtt : listeAttibut){
+			requete = requete + monAtt.getNomVariable() +" "+monAtt.getType();
+			if(monAtt.getValeur()>-1) requete =requete +" ("+monAtt.getValeur()+")";
+			if(!monAtt.getContrainte().equals("")){
+				requete = requete + monAtt.getContrainte() +",\n";
+			}
+			else{
+				requete = requete + ",\n";
+			}
+		}
+
+		for(Attribut monAtt : listeAttibut){
+			if(monAtt.getAClePrimaire()){
+				requete = requete + "CONSTRAINT pk"+nomTable+" PRIMARY KEY ("+monAtt.getNomVariable()+")";
+			}
+		}
 		
-		// return 0;
-	// }
+		System.out.println(requete);
+		ret = creerOuModifier(requete);
+		return ret;
+	 }
 	
-	// /**
-	 // * Intègre à l'attribut state la commande SQL permettant d'ajouter un trigger à la table précisée par l'utilisateur, puis exécute cette requête.
-	 // * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 // */
-	// public int ajouterTrigger() {
+	/** 
+	  * Intègre à l'attribut state la commande SQL permettant d'ajouter un tuple à la table précisée par l'utilisateur, puis exécute cette requête.
+	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	  */
+	public int ajouterTuple() {
+		return 0;
+	}
+	
+	/**
+	  * Intègre à l'attribut state la commande SQL permettant d'ajouter un trigger à la table précisée par l'utilisateur, puis exécute cette requête.
+	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	  */
+	public int ajouterTrigger() {
 		
-		// return 0;
-	// }
+		 return 0;
+	}
 	
-	// /**
-	 // * Intègre à l'attribut state la commande SQL permettant d'ajouter une vue à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.
-	 // * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 // */
-	// public int ajouterVue() {
+	 /**
+	 * Intègre à l'attribut state la commande SQL permettant d'ajouter une vue à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.
+	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	 */
+	public int ajouterVue() {
 		
-		// return 0;
-	// }
+		return 0;
+	}
 	
-	// /**
-	 // * Intègre à l'attribut state la commande SQL permettant de supprimer une nouvelle table à la base de données à laquelle l'utilisateur, puis exécute cette requête.
-	 // * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 // */
-	// public int enleverTable() {
+	/**
+	 * Intègre à l'attribut state la commande SQL permettant de supprimer une nouvelle table à la base de données à laquelle l'utilisateur, puis exécute cette requête.
+	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	 */
+	public int enleverTable() {
 		
-		// return 0;
-	// }
+		return 0;
+	}
 	
-	// /**
-	 // * Intègre à l'attribut state la commande SQL permettant de supprimer un tuple à la table précisée par l'utilisateur, puis exécute cette requête.
-	 // * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 // */
-	// public int enleverTuple() {
-		// return 0;
-	// }
+	/**
+	  * Intègre à l'attribut state la commande SQL permettant de supprimer un tuple à la table précisée par l'utilisateur, puis exécute cette requête.
+	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	  */
+	public int enleverTuple() {
+		return 0;
+	}
 	
-	// /**
-	 // * Intègre à l'attribut state la commande SQL permettant de supprimer un trigger de la base de données à laquelle l'utilisateur, puis exécute cette requête.
-	 // * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 // */
-	// public int enleverTrigger() {
+	/**
+	  * Intègre à l'attribut state la commande SQL permettant de supprimer un trigger de la base de données à laquelle l'utilisateur, puis exécute cette requête.
+	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	  */
+	public int enleverTrigger() {
 		
-		// return 0;
-	// }
+		return 0;
+	}
 	
-	// /**
-	 // * Intègre à l'attribut state la commande SQL permettant de supprimer une vue à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.4
-	 // * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 // */
-	// public int enleverVue() {
+	/**
+	 * Intègre à l'attribut state la commande SQL permettant de supprimer une vue à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.4
+	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	 */
+	public int enleverVue() {
 		
-		// return 0;
-	// }
+		return 0;
+	}
 }

@@ -211,7 +211,7 @@ public class BaseDeDonnees {
 		if (userType == 0) {
 			
 			try {
-				creerSuperUser.executeUpdate("CREATE USER '"+nouvIdenti+"'@'%' IDENTIFIED BY '"+nouvMDP+"'; GRANT ALL PRIVILEGES ON *.* TO '"+nouvIdenti+"'@'%' WITH GRANT OPTION;");;
+				creerSuperUser.executeUpdate("CREATE USER '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"'; GRANT ALL ON projet.* TO '"+nouvIdenti+"' WITH GRANT OPTION;");;
 			}
 			catch(SQLException se) {
 				throw se;
@@ -219,11 +219,17 @@ public class BaseDeDonnees {
 		}
 		
 		else if (userType == 1) {
-			
 			try {
 				creerUser.executeUpdate("use "+dbName);
-				creerUser.executeUpdate("CREATE USER '"+nouvIdenti+"'@'%' IDENTIFIED BY '"+nouvMDP+"';");
-				creerUser.executeUpdate("GRANT ALL PRIVILEGES ON *.* TO '"+nouvIdenti+"'@'%' IDENTIFIED BY '"+nouvMDP+"';");
+				creerUser.executeUpdate("CREATE USER '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"';");
+				
+			}
+			catch(SQLException se){
+
+			}
+
+			try{
+				creerUser.executeUpdate("GRANT ALL ON projet.* TO '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"';");
 				creerUser.executeUpdate("FLUSH PRIVILEGES;");
 			}
 			catch(SQLException se) {
