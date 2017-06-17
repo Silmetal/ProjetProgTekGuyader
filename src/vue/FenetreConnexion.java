@@ -2,6 +2,10 @@ package vue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import model.*;
+import java.sql.*;
+import java.lang.*;
 
 /**
  * Cette classe est la classe d'IHM de la fenêtre permettant la connexion à la base de donnée. Trois champs de texte sont présents, demandant
@@ -9,7 +13,7 @@ import java.awt.*;
  * se connecter à la base, si bien sûr aucune erreur de connexion ne survient.
  * <P>Le champs de saisie du mot de passe cache les caractères saisis.
  */
-public class PanneauConnexion extends JPanel{
+public class FenetreConnexion extends JFrame implements ActionListener{
 	/**
 	 * Le bouton de connexion
 	 */
@@ -34,11 +38,17 @@ public class PanneauConnexion extends JPanel{
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
 	 * et les placer dans le panneau.
 	 */
-	public PanneauConnexion(){
-		
-		super(new BorderLayout());
+
+	private Utilisateur lUtilisateur;
+
+
+
+	public FenetreConnexion(Utilisateur lUtilisateur){
+		this.lUtilisateur=lUtilisateur;
+		this.setLayout(new BorderLayout());
 		miseEnPlace();
-		
+		this.setVisible(true);
+		this.setSize(500,300);
 	}
 	
 	/**
@@ -72,7 +82,33 @@ public class PanneauConnexion extends JPanel{
 		this.add(panneauChamps, BorderLayout.CENTER);
 		this.add(panneauBoutton, BorderLayout.SOUTH);
 		
+
+		connexion.addActionListener(this);
+
+
 		
+	}
+
+
+
+	public void actionPerformed(ActionEvent e){
+		if(!(nomUtiliTF.getText().equals("") || adresseTF.getText().equals("") || mdpPF.getText().equals(""))){
+
+			try{
+				lUtilisateur.connect(adresseTF.getText(),nomUtiliTF.getText(),mdpPF.getText());
+				this.dispose();
+			} catch(ClassNotFoundException cnfe){
+				System.out.println("FenetreConnexion : Pilote non trouvée");
+			} catch(SQLException se){
+				System.out.println("FenetreConnexion : Erreur dans adresse");
+			}
+			catch(Exception ex){
+				System.out.println("FenetreConnexion : Erreur dans adresse");
+			}
+		}
+		else{
+			System.out.println("Pas tout completer");
+		}
 	}
 	
 }

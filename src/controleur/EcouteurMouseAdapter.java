@@ -11,12 +11,15 @@ import java.awt.*;
 
 
 
+
 public class EcouteurMouseAdapter extends MouseAdapter {
 
 	private FenetrePrincipale fp;
-	
-	public EcouteurMouseAdapter(FenetrePrincipale fp){
+	private Utilisateur lUtilisateur;
+
+	public EcouteurMouseAdapter(FenetrePrincipale fp, Utilisateur lUtilisateur){
 		this.fp=fp;
+		this.lUtilisateur=lUtilisateur;
 		addListener();
 
 	}
@@ -32,10 +35,14 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 
 				if(jb.getName().equals("connexion")){
-
+					FenetreConnexion fenConnexion = new FenetreConnexion(lUtilisateur);
 				}
 				else if(jb.getName().equals("nouvRequ")){
-					
+					if(lUtilisateur.getLesBasesDeDonnees().size()>0 && lUtilisateur.getSelection()!=-1){
+						FenetreRequete fenRequete = new FenetreRequete("Requete",lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection());
+					}else{
+
+					}
 				}
 				else if(jb.getName().equals("tuple")){
 					fp.getTupleMenu().show(e.getComponent(), e.getComponent().getX()+e.getComponent().getWidth(), e.getComponent().getY()-2*(e.getComponent().getHeight()));
@@ -104,6 +111,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getBouttonTrigger().addMouseListener(this);
 		fp.getBouttonTuple().addMouseListener(this);
 		fp.getBouttonVue().addMouseListener(this);
+
+		fp.getPanneauGauche().getBouttonConnexion().addMouseListener(this);
 
 		fp.getNouvTable().addMouseListener(this);
 		fp.getSupprTable().addMouseListener(this);

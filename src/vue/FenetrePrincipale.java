@@ -1,5 +1,6 @@
 package vue;
 import controleur.*;
+import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -49,7 +50,7 @@ public class FenetrePrincipale extends JFrame{
 	 * et les placer dans le panneau.
 	 */
 	public FenetrePrincipale(){
-		lUtilisateur = new Utilisateur("52535")
+		lUtilisateur = new Utilisateur("52535");
 		this.setLayout(new BorderLayout(25, 25));
 		panneauGauche = new PanneauGauche();
 		miseEnPlace();
@@ -144,7 +145,7 @@ public class FenetrePrincipale extends JFrame{
 		this.add(panneauGauche, BorderLayout.WEST);
 
 
-		monEcouteur = new EcouteurMouseAdapter(this);
+		monEcouteur = new EcouteurMouseAdapter(this,lUtilisateur);
 	}
 	
 	public JButton getBouttonNouvRequ() {

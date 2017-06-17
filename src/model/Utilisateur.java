@@ -42,7 +42,7 @@ public class Utilisateur {
 	public void connect(String url,String user, String password) throws ClassNotFoundException, SQLException, Exception{
 		try {
 			lesBasesDeDonnees.add(new BaseDeDonnees(url,user,password));
-			selection = lesBasesDeDonnees.size();
+			selection = lesBasesDeDonnees.size()-1;
 		}
 		catch (ClassNotFoundException cnfe) {
 			throw cnfe;
@@ -101,4 +101,14 @@ public class Utilisateur {
 	public void setSelection(int selection){
 		this.selection=selection;
 	}
+
+	public int getSelection(){
+		return this.selection;
+	}
+
+	public ArrayList<BaseDeDonnees> getLesBasesDeDonnees(){
+		return this.lesBasesDeDonnees;
+	}
+
+
 }
