@@ -148,7 +148,6 @@ public class Requete {
 				}
 			} 
 		}*/
-		System.out.println(ret[2]);
 		return ret;
 	}	
 	

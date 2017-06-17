@@ -19,24 +19,31 @@ public class BaseDeDonnees {
 	 * L'objet Connection représente le lien entre l'application et la base de données. Il est défini lors de l'appel à la méthode connexion.
 	 */
 	private Connection connexion;
-	
+	private String nomDeLaBase;
+	private String adresse;
+	private String nomUtili;
+	private String motDePasse;
 	/**
 	 * Constructeur de la classe. Utilise les paramètres pour créer l'objet connexion avec la méthode connexion, puis utilise la
 	 * méthode créerRequete pour créer l'objet requete.
 	 * @param adresse l'adresse de la base de données
 	 * @param nomUtili le nom d'utilisateur utilisé pour se connecter
 	 * @param motDePasse le mot de passe correspondant au nom d'utilisateur utilisé pour se connecter.
+	 * @param nomDeLaBase le nom de la base (Au choix)
 	 * @throws ClassNotFoundException si le pilote correspondant n'est pas trouvé
 	 * @throws SQLException si la connexion ne peut pas être établie à cause d'une erreur SQL
 	 * @throws Exception si la connexion ne peut pas être établie à cause d'une autre erreur
 	 */
-	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse) throws ClassNotFoundException,SQLException,Exception{
-		
+	public BaseDeDonnees(String adresse, String nomUtili, String motDePasse,String nomDeLaBase) throws ClassNotFoundException,SQLException,Exception{
+		this.adresse=adresse;
+		this.nomUtili=nomUtili;
+		this.motDePasse=motDePasse;
 		try{	
 			if (verifPilote()) {
 				
 				try{
 					boolean test = connexion(adresse, nomUtili, motDePasse);
+					this.nomDeLaBase = nomDeLaBase;
 					System.out.println("Connexion etablie");
 				}
 				catch(SQLException se){
@@ -282,6 +289,16 @@ public class BaseDeDonnees {
 	public Connection getConnection(){
 		return this.connexion;
 	}
+
+	public String getNomDeLaBase(){
+		return this.nomDeLaBase;
+	}
+
+	public String getAdresse(){return this.adresse;}
+	public String getNomUtili(){return this.nomUtili;}
+	public String getMotDePasse(){return this.motDePasse;}
+
+
 
 
 

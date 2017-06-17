@@ -25,7 +25,7 @@ public class RequeteTest{
 		BaseDeDonnees maBase = null;
 		
 		try{
-			maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","admin", "admin");
+			maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","admin", "admin","test");
 			assertNotNull(maBase.getConnection());
 		}
 		catch(ClassNotFoundException ce){
@@ -43,7 +43,7 @@ public class RequeteTest{
 
 
     	try{
-    		maBase2 = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","qfqsfn", "admin");
+    		maBase2 = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","qfqsfn", "admin","test");
     	}
     	catch(ClassNotFoundException ce){
 			assertFalse(false);

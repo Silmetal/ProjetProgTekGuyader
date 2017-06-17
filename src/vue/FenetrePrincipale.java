@@ -50,9 +50,9 @@ public class FenetrePrincipale extends JFrame{
 	 * et les placer dans le panneau.
 	 */
 	public FenetrePrincipale(){
-		lUtilisateur = new Utilisateur("52535");
+		lUtilisateur = new Utilisateur("ArthurG");
 		this.setLayout(new BorderLayout(25, 25));
-		panneauGauche = new PanneauGauche();
+		panneauGauche = new PanneauGauche(lUtilisateur,this);
 		miseEnPlace();
 		this.setSize(1200,700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	

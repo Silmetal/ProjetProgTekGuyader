@@ -8,7 +8,7 @@ public class Launcher {
 		
 	BaseDeDonnees maBase = null;
 		try{
-			maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","admin", "admin");
+			maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","admin", "admin","test");
 		}catch(Exception e){
 
 		}

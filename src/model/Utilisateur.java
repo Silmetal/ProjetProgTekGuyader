@@ -16,7 +16,6 @@ public class Utilisateur {
 	private String id;
 	private ArrayList<BaseDeDonnees> lesBasesDeDonnees;
 	private int selection;
-	
 
 	/** Constructeur de la classe. Il prend en paramètre une chaine de caractère
 	* qui est un identifiant qui au préalable a été comparé dans la méthode qui
@@ -35,13 +34,15 @@ public class Utilisateur {
 	* @param user Un nom d'utilisateur (Attention selon l'endroit où vous vous connectez 
 	* , il est nécéssaire d'avoir des droits particuliers, prenez donc en compte se détail)
 	* @param password Le mot de passe de l'utilisateur pour accéder à la base de donnée
+	* @param nomDeLaBase le nom de la base (Au choix)
 	* @throws ClassNotFoundException si le driver correspondant n'est pas trouvé
 	* @throws SQLException si une erreur SQL empêche la connexion à la base de données
 	* @throws Exception si une autre erreur empe^che la connexion
 	*/
-	public void connect(String url,String user, String password) throws ClassNotFoundException, SQLException, Exception{
+	public void connect(String url,String user, String password,String nomDeLaBase) throws ClassNotFoundException, SQLException, Exception{
 		try {
-			lesBasesDeDonnees.add(new BaseDeDonnees(url,user,password));
+			BaseDeDonnees laBase = new BaseDeDonnees(url,user,password,nomDeLaBase);
+			lesBasesDeDonnees.add(laBase);
 			selection = lesBasesDeDonnees.size()-1;
 		}
 		catch (ClassNotFoundException cnfe) {
@@ -96,6 +97,10 @@ public class Utilisateur {
 		
 		return "";
 		
+	}
+
+	public String getId(){
+		return this.id;
 	}
 
 	public void setSelection(int selection){

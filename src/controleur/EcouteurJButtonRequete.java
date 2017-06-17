@@ -63,7 +63,9 @@ public class EcouteurJButtonRequete implements ActionListener {
 			       for (int i = 1; i <= columnsNumber; i++) {
 			           	if (i > 1) affichage=affichage+",  ";
 			           	String columnValue = rs.getString(i);
-			         	affichage=affichage+columnValue + " " + rsmd.getColumnName(i);
+			         	affichage=affichage+columnValue + " \n" + rsmd.getColumnName(i);
+			         	System.out.println(columnValue);
+			         	System.out.println(rsmd.getColumnName(i));
 			       }
 
 				}

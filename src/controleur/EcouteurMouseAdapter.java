@@ -35,7 +35,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 
 				if(jb.getName().equals("connexion")){
-					FenetreConnexion fenConnexion = new FenetreConnexion(lUtilisateur);
+					FenetreConnexion fenConnexion = new FenetreConnexion(lUtilisateur,fp);
 				}
 				else if(jb.getName().equals("nouvRequ")){
 					if(lUtilisateur.getLesBasesDeDonnees().size()>0 && lUtilisateur.getSelection()!=-1){

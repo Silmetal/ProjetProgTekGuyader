@@ -22,12 +22,12 @@ public class FenetreConnexion extends JFrame implements ActionListener{
 	/**
 	 * Les intitutlés des différents champs de saisie
 	 */
-	private JLabel nomUtili, mdp, adresse;
+	private JLabel nomUtili, mdp, adresse, nomDeLaBase;
 	
 	/**
 	 * Les champs de saisie de l'identifiant et de l'adresse
 	 */
-	private JTextField nomUtiliTF, adresseTF;
+	private JTextField nomUtiliTF, adresseTF, nomDeLaBaseTF;
 	
 	/**
 	 * Le champ de saisie du mot de passe. Les caractères saisis sont remplacés par le symbole &bull;
@@ -41,10 +41,11 @@ public class FenetreConnexion extends JFrame implements ActionListener{
 
 	private Utilisateur lUtilisateur;
 
+	private FenetrePrincipale fp;
 
-
-	public FenetreConnexion(Utilisateur lUtilisateur){
+	public FenetreConnexion(Utilisateur lUtilisateur,FenetrePrincipale fp){
 		this.lUtilisateur=lUtilisateur;
+		this.fp = fp;
 		this.setLayout(new BorderLayout());
 		miseEnPlace();
 		this.setVisible(true);
@@ -61,13 +62,15 @@ public class FenetreConnexion extends JFrame implements ActionListener{
 		nomUtili = new JLabel("Nom d'utilisateur : ");
 		adresse = new JLabel("Adresse : ");
 		mdp = new JLabel("Mot de passe : ");
+		nomDeLaBase = new JLabel("Nom de la base : ");
 		nomUtiliTF = new JTextField();
 		adresseTF = new JTextField();
 		mdpPF = new JPasswordField();
+		nomDeLaBaseTF = new JTextField();
 		
 		// Création des sous-panneaux
 		JPanel panneauBoutton = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel panneauChamps = new JPanel(new GridLayout(3,2));
+		JPanel panneauChamps = new JPanel(new GridLayout(4,2));
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
 		panneauBoutton.add(connexion);
@@ -77,6 +80,8 @@ public class FenetreConnexion extends JFrame implements ActionListener{
 		panneauChamps.add(mdpPF);
 		panneauChamps.add(adresse);
 		panneauChamps.add(adresseTF);
+		panneauChamps.add(nomDeLaBase);
+		panneauChamps.add(nomDeLaBaseTF);
 		
 		// Ajout des sous-panneaux dans le panneau de connexion
 		this.add(panneauChamps, BorderLayout.CENTER);
@@ -95,15 +100,18 @@ public class FenetreConnexion extends JFrame implements ActionListener{
 		if(!(nomUtiliTF.getText().equals("") || adresseTF.getText().equals("") || mdpPF.getText().equals(""))){
 
 			try{
-				lUtilisateur.connect(adresseTF.getText(),nomUtiliTF.getText(),mdpPF.getText());
+				lUtilisateur.connect(adresseTF.getText(),nomUtiliTF.getText(),mdpPF.getText(),nomDeLaBaseTF.getText());
+				fp.getPanneauGauche().constructionJTree();
 				this.dispose();
 			} catch(ClassNotFoundException cnfe){
 				System.out.println("FenetreConnexion : Pilote non trouvée");
 			} catch(SQLException se){
-				System.out.println("FenetreConnexion : Erreur dans adresse");
+				System.out.println("FenetreConnexion : Erreur SQL");
 			}
 			catch(Exception ex){
-				System.out.println("FenetreConnexion : Erreur dans adresse");
+				ex.printStackTrace();
+				System.out.println(ex.getMessage());
+				System.out.println("FenetreConnexion : Erreur");
 			}
 		}
 		else{
