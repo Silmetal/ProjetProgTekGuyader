@@ -58,34 +58,41 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 				}
 			}
 			else if(e.getComponent() instanceof JMenuItem){
-				
-				JMenuItem jmi = (JMenuItem) e.getComponent();
-
-				if(jmi.getName().equals("nouvTable")){
-					System.out.println("mi");
+				try{
+					String laTableSelectionee="";
+					JMenuItem jmi = (JMenuItem) e.getComponent();
+					BaseDeDonnees laBaseSelectionee = lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection());
+					laTableSelectionee = lUtilisateur.getTable();
+					Requete nouvelleRequete = new Requete(laBaseSelectionee.getConnection(),laTableSelectionee);
+					if(jmi.getName().equals("nouvTable")){
+						
+						//nouvelleRequete.ajouterTable(nomTable,listeAttribut);
+					}
+					else if(jmi.getName().equals("supprTable")){
+						nouvelleRequete.enleverTable();
+					}
+					else if(jmi.getName().equals("nouvTuple")){
+						nouvelleRequete.ajouterTuple();
+					}
+					else if(jmi.getName().equals("supprTuple")){
+						nouvelleRequete.enleverTuple();
+					}
+					else if(jmi.getName().equals("nouvTrigger")){
+						nouvelleRequete.ajouterTrigger();
+					}
+					else if(jmi.getName().equals("supprTrigger")){
+						nouvelleRequete.enleverTrigger();
+					}
+					else if(jmi.getName().equals("nouvVue")){
+						nouvelleRequete.ajouterVue();
+					}
+					else if(jmi.getName().equals("supprVue")){
+						nouvelleRequete.enleverVue();
+					}
 				}
-				else if(jmi.getName().equals("supprTable")){
+				catch(SQLException se){
 					
 				}
-				else if(jmi.getName().equals("nouvTuple")){
-					
-				}
-				else if(jmi.getName().equals("supprTuple")){
-					
-				}
-				else if(jmi.getName().equals("nouvTrigger")){
-					
-				}
-				else if(jmi.getName().equals("supprTrigger")){
-					
-				}
-				else if(jmi.getName().equals("nouvVue")){
-					
-				}
-				else if(jmi.getName().equals("supprVue")){
-					
-				}
-		
 			}
 
 

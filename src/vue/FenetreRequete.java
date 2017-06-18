@@ -20,7 +20,6 @@ public class FenetreRequete extends JFrame{
 		super(titre);
 		this.miseEnPlace();
 		this.setSize(800,600);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		this.setVisible(true);
 		
 		monEcouteur = new EcouteurJButtonRequete(this,maConnexion);

@@ -60,7 +60,7 @@ public class Utilisateur {
 			if(lesTables.size()==0){
 				try{
 					
-					Requete interogation = new Requete(laBase.getConnection());
+					Requete interogation = new Requete(laBase.getConnection(),table);
 					ResultSet rs = (ResultSet) ((interogation.manuel("SHOW DATABASES;"))[1]);
 					ResultSetMetaData rsmd = rs.getMetaData();
 			   		int columnsNumber = rsmd.getColumnCount();		
@@ -174,7 +174,7 @@ public class Utilisateur {
 		try {
 			
 			if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
-				Requete nouvelleRequete = new Requete(this.lesBasesDeDonnees.get(this.selection).getConnection());
+				Requete nouvelleRequete = new Requete(this.lesBasesDeDonnees.get(this.selection).getConnection(),table);
 			}
 			else throw new NullPointerException("Attention selection incorect");
 		}

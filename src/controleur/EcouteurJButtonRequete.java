@@ -45,7 +45,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 
 	public void lancer(){
 		try{
-			Requete maRequete = new Requete(maConnexion);
+			Requete maRequete = new Requete(maConnexion,"");
 			ResultSet rs=null;
 			int nb=0;
 			Object[] res;
@@ -64,8 +64,6 @@ public class EcouteurJButtonRequete implements ActionListener {
 			           	if (i > 1) affichage=affichage+",  ";
 			           	String columnValue = rs.getString(i);
 			         	affichage=affichage+columnValue + " \n" + rsmd.getColumnName(i);
-			         	System.out.println(columnValue);
-			         	System.out.println(rsmd.getColumnName(i));
 			       }
 
 				}

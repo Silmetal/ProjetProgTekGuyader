@@ -15,14 +15,14 @@ public class Requete {
 	 * L'objet Statement à modifier et exécuter pour exécuter les requêtes SQL.
 	 */
 	private Statement state;
-	
+	private String table;
 	/**
 	 * Constructeur de la classe. Prend en paramètre un objet Connection en paramètre et créé un objet Statement sur cette connexion. Stocke le Statement dans son attribut state.
 	 * @param connexion la connexion sur laquelle créer un Statement
 	 * @throws SQLException si la connexion est invalide, ou qu'une autre erreur SQL survient
 	 */
-	public Requete(Connection connexion) throws SQLException{
-		
+	public Requete(Connection connexion,String table) throws SQLException{
+		this.table = table;
 		try {
 			this.state = connexion.createStatement();
 		}
@@ -170,7 +170,7 @@ public class Requete {
 
 
 
-		String requete = "CREATE TABLE(\n";
+		String requete = "CREATE TABLE "+nomTable+"(\n";
 		
 		for(Attribut monAtt : listeAttibut){
 			requete = requete + monAtt.getNomVariable() +" "+monAtt.getType();
