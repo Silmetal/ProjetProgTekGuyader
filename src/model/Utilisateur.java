@@ -16,6 +16,9 @@ public class Utilisateur {
 	private String id;
 	private ArrayList<BaseDeDonnees> lesBasesDeDonnees;
 	private int selection;
+	private String table;
+	private HashMap<String,Integer> association;
+
 
 	/** Constructeur de la classe. Il prend en paramètre une chaine de caractère
 	* qui est un identifiant qui au préalable a été comparé dans la méthode qui
@@ -23,9 +26,11 @@ public class Utilisateur {
 	* @param id  Une chaine de caractère : un identifiant unique
 	*/
 	public Utilisateur(String id) {
+		table="";
+		selection = -1;
 		this.id=id;
 		lesBasesDeDonnees = new ArrayList<BaseDeDonnees>();
-		this.selection = -1 ;
+		
 	}
 	
 
@@ -44,23 +49,15 @@ public class Utilisateur {
 		DatabaseMetaData dmd;
 		ResultSet tables;
 		int i=0;
+
+		ArrayList<String> lesTables = new ArrayList<String>();
+
 		try {
 			
 			BaseDeDonnees laBase = new BaseDeDonnees(url,user,password,nomDeLaBase);
-
-			try{
-
-				dmd = laBase.getConnection().getMetaData();
-				tables = dmd.getTables(laBase.getConnection().getCatalog(),null,"%",null);
-				i=0;
-				while(tables.next()){
-					i++;
-				}
-			} catch(SQLException e){
-				System.out.println("Impossible de construire l'arbre");
-			}
+			lesTables = this.parcourirBase(laBase);
 			
-			if(i==0){
+			if(lesTables.size()==0){
 				try{
 					
 					Requete interogation = new Requete(laBase.getConnection());
@@ -73,7 +70,10 @@ public class Utilisateur {
 				           	String columnValue = rs.getString(j);
 
 				           	if(!columnValue.equals("")){
-				           		lesBases.add(new BaseDeDonnees(url+columnValue,user,password,columnValue));
+				           		BaseDeDonnees uneBase = new BaseDeDonnees(url+columnValue,user,password,columnValue);
+				           		lesBases.add(uneBase);
+
+				           		lesTables = this.parcourirBase(uneBase);
 				           	}
 				       }
 					}
@@ -85,8 +85,6 @@ public class Utilisateur {
 				for(BaseDeDonnees base : lesBases){
 					lesBasesDeDonnees.add(base);
 				}
-
-
 
 			}
 			else{
@@ -104,8 +102,52 @@ public class Utilisateur {
 		catch (Exception e) {
 			throw e;
 		}
+
+
+
+
+	}
+
+
+	public void miseAJourDuHashMap(){
+		int i=0;
+		association = new HashMap<String,Integer>();
+
+		for (BaseDeDonnees base : lesBasesDeDonnees) {
+			association.put(base.getNomDeLaBase(),i);
+			i++;
+		}
+
 	}
 	
+
+
+	//Recupere le nom des tables de la base
+	public ArrayList<String> parcourirBase(BaseDeDonnees laBase){
+		DatabaseMetaData dmd;
+		ResultSet tables;
+		int i=0;
+		ArrayList<String> ret = new ArrayList<String>();
+		try{
+			dmd = laBase.getConnection().getMetaData();
+			tables = dmd.getTables(laBase.getConnection().getCatalog(),null,"%",null);
+			i=0;
+			while(tables.next()){
+				ret.add(tables.getString(3));
+				i++;
+			}
+		} catch(SQLException e){
+			System.out.println("Impossible de parcourir la base");
+		}
+		return ret;
+	}
+
+
+
+
+
+
+
 
 	/** Permet de se deconnecter de la base de donnée sélectionné 
 	*
@@ -136,11 +178,24 @@ public class Utilisateur {
 			}
 			else throw new NullPointerException("Attention selection incorect");
 		}
-		catch(SQLException sqle) {
-			
+		catch(SQLException sqle) {	
 			throw sqle;
 		}
-		
+	}
+
+	public int getPositionBase(String base){
+		miseAJourDuHashMap();
+		int ret = association.get(base);
+		return ret;
+	}
+
+
+	public void setTable(String table){
+		this.table=table;
+	}
+
+	public String getTable(){
+		return this.table;
 	}
 	
 	public String toString() {
@@ -153,8 +208,8 @@ public class Utilisateur {
 		return this.id;
 	}
 
-	public void setSelection(int selection){
-		this.selection=selection;
+	public void setSelection(int base){
+		this.selection=base;
 	}
 
 	public int getSelection(){
