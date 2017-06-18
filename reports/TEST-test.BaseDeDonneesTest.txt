@@ -1,5 +1,5 @@
 Testsuite: test.BaseDeDonneesTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1,191 sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1,112 sec
 
 ------------- Standard Output ---------------
 Pilote oracle trouvé

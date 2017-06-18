@@ -101,8 +101,8 @@ public class PanneauGauche extends JPanel{
 			} catch(SQLException e){
 				System.out.println("Impossible de construire l'arbre");
 			}
-			
-			if(i==0){
+			racine.add(rep);
+		/*	if(i==0){
 				try{
 					
 					Requete interogation = new Requete(base.getConnection());
@@ -148,8 +148,8 @@ public class PanneauGauche extends JPanel{
 				lUtilisateur.disconnect();
 
 			}else{
-				racine.add(rep);	
-			}
+					
+			}*/
 
 
 		

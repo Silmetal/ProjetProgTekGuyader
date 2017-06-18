@@ -40,9 +40,59 @@ public class Utilisateur {
 	* @throws Exception si une autre erreur empe^che la connexion
 	*/
 	public void connect(String url,String user, String password,String nomDeLaBase) throws ClassNotFoundException, SQLException, Exception{
+		ArrayList<BaseDeDonnees> lesBases = new ArrayList<BaseDeDonnees>();
+		DatabaseMetaData dmd;
+		ResultSet tables;
+		int i=0;
 		try {
+			
 			BaseDeDonnees laBase = new BaseDeDonnees(url,user,password,nomDeLaBase);
-			lesBasesDeDonnees.add(laBase);
+
+			try{
+
+				dmd = laBase.getConnection().getMetaData();
+				tables = dmd.getTables(laBase.getConnection().getCatalog(),null,"%",null);
+				i=0;
+				while(tables.next()){
+					i++;
+				}
+			} catch(SQLException e){
+				System.out.println("Impossible de construire l'arbre");
+			}
+			
+			if(i==0){
+				try{
+					
+					Requete interogation = new Requete(laBase.getConnection());
+					ResultSet rs = (ResultSet) ((interogation.manuel("SHOW DATABASES;"))[1]);
+					ResultSetMetaData rsmd = rs.getMetaData();
+			   		int columnsNumber = rsmd.getColumnCount();		
+			   		while (rs.next()) {
+				       for (int j = 1; j <= columnsNumber; j++) {
+
+				           	String columnValue = rs.getString(j);
+
+				           	if(!columnValue.equals("")){
+				           		lesBases.add(new BaseDeDonnees(url+columnValue,user,password,columnValue));
+				           	}
+				       }
+					}
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+
+				for(BaseDeDonnees base : lesBases){
+					lesBasesDeDonnees.add(base);
+				}
+
+
+
+			}
+			else{
+				lesBasesDeDonnees.add(laBase);
+			}
+
 			selection = lesBasesDeDonnees.size()-1;
 		}
 		catch (ClassNotFoundException cnfe) {
