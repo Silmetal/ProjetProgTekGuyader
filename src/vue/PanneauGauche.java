@@ -6,6 +6,7 @@ import java.util.*;
 import model.*;
 import javax.swing.tree.*;
 import java.sql.*;
+import controleur.*;
 
 /**
  * Cette classe est la classe d'IHM de la fenêtre permettant la connexion à la base de donnée. Trois champs de texte sont présents, demandant
@@ -57,6 +58,7 @@ public class PanneauGauche extends JPanel{
 		racine.add(rep);
 
 		arborescence = new JTree(racine);
+		arborescence.addTreeSelectionListener(new EcouteurJTree());
 		connexion = new JButton("Nouvelle Connexion");
 		connexion.setName("connexion");
 		
