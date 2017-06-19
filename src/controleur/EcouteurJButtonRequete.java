@@ -57,16 +57,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 
 			if(rs!=null){
 				String affichage="";
-				ResultSetMetaData rsmd = rs.getMetaData();
-			   	int columnsNumber = rsmd.getColumnCount();
-			   	while (rs.next()) {
-			       for (int i = 1; i <= columnsNumber; i++) {
-			           	if (i > 1) affichage=affichage+",  ";
-			           	String columnValue = rs.getString(i);
-			         	affichage=affichage+columnValue + " \n" + rsmd.getColumnName(i);
-			       }
-
-				}
+				affichage = maRequete.retournerResultSet(rs);
 				fr.getMonTextPane2().setText("Requete : \n"+affichage);
 
 			}

@@ -85,7 +85,7 @@ public class PanneauGauche extends JPanel{
 			for(String s : lesTables){
 				DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(s);
 				rep.add(rep2);
-
+				System.out.println(base.parcourirTable());
 			}
 			racine.add(rep);		
 		}

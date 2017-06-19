@@ -264,28 +264,46 @@ public class BaseDeDonnees {
 		} catch(SQLException e){
 			System.out.println("Impossible de parcourir la base");
 		}
-		return ret;
-	}
-	
-	public ArrayList<String> afficherTable(){
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery(query);
-		ResultSetMetaData rsmd = rs.getMetaData();
-		int i=0;
-		ArrayList<String> ret = new ArrayList<String>();
-		try{
-			dmd = this.connexion.getMetaData();
-			tables = dmd.getTables(this.connexion.getCatalog(),null,"%",null);
-			i=0;
-			while(tables.next()){
-				ret.add(tables.getString(3));
-				i++;
-			}
-		} catch(SQLException e){
-			System.out.println("Impossible de parcourir la base");
+
+		String listString = "";
+
+		for (String s : ret)
+		{
+		    listString += s + "\t";
 		}
+
+		System.out.println(listString);
+
 		return ret;
 	}
+
+
+	//Recuperer le nom des attributs
+	public ArrayList<String> parcourirTable(){
+		ArrayList<String> lesTables = parcourirBase();
+		ArrayList<String> ret = new ArrayList<String>();
+		String affichage;
+
+		try{
+			Requete nouvelleRequete = new Requete(connexion,"");
+			for (String s : lesTables) {
+				Object[] res = nouvelleRequete.manuel("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '"+s+"'");
+
+				ResultSet rs=(ResultSet)res[1];
+
+				affichage = nouvelleRequete.retournerResultSet(rs);
+				System.out.println("\n********************************************************************\n"+affichage+"\n********************************************************************\n");
+			}
+		} catch (SQLException se){
+
+		} catch (Exception e){
+
+		}
+
+		return ret;
+
+	}
+
 	
 	/**
 	 * Supprime de la base de données l'utilisateur dont l'identifiant est passé en paramètre
