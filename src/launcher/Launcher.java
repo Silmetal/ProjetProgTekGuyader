@@ -13,7 +13,7 @@ public class Launcher {
 
 		}
 
-		FenetreRequete fen = new FenetreRequete("Gestionnaire de base de données",maBase.getConnection());
+		//FenetreRequete fen = new FenetreRequete("Gestionnaire de base de données",maBase.getConnection());
 	
 	}
 }

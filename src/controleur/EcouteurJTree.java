@@ -30,12 +30,12 @@ public class EcouteurJTree implements TreeSelectionListener {
 	     	splitArray = path.split(",");
 
 	     	for(int i=0; i < splitArray.length;i++){
-	     		if(i>=1){
-					lUtilisateur.setSelection(lUtilisateur.getPositionBase(splitArray[1].trim()));
+	     		if(i>=2){
+					lUtilisateur.setSelection(lUtilisateur.getPositionBase(splitArray[2].trim()));
 	     		}
 
-	     		if (i==2){
-	     			lUtilisateur.setTable(splitArray[2].trim());
+	     		if (i==3){
+	     			lUtilisateur.setTable(splitArray[3].trim());
 	     		}
 	     		else{
 	     			lUtilisateur.setTable("");

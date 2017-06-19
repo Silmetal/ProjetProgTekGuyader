@@ -80,6 +80,7 @@ public class PanneauGauche extends JPanel{
 	public void constructionJTree(){
 		int i=0;
 		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(lUtilisateur.getId());
+		DefaultMutableTreeNode tableVue = new DefaultMutableTreeNode("TABLES ET VUES");
 		for(BaseDeDonnees base : lUtilisateur.getLesBasesDeDonnees()){
 			DefaultMutableTreeNode rep = new DefaultMutableTreeNode(base.getNomDeLaBase());
 			ArrayList<String> lesTables = base.parcourirBase();
@@ -93,7 +94,8 @@ public class PanneauGauche extends JPanel{
 				}
 				rep.add(rep2);
 			}
-			racine.add(rep);		
+			tableVue.add(rep);
+			racine.add(tableVue);		
 		}
 
 		((DefaultTreeModel)arborescence.getModel()).setRoot(racine);
