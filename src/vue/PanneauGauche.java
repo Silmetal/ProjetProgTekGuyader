@@ -38,6 +38,8 @@ public class PanneauGauche extends JPanel{
 	/**
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
 	 * et les placer dans le panneau.
+	 * @param lUtilisateur l'utilisateur qui a instancié la fenêtre
+	 * @param fp la fenêtre contenant ce panneau
 	 */
 	public PanneauGauche(Utilisateur lUtilisateur,FenetrePrincipale fp){
 		this.fp = fp;

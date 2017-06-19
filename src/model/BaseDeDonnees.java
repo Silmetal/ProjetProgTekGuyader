@@ -165,7 +165,8 @@ public class BaseDeDonnees {
 	 * un utilisateur global peut se connecter depuis n'importe quel hôte.
 	 * @param nouvIdenti l'identifiant du nouvel utilisateur
 	 * @param nouvMDP le mot de passe du nouvel utilisateur
-	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur local, 1 pour un super utilisateur global, 2 pour un utilisateur local, 3 pour un utilisateur global
+	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur, 1 pour un utilisateur normal
+	 * @param dbName le nom de la base de données à laquelle ajouter l'utilisateur
 	 * @throws SQLException si l'utilisateur ne peut pas être créé à cause d'une erreur SQL
 	 */
 	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, String dbName, int userType) throws SQLException{
