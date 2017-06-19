@@ -4,14 +4,17 @@ import javax.swing.tree.*;
 import javax.swing.event.*;
 import javax.swing.tree.TreePath;
 import model.*;
+import vue.*;
 import java.util.regex.*;
 
 public class EcouteurJTree implements TreeSelectionListener {
 
 	private Utilisateur lUtilisateur;
+	private FenetrePrincipale fp;
 
-	public EcouteurJTree(Utilisateur lUtilisateur){
+	public EcouteurJTree(Utilisateur lUtilisateur, FenetrePrincipale fp){
 		this.lUtilisateur=lUtilisateur;
+		this.fp = fp;
 	}
 
 
@@ -48,6 +51,7 @@ public class EcouteurJTree implements TreeSelectionListener {
      	System.out.println("Table : "+lUtilisateur.getTable());
 		
 		String retTable = DBTablePrinter.printTable(lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(), lUtilisateur.getTable());
+		fp.getResultat().setText(retTable);
 		System.out.println(retTable);
 	 }
  }

@@ -58,7 +58,7 @@ public class PanneauGauche extends JPanel{
 		racine.add(rep);
 
 		arborescence = new JTree(racine);
-		arborescence.addTreeSelectionListener(new EcouteurJTree(lUtilisateur));
+		arborescence.addTreeSelectionListener(new EcouteurJTree(lUtilisateur, fp));
 		connexion = new JButton("Nouvelle Connexion");
 		connexion.setName("connexion");
 		
@@ -100,7 +100,11 @@ public class PanneauGauche extends JPanel{
 		
 	}
 
-
+	public FenetrePrincipale getFP() {
+		
+		return this.fp;
+	}
+	
 	public JButton getBouttonConnexion() {
 		
 		return this.connexion;
