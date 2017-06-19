@@ -277,28 +277,28 @@ public class BaseDeDonnees {
 
 
 	//Recuperer le nom des attributs
-	public String parcourirTable(){
-		ArrayList<String> lesTables = parcourirBase();
+	public ArrayList<String> parcourirTable(String table){
 		ArrayList<String> ret = new ArrayList<String>();
 		String affichage="";
 
 		try{
 			Requete nouvelleRequete = new Requete(connexion,"");
-			for (String s : lesTables) {
-				Object[] res = nouvelleRequete.manuel("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '"+s+"'");
+				Object[] res = nouvelleRequete.manuel("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '"+table+"'");
 
 				ResultSet rs=(ResultSet)res[1];
 
 				affichage = nouvelleRequete.retournerResultSet(rs);
 				
-			}
+				for(String str : affichage.split("[\n]")){
+					ret.add(str);
+				}
 		} catch (SQLException se){
 
 		} catch (Exception e){
 
 		}
 
-		return affichage;
+		return ret;
 
 	}
 
