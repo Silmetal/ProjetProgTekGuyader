@@ -95,18 +95,6 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 				}
 			}
 
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 
 

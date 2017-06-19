@@ -100,10 +100,10 @@ public class BaseDeDonnees {
 	private boolean connexion(String adresse, String nomUtili, String motDePasse) throws Exception,SQLException {
 		
 		boolean ret = false;
-		
+	
 		try {
 			
-			connexion = DriverManager.getConnection(adresse+"allowMultiQueries=true", nomUtili, motDePasse);
+			connexion = DriverManager.getConnection(adresse, nomUtili, motDePasse);
 			ret = estValide(connexion);
 		}
 		

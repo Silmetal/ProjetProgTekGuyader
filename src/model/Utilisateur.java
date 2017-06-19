@@ -51,11 +51,13 @@ public class Utilisateur {
 		int i=0;
 
 		ArrayList<String> lesTables = new ArrayList<String>();
+		BaseDeDonnees laBase;
 
 		try {
 			
-			BaseDeDonnees laBase = new BaseDeDonnees(url,user,password,nomDeLaBase);
+			laBase = new BaseDeDonnees(url,user,password,nomDeLaBase);
 			lesTables = laBase.parcourirBase();
+
 			
 			if(lesTables.size()==0){
 				try{
@@ -70,7 +72,7 @@ public class Utilisateur {
 				           	String columnValue = rs.getString(j);
 
 				           	if(!columnValue.equals("")){
-				           		BaseDeDonnees uneBase = new BaseDeDonnees(url+columnValue,user,password,columnValue);
+				           		BaseDeDonnees uneBase = new BaseDeDonnees(url+columnValue+"?allowMultiQueries=true",user,password,columnValue);
 				           		lesBases.add(uneBase);
 
 				           		lesTables = laBase.parcourirBase();
@@ -88,6 +90,7 @@ public class Utilisateur {
 
 			}
 			else{
+				laBase = new BaseDeDonnees(url+"?allowMultiQueries=true",user,password,nomDeLaBase);
 				lesBasesDeDonnees.add(laBase);
 			}
 
