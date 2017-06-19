@@ -8,7 +8,7 @@ import java.sql.*;
  * <P> manuel() permet d'exécuter n'importe quelle commande SQL
  * <P> 
  * Le constructore ne fait qu'initialiser le paramètre Statement, que les méthodes pourront modifier et exécuter.
- */
+ */	
 public class Requete {
 
 	/**
@@ -19,6 +19,7 @@ public class Requete {
 	/**
 	 * Constructeur de la classe. Prend en paramètre un objet Connection en paramètre et créé un objet Statement sur cette connexion. Stocke le Statement dans son attribut state.
 	 * @param connexion la connexion sur laquelle créer un Statement
+	 * @param table le nome de la table sur laquelle exécuter la requête
 	 * @throws SQLException si la connexion est invalide, ou qu'une autre erreur SQL survient
 	 */
 	public Requete(Connection connexion,String table) throws SQLException{
@@ -153,10 +154,15 @@ public class Requete {
 	
 	
 	/** 
-	  * Intègre à l'attribut state la commande SQL permettant de créer une nouvelle table à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.
+	  * Supprime la table dont le nom est donné en paramètre si celle-ci existe, puis créé une chaîne de caractère contenant une requête permettant de créer la table
+	  * avec le nom et les attributs passés en paramètre, puis exécute cette requête.
+	  * @param nomTable le nom de la table à ajouter
+	  * @param listeAttribut la liste des attributs de la table 
 	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	  * @throws SQLException si l'ajout de la table est impossible à cause d'une erreur SQL
+	  * @throws Exception si l'ajout de la table est impossible à cause d'une autre erreur
 	  */
-	 public int ajouterTable(String nomTable, ArrayList<Attribut> listeAttibut) throws SQLException,Exception {			
+	 public int ajouterTable(String nomTable, ArrayList<Attribut> listeAttribut) throws SQLException,Exception {			
 		int ret;
 	 	try{
 	 		manuel("DROP TABLE "+nomTable);
@@ -167,12 +173,10 @@ public class Requete {
 	 	catch (Exception e){
 	 		throw e;
 	 	}
-
-
-
+		
 		String requete = "CREATE TABLE "+nomTable+"(\n";
 		
-		for(Attribut monAtt : listeAttibut){
+		for(Attribut monAtt : listeAttribut){
 			requete = requete + monAtt.getNomVariable() +" "+monAtt.getType();
 			if(monAtt.getValeur()>-1) requete =requete +" ("+monAtt.getValeur()+")";
 			if(!monAtt.getContrainte().equals("")){
@@ -183,13 +187,12 @@ public class Requete {
 			}
 		}
 
-		for(Attribut monAtt : listeAttibut){
+		for(Attribut monAtt : listeAttribut){
 			if(monAtt.getAClePrimaire()){
 				requete = requete + "CONSTRAINT pk"+nomTable+" PRIMARY KEY ("+monAtt.getNomVariable()+")";
 			}
 		}
-		
-		System.out.println(requete);
+	
 		ret = creerOuModifier(requete);
 		return ret;
 	 }
