@@ -16,13 +16,13 @@ public class FenetreRequete extends JFrame{
 	private JScrollPane jspan2;
 
 
-	public FenetreRequete(String titre, Connection maConnexion){
+	public FenetreRequete(String titre, Connection maConnexion,FenetrePrincipale fp){
 		super(titre);
 		this.miseEnPlace();
 		this.setSize(800,600);
 		this.setVisible(true);
 		
-		monEcouteur = new EcouteurJButtonRequete(this,maConnexion);
+		monEcouteur = new EcouteurJButtonRequete(this,maConnexion,fp);
 
 	}
 	

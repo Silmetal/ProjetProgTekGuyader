@@ -14,10 +14,12 @@ public class EcouteurJButtonRequete implements ActionListener {
 	private FenetreRequete fr;
 	private String cheminSauvegarde;
 	private Connection maConnexion;
+	private FenetrePrincipale fp;
 
-	public EcouteurJButtonRequete(FenetreRequete fr, Connection maConnexion){
+	public EcouteurJButtonRequete(FenetreRequete fr, Connection maConnexion,FenetrePrincipale fp){
 		this.fr=fr;
 		this.maConnexion=maConnexion;
+		this.fp = fp;
 		cheminSauvegarde="";
 		addListener();
 
@@ -74,6 +76,8 @@ public class EcouteurJButtonRequete implements ActionListener {
 			e.printStackTrace();
 			fr.getMonTextPane2().setText(e.getMessage());
 		}
+
+		fp.getPanneauGauche().constructionJTree();
 		
 	}
 

@@ -39,7 +39,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 				}
 				else if(jb.getName().equals("nouvRequ")){
 					if(lUtilisateur.getLesBasesDeDonnees().size()>0 && lUtilisateur.getSelection()!=-1){
-						FenetreRequete fenRequete = new FenetreRequete("Requete",lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection());
+						FenetreRequete fenRequete = new FenetreRequete("Requete",lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(),fp);
 					}else{
 
 					}
