@@ -9,7 +9,7 @@ public class Launcher2 {
 
 
 		FenetrePrincipale fen = new FenetrePrincipale();
-
+		FenetreConnexion fenConnexion = new FenetreConnexion(fen.getUtilisateur(),fen);
 
 	
 	}

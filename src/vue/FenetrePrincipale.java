@@ -38,7 +38,9 @@ public class FenetrePrincipale extends JFrame{
 	private JMenuItem nouvVue;
 	private JMenuItem supprVue;
 	
-	private JTextArea resultat;
+	private JTable resultat;
+	
+	private JTextArea console;
 
 	private EcouteurMouseAdapter monEcouteur;
 	
@@ -50,6 +52,7 @@ public class FenetrePrincipale extends JFrame{
 	 * et les placer dans le panneau.
 	 */
 	public FenetrePrincipale(){
+		super("Gestionnaire de base de données");
 		lUtilisateur = new Utilisateur("ArthurG");
 		this.setLayout(new BorderLayout(25, 25));
 		panneauGauche = new PanneauGauche(lUtilisateur,this);
@@ -112,8 +115,7 @@ public class FenetrePrincipale extends JFrame{
 		vueMenu.add(nouvVue);
 		vueMenu.add(supprVue);
 		
-		resultat = new JTextArea("", 1, 1);
-		resultat.setEditable(false);
+		resultat = new JTable(1,1);
 		resultat.setSize(300,400);
 		
 		JLabel labelResul = new JLabel("Résultat");
@@ -217,8 +219,12 @@ public class FenetrePrincipale extends JFrame{
 		return this.supprVue;
 	}
 	
-	public JTextArea getResultat(){
+	public JTable getResultat(){
 		return this.resultat;
+	}
+	
+	public JTextArea getConsole(){
+		return this.console;
 	}
 
 	public PanneauGauche getPanneauGauche(){

@@ -14,6 +14,7 @@ public class FenetreRequete extends JFrame{
 	private EcouteurJButtonRequete monEcouteur;
 	private JScrollPane jspan1;
 	private JScrollPane jspan2;
+	private FenetrePrincipale fp;
 
 
 	public FenetreRequete(String titre, Connection maConnexion,FenetrePrincipale fp){
@@ -21,6 +22,7 @@ public class FenetreRequete extends JFrame{
 		this.miseEnPlace();
 		this.setSize(800,600);
 		this.setVisible(true);
+		this.fp = fp;
 		
 		monEcouteur = new EcouteurJButtonRequete(this,maConnexion,fp);
 

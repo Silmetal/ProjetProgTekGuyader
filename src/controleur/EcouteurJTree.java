@@ -51,7 +51,6 @@ public class EcouteurJTree implements TreeSelectionListener {
      	System.out.println("Table : "+lUtilisateur.getTable());
 		
 		String retTable = DBTablePrinter.printTable(lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(), lUtilisateur.getTable());
-		fp.getResultat().setText(retTable);
 		System.out.println(retTable);
 	 }
  }

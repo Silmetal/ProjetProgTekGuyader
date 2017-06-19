@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import model.*;
+import controleur.*;
 import java.sql.*;
 import java.lang.*;
 
@@ -13,7 +14,7 @@ import java.lang.*;
  * se connecter à la base, si bien sûr aucune erreur de connexion ne survient.
  * <P>Le champs de saisie du mot de passe cache les caractères saisis.
  */
-public class FenetreConnexion extends JFrame implements ActionListener{
+public class FenetreConnexion extends JFrame{
 	/**
 	 * Le bouton de connexion
 	 */
@@ -44,6 +45,7 @@ public class FenetreConnexion extends JFrame implements ActionListener{
 	private FenetrePrincipale fp;
 
 	public FenetreConnexion(Utilisateur lUtilisateur,FenetrePrincipale fp){
+		super("Connexion");
 		this.lUtilisateur=lUtilisateur;
 		this.fp = fp;
 		this.setLayout(new BorderLayout());
@@ -87,36 +89,34 @@ public class FenetreConnexion extends JFrame implements ActionListener{
 		this.add(panneauChamps, BorderLayout.CENTER);
 		this.add(panneauBoutton, BorderLayout.SOUTH);
 		
-
-		connexion.addActionListener(this);
-
-
-		
-	}
-
-
-
-	public void actionPerformed(ActionEvent e){
-		if(!(nomUtiliTF.getText().equals("") || adresseTF.getText().equals("") || mdpPF.getText().equals(""))){
-
-			try{
-				lUtilisateur.connect(adresseTF.getText(),nomUtiliTF.getText(),mdpPF.getText(),nomDeLaBaseTF.getText());
-				fp.getPanneauGauche().constructionJTree();
-				this.dispose();
-			} catch(ClassNotFoundException cnfe){
-				System.out.println("FenetreConnexion : Pilote non trouvée");
-			} catch(SQLException se){
-				System.out.println("FenetreConnexion : Erreur SQL");
-			}
-			catch(Exception ex){
-				ex.printStackTrace();
-				System.out.println(ex.getMessage());
-				System.out.println("FenetreConnexion : Erreur");
-			}
-		}
-		else{
-			System.out.println("Pas tout completer");
-		}
+		connexion.addActionListener(new EcouteurFenetreConnexion(this));
 	}
 	
+	public JButton getBouttonConnexion(){
+		return this.connexion;
+	}
+	
+	public JTextField getNomUtiliTF(){
+		return this.nomUtiliTF;
+	}
+	
+	public JTextField getAdresseTF(){
+		return this.adresseTF;
+	}
+	
+	public JTextField getNomDeLaBaseTF(){
+		return this.nomDeLaBaseTF;
+	}
+	
+	public JPasswordField getMdpPF(){
+		return this.mdpPF;
+	}
+	
+	public Utilisateur getUtilisateur(){
+		return this.lUtilisateur;
+	}
+	
+	public FenetrePrincipale getFP(){
+		return this.fp;
+	}
 }
