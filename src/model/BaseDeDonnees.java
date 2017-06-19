@@ -103,7 +103,7 @@ public class BaseDeDonnees {
 		
 		try {
 			
-			connexion = DriverManager.getConnection(adresse, nomUtili, motDePasse);
+			connexion = DriverManager.getConnection(adresse+"allowMultiQueries=true", nomUtili, motDePasse);
 			ret = estValide(connexion);
 		}
 		
