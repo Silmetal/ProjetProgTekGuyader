@@ -23,7 +23,7 @@ public class BaseDeDonneesTest{
 		boolean test=true;
 		
 		try{
-			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","admin", "admin","test");
+			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/","admin", "admin","iutvannes");
 			assertNotNull(maBase.getConnection());
 		}
 		catch(ClassNotFoundException ce){
@@ -38,7 +38,7 @@ public class BaseDeDonneesTest{
 
 
     	try{
-    		BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","qfqsfn", "admin","test");
+    		BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/","qfqsfn", "admin","iutvannes");
     	}
     	catch(ClassNotFoundException ce){
 			assertFalse(false);
