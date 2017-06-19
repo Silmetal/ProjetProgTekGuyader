@@ -301,8 +301,8 @@ public class DBTablePrinter {
     }
 
     /**
-     * Overloaded method that prints rows from table <code>tableName</code>
-     * to standard out using the given database connection
+     * Overloaded method that stores rows from table <code>tableName</code>
+     * in a string using the given database connection
      * <code>conn</code>. Total number of rows will be limited to
      * {@link #DEFAULT_MAX_ROWS} and
      * {@link #DEFAULT_MAX_TEXT_COL_WIDTH} will be used to limit
@@ -310,14 +310,15 @@ public class DBTablePrinter {
      *
      * @param conn Database connection object (java.sql.Connection)
      * @param tableName Name of the database table
+	 * @return A String containing the data of the table
      */
     public static String printTable(Connection conn, String tableName){
         return printTable(conn, tableName, DEFAULT_MAX_ROWS, DEFAULT_MAX_TEXT_COL_WIDTH);
     }
 
     /**
-     * Overloaded method that prints rows from table <code>tableName</code>
-     * to standard out using the given database connection
+     * Overloaded method that stores rows from table <code>tableName</code>
+     * in a string using the given database connection
      * <code>conn</code>. Total number of rows will be limited to
      * <code>maxRows</code> and
      * {@link #DEFAULT_MAX_TEXT_COL_WIDTH} will be used to limit
@@ -326,14 +327,15 @@ public class DBTablePrinter {
      * @param conn Database connection object (java.sql.Connection)
      * @param tableName Name of the database table
      * @param maxRows Number of max. rows to query and print
+	 * @return A String containing the data of the table
      */
     public static String printTable(Connection conn, String tableName, int maxRows) {
         return printTable(conn, tableName, maxRows, DEFAULT_MAX_TEXT_COL_WIDTH);
     }
 
     /**
-     * Overloaded method that prints rows from table <code>tableName</code>
-     * to standard out using the given database connection
+     * Overloaded method that stores rows from table <code>tableName</code>
+     * in a string using the given database connection
      * <code>conn</code>. Total number of rows will be limited to
      * <code>maxRows</code> and
      * <code>maxStringColWidth</code> will be used to limit
@@ -343,6 +345,7 @@ public class DBTablePrinter {
      * @param tableName Name of the database table
      * @param maxRows Number of max. rows to query and print
      * @param maxStringColWidth Max. width of text columns
+	 * @return A String containing the data of the table
      */
     public static String printTable(Connection conn, String tableName, int maxRows, int maxStringColWidth) {
 		
@@ -398,25 +401,27 @@ public class DBTablePrinter {
     }
 
     /**
-     * Overloaded method to print rows of a <a target="_blank"
+     * Overloaded method to store rows of a <a target="_blank"
      * href="http://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html">
-     * ResultSet</a> to standard out using {@link #DEFAULT_MAX_TEXT_COL_WIDTH}
+     * ResultSet</a> in a string using {@link #DEFAULT_MAX_TEXT_COL_WIDTH}
      * to limit the width of text columns.
      *
      * @param rs The <code>ResultSet</code> to print
+	 * @return A String containing the data of the ResultSet
      */
     public static String printResultSet(ResultSet rs) {
         return printResultSet(rs, DEFAULT_MAX_TEXT_COL_WIDTH);
     }
 
     /**
-     * Overloaded method to print rows of a <a target="_blank"
+     * Overloaded method to store rows of a <a target="_blank"
      * href="http://docs.oracle.com/javase/8/docs/api/java/sql/ResultSet.html">
-     * ResultSet</a> to standard out using <code>maxStringColWidth</code>
+     * ResultSet</a> in a string using {@link #DEFAULT_MAX_TEXT_COL_WIDTH}
      * to limit the width of text columns.
      *
      * @param rs The <code>ResultSet</code> to print
      * @param maxStringColWidth Max. width of text columns
+	 * @return A String containing the data of the ResultSet
      */
     public static String printResultSet(ResultSet rs, int maxStringColWidth) {
         String ret = null;
