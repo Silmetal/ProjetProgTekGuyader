@@ -55,7 +55,7 @@ public class Utilisateur {
 		try {
 			
 			BaseDeDonnees laBase = new BaseDeDonnees(url,user,password,nomDeLaBase);
-			lesTables = this.parcourirBase(laBase);
+			lesTables = laBase.parcourirBase();
 			
 			if(lesTables.size()==0){
 				try{
@@ -73,7 +73,7 @@ public class Utilisateur {
 				           		BaseDeDonnees uneBase = new BaseDeDonnees(url+columnValue,user,password,columnValue);
 				           		lesBases.add(uneBase);
 
-				           		lesTables = this.parcourirBase(uneBase);
+				           		lesTables = laBase.parcourirBase();
 				           	}
 				       }
 					}
@@ -102,10 +102,6 @@ public class Utilisateur {
 		catch (Exception e) {
 			throw e;
 		}
-
-
-
-
 	}
 
 
@@ -122,7 +118,7 @@ public class Utilisateur {
 	
 
 
-	//Recupere le nom des tables de la base
+	/* //Recupere le nom des tables de la base
 	public ArrayList<String> parcourirBase(BaseDeDonnees laBase){
 		DatabaseMetaData dmd;
 		ResultSet tables;
@@ -140,14 +136,7 @@ public class Utilisateur {
 			System.out.println("Impossible de parcourir la base");
 		}
 		return ret;
-	}
-
-
-
-
-
-
-
+	} */
 
 	/** Permet de se deconnecter de la base de donnée sélectionné 
 	*

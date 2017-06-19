@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Cette classe établit une connexion à une base de données grâce à JDBC et les classes de java.sql.
@@ -79,6 +80,7 @@ public class BaseDeDonnees {
 		catch (ClassNotFoundException e) {
 			
 			System.out.println("Pilote non trouvé");
+			e.printStackTrace();
 			throw e;
 		}
 		
@@ -243,6 +245,46 @@ public class BaseDeDonnees {
 				throw se;
 			}
 		}
+	}
+	
+	//Recupere le nom des tables de la base
+	public ArrayList<String> parcourirBase(){
+		DatabaseMetaData dmd;
+		ResultSet tables;
+		int i=0;
+		ArrayList<String> ret = new ArrayList<String>();
+		try{
+			dmd = this.connexion.getMetaData();
+			tables = dmd.getTables(this.connexion.getCatalog(),null,"%",null);
+			i=0;
+			while(tables.next()){
+				ret.add(tables.getString(3));
+				i++;
+			}
+		} catch(SQLException e){
+			System.out.println("Impossible de parcourir la base");
+		}
+		return ret;
+	}
+	
+	public ArrayList<String> afficherTable(){
+		Statement st = conn.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int i=0;
+		ArrayList<String> ret = new ArrayList<String>();
+		try{
+			dmd = this.connexion.getMetaData();
+			tables = dmd.getTables(this.connexion.getCatalog(),null,"%",null);
+			i=0;
+			while(tables.next()){
+				ret.add(tables.getString(3));
+				i++;
+			}
+		} catch(SQLException e){
+			System.out.println("Impossible de parcourir la base");
+		}
+		return ret;
 	}
 	
 	/**

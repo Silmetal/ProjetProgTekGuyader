@@ -46,5 +46,5 @@ public class EcouteurJTree implements TreeSelectionListener {
 
 		System.out.println("Base : "+lUtilisateur.getSelection());
      	System.out.println("Table : "+lUtilisateur.getTable());
-     }
+	 }
  }
