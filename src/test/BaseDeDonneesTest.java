@@ -23,7 +23,7 @@ public class BaseDeDonneesTest{
 		boolean test=true;
 		
 		try{
-			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/","admin", "admin","iutvannes");
+			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/","admin", "iutvannes","base");
 			assertNotNull(maBase.getConnection());
 		}
 		catch(ClassNotFoundException ce){

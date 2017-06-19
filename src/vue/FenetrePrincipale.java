@@ -185,9 +185,6 @@ public class FenetrePrincipale extends JFrame{
 		return this.vueMenu;
 	}
 
-
-
-
 	public JMenuItem getNouvTable(){
 		return this.nouvTable;
 	}
@@ -219,7 +216,10 @@ public class FenetrePrincipale extends JFrame{
 	public JMenuItem getSupprVue(){
 		return this.supprVue;
 	}
-
+	
+	public JTextArea getResultat(){
+		return this.resultat;
+	}
 
 	public PanneauGauche getPanneauGauche(){
 		return this.panneauGauche;
