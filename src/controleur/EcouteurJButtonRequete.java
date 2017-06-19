@@ -59,7 +59,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 
 			if(rs!=null){
 				String affichage="";
-				affichage = maRequete.retournerResultSet(rs);
+				affichage = maRequete.retournerResultSet(rs,true);
 				fr.getMonTextPane2().setText("Requete : \n"+affichage);
 
 			}

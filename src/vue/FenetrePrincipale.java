@@ -4,6 +4,10 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.table.*;
+import java.util.*;
+
+
 /**
  * Cette classe est la classe d'IHM de la fenêtre permettant la connexion à la base de donnée. Trois champs de texte sont présents, demandant
  * à l'utilsiateur son identifiant, son mot de passe et l'adresse de la base. Une fois ces champs remplis, l'utilsateur n'a qu'à cliquer sur le bouton de connexion pour
@@ -38,13 +42,16 @@ public class FenetrePrincipale extends JFrame{
 	private JMenuItem nouvVue;
 	private JMenuItem supprVue;
 	
-	private JTable resultat;
+	private JTable jTable;
 	
 	private JTextArea console;
 
 	private EcouteurMouseAdapter monEcouteur;
 	
 	private Utilisateur lUtilisateur;
+
+	private DefaultTableModel dTM;
+	private String [][] data;
 
 	
 	/**
@@ -115,8 +122,14 @@ public class FenetrePrincipale extends JFrame{
 		vueMenu.add(nouvVue);
 		vueMenu.add(supprVue);
 		
-		resultat = new JTable(1,1);
-		resultat.setSize(300,400);
+
+
+
+		String[] titre={"Selectionner la table a afficher"};
+		data = new String[1][1];
+		dTM = new DefaultTableModel(data,titre);
+		jTable = new JTable(dTM);
+		jTable.setSize(300,400);
 		
 		JLabel labelResul = new JLabel("Résultat");
 		
@@ -135,12 +148,26 @@ public class FenetrePrincipale extends JFrame{
 		panneauBoutton.add(vue);
 		
 		panneauLabel.add(labelResul);
-		
-		panneauResultat.add(resultat, BorderLayout.CENTER);
+
+		console = new JTextArea();
+
+		JScrollPane span2 = new JScrollPane(console);
+
+		panneauResultat.add(span2, BorderLayout.CENTER);
 		panneauResultat.add(panneauLabel, BorderLayout.NORTH);
 		
+
+		JPanel panneauDroite = new JPanel();
+		panneauDroite.setLayout(new GridLayout(2,1));
+
+
+		JScrollPane span1 = new JScrollPane(jTable);
+
+		panneauDroite.add(span1);
+		panneauDroite.add(panneauResultat);
+
 		panneauCentral.add(panneauBoutton, BorderLayout.WEST);
-		panneauCentral.add(panneauResultat, BorderLayout.CENTER);
+		panneauCentral.add(panneauDroite, BorderLayout.CENTER);
 		
 		// Ajout des sous-panneaux dans le panneau de connexion
 		this.add(panneauCentral, BorderLayout.CENTER);
@@ -149,6 +176,40 @@ public class FenetrePrincipale extends JFrame{
 
 		monEcouteur = new EcouteurMouseAdapter(this,lUtilisateur);
 	}
+
+
+	public void setJTable(BaseDeDonnees bd,String table){
+		String[] lesVal=null;
+		dTM.setColumnCount(0);
+		if(!table.equals("")){
+
+
+			ArrayList<String> lesAttribut = bd.parcourirTable(table);
+			for(String str : lesAttribut){
+				ArrayList<String> lesValeurs = bd.parcourirAttribut(str,table);
+				lesVal = new String[lesValeurs.size()];
+
+				for(int i=0;i<lesValeurs.size();i++){
+	//				System.out.println(lesValeurs.get(i));
+					lesVal[i]=lesValeurs.get(i);
+
+				}
+				dTM.setRowCount(lesVal.length);
+				dTM.addColumn(str,lesVal);
+
+			}		
+
+				
+			
+			
+		}
+
+
+
+	}
+
+
+
 	
 	public JButton getBouttonNouvRequ() {
 		
@@ -219,8 +280,8 @@ public class FenetrePrincipale extends JFrame{
 		return this.supprVue;
 	}
 	
-	public JTable getResultat(){
-		return this.resultat;
+	public JTable getTable(){
+		return this.jTable;
 	}
 	
 	public JTextArea getConsole(){

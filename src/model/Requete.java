@@ -260,7 +260,7 @@ public class Requete {
 
 
 
-	public String retournerResultSet(ResultSet rs) throws SQLException,Exception{
+	public String retournerResultSet(ResultSet rs,boolean withColumnName) throws SQLException,Exception{
 		String ret="";
 		try{
 		
@@ -271,7 +271,20 @@ public class Requete {
 		       for (int i = 1; i <= columnsNumber; i++) {
 		           	if (i > 1) ret=ret+",  ";
 		           	String columnValue = rs.getString(i);
-		         	ret=ret+columnValue + " \n";
+		           	String columnName = rsmd.getColumnName(i);
+		           	if(withColumnName){
+		           		if(i==1){
+		           			ret = ret +columnName+" "+ columnValue + " \n";
+		           		}
+		           		else{
+		           			ret = ret + columnValue +" \n";
+		           		}
+		           	}
+		           	else{
+		           		ret=ret+columnValue + " \n";
+		           	}
+
+		         	
 		         	
 		       }
 

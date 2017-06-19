@@ -288,9 +288,38 @@ public class BaseDeDonnees {
 
 				ResultSet rs=(ResultSet)res[1];
 
-				affichage = nouvelleRequete.retournerResultSet(rs);
+				affichage = nouvelleRequete.retournerResultSet(rs,false);
 				
 				for(String str : affichage.split("[\n]")){
+					ret.add(str);
+				}
+		} catch (SQLException se){
+
+		} catch (Exception e){
+
+		}
+
+		return ret;
+
+	}
+
+
+	//Recuperer le valeurs des attribut
+	public ArrayList<String> parcourirAttribut(String attribut,String table){
+		System.out.println("********");
+		ArrayList<String> ret = new ArrayList<String>();
+		String affichage="";
+
+		try{
+			Requete nouvelleRequete = new Requete(connexion,"");
+				Object[] res = nouvelleRequete.manuel("SELECT "+attribut+" FROM "+table+";");
+
+				ResultSet rs=(ResultSet)res[1];
+
+				affichage = nouvelleRequete.retournerResultSet(rs,false);
+				
+				for(String str : affichage.split("[\n]")){
+					System.out.println(str);
 					ret.add(str);
 				}
 		} catch (SQLException se){

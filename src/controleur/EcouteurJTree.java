@@ -34,23 +34,23 @@ public class EcouteurJTree implements TreeSelectionListener {
 					lUtilisateur.setSelection(lUtilisateur.getPositionBase(splitArray[2].trim()));
 	     		}
 
-	     		if (i==3){
+	     		if (i>=3){
 	     			lUtilisateur.setTable(splitArray[3].trim());
+	     			fp.setJTable(lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()),lUtilisateur.getTable());
+	
 	     		}
 	     		else{
 	     			lUtilisateur.setTable("");
 	     		}
 	     	}
+	     	String retTable = DBTablePrinter.printTable(lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(), lUtilisateur.getTable());
 	     }
 	     catch(NullPointerException npe){
 	     	lUtilisateur.setSelection(-1);
 	     	lUtilisateur.setTable("");
 	     }
 
-		System.out.println("Base : "+lUtilisateur.getSelection());
      	System.out.println("Table : "+lUtilisateur.getTable());
-		
-		String retTable = DBTablePrinter.printTable(lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(), lUtilisateur.getTable());
-		System.out.println(retTable);
+			System.out.println("Base : "+lUtilisateur.getSelection());
 	 }
  }

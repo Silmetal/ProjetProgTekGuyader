@@ -7,6 +7,7 @@ import model.*;
 import javax.swing.tree.*;
 import java.sql.*;
 import controleur.*;
+import com.adbs.querybuilder.*;
 
 /**
  * Cette classe est la classe d'IHM de la fenêtre permettant la connexion à la base de donnée. Trois champs de texte sont présents, demandant
@@ -81,6 +82,8 @@ public class PanneauGauche extends JPanel{
 
 	public void constructionJTree(){
 		int i=0;
+		ImageIcon imgIc = new ImageIcon("../fichier/bdd.jpg");
+
 		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(lUtilisateur.getId());
 		DefaultMutableTreeNode tableVue = new DefaultMutableTreeNode("TABLES ET VUES");
 		for(BaseDeDonnees base : lUtilisateur.getLesBasesDeDonnees()){
@@ -94,9 +97,10 @@ public class PanneauGauche extends JPanel{
 					DefaultMutableTreeNode rep3 = new DefaultMutableTreeNode(str);
 					rep2.add(rep3);
 				}
-				rep.add(rep2);
+				CustomTreeNode rep22= new CustomTreeNode(imgIc,rep2);
+				rep.add(rep22);
 			}
-			tableVue.add(rep);
+			tableVue.add(rep,imgIc);
 			racine.add(tableVue);		
 		}
 
