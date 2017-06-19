@@ -268,8 +268,8 @@ public class Requete {
 		       for (int i = 1; i <= columnsNumber; i++) {
 		           	if (i > 1) ret=ret+",  ";
 		           	String columnValue = rs.getString(i);
-		         	ret=ret+columnValue + " \n" + rsmd.getColumnName(i);
-		         	System.out.println(rsmd.getColumnName(i));
+		         	ret=ret+columnValue + " \n";
+		         	
 		       }
 
 			}

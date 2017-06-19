@@ -78,14 +78,18 @@ public class PanneauGauche extends JPanel{
 
 
 	public void constructionJTree(){
+		int i=0;
 		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(lUtilisateur.getId());
 		for(BaseDeDonnees base : lUtilisateur.getLesBasesDeDonnees()){
 			DefaultMutableTreeNode rep = new DefaultMutableTreeNode(base.getNomDeLaBase());
 			ArrayList<String> lesTables = base.parcourirBase();
+			i=0;
 			for(String s : lesTables){
 				DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(s);
 				rep.add(rep2);
+				if(i==0)
 				System.out.println(base.parcourirTable());
+				i++;
 			}
 			racine.add(rep);		
 		}

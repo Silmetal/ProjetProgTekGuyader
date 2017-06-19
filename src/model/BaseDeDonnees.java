@@ -272,17 +272,15 @@ public class BaseDeDonnees {
 		    listString += s + "\t";
 		}
 
-		System.out.println(listString);
-
 		return ret;
 	}
 
 
 	//Recuperer le nom des attributs
-	public ArrayList<String> parcourirTable(){
+	public String parcourirTable(){
 		ArrayList<String> lesTables = parcourirBase();
 		ArrayList<String> ret = new ArrayList<String>();
-		String affichage;
+		String affichage="";
 
 		try{
 			Requete nouvelleRequete = new Requete(connexion,"");
@@ -292,7 +290,7 @@ public class BaseDeDonnees {
 				ResultSet rs=(ResultSet)res[1];
 
 				affichage = nouvelleRequete.retournerResultSet(rs);
-				System.out.println("\n********************************************************************\n"+affichage+"\n********************************************************************\n");
+				
 			}
 		} catch (SQLException se){
 
@@ -300,7 +298,7 @@ public class BaseDeDonnees {
 
 		}
 
-		return ret;
+		return affichage;
 
 	}
 
