@@ -206,6 +206,7 @@ public class BaseDeDonnees {
 	/**
 	 * Parcourt la base de données et renvoie une ArrayList contenant les noms de toutes les tables et vues de la base.
 	 * @return une ArrayList contenant les noms de toutes les tables et vue de la base.
+	 * @throws SQLException si une exception SQL empêche le déroulement de la méthode. Renvoie l'erreur à la classe appelante.
 	 */
 	public ArrayList<String> parcourirBase() throws SQLException{
 		DatabaseMetaData dmd;
@@ -273,7 +274,7 @@ public class BaseDeDonnees {
 
 	/**
 	 * Parcourt la colonne dont le nom et la table sont passés en paramètre et retourne les valeurs contenues dans cette colonne
-	 * @param le nom de l'attribut dont on veut les valeurs.
+	 * @param attribut le nom de l'attribut dont on veut les valeurs.
 	 * @param table le nom de la table contenant l'attribut
 	 * @return une ArrayList contenant les noms de toutes les valeurs de l'attribut passé en paramètre
 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.

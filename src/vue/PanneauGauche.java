@@ -77,8 +77,9 @@ public class PanneauGauche extends JPanel{
 		this.add(panneauBouton, BorderLayout.NORTH);		
 	}
 	
-
-
+	/**
+	 * Mets à jour le JTree en fonction des requêtes et des informations de connexion. Cette méthode est appelée à la connexion et à chaque fois qu'une requête est lancée.
+	 */
 	public void constructionJTree(){
 		int i=0;
 	//	ImageIcon imgIc = new ImageIcon("../fichier/bdd.jpg");
@@ -109,6 +110,7 @@ public class PanneauGauche extends JPanel{
 	
 	/**
 	 * Retourne la FenêtrePrincipale contenant ce PanneauGauche
+	 * @return la FenêtrePrincipale contenant ce PanneauGauche
 	 */
 	public FenetrePrincipale getFP() {
 		
@@ -117,6 +119,7 @@ public class PanneauGauche extends JPanel{
 	
 	/**
 	 * Retourne le BoutonConnexion de l'instance
+	 * @return le BoutonConnexion de l'instance
 	 */
 	public JButton getBoutonConnexion() {
 		
@@ -125,6 +128,7 @@ public class PanneauGauche extends JPanel{
 	
 	/**
 	 * Retourne le JTree arborescence de l'instance
+	 * @return le JTree arborescence de l'instance
 	 */
 	public JTree getArborescence() {
 		

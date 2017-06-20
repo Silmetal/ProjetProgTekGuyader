@@ -16,7 +16,13 @@ public class FenetreRequete extends JFrame{
 	private JScrollPane jspan2;
 	private FenetrePrincipale fp;
 
-
+	/**
+	 * Le constructeur de la classe. Créée une nouvelle fenêtre avec le titre passé en paramètre, puis mets en place les éléments et définit la taille et la visibilité.
+	 * Initialise également son attribut fp avec la FenetrePrincipale passée en paramètre, et son écouteur avec la Connection passée en paramètre.
+	 * @param titre le titre de la fenêtre
+	 * @param maConnexion la Connection associée à la fenêtre
+	 * @param fp la FenetrePrincipale dont dépend cette fenêtre
+	 */
 	public FenetreRequete(String titre, Connection maConnexion,FenetrePrincipale fp){
 		super(titre);
 		this.miseEnPlace();
@@ -28,7 +34,9 @@ public class FenetreRequete extends JFrame{
 
 	}
 	
-
+	/**
+	 * Génère les éléments graphiques et les dispose dans la fenêtre.
+	 */
 	private void miseEnPlace(){
 		JPanel panPrincipal = new JPanel();
 		panPrincipal.setLayout(new GridBagLayout());
@@ -74,15 +82,26 @@ public class FenetreRequete extends JFrame{
 	}
 
 
-
+	/**
+	 * Retourne le PanneauBouton2 contenu dans l'instance
+	 * @return le PanneauBouton2 contenu dans l'instance
+	 */
 	public PanneauButton2 getMonPanneauButton2(){
 		return this.monPanneauButton2;
 	}
-
+	
+	/**
+	 * Retourne le premier JTextPane contenu dans l'instance, qui correspond au champ de saisie
+	 * @return le premier JTextPane contenu dans l'instance, qui correspond au champ de saisie
+	 */
 	public JTextPane getMonTextPane1(){
 		return this.monTextPane1;
 	}
-
+	
+	/**
+	 * Retourne le second JTextPane contenu dans l'instance, qui correspond à la console
+	 * @return le second JTextPane contenu dans l'instance, qui correspond à la console
+	 */
 	public JTextPane getMonTextPane2(){
 		return this.monTextPane2;
 	}

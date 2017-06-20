@@ -16,6 +16,7 @@ public class Requete {
 	 */
 	private Statement state;
 	private String table;
+	
 	/**
 	 * Constructeur de la classe. Prend en paramètre un objet Connection en paramètre et créé un objet Statement sur cette connexion. Stocke le Statement dans son attribut state.
 	 * @param connexion la connexion sur laquelle créer un Statement

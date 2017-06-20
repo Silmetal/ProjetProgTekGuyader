@@ -56,7 +56,7 @@ public class FenetreConnexion extends JFrame{
 	}
 	
 	/**
-	 * Génère les éléments graphiques et les dispose dans le panneau.
+	 * Génère les éléments graphiques et les dispose dans la fenêtre.
 	 */
 	private void miseEnPlace(){
 		
@@ -93,30 +93,58 @@ public class FenetreConnexion extends JFrame{
 		connexion.addActionListener(new EcouteurFenetreConnexion(this));
 	}
 	
+	/**
+	 * Retourne le bouton Connexion de l'instance
+	 * @return le bouton Connexion de l'instance
+	 */
 	public JButton getBoutonConnexion(){
 		return this.connexion;
 	}
 	
+	/**
+	 * Retourne le champs de saisie de nom d'utilisateur de l'instance (nomUtiliTF)
+	 * @return le champs de saisie de nom d'utilisateur de l'instance (nomUtiliTF)
+	 */
 	public JTextField getNomUtiliTF(){
 		return this.nomUtiliTF;
 	}
 	
+	/**
+	 * Retourne le champs de saisie d'adresse de l'instance (adresseTF)
+	 * @return le champs de saisie d'adresse de l'instance (adresseTF)
+	 */
 	public JTextField getAdresseTF(){
 		return this.adresseTF;
 	}
 	
+	/**
+	 * Retourne le champs de saisie de nom de la base de l'instance (nomDeLaBaseTF)
+	 * @return le champs de saisie de nom de la base de l'instance (nomDeLaBaseTF)
+	 */
 	public JTextField getNomDeLaBaseTF(){
 		return this.nomDeLaBaseTF;
 	}
 	
+	/**
+	 * Retourne le champs de saisie de mot de passe de l'instance (mdpPF)
+	 * @return le champs de saisie de mot de passe de l'instance (mdpPF)
+	 */
 	public JPasswordField getMdpPF(){
 		return this.mdpPF;
 	}
 	
+	/**
+	 * Retourne l'Utilisateur associé à l'instance
+	 * @return l'Utilisateur associé à l'instance
+	 */
 	public Utilisateur getUtilisateur(){
 		return this.lUtilisateur;
 	}
 	
+	/**
+	 * Retourne la FenetrePrincipale associée à l'instance
+	 * @return la FenetrePrincipale associée à l'instance
+	 */
 	public FenetrePrincipale getFP(){
 		return this.fp;
 	}

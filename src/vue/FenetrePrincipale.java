@@ -71,7 +71,7 @@ public class FenetrePrincipale extends JFrame{
 	}
 	
 	/**
-	 * Génère les éléments graphiques et les dispose dans le panneau.
+	 * Génère les éléments graphiques et les dispose dans la fenêtre.
 	 */
 	private void miseEnPlace(){
 		
@@ -187,7 +187,11 @@ public class FenetrePrincipale extends JFrame{
 		monEcouteur = new EcouteurMouseAdapter(this,lUtilisateur);
 	}
 
-
+	/**
+	 * Cette méthode modifie le JTable pour afficher le contenu de la table selectionnée. Cette méthode est appelée à chaque fois que l'on clique sur un élément du JTree
+	 * @param bd la BaseDeDonnees contenant la table sélectionnée
+	 * @param table la table à afficher
+	 */
 	public void setJTable(BaseDeDonnees bd,String table){
 		String[] lesVal=null;
 		dTM.setColumnCount(0);
@@ -213,88 +217,175 @@ public class FenetrePrincipale extends JFrame{
 
 
 
-	
+	/**
+	 * Retourne le bouton Nouvelle Requête de l'instance (nouvRequ)
+	 * @return le bouton Nouvelle Requête de l'instance (nouvRequ)
+	 */
 	public JButton getBoutonNouvRequ() {
 		
 		return this.nouvRequ;
 	}
+	
+	/**
+	 * Retourne le bouton Table de l'instance
+	 * @return le bouton Table de l'instance
+	 */
 	public JButton getBoutonTable() {
 		
 		return this.table;
 	}
+	
+	/**
+	 * Retourne le bouton Trigger de l'instance
+	 * @return le bouton Trigger de l'instance
+	 */
 	public JButton getBoutonTrigger() {
 		
 		return this.trigger;
 	}
+	
+	/**
+	 * Retourne le bouton Tuple de l'instance
+	 * @return le bouton Tuple de l'instance
+	 */
 	public JButton getBoutonTuple() {
 		
 		return this.tuple;
 	}
+	
+	/**
+	 * Retourne le bouton Vue de l'instance
+	 * @return le bouton Vue de l'instance
+	 */
 	public JButton getBoutonVue() {
 		
 		return this.vue;
 	}
-
+	
+	/**
+	 * Retourne le JPopupMenu associé au bouton Tuple de l'instance
+	 * @return le JPopupMenu associé au bouton Tuple de l'instance
+	 */
 	public JPopupMenu getTupleMenu(){
 		return this.tupleMenu;
 	}
-
+	
+	/**
+	 * Retourne le JPopupMenu associé au bouton Table de l'instance
+	 * @return le JPopupMenu associé au bouton Table de l'instance
+	 */
 	public JPopupMenu getTableMenu(){
 		return this.tableMenu;
 	}
-
+	
+	/**
+	 * Retourne le JPopupMenu associé au bouton Trigger de l'instance
+	 * @return le JPopupMenu associé au bouton Trigger de l'instance
+	 */
 	public JPopupMenu getTriggerMenu(){
 		return this.triggerMenu;
 	}
 
+	/**
+	 * Retourne le JPopupMenu associé au bouton Vue de l'instance
+	 * @return le JPopupMenu associé au bouton Vue de l'instance
+	 */
 	public JPopupMenu getVueMenu(){
 		return this.vueMenu;
 	}
-
+	
+	/**
+	 * Retourne le JMenuItem Nouvelle Table de l'instance
+	 * @return le JMenuItem Nouvelle Table de l'instance
+	 */
 	public JMenuItem getNouvTable(){
 		return this.nouvTable;
 	}
-
+	
+	/**
+	 * Retourne le JMenuItem Supprimer Table de l'instance
+	 * @return le JMenuItem Supprimer Table de l'instance
+	 */
 	public JMenuItem getSupprTable(){
 		return this.supprTable;
 	}
-
+	
+	/**
+	 * Retourne le JMenuItem Nouveau Tuple de l'instance
+	 * @return le JMenuItem Nouveau Tuple de l'instance
+	 */
 	public JMenuItem getNouvTuple(){
 		return this.nouvTuple;
 	}
 
+	/**
+	 * Retourne le JMenuItem Supprimer Tuple de l'instance
+	 * @return le JMenuItem Supprimer Tuple de l'instance
+	 */
 	public JMenuItem getSupprTuple(){
 		return this.supprTuple;
 	}
-
+	
+	/**
+	 * Retourne le JMenuItem Nouveau Trigger de l'instance
+	 * @return le JMenuItem Nouveau Trigger de l'instance
+	 */
 	public JMenuItem getNouvTrigger(){
 		return this.nouvTrigger;
 	}
 
+	/**
+	 * Retourne le JMenuItem Supprimer Trigger de l'instance
+	 * @return le JMenuItem Supprimer Trigger de l'instance
+	 */
 	public JMenuItem getSupprTrigger(){
 		return this.supprTrigger;
 	}
 
+	/**
+	 * Retourne le JMenuItem Nouvelle Vue de l'instance
+	 * @return le JMenuItem Nouvelle Vue de l'instance
+	 */
 	public JMenuItem getNouvVue(){
 		return this.nouvVue;
 	}
 
+	/**
+	 * Retourne le JMenuItem Supprimer Vue de l'instance
+	 * @return le JMenuItem Supprimer Vue de l'instance
+	 */
 	public JMenuItem getSupprVue(){
 		return this.supprVue;
 	}
 	
+	/**
+	 * Retourne le JTable de l'instance
+	 * @return le JTable de l'instance
+	 */
 	public JTable getTable(){
 		return this.jTable;
 	}
 	
+	/**
+	 * Retourne le JTextArea correspondant à la console
+	 * @return le JTextArea correspondant à la console
+	 */
 	public JTextArea getConsole(){
 		return this.console;
 	}
-
+	
+	/**
+	 * Retourne le PanneauGauche contenu dans l'instance
+	 * @return le PanneauGauche contenu dans l'instance
+	 */
 	public PanneauGauche getPanneauGauche(){
 		return this.panneauGauche;
 	}
-
+	
+	/**
+	 * Retourne l'utilisateur associé à l'instance
+	 * @return l'utilisateur associé à l'instance
+	 */
 	public Utilisateur getUtilisateur(){
 		return this.lUtilisateur;
 	}
