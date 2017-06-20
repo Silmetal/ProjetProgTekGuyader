@@ -14,9 +14,25 @@ public class Utilisateur {
 	 * chaques utilisateurs.
 	 */
 	private String id;
+	
+	/**
+	 * La liste de bases de données à laquelle l'utilisateur est actuellement connecté
+	 */
 	private ArrayList<BaseDeDonnees> lesBasesDeDonnees;
+	
+	/**
+	 * L'indice de la base de données actuellement selectionné
+	 */
 	private int selection;
+	
+	/**
+	 * La table actuellement sélectionnée
+	 */
 	private String table;
+	
+	/**
+	 * Associe les bases de données contenue dans l'ArrayList à des clés.
+	 */
 	private HashMap<String,Integer> association;
 
 
@@ -118,28 +134,6 @@ public class Utilisateur {
 		}
 
 	}
-	
-
-
-	/* //Recupere le nom des tables de la base
-	public ArrayList<String> parcourirBase(BaseDeDonnees laBase){
-		DatabaseMetaData dmd;
-		ResultSet tables;
-		int i=0;
-		ArrayList<String> ret = new ArrayList<String>();
-		try{
-			dmd = laBase.getConnection().getMetaData();
-			tables = dmd.getTables(laBase.getConnection().getCatalog(),null,"%",null);
-			i=0;
-			while(tables.next()){
-				ret.add(tables.getString(3));
-				i++;
-			}
-		} catch(SQLException e){
-			System.out.println("Impossible de parcourir la base");
-		}
-		return ret;
-	} */
 
 	/** Permet de se deconnecter de la base de donnée sélectionné 
 	*

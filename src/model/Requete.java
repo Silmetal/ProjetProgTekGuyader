@@ -15,6 +15,10 @@ public class Requete {
 	 * L'objet Statement à modifier et exécuter pour exécuter les requêtes SQL.
 	 */
 	private Statement state;
+	
+	/**
+	 * Le nom de la table sur laquelle exécuter la requête
+	 */
 	private String table;
 	
 	/**

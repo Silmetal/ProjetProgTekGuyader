@@ -20,9 +20,25 @@ public class BaseDeDonnees {
 	 * L'objet Connection représente le lien entre l'application et la base de données. Il est défini lors de l'appel à la méthode connexion.
 	 */
 	private Connection connexion;
+	
+	/**
+	 * Le nom de la base de données
+	 */
 	private String nomDeLaBase;
+	
+	/**
+	 * L'adresse de la base de données utilisée pour se connecter
+	 */
 	private String adresse;
+	
+	/**
+	 * Le nom d'utilisateur utilisé pour se connecter
+	 */
 	private String nomUtili;
+	
+	/**
+	 * Le mot de passe utilisé pour se connecter
+	 */
 	private String motDePasse;
 	/**
 	 * Constructeur de la classe. Utilise les paramètres pour créer l'objet connexion avec la méthode connexion, puis utilise la
@@ -280,7 +296,6 @@ public class BaseDeDonnees {
 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
-	//Recuperer le valeurs des attribut
 	public ArrayList<String> parcourirAttribut(String attribut,String table) throws SQLException, Exception{
 		ArrayList<String> ret = new ArrayList<String>();
 		String affichage="";
@@ -355,14 +370,27 @@ public class BaseDeDonnees {
 	public Connection getConnection(){
 		return this.connexion;
 	}
-
+	
+	/**
+	 * Retourne le nom de la base de données
+	 * @return Le nom de la base de données
+	 */	
 	public String getNomDeLaBase(){
 		return this.nomDeLaBase;
 	}
-
+	
+	/**
+	 * Retourne l'adresse de la base de données
+	 * @return l'adresse de la base de données
+	 */	
 	public String getAdresse(){return this.adresse;}
+	
+	/**
+	 * Retourne l'adresse de la base de données
+	 * @return Le nom d'utilsiateur utilisé pour se connecter à la base de données
+	 */	
 	public String getNomUtili(){return this.nomUtili;}
-	public String getMotDePasse(){return this.motDePasse;}
+	//public String getMotDePasse(){return this.motDePasse;}
 
 
 
