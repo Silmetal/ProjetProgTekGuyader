@@ -131,7 +131,7 @@ public class FenetrePrincipale extends JFrame{
 		jTable = new JTable(dTM);
 		jTable.setSize(300,400);
 		
-		JLabel labelResul = new JLabel("Résultat");
+		JLabel labelConsole = new JLabel("Console");
 		
 		
 		// Création des sous-panneaux
@@ -147,9 +147,10 @@ public class FenetrePrincipale extends JFrame{
 		panneauBoutton.add(trigger);
 		panneauBoutton.add(vue);
 		
-		panneauLabel.add(labelResul);
+		panneauLabel.add(labelConsole);
 
 		console = new JTextArea();
+		console.setEditable(false);
 
 		JScrollPane span2 = new JScrollPane(console);
 
