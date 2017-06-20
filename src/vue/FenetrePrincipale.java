@@ -18,42 +18,120 @@ import java.sql.*;
 public class FenetrePrincipale extends JFrame{
 	
 	/**
-	 *
+	 * Le panneau qui constitue la partie gauche la fenêtre principale. Contient le JTree et le bouton de connexion
 	 */
 	private PanneauGauche panneauGauche;
 	
+	/**
+	 * Le bouton permettant à l'utilisateur d'écrire une requête. Ouvre une nouvelle FenetreRequete.
+	 */
 	private JButton nouvRequ;
 	
+	/**
+	 * Le bouton qui ouvre le menu permettant de créer ou supprimer un tuple
+	 */
 	private JButton tuple;
+	
+	/**
+	 * Le bouton qui ouvre le menu permettant de créer ou supprimer un trigger
+	 */
 	private JButton trigger;
+	
+	/**
+	 * Le bouton qui ouvre le menu permettant de créer ou supprimer une table
+	 */
 	private JButton table;
+	
+	/**
+	 * Le bouton qui ouvre le menu permettant de créer ou supprimer une vue
+	 */
 	private JButton vue;
 	
+	/**
+	 * Le menu proposant de créer ou supprimer un tuple
+	 */
 	private JPopupMenu tupleMenu;
+	
+	/**
+	 * Le menu proposant de créer ou supprimer une table
+	 */
 	private JPopupMenu tableMenu;
+	
+	/**
+	 * Le menu proposant de créer ou supprimer un trigger
+	 */
 	private JPopupMenu triggerMenu;
+	
+	/**
+	 * Le menu proposant de créer ou supprimer une vue
+	 */
 	private JPopupMenu vueMenu;
 	
+	/**
+	 * L'élément de tupleMenu permettant de créer un nouveau tuple
+	 */
 	private JMenuItem nouvTuple;
+	
+	/**
+	 * L'élément de tupleMenu permettant de supprimer un tuple
+	 */
 	private JMenuItem supprTuple;
+	
+	/**
+	 * L'élément de tableMenu permettant de créer une nouvelle table
+	 */
 	private JMenuItem nouvTable;
+	
+	/**
+	 * L'élément de tableMenu permettant de supprimer une table
+	 */
 	private JMenuItem supprTable;
+	
+	/**
+	 * L'élément de triggerMenu permettant de créer un nouveau trigger
+	 */
 	private JMenuItem nouvTrigger;
+	
+	/**
+	 * L'élément de triggerMenu permettant de supprimer un trigger
+	 */
 	private JMenuItem supprTrigger;
+	
+	/**
+	 * L'élément de vueMenu permettant de créer une nouvelle vue
+	 */
 	private JMenuItem nouvVue;
+	
+	/**
+	 * L'élément de vueMenu permettant de supprimer une vue
+	 */
 	private JMenuItem supprVue;
 	
+	/**
+	 * La JTable qui affiche le contenu d'une table
+	 */
 	private JTable jTable;
 	
+	/**
+	 * La console qui affiche le résultat d'une requête ainsi que les erreurs qui se sont produites lors de l'exécution d'une commande SQL
+	 */
 	private JTextArea console;
-
+	
+	/**
+	 * L'écouteur permettant aux boutons et menus de faire ce qu'ils sont censés faire.
+	 */
 	private EcouteurMouseAdapter monEcouteur;
 	
+	
+	/**
+	 * L'utilisateur qui a instancié cette fenêtre
+	 */
 	private Utilisateur lUtilisateur;
 
+	/**
+	 * Le modèle utilisé par le JTable pour se créer et se mettre à jour correctement
+	 */
 	private DefaultTableModel dTM;
-	private String [][] data;
-
 	
 	/**
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
@@ -128,7 +206,7 @@ public class FenetrePrincipale extends JFrame{
 
 
 		String[] titre={"Selectionner la table a afficher"};
-		data = new String[1][1];
+		String[][] data = new String[1][1];
 		
 		dTM = new DefaultTableModel(data,titre) {
 

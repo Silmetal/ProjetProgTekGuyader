@@ -40,6 +40,7 @@ public class BaseDeDonnees {
 	 * Le mot de passe utilisé pour se connecter
 	 */
 	private String motDePasse;
+	
 	/**
 	 * Constructeur de la classe. Utilise les paramètres pour créer l'objet connexion avec la méthode connexion, puis utilise la
 	 * méthode créerRequete pour créer l'objet requete.
@@ -292,6 +293,7 @@ public class BaseDeDonnees {
 	 * Parcourt la colonne dont le nom et la table sont passés en paramètre et retourne les valeurs contenues dans cette colonne
 	 * @param attribut le nom de l'attribut dont on veut les valeurs.
 	 * @param table le nom de la table contenant l'attribut
+	 * @param tablePrimaire la clé primaire de la table passée en paramètre
 	 * @return une ArrayList contenant les noms de toutes les valeurs de l'attribut passé en paramètre
 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
