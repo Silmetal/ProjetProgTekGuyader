@@ -1,5 +1,5 @@
 package vue;
-class Noeud{
+public class Noeud{
 
         private String name;
         private String type;

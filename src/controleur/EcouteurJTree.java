@@ -1,5 +1,6 @@
 package controleur;
 import java.util.*;
+import java.awt.*;
 import javax.swing.tree.*;
 import javax.swing.event.*;
 import javax.swing.tree.TreePath;
@@ -19,23 +20,25 @@ public class EcouteurJTree implements TreeSelectionListener {
 
 
      public void valueChanged(TreeSelectionEvent event) {
-	   try{
+	   try{	
+
 	     	String res = event.getNewLeadSelectionPath().toString();
+	    // 	System.out.println(res);
+
 	     	String [] splitArray = null;
 
-	     	String carac1 = Pattern.quote("[");
-	     	String carac2 = Pattern.quote("]");
-	     	String res2 = (res.split(carac1))[1];
-	     	String path = (res2.split(carac2))[0];
-	     	splitArray = path.split(",");
 
-	     	for(int i=0; i < splitArray.length;i++){
+	     	DefaultMutableTreeNode node = (DefaultMutableTreeNode)fp.getPanneauGauche().getArborescence().getLastSelectedPathComponent();
+        	Object[] nodeInfo = node.getUserObjectPath();
+
+
+	     	for(int i=0; i < nodeInfo.length;i++){
 	     		if(i>=2){
-					lUtilisateur.setSelection(lUtilisateur.getPositionBase(splitArray[2].trim()));
+					lUtilisateur.setSelection(lUtilisateur.getPositionBase(((Noeud)nodeInfo[2]).getName()));
 	     		}
 
 	     		if (i>=3){
-	     			lUtilisateur.setTable(splitArray[3].trim());
+	     			lUtilisateur.setTable(((Noeud)nodeInfo[3]).getName());
 	     			fp.setJTable(lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()),lUtilisateur.getTable());
 	
 	     		}

@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.*;
 import java.util.*;
+import java.sql.*;
 
 
 /**
@@ -197,21 +198,27 @@ public class FenetrePrincipale extends JFrame{
 		dTM.setColumnCount(0);
 		if(!table.equals("")){
 
+			try{
+				ArrayList<String> lesAttribut = bd.parcourirTable(table);
+				for(String str : lesAttribut){
+					ArrayList<String> lesValeurs = bd.parcourirAttribut(str,table);
+					lesVal = new String[lesValeurs.size()];
 
-			ArrayList<String> lesAttribut = bd.parcourirTable(table);
-			for(String str : lesAttribut){
-				ArrayList<String> lesValeurs = bd.parcourirAttribut(str,table);
-				lesVal = new String[lesValeurs.size()];
+					for(int i=0;i<lesValeurs.size();i++){
+		//				System.out.println(lesValeurs.get(i));
+						lesVal[i]=lesValeurs.get(i);
 
-				for(int i=0;i<lesValeurs.size();i++){
-	//				System.out.println(lesValeurs.get(i));
-					lesVal[i]=lesValeurs.get(i);
+					}
+					dTM.setRowCount(lesVal.length);
+					dTM.addColumn(str,lesVal);
+				}		
+			}
+			catch(SQLException se){
 
-				}
-				dTM.setRowCount(lesVal.length);
-				dTM.addColumn(str,lesVal);
+			}
+			catch(Exception e){
 
-			}		
+			}
 		}
 	}
 

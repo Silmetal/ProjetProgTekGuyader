@@ -1,0 +1,9 @@
+Testsuite: test.RequeteTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1,069 sec
+
+------------- Standard Output ---------------
+Pilote oracle trouvé
+Connexion etablie
+Pilote oracle trouvé
+Connexion échouée ! Vérifiez vos identifiants et l'adresse de connexion
+------------- ---------------- ---------------
