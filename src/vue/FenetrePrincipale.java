@@ -62,7 +62,7 @@ public class FenetrePrincipale extends JFrame{
 		super("Gestionnaire de base de données");
 		lUtilisateur = new Utilisateur("ArthurG");
 		this.setLayout(new BorderLayout(25, 25));
-		this.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
+		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		panneauGauche = new PanneauGauche(lUtilisateur,this);
 		miseEnPlace();
 		this.setSize(1200,700);
@@ -128,7 +128,15 @@ public class FenetrePrincipale extends JFrame{
 
 		String[] titre={"Selectionner la table a afficher"};
 		data = new String[1][1];
-		dTM = new DefaultTableModel(data,titre);
+		
+		dTM = new DefaultTableModel(data,titre) {
+
+			// Redéfinit la méthode pour rendre le tableau non éditable
+			public boolean isCellEditable(int row, int column) {
+			   return false;
+			}
+		};
+		
 		jTable = new JTable(dTM);
 		jTable.setSize(300,400);
 		
@@ -137,7 +145,7 @@ public class FenetrePrincipale extends JFrame{
 		
 		// Création des sous-panneaux
 		JPanel panneauBoutton = new JPanel(new GridLayout(5, 1, 5, 5));
-		JPanel panneauCentral = new JPanel(new BorderLayout(5, 5));
+		JPanel panneauCentral = new JPanel(new BorderLayout(10,10));
 		JPanel panneauLabel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel panneauResultat = new JPanel(new BorderLayout());
 		
@@ -200,14 +208,7 @@ public class FenetrePrincipale extends JFrame{
 				dTM.addColumn(str,lesVal);
 
 			}		
-
-				
-			
-			
 		}
-
-
-
 	}
 
 
@@ -297,11 +298,4 @@ public class FenetrePrincipale extends JFrame{
 	public Utilisateur getUtilisateur(){
 		return this.lUtilisateur;
 	}
-
-
-
-
-
-
-
 }

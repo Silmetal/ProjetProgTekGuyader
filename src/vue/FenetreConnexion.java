@@ -49,6 +49,7 @@ public class FenetreConnexion extends JFrame{
 		this.lUtilisateur=lUtilisateur;
 		this.fp = fp;
 		this.setLayout(new BorderLayout());
+		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		miseEnPlace();
 		this.setVisible(true);
 		this.setSize(500,300);

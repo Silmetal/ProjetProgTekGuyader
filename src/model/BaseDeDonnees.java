@@ -306,7 +306,6 @@ public class BaseDeDonnees {
 
 	//Recuperer le valeurs des attribut
 	public ArrayList<String> parcourirAttribut(String attribut,String table){
-		System.out.println("********");
 		ArrayList<String> ret = new ArrayList<String>();
 		String affichage="";
 
@@ -319,7 +318,6 @@ public class BaseDeDonnees {
 				affichage = nouvelleRequete.retournerResultSet(rs,false);
 				
 				for(String str : affichage.split("[\n]")){
-					System.out.println(str);
 					ret.add(str);
 				}
 		} catch (SQLException se){
