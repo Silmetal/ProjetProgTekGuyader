@@ -287,7 +287,7 @@ public class BaseDeDonnees {
 		return ret;
 
 	}
-
+	
 	/**
 	 * Parcourt la colonne dont le nom et la table sont passés en paramètre et retourne les valeurs contenues dans cette colonne
 	 * @param attribut le nom de l'attribut dont on veut les valeurs.
@@ -296,12 +296,7 @@ public class BaseDeDonnees {
 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
-<<<<<<< HEAD
-	public ArrayList<String> parcourirAttribut(String attribut,String table) throws SQLException, Exception{
-=======
-	//Recuperer le valeurs des attribut
 	public ArrayList<String> parcourirAttribut(String attribut,String table, String tablePrimaire) throws SQLException, Exception{
->>>>>>> e672105ba4462bf38d09387bbba06865750ce7aa
 		ArrayList<String> ret = new ArrayList<String>();
 		String affichage="";
 		Object[] res = null;
