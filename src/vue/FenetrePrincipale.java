@@ -62,6 +62,7 @@ public class FenetrePrincipale extends JFrame{
 		super("Gestionnaire de base de données");
 		lUtilisateur = new Utilisateur("ArthurG");
 		this.setLayout(new BorderLayout(25, 25));
+		this.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 		panneauGauche = new PanneauGauche(lUtilisateur,this);
 		miseEnPlace();
 		this.setSize(1200,700);
