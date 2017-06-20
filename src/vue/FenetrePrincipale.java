@@ -195,25 +195,39 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	public void setJTable(BaseDeDonnees bd,String table){
 		String[] lesVal=null;
+		ArrayList<String> lesValeurs;
+		String tablePrimaire="";
+		int j=0;
 		dTM.setColumnCount(0);
 		if(!table.equals("")){
 
 			try{
 				ArrayList<String> lesAttribut = bd.parcourirTable(table);
+				j=0;
 				for(String str : lesAttribut){
-					ArrayList<String> lesValeurs = bd.parcourirAttribut(str,table);
+					System.out.println(str);
+					if(j==0){
+						lesValeurs = bd.parcourirAttribut(str,table,"");
+						tablePrimaire=str;
+						System.out.println("passe");
+					}
+					else{
+						lesValeurs = bd.parcourirAttribut(str,table,tablePrimaire);
+						System.out.println("passage");
+					}
+					j++;
 					lesVal = new String[lesValeurs.size()];
 
 					for(int i=0;i<lesValeurs.size();i++){
-		//				System.out.println(lesValeurs.get(i));
 						lesVal[i]=lesValeurs.get(i);
-
 					}
 					dTM.setRowCount(lesVal.length);
 					dTM.addColumn(str,lesVal);
 				}		
 			}
 			catch(SQLException se){
+
+				se.printStackTrace();
 
 			}
 			catch(Exception e){

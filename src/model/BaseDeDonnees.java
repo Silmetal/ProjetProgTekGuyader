@@ -281,13 +281,19 @@ public class BaseDeDonnees {
 	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
 	//Recuperer le valeurs des attribut
-	public ArrayList<String> parcourirAttribut(String attribut,String table) throws SQLException, Exception{
+	public ArrayList<String> parcourirAttribut(String attribut,String table, String tablePrimaire) throws SQLException, Exception{
 		ArrayList<String> ret = new ArrayList<String>();
 		String affichage="";
-
+		Object[] res = null;
 		try{
 			Requete nouvelleRequete = new Requete(connexion,"");
-				Object[] res = nouvelleRequete.manuel("SELECT "+attribut+" FROM "+table+";");
+				if(!tablePrimaire.equals("")){
+					res = nouvelleRequete.manuel("SELECT "+attribut+"FROM (SELECT "+attribut+","+tablePrimaire+" FROM "+table+" ORDER BY "+tablePrimaire+") AS test;");
+				}
+				else{
+					res = nouvelleRequete.manuel("SELECT "+attribut+" FROM "+table+" ORDER BY "+attribut+";");
+				}
+				
 
 				ResultSet rs=(ResultSet)res[1];
 

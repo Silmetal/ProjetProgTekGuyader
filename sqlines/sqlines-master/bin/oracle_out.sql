@@ -1,0 +1,3 @@
+CREATE TABLE TEST(
+	var SMALLINT;
+)
