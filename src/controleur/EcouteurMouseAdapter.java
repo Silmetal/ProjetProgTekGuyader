@@ -101,13 +101,13 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 	
 
 	public void addListener(){
-		fp.getBouttonNouvRequ().addMouseListener(this);
-		fp.getBouttonTable().addMouseListener(this);
-		fp.getBouttonTrigger().addMouseListener(this);
-		fp.getBouttonTuple().addMouseListener(this);
-		fp.getBouttonVue().addMouseListener(this);
+		fp.getBoutonNouvRequ().addMouseListener(this);
+		fp.getBoutonTable().addMouseListener(this);
+		fp.getBoutonTrigger().addMouseListener(this);
+		fp.getBoutonTuple().addMouseListener(this);
+		fp.getBoutonVue().addMouseListener(this);
 
-		fp.getPanneauGauche().getBouttonConnexion().addMouseListener(this);
+		fp.getPanneauGauche().getBoutonConnexion().addMouseListener(this);
 
 		fp.getNouvTable().addMouseListener(this);
 		fp.getSupprTable().addMouseListener(this);

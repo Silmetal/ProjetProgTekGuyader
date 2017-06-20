@@ -144,17 +144,17 @@ public class FenetrePrincipale extends JFrame{
 		
 		
 		// Création des sous-panneaux
-		JPanel panneauBoutton = new JPanel(new GridLayout(5, 1, 5, 5));
+		JPanel panneauBouton = new JPanel(new GridLayout(5, 1, 5, 5));
 		JPanel panneauCentral = new JPanel(new BorderLayout(10,10));
 		JPanel panneauLabel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel panneauResultat = new JPanel(new BorderLayout());
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
-		panneauBoutton.add(nouvRequ);
-		panneauBoutton.add(table);
-		panneauBoutton.add(tuple);
-		panneauBoutton.add(trigger);
-		panneauBoutton.add(vue);
+		panneauBouton.add(nouvRequ);
+		panneauBouton.add(table);
+		panneauBouton.add(tuple);
+		panneauBouton.add(trigger);
+		panneauBouton.add(vue);
 		
 		panneauLabel.add(labelConsole);
 
@@ -176,7 +176,7 @@ public class FenetrePrincipale extends JFrame{
 		panneauDroite.add(span1);
 		panneauDroite.add(panneauResultat);
 
-		panneauCentral.add(panneauBoutton, BorderLayout.WEST);
+		panneauCentral.add(panneauBouton, BorderLayout.WEST);
 		panneauCentral.add(panneauDroite, BorderLayout.CENTER);
 		
 		// Ajout des sous-panneaux dans le panneau de connexion
@@ -214,23 +214,23 @@ public class FenetrePrincipale extends JFrame{
 
 
 	
-	public JButton getBouttonNouvRequ() {
+	public JButton getBoutonNouvRequ() {
 		
 		return this.nouvRequ;
 	}
-	public JButton getBouttonTable() {
+	public JButton getBoutonTable() {
 		
 		return this.table;
 	}
-	public JButton getBouttonTrigger() {
+	public JButton getBoutonTrigger() {
 		
 		return this.trigger;
 	}
-	public JButton getBouttonTuple() {
+	public JButton getBoutonTuple() {
 		
 		return this.tuple;
 	}
-	public JButton getBouttonVue() {
+	public JButton getBoutonVue() {
 		
 		return this.vue;
 	}

@@ -72,11 +72,11 @@ public class FenetreConnexion extends JFrame{
 		nomDeLaBaseTF = new JTextField();
 		
 		// Création des sous-panneaux
-		JPanel panneauBoutton = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panneauBouton = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel panneauChamps = new JPanel(new GridLayout(4,2));
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
-		panneauBoutton.add(connexion);
+		panneauBouton.add(connexion);
 		panneauChamps.add(nomUtili);
 		panneauChamps.add(nomUtiliTF);
 		panneauChamps.add(mdp);
@@ -88,12 +88,12 @@ public class FenetreConnexion extends JFrame{
 		
 		// Ajout des sous-panneaux dans le panneau de connexion
 		this.add(panneauChamps, BorderLayout.CENTER);
-		this.add(panneauBoutton, BorderLayout.SOUTH);
+		this.add(panneauBouton, BorderLayout.SOUTH);
 		
 		connexion.addActionListener(new EcouteurFenetreConnexion(this));
 	}
 	
-	public JButton getBouttonConnexion(){
+	public JButton getBoutonConnexion(){
 		return this.connexion;
 	}
 	

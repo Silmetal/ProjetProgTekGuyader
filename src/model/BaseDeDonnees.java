@@ -160,9 +160,8 @@ public class BaseDeDonnees {
 	/**
 	 * Prend en paramètre un nom d'utilisateur et un mot de passe pour créer un nouvel utilisateur et l'ajouter à la base. Le type de l'utilsiateur dépend du paramètre userType.
 	 * L'utilsiateur ainsi crée pourra se connecter à la base de données avec ces identifiants.
-	 * Un super utilisateur local ne peut se connecter que en localhost, et a tous les privilèges sur toutes les bases de données. Un super utilisateur global peut se connecter depuis n'importe quel hôte et a tous les
-	 * privilèges sur toutes les bases de données. Un utilisateur local a des privilèges limités sur la base de données à laquelle le créateur est connecté. un utilisateur local ne peut se connecter qu'en localhost,
-	 * un utilisateur global peut se connecter depuis n'importe quel hôte.
+	 * <P>Un super utilisateur a tous les privilèges sur toutes les bases de données.
+	 * <P>Un utilisateur normal a des privilèges limités sur la base de données sur laquelle il a été créé.
 	 * @param nouvIdenti l'identifiant du nouvel utilisateur
 	 * @param nouvMDP le mot de passe du nouvel utilisateur
 	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur, 1 pour un utilisateur normal
@@ -173,50 +172,6 @@ public class BaseDeDonnees {
 		
 		Statement creerSuperUser = connexion.createStatement();
 		Statement creerUser = connexion.createStatement();
-		
-		/* try {
-			creerLocalSuperUser = connexion.execute("CREATE USER "+nouvIdenti+"@localhost IDENTIFIED BY "+nouvMDP+"; GRANT ALL PRIVILEGES ON *.* TO "+nouvIdenti+"@localhost WITH GRANT OPTION;");
-			creerLocalSuperUser.setString(1,nouvIdenti);
-			creerLocalSuperUser.setString(2,nouvMDP);
-			creerLocalSuperUser.setString(3,nouvIdenti);
-		}
-		catch(SQLException se) {
-			throw se;
-		}
-		
-		try{
-			creerGlobalSuperUser = connexion.execute("CREATE USER "+nouvIdenti+"@% IDENTIFIED BY "+nouvMDP+"; GRANT ALL PRIVILEGES ON *.* TO "+nouvIdenti+"@% WITH GRANT OPTION;");
-			creerGlobalSuperUser.setString(1,nouvIdenti);
-			creerGlobalSuperUser.setString(2,nouvMDP);
-			creerGlobalSuperUser.setString(3,nouvIdenti);
-		}
-		catch(SQLException se) {
-			throw se;
-		}
-		
-		try{
-			creerLocalUser = connexion.execute("CREATE USER "+nouvIdenti+"@localhost IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@localhost;");
-			/* creerLocalUser.setString(1,nouvIdenti);
-			creerLocalUser.setString(2,nouvMDP);
-			creerLocalUser.setString(3,connexion.getMetaData().getDatabaseProductName());
-			creerLocalUser.setString(4,nouvIdenti);
-		}
-		catch(SQLException se) {
-			throw se;
-		}
-		
-		try {
-			creerGlobalUser = connexion.execute("CREATE USER "+nouvIdenti+"@"+connexion.getMetaData().getURL()+" IDENTIFIED BY "+nouvMDP+"; GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON "+connexion.getMetaData().getDatabaseProductName()+".* TO "+nouvIdenti+"@"+connexion.getMetaData().getURL()+";");
-			creerGlobalUser.setSt	ring(1,nouvIdenti);
-			creerGlobalUser.setString(2,connexion.getMetaData().getURL());
-			creerGlobalUser.setString(3,nouvMDP);
-			creerGlobalUser.setString(4,connexion.getMetaData().getDatabaseProductName());
-			creerGlobalUser.setString(5,nouvIdenti);
-			creerGlobalUser.setString(6,connexion.getMetaData().getURL());
-		}
-		catch(SQLException se) {
-			throw se;
-		} */
 		
 		if (userType == 0) {
 			
@@ -248,8 +203,11 @@ public class BaseDeDonnees {
 		}
 	}
 	
-	//Recupere le nom des tables de la base
-	public ArrayList<String> parcourirBase(){
+	/**
+	 * Parcourt la base de données et renvoie une ArrayList contenant les noms de toutes les tables et vues de la base.
+	 * @return une ArrayList contenant les noms de toutes les tables et vue de la base.
+	 */
+	public ArrayList<String> parcourirBase() throws SQLException{
 		DatabaseMetaData dmd;
 		ResultSet tables;
 		int i=0;
@@ -263,7 +221,7 @@ public class BaseDeDonnees {
 				i++;
 			}
 		} catch(SQLException e){
-			System.out.println("Impossible de parcourir la base");
+			throw e;
 		}
 
 		String listString = "";
@@ -277,8 +235,14 @@ public class BaseDeDonnees {
 	}
 
 
-	//Recuperer le nom des attributs
-	public ArrayList<String> parcourirTable(String table){
+	/**
+	 * Parcourt la table dont le nom est passé en paramètre et renvoie une ArrayList contenant les noms de toutes les colonnes de la table.
+	 * @param table le nom de la table à parcourir
+	 * @return une ArrayList contenant les noms de toutes les colonnes de la table dont le nom est passé en paramètre
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 */
+	public ArrayList<String> parcourirTable(String table) throws SQLException, Exception{
 		ArrayList<String> ret = new ArrayList<String>();
 		String affichage="";
 
@@ -293,19 +257,30 @@ public class BaseDeDonnees {
 				for(String str : affichage.split("[\n]")){
 					ret.add(str);
 				}
-		} catch (SQLException se){
-
-		} catch (Exception e){
-
+		} 
+		catch (SQLException se){
+			
+			throw se;
+		}
+		catch (Exception e){
+			
+			throw e;
 		}
 
 		return ret;
 
 	}
 
-
+	/**
+	 * Parcourt la colonne dont le nom et la table sont passés en paramètre et retourne les valeurs contenues dans cette colonne
+	 * @param le nom de l'attribut dont on veut les valeurs.
+	 * @param table le nom de la table contenant l'attribut
+	 * @return une ArrayList contenant les noms de toutes les valeurs de l'attribut passé en paramètre
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 */
 	//Recuperer le valeurs des attribut
-	public ArrayList<String> parcourirAttribut(String attribut,String table){
+	public ArrayList<String> parcourirAttribut(String attribut,String table) throws SQLException, Exception{
 		ArrayList<String> ret = new ArrayList<String>();
 		String affichage="";
 
@@ -320,10 +295,14 @@ public class BaseDeDonnees {
 				for(String str : affichage.split("[\n]")){
 					ret.add(str);
 				}
-		} catch (SQLException se){
-
-		} catch (Exception e){
-
+		}
+		catch (SQLException se){
+			
+			throw se;
+		}
+		catch (Exception e){
+			
+			throw e;
 		}
 
 		return ret;

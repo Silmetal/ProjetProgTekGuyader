@@ -66,15 +66,15 @@ public class PanneauGauche extends JPanel{
 		
 		// Création des sous-panneaux
 		arbre = new JPanel();
-		JPanel panneauBoutton = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panneauBouton = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
 		JScrollPane span1 = new JScrollPane(arborescence);
-		panneauBoutton.add(connexion);
+		panneauBouton.add(connexion);
 		
 		// Ajout des sous-panneaux 
 		this.add(span1, BorderLayout.WEST);
-		this.add(panneauBoutton, BorderLayout.NORTH);		
+		this.add(panneauBouton, BorderLayout.NORTH);		
 	}
 	
 
@@ -106,17 +106,26 @@ public class PanneauGauche extends JPanel{
 		((DefaultTreeModel)arborescence.getModel()).setRoot(racine);
 		
 	}
-
+	
+	/**
+	 * Retourne la FenêtrePrincipale contenant ce PanneauGauche
+	 */
 	public FenetrePrincipale getFP() {
 		
 		return this.fp;
 	}
 	
-	public JButton getBouttonConnexion() {
+	/**
+	 * Retourne le BoutonConnexion de l'instance
+	 */
+	public JButton getBoutonConnexion() {
 		
 		return this.connexion;
 	}
 	
+	/**
+	 * Retourne le JTree arborescence de l'instance
+	 */
 	public JTree getArborescence() {
 		
 		return this.arborescence;

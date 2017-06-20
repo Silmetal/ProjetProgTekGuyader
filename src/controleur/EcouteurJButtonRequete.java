@@ -7,25 +7,53 @@ import java.io.*;
 import javax.swing.*;
 import java.sql.*;
 
-
-
+/**
+* Cette classe est l'écouteur des boutons de la classe FenetreRequete. Elle associe à chaque bouton l'action qu'il est censé déclencher.
+*/
 public class EcouteurJButtonRequete implements ActionListener {
-
+	
+	/**
+	 * La FenetreRequete à écouter
+	 */
 	private FenetreRequete fr;
+	
+	/**
+	 * Le chemin de sauvegarde des fichiers
+	 */
 	private String cheminSauvegarde;
+	
+	/**
+	 * La Connection associée 
+	 */
 	private Connection maConnexion;
+	
+	/** 
+	 * La FenetrePrincipale dont dépend la FenetreRequete
+	 */
 	private FenetrePrincipale fp;
-
+	
+	/**
+	 * Le constructeur de la classe. Prend en paramètre une FenetreRequete, une Connection et une FenetrePrincipale et les associe à ses 
+	 * attributs, puis ajoute l'écouteur à la FenetreRequete.
+	 * @param fr la FenetreRequete à écouter
+	 * @param maConnexion la Connection associée
+	 * @param fp la FenetrePrincipale dont dépend la FenetreRequete
+	 */
 	public EcouteurJButtonRequete(FenetreRequete fr, Connection maConnexion,FenetrePrincipale fp){
 		this.fr=fr;
 		this.maConnexion=maConnexion;
 		this.fp = fp;
 		cheminSauvegarde="";
 		addListener();
-
 	}
 	
-
+	/**
+	 * La méthode qui associe chaque bouton à son action.
+	 * <P>Si le bouton est le bouton "Lancer", exécute la méthode lancer()
+	 * <P>Si le bouton est le bouton "Enregistrer", exécute la méthode enregistrer()
+	 * <P>Si le bouton est le bouton "Enregistrer Sous", exécute la méthode enregistrerSous()
+	 * <P>Si le bouton est le bouton "Ouvrir", exécute la méthode ouvrir()
+	 */
 	public void actionPerformed(ActionEvent e) {
 		JButton jb = (JButton) e.getSource();
 
@@ -44,7 +72,14 @@ public class EcouteurJButtonRequete implements ActionListener {
 
 	}
 
-
+	/**
+	 * Créé un nouvel objet Requete prenant en paramètre l'attribut maConnexion de l'instance et une chaîne de caractère vide, puis
+	 * exécute la requête écrite par l'utilisateur dans le champ prévu à cet effet dans la FenetreRequete.
+	 * Récupère le résultat dans un tableau d'objet.
+	 * <P>Si la requête a renvoyé un ResultSet, affiche ce résultat dans la console.
+	 * <P>Sinon, affiche le nombre de lignes modifiées par la requête.
+	 * <P> Si une erreur, SQL ou autre, est attrappée, affiche le message de cette erreur dans la console en précisant son type.
+	 */
 	public void lancer(){
 		try{
 			Requete maRequete = new Requete(maConnexion,"");
@@ -60,7 +95,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 			if(rs!=null){
 				String affichage="";
 				affichage = maRequete.retournerResultSet(rs,true);
-				fr.getMonTextPane2().setText("Requete : \n"+affichage);
+				fr.getMonTextPane2().setText("Requete : \n\n"+affichage);
 
 			}
 			else{
@@ -81,7 +116,11 @@ public class EcouteurJButtonRequete implements ActionListener {
 		
 	}
 
-
+	/**
+	 * Vérifie si un chemin de sauvegarde a déjà été initialisé.
+	 * <P>Si c'est le cas, exécute la méthode sauvegarde() pour sauvegarder le contenu du champs de saisie dans un fichier sql
+	 * <P>Sinon, exécute la méthode enregistrerSous() pour en définir un puis enregistrer le contenu dans un fichier sql
+	 */
 	public void enregistrer(){
 		if(cheminSauvegarde.equals("")){
 			enregistrerSous();
@@ -90,7 +129,11 @@ public class EcouteurJButtonRequete implements ActionListener {
 			sauvegarde();
 		}
 	}
-
+	
+	/**
+	 * Ouvre une fenêtre permettant à l'utilsiateur de choisir l'emplacement du fichier à créer, puis créé un nouveau fichier sql à l'emplacement indiqué contenant
+	 * la saisie de l'utilisateur dans le champs de saisie
+	 */
 	public void enregistrerSous(){
 		JFileChooser filechoose = new JFileChooser();
 		filechoose.setCurrentDirectory(new File("."));  
@@ -106,7 +149,11 @@ public class EcouteurJButtonRequete implements ActionListener {
 		    sauvegarde();
 		}
 	}
-
+	
+	/**
+	 * Ouvre une fenêtre permettant à l'utilsiateur de choisir l'emplacement du fichier à créer, puis créé un nouveau fichier sql à l'emplacement indiqué contenant
+	 * la saisie de l'utilisateur dans le champs de saisie
+	 */
 	public void ouvrir(){
 		String file="";
 		JFileChooser filechoose = new JFileChooser();
@@ -127,14 +174,19 @@ public class EcouteurJButtonRequete implements ActionListener {
 			fr.getMonTextPane1().setText(res);
 		}
 	}
-
+	
+	/**
+	 * Sauvegarde la saisie de l'utilisateur dans le fichier dont le chemin est contenu dans l'attribut cheminSauvegarde de l'instance.
+	 */
 	public void sauvegarde(){
 		String res = fr.getMonTextPane1().getText();
 		RWFile ecriture = new RWFile();
 		ecriture.writeFile(res,cheminSauvegarde);
 	}
 
-
+	/**
+	 * Ajoute l'écouteur aux boutons de la FenetreRequete associée.
+	 */
 	public void addListener(){
 		fr.getMonPanneauButton2().getButtonLanceur().addActionListener(this);
 		fr.getMonPanneauButton2().getButtonEnregistrer().addActionListener(this);
