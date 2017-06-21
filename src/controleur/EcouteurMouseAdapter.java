@@ -141,5 +141,4 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getNouvVue().addMouseListener(this);
 		fp.getSupprVue().addMouseListener(this);
 	}
-
 }

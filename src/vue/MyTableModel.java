@@ -2,23 +2,13 @@ package vue;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import model.*;
  
  public class MyTableModel extends AbstractTableModel {	 
 	
-	/**
-	 *
-	 */
-	private JComboBox listeType = new JComboBox(Type.values());
+	private String[] titre={"Nom", "Type", "Valeur", "Nul ?",  "Unique ?", "Clé Primaire ?", "Clé étrangère ?", "Table référée", "Attribut référé"};
 	
-	/**
-	 * 
-	 */
-	private JComboBox listeClef = new JComboBox();
-	
-	
-	private String[] titre={"Nom", "Type", "Clé ?", "Nul ?", "Unique ?"};
-	
-	private Object[][] data ={{"", "NUMBER", "", new Boolean(false), new Boolean(false)}};
+	private Object[][] data ={{"", Type.INT, 4, false, false, false, false, "", ""}};
 	
 	private boolean DEBUG = false;
 	
@@ -53,13 +43,8 @@ import javax.swing.table.AbstractTableModel;
 	 * editable.
 	 */
 	public boolean isCellEditable(int row, int col) {
-		//Note that the data/cell address is constant,
-		//no matter where the cell appears onscreen.
-		if (col < 2) {
-			return false;
-		} else {
-			return true;
-		}
+		
+		return true;
 	}
 
 	/*
