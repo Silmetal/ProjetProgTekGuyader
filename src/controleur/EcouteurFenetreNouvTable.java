@@ -76,6 +76,7 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 		catch(SQLException sqle) {
 			JOptionPane jop = new JOptionPane();
 			jop.showMessageDialog(null, "Erreur SQL, vérifiez vos informations.", "Erreur", JOptionPane.ERROR_MESSAGE);
+			sqle.printStackTrace();
 		}
 		catch(Exception ex){
 			ex.printStackTrace();

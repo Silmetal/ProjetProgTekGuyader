@@ -54,7 +54,7 @@ public class FenetreNouvelleTable extends JFrame{
 		this.setLayout(new BorderLayout(10,10));
 		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		miseEnPlace();
-		this.pack();
+		this.setSize(800,600);
 		this.setVisible(true);
 	}
 	
