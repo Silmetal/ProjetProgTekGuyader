@@ -54,7 +54,9 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 			
 			Attribut att = new Attribut((String)o[0], (Type)o[1], (int)o[2], (boolean)o[3], (boolean)o[4], (boolean)o[5], (String)o[6], (String)o[7]);
 			listeAtt.add(att);
-		}		
+		}
+		
+		
 	}
 	
 	public void stateChanged(ChangeEvent e) {
@@ -76,5 +78,13 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	public void addListener() {
 		
 		fnt.getNbColonne().addChangeListener(this);
+	}
+	
+	public String getNomTable(){
+		return this.nomTable;
+	}
+	
+	public ArrayList<Attribut> getListeAtt(){
+		return this.listeAtt;
 	}
 }
