@@ -177,22 +177,20 @@ public class Requete {
 	  * @throws Exception si l'ajout de la table est impossible à cause d'une autre erreur
 	  */
 	 public int ajouterTable(String nomTable, ArrayList<Attribut> listeAttribut) throws SQLException,Exception {			
-		int ret;
+		int ret = 0;
 	 	try{
 	 		manuel("DROP TABLE "+nomTable);
 	 	}
 	 	catch (SQLException se){
-	 		throw se;
 	 	}
 	 	catch (Exception e){
-	 		throw e;
 	 	}
 		
 		String requete = "CREATE TABLE "+nomTable+"(\n";
 		
 		for(Attribut monAtt : listeAttribut){
 			requete = requete + monAtt.getNomVariable() +" "+monAtt.getType();
-			if(monAtt.getValeur()>-1) requete =requete +" ("+monAtt.getValeur()+")";
+			if(monAtt.getValeur()>-1) requete =requete +"("+monAtt.getValeur()+")";
 			if(!monAtt.getContrainte().equals("")){
 				requete = requete + monAtt.getContrainte() +",\n";
 			}
@@ -218,7 +216,7 @@ public class Requete {
 
 		requete = requete + "\n);";
 		
-	
+		System.out.println(requete);
 		ret = creerOuModifier(requete);
 		return ret;
 	 }

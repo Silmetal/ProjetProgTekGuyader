@@ -15,7 +15,7 @@ public class Attribut {
 	private String referenceTableEtrangere;
 	private String referenceAttributEtranger;
 	
-	public Attribut(String nomVariable, Type type, int valeur, boolean estNonNul, boolean estClePrimaire, boolean aCleEtrangere, String referenceTableEtrangere,String referenceAttributEtranger){
+	public Attribut(String nomVariable, Type type, int valeur, boolean estNonNul,  boolean estUnique, boolean estClePrimaire, boolean aCleEtrangere, String referenceTableEtrangere,String referenceAttributEtranger){
 		if(!aCleEtrangere){
 			referenceTableEtrangere="";
 			referenceAttributEtranger="";

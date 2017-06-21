@@ -67,8 +67,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 
 					if(jmi.getName().equals("nouvTable")){
-						
-						//nouvelleRequete.ajouterTable(nomTable,listeAttribut);
+						FenetreNouvelleTable fnt = new FenetreNouvelleTable();
+						EcouteurFenetreNouvTable efnt = new EcouteurFenetreNouvTable(fnt, nouvelleRequete, this);
 					}
 					else if(jmi.getName().equals("supprTable")){
 						
@@ -111,8 +111,11 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 
 
-	public void nouvelleTable(){
-
+	public void nouvelleTable(Requete nouvelleRequete, EcouteurFenetreNouvTable efnt) throws SQLException, Exception{
+		
+		String nomTable = efnt.getNomTable();
+		ArrayList<Attribut> listeAtt = efnt.getListeAtt();
+		nouvelleRequete.ajouterTable(nomTable,listeAtt);		
 	}
 
 	public void nouveauTuple(){

@@ -25,6 +25,10 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	
 	private String nomTable;
 	
+	private Requete requ;
+	
+	private EcouteurMouseAdapter ema;
+	
 	/**
 	 * Le constructeur de la classe. Prend en paramètre une FenetreRequete, une Connection et une FenetrePrincipale et les associe à ses 
 	 * attributs, puis ajoute l'écouteur à la FenetreRequete.
@@ -32,8 +36,10 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	 * @param maConnexion la Connection associée
 	 * @param fp la FenetrePrincipale dont dépend la FenetreRequete
 	 */
-	public EcouteurFenetreNouvTable(FenetreNouvelleTable fnt){
+	public EcouteurFenetreNouvTable(FenetreNouvelleTable fnt, Requete requ, EcouteurMouseAdapter ema){
 		this.fnt = fnt;
+		this.requ=requ;
+		this.ema = ema;
 		spinnerValue = (int)fnt.getNbColonne().getValue();
 		addListener();
 	}
@@ -45,18 +51,28 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	 * <P>Si le bouton est le bouton "Enregistrer Sous", exécute la méthode enregistrerSous()
 	 * <P>Si le bouton est le bouton "Ouvrir", exécute la méthode ouvrir()
 	 */
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e){
 		
 		listeAtt = new ArrayList<Attribut>();
 		nomTable = fnt.getNomTableTF().getText();
 		
 		for (Object[] o :((MyTableModel)fnt.getTable().getModel()).getData()){
 			
-			Attribut att = new Attribut((String)o[0], (Type)o[1], (int)o[2], (boolean)o[3], (boolean)o[4], (boolean)o[5], (String)o[6], (String)o[7]);
+			Attribut att = new Attribut((String)o[0], (Type)o[1], (int)o[2], (boolean)o[3], (boolean)o[4], (boolean)o[5], (boolean)o[6], (String)o[7], (String)o[8]);
 			listeAtt.add(att);
 		}
 		
+		try{
+			ema.nouvelleTable(requ, this);
+		}
+		catch(SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
 		
+		fnt.dispose();		
 	}
 	
 	public void stateChanged(ChangeEvent e) {
@@ -65,19 +81,26 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 		
 		if ((newValue - spinnerValue) > 0) {
 			
-			((MyTableModel)fnt.getTable().getModel()).addRow(new Object[]{"", model.Type.INT, 4, false, false, false, false, "", ""});
+			for(int i = 0; i < newValue - spinnerValue; i++) {
+				((MyTableModel)fnt.getTable().getModel()).addRow(new Object[]{"", model.Type.INT, 4, false, false, false, false, "", ""});
+			}
 		}
 		else if ((newValue - spinnerValue) < 0) {
 			
-			((MyTableModel)fnt.getTable().getModel()).removeRow(fnt.getTable().getModel().getRowCount()-1);
+			for(int i = 0; i > newValue - spinnerValue; i--) {
+				((MyTableModel)fnt.getTable().getModel()).removeRow(fnt.getTable().getModel().getRowCount()-1);
+			}
 		}
 		
 		this.spinnerValue = newValue;
     }
 	
+	
+	
 	public void addListener() {
 		
 		fnt.getNbColonne().addChangeListener(this);
+		fnt.getCreerTableBouton().addActionListener(this);
 	}
 	
 	public String getNomTable(){

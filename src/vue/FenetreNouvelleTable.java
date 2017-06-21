@@ -55,9 +55,7 @@ public class FenetreNouvelleTable extends JFrame{
 		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		miseEnPlace();
 		this.pack();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		this.setVisible(true);
-		EcouteurFenetreNouvTable efnt = new EcouteurFenetreNouvTable(this);
 	}
 	
 	/**
