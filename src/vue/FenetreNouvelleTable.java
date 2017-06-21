@@ -46,7 +46,7 @@ public class FenetreNouvelleTable extends JFrame{
 	 */
 	public FenetreNouvelleTable(){
 		super("Nouvelle Table");
-		this.setLayout(new FlowLayout());
+		this.setLayout(new BorderLayout(10,10));
 		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		miseEnPlace();
 		this.pack();
@@ -61,7 +61,7 @@ public class FenetreNouvelleTable extends JFrame{
 		
 		// Initialisation des composants
 		
-		this.nomTableTF = new JTextField();
+		this.nomTableTF = new JTextField("");
 		JLabel nomTableLabel = new JLabel("Nom de la table");
 
 		JLabel nbColonneLabel = new JLabel("Nombre de colonne");
@@ -75,14 +75,17 @@ public class FenetreNouvelleTable extends JFrame{
 		
 		// Création des sous-panneaux
 		JScrollPane scrollPane = new JScrollPane(jTable);
-		
+		JPanel pannEnTete = new JPanel(new GridLayout(1,4, 5, 5));		
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
-		this.add(nomTableLabel);
-		this.add(nomTableTF);
-		this.add(nbColonneLabel);
-		this.add(nbColonne);
-		this.add(scrollPane);
+		pannEnTete.add(nomTableLabel);
+		pannEnTete.add(nomTableTF);
+		pannEnTete.add(nbColonneLabel);
+		pannEnTete.add(nbColonne);
+		
+		// Ajout des sous-panneaux dans le panneau principal
+		this.add(pannEnTete, BorderLayout.NORTH);
+		this.add(scrollPane, BorderLayout.CENTER);
 	}
 	
 	public void comboBoxTable(JTable jTable, TableColumn colType) {
