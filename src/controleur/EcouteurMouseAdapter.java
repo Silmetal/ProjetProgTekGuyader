@@ -72,7 +72,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					}
 					else if(jmi.getName().equals("supprTable")){
 						
-						supprimerTable(laBaseSelectionee,laTableSelectionee);
+						supprimerTable(laBaseSelectionee,laTableSelectionee,nouvelleRequete);
 							
 					}
 					else if(jmi.getName().equals("nouvTuple")){
@@ -83,7 +83,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					}
 					else if(jmi.getName().equals("supprTuple")){
 						
-						supprimerTuple(laBaseSelectionee,laTableSelectionee);
+						supprimerTuple(laBaseSelectionee,laTableSelectionee,nouvelleRequete);
 						
 					}
 					else if(jmi.getName().equals("nouvTrigger")){
@@ -119,7 +119,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 	}
 
-	public void supprimerTable(BaseDeDonnees laBaseSelectionee,String laTableSelectionee){
+	public void supprimerTable(BaseDeDonnees laBaseSelectionee,String laTableSelectionee,Requete nouvelleRequete) throws SQLException,Exception{
 		if(lUtilisateur.getSelection()!=-1){
 			ArrayList<String> lesTables = laBaseSelectionee.parcourirBase();
 			String[] lesTab = new String[lesTables.size()];
@@ -141,7 +141,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		}
 	}
 
-	public void supprimerTuple(BaseDeDonnees laBaseSelectionee,String laTableSelectionee){
+	public void supprimerTuple(BaseDeDonnees laBaseSelectionee,String laTableSelectionee,Requete nouvelleRequete) throws SQLException,Exception{
 		int k=0;
 		String attribut;
 		if(lUtilisateur.getSelection()!=-1 && !(laTableSelectionee.equals(""))){
