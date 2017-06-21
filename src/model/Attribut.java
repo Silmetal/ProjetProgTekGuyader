@@ -10,26 +10,23 @@ public class Attribut {
 	private Type type;
 	private int valeur;
 	private boolean estNonNul;
-	private boolean aClePrimaire;
+	private boolean estClePrimaire;
 	private boolean aCleEtrangere;
 	private String referenceTableEtrangere;
 	private String referenceAttributEtranger;
 	
-	public Attribut(String nomVariable, Type type, int valeur, boolean estNonNul, boolean aClePrimaire, boolean aCleEtrangere){
-		this.nomVariable=nomVariable;
-		this.type=type;
-		this.valeur=valeur;
-		this.estNonNul=estNonNul;
-		this.aClePrimaire=aClePrimaire;
-		this.aClePrimaire=aClePrimaire;
-	}
+	public Attribut(String nomVariable, Type type, int valeur, boolean estNonNul, boolean estClePrimaire, boolean aCleEtrangere, String referenceTableEtrangere,String referenceAttributEtranger){
+		if(!aCleEtrangere){
+			referenceTableEtrangere="";
+			referenceAttributEtranger="";
+		}
 
-	public Attribut(String nomVariable, Type type, int valeur, boolean estNonNul, boolean aClePrimaire, boolean aCleEtrangere, String referenceTableEtrangere,String referenceAttributEtranger){
+
 		this.nomVariable=nomVariable;
 		this.type=type;
 		this.valeur=valeur;
 		this.estNonNul=estNonNul;
-		this.aClePrimaire=aClePrimaire;
+		this.estClePrimaire=estClePrimaire;
 		this.aCleEtrangere=aCleEtrangere;
 		this.referenceTableEtrangere=referenceTableEtrangere;
 		this.referenceAttributEtranger=referenceAttributEtranger;
@@ -51,8 +48,8 @@ public class Attribut {
 		return this.estNonNul;
 	}
 
-	public boolean getAClePrimaire(){
-		return this.aClePrimaire;
+	public boolean getEstClePrimaire(){
+		return this.estClePrimaire;
 	}
 
 	public boolean getACleEtrangere(){
@@ -63,16 +60,19 @@ public class Attribut {
 		String ret="";
 
 
-		if(aCleEtrangere){
-			ret = ret + "\nCONSTRAINT fk"+nomVariable+"REFERENCES "+referenceTableEtrangere+"("+referenceAttributEtranger+")";
-		}
-
 		if(estNonNul){
-			ret = ret + "\nCONSTRAINT nn"+nomVariable+" NOT NULL";
+			ret = ret + " NOT NULL";
 		}
 
 
 		return ret;
+	}
+
+	public String getReferenceTableEtrangere(){
+		return this.referenceTableEtrangere;
+	}
+	public String getReferenceAttributEtranger(){
+		return this.referenceAttributEtranger;
 	}
 
 
