@@ -283,15 +283,12 @@ public class FenetrePrincipale extends JFrame{
 				ArrayList<String> lesAttribut = bd.parcourirTable(table);
 				j=0;
 				for(String str : lesAttribut){
-					System.out.println(str);
 					if(j==0){
 						lesValeurs = bd.parcourirAttribut(str,table,"");
 						tablePrimaire=str;
-						System.out.println("passe");
 					}
 					else{
 						lesValeurs = bd.parcourirAttribut(str,table,tablePrimaire);
-						System.out.println("passage");
 					}
 					j++;
 					lesVal = new String[lesValeurs.size()];

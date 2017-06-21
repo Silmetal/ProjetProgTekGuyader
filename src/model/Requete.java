@@ -263,8 +263,18 @@ public class Requete {
 	  * Intègre à l'attribut state la commande SQL permettant de supprimer un tuple à la table précisée par l'utilisateur, puis exécute cette requête.
 	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
 	  */
-	public int enleverTuple() {
-		return 0;
+	public int enleverTuple(String val,String nomPrim) throws SQLException,Exception {
+		int ret;
+
+		try {
+        	int nb = Integer.parseInt(val);
+        	ret = (int)manuel("DELETE FROM "+table+" WHERE "+nomPrim+"="+nb+";")[2];
+	    } catch (NumberFormatException nfe) {
+	        ret = (int)manuel("DELETE FROM "+table+" WHERE "+nomPrim+"='"+val+"';")[2];
+	    }
+
+		
+		return ret;
 	}
 	
 	/**

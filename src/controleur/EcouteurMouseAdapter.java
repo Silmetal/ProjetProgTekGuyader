@@ -64,14 +64,15 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					BaseDeDonnees laBaseSelectionee = lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection());
 					laTableSelectionee = lUtilisateur.getTable();
 					Requete nouvelleRequete = new Requete(laBaseSelectionee.getConnection(),laBaseSelectionee.getNomDeLaBase(),laTableSelectionee);
+
+
 					if(jmi.getName().equals("nouvTable")){
 						
 						//nouvelleRequete.ajouterTable(nomTable,listeAttribut);
 					}
 					else if(jmi.getName().equals("supprTable")){
 						if(lUtilisateur.getSelection()!=-1){
-							BaseDeDonnees base = lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection());
-							ArrayList<String> lesTables = base.parcourirBase();
+							ArrayList<String> lesTables = laBaseSelectionee.parcourirBase();
 							String[] lesTab = new String[lesTables.size()];
 
 							for(int i=0;i<lesTables.size();i++){
@@ -93,10 +94,41 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 							
 					}
 					else if(jmi.getName().equals("nouvTuple")){
-						nouvelleRequete.ajouterTuple();
+						if(lUtilisateur.getSelection()!=-1 && !(lUtilisateur.getTable().equals(""))){
+							
+							nouvelleRequete.ajouterTuple();
+						}
 					}
 					else if(jmi.getName().equals("supprTuple")){
-						nouvelleRequete.enleverTuple();
+						int k=0;
+						String attribut;
+						if(lUtilisateur.getSelection()!=-1 && !(laTableSelectionee.equals(""))){
+							ArrayList<String> lesValeurs;
+							String[] lesVal=null;
+							ArrayList<String> lesAttribut = laBaseSelectionee.parcourirTable(laTableSelectionee);
+							
+							attribut=lesAttribut.get(0);
+							lesValeurs = laBaseSelectionee.parcourirAttribut(lesAttribut.get(0),laTableSelectionee,"");
+							
+							
+							lesVal = new String[lesValeurs.size()];
+
+							for(int i=0;i<lesValeurs.size();i++){
+								lesVal[i]=lesValeurs.get(i);
+							}
+
+							String tuple = (String) JOptionPane.showInputDialog(fp, 
+						        "Quelle tuple voulez vous supprimer ?",
+						        "Suppression de tuple",
+						        JOptionPane.QUESTION_MESSAGE, 
+						        null, 
+						        lesVal, 
+						        lesVal[0]);
+							System.out.println("Attribut "+attribut);
+							System.out.println("Tuple "+tuple);
+							nouvelleRequete.enleverTuple(tuple,attribut);
+						}
+						
 					}
 					else if(jmi.getName().equals("nouvTrigger")){
 						nouvelleRequete.ajouterTrigger();
