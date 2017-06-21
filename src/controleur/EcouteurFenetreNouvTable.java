@@ -58,21 +58,28 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 		
 		for (Object[] o :((MyTableModel)fnt.getTable().getModel()).getData()){
 			
-			Attribut att = new Attribut((String)o[0], (Type)o[1], (int)o[2], (boolean)o[3], (boolean)o[4], (boolean)o[5], (boolean)o[6], (String)o[7], (String)o[8]);
+			int res = 0;
+			try {
+				res = Integer.parseInt((String)o[2]);
+			}
+			catch(NumberFormatException nfe) {
+				res = -1;
+			}
+			Attribut att = new Attribut((String)o[0], (Type)o[1], res, (boolean)o[3], (boolean)o[4], (boolean)o[5], (boolean)o[6], (String)o[7], (String)o[8]);
 			listeAtt.add(att);
 		}
 		
 		try{
 			ema.nouvelleTable(requ, this);
+			fnt.dispose();
 		}
 		catch(SQLException sqle) {
-			sqle.printStackTrace();
+			JOptionPane jop = new JOptionPane();
+			jop.showMessageDialog(null, "Erreur SQL, vérifiez vos informations.", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
 		}
-		
-		fnt.dispose();		
 	}
 	
 	public void stateChanged(ChangeEvent e) {
@@ -82,7 +89,7 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 		if ((newValue - spinnerValue) > 0) {
 			
 			for(int i = 0; i < newValue - spinnerValue; i++) {
-				((MyTableModel)fnt.getTable().getModel()).addRow(new Object[]{"", model.Type.INT, 4, false, false, false, false, "", ""});
+				((MyTableModel)fnt.getTable().getModel()).addRow(new Object[]{"", model.Type.INT, "", false, false, false, false, "", ""});
 			}
 		}
 		else if ((newValue - spinnerValue) < 0) {

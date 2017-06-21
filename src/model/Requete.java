@@ -42,56 +42,6 @@ public class Requete {
 		manuel("use "+base);
 		
 	}
-	
-	
-	public Requete(){
-		
-	}
-	
-	 // /**
-	 // * Récupère le choix fait par l'utilisateur et exécute la requête correspondante.
-	 // * @param choix l'entier correspondant au choix fait par l'utilisateur
-	 // */
-	// public void MenuChoix(int choix) {
-		
-		// if (choix == 0) {
-			
-			// ajouterTable();
-		// }
-		// else if (choix == 1) {
-			
-			// ajouterTuple();
-		// }
-		// else if (choix == 2) {
-			
-			// ajouterTrigger();
-		// }
-		// else if (choix == 3) {
-			
-			// ajouterVue();
-		// }
-		// else if (choix == 4) {
-			
-			// enleverTable();
-		// }
-		// else if (choix == 5) {
-			
-			// enleverTuple();
-		// }
-		// else if (choix == 6) {
-			
-			// enleverTrigger();
-		// }
-		// else if (choix == 7) {
-			
-			// enleverVue();
-		// }
-		// else if (choix == 8) {
-			
-			// manuel();
-		// }
-		// else System.out.println("Choix non reconnu");
-	// }
 
 	/** 
 	 * Intègre à l'attribut state la commande SQL passée en paramètre, puis exécute cette requête. Retourne le nombre de tuples modifiés par la requête
@@ -107,22 +57,18 @@ public class Requete {
 		
 		try {
 			
-			ret = state.executeUpdate(requete);		
+			ret = state.executeUpdate(requete);
+			try{
+				state.close();
+			}
+			catch(Exception e){
+				System.out.println("Impossible de fermer la connexion");
+				throw e;
+			}			
 		}
 		catch(SQLException sqle) {
-			System.out.println("Erreur SQL : ");
+			sqle.printStackTrace();
 			throw sqle;
-		}
-		finally{ 
-			if(state !=null){
-				try{
-					state.close();
-				}
-				catch(Exception e){
-					System.out.println("Impossible de fermer la connexion");
-					throw e;
-				}
-			} 
 		}
 		return ret;
 	}
@@ -149,7 +95,7 @@ public class Requete {
 			}
 		}
 		catch(SQLException sqle) {
-			System.out.println("Erreur SQL : ");
+			sqle.printStackTrace();
 			throw sqle;
 		}
 		/*finally{ 

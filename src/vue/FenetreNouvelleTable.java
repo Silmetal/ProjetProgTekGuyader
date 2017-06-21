@@ -72,7 +72,7 @@ public class FenetreNouvelleTable extends JFrame{
 		nbColonne = new JSpinner(new SpinnerNumberModel(1, 1, 99999, 1));
 		
 		ArrayList<Object[]> data = new ArrayList<Object[]>();
-		data.add((new Object[]{"", model.Type.INT, 4, false, false, false, false, "", ""}));
+		data.add((new Object[]{"", model.Type.INT, "", false, false, false, false, "", ""}));
 		
 		mtm = new MyTableModel(data);
 		

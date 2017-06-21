@@ -20,7 +20,8 @@ public class Attribut {
 			referenceTableEtrangere="";
 			referenceAttributEtranger="";
 		}
-
+		
+		
 
 		this.nomVariable=nomVariable;
 		this.type=type;
