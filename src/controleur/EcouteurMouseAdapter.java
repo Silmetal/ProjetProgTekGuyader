@@ -69,11 +69,27 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						//nouvelleRequete.ajouterTable(nomTable,listeAttribut);
 					}
 					else if(jmi.getName().equals("supprTable")){
+						if(lUtilisateur.getSelection()!=-1){
+							BaseDeDonnees base = lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection());
+							ArrayList<String> lesTables = base.parcourirBase();
+							String[] lesTab = new String[lesTables.size()];
+
+							for(int i=0;i<lesTables.size();i++){
+								lesTab[i]=lesTables.get(i);
+							}
+
+							String table = (String) JOptionPane.showInputDialog(fp, 
+						        "Quelle table/vue voulez vous supprimer ?",
+						        "Suppression de table/vue",
+						        JOptionPane.QUESTION_MESSAGE, 
+						        null, 
 						        lesTab, 
 						        lesTab[0]);
 
 							nouvelleRequete.enleverTable(table);
-						}							
+						}
+
+							
 					}
 					else if(jmi.getName().equals("nouvTuple")){
 						nouvelleRequete.ajouterTuple();
@@ -125,5 +141,4 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getNouvVue().addMouseListener(this);
 		fp.getSupprVue().addMouseListener(this);
 	}
-
 }
