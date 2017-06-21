@@ -251,9 +251,10 @@ public class Requete {
 	 * Intègre à l'attribut state la commande SQL permettant de supprimer une nouvelle table à la base de données à laquelle l'utilisateur, puis exécute cette requête.
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
 	 */
-	public int enleverTable() {
-		
-		return 0;
+	public int enleverTable(String table) throws SQLException,Exception {
+		int ret;
+		ret = creerOuModifier("DROP IF EXISTS "+table);
+		return ret;
 	}
 	
 	/**
