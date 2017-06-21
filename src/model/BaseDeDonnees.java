@@ -265,7 +265,7 @@ public class BaseDeDonnees {
 		String affichage="";
 
 		try{
-			Requete nouvelleRequete = new Requete(connexion,"");
+			Requete nouvelleRequete = new Requete(connexion,"","");
 				Object[] res = nouvelleRequete.manuel("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '"+table+"'");
 
 				ResultSet rs=(ResultSet)res[1];
@@ -303,7 +303,7 @@ public class BaseDeDonnees {
 		String affichage="";
 		Object[] res = null;
 		try{
-			Requete nouvelleRequete = new Requete(connexion,"");
+			Requete nouvelleRequete = new Requete(connexion,"","");
 				if(!tablePrimaire.equals("")){
 					res = nouvelleRequete.manuel("SELECT "+attribut+"FROM (SELECT "+attribut+","+tablePrimaire+" FROM "+table+" ORDER BY "+tablePrimaire+") AS test;");
 				}

@@ -82,7 +82,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 	 */
 	public void lancer(){
 		try{
-			Requete maRequete = new Requete(maConnexion,"");
+			Requete maRequete = new Requete(maConnexion,fp.getUtilisateur().getLesBasesDeDonnees().get(fp.getUtilisateur().getSelection()).getNomDeLaBase(),"");
 			ResultSet rs=null;
 			int nb=0;
 			Object[] res;

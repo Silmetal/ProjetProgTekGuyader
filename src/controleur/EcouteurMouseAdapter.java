@@ -63,7 +63,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					JMenuItem jmi = (JMenuItem) e.getComponent();
 					BaseDeDonnees laBaseSelectionee = lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection());
 					laTableSelectionee = lUtilisateur.getTable();
-					Requete nouvelleRequete = new Requete(laBaseSelectionee.getConnection(),laTableSelectionee);
+					Requete nouvelleRequete = new Requete(laBaseSelectionee.getConnection(),laBaseSelectionee.getNomDeLaBase(),laTableSelectionee);
 					if(jmi.getName().equals("nouvTable")){
 						
 						//nouvelleRequete.ajouterTable(nomTable,listeAttribut);
@@ -87,6 +87,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						        lesTab[0]);
 
 							nouvelleRequete.enleverTable(table);
+							fp.getPanneauGauche().constructionJTree();
 						}
 
 							
@@ -111,7 +112,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					}
 				}
 				catch(SQLException se){
-					
+					se.printStackTrace();
 				}
 				catch(Exception ex){
 

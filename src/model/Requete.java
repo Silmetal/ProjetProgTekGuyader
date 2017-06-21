@@ -22,6 +22,11 @@ public class Requete {
 	 * Le nom de la table sur laquelle exécuter la requête
 	 */
 	private String table;
+
+	/**
+	 * Le nom de la base de données sur laquelle exécuter la requete
+	 */
+	private String base;
 	
 	/**
 	 * Constructeur de la classe. Prend en paramètre un objet Connection en paramètre et créé un objet Statement sur cette connexion. Stocke le Statement dans son attribut state.
@@ -29,16 +34,13 @@ public class Requete {
 	 * @param table le nome de la table sur laquelle exécuter la requête
 	 * @throws SQLException si la connexion est invalide, ou qu'une autre erreur SQL survient
 	 */
-	public Requete(Connection connexion,String table) throws SQLException{
+	public Requete(Connection connexion,String base,String table) throws SQLException, Exception{
 		this.table = table;
-		try {
-			this.state = connexion.createStatement();
-		}
-		catch(SQLException sqle) {
-			
-			System.out.println("Erreur SQL : ");
-			throw sqle;
-		}
+		this.base=base;
+		this.state = connexion.createStatement();
+		if(!base.equals(""))
+		manuel("use "+base);
+		
 	}
 	
 	
@@ -253,7 +255,7 @@ public class Requete {
 	 */
 	public int enleverTable(String table) throws SQLException,Exception {
 		int ret;
-		ret = creerOuModifier("DROP IF EXISTS "+table);
+		ret = (int)manuel("DROP TABLE "+table)[2];
 		return ret;
 	}
 	

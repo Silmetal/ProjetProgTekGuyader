@@ -78,7 +78,7 @@ public class Utilisateur {
 			if(lesTables.size()==0){
 				try{
 					
-					Requete interogation = new Requete(laBase.getConnection(),table);
+					Requete interogation = new Requete(laBase.getConnection(),nomDeLaBase,table);
 					ResultSet rs = (ResultSet) ((interogation.manuel("SHOW DATABASES;"))[1]);
 					ResultSetMetaData rsmd = rs.getMetaData();
 			   		int columnsNumber = rsmd.getColumnCount();		
@@ -155,12 +155,12 @@ public class Utilisateur {
 	* @throws NullPointerException si le curseur selection n'est pas à une valeur valide
 	*/
 	
-	public void nouvelleRequete() throws SQLException, NullPointerException{
+	public void nouvelleRequete() throws SQLException, NullPointerException,Exception{
 		
 		try {
 			
 			if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
-				Requete nouvelleRequete = new Requete(this.lesBasesDeDonnees.get(this.selection).getConnection(),table);
+				Requete nouvelleRequete = new Requete(this.lesBasesDeDonnees.get(this.selection).getConnection(),lesBasesDeDonnees.get(this.selection).getNomDeLaBase(),table);
 			}
 			else throw new NullPointerException("Attention selection incorect");
 		}
