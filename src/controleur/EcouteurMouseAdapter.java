@@ -8,7 +8,7 @@ import java.io.*;
 import javax.swing.*;
 import java.sql.*;
 import java.awt.*;
-
+import java.util.*;
 
 
 
@@ -71,21 +71,31 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					else if(jmi.getName().equals("supprTable")){
 						/* if(lUtilisateur.getSelection()!=-1){
 							BaseDeDonnees base = lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection());
-
 							ArrayList<String> lesTables = base.parcourirBase();
-							for(String s : lesTables){
+							String[] lesTab = new String[lesTables.size()];
 
+							for(int i=0;i<lesTables.size();i++){
+								lesTab[i]=lesTables.get(i);
+							}
 
-							String favoritePizza = (String) JOptionPane.showInputDialog(frame, 
-						        "Quelle table voulez vous supprimer ?",
-						        "Suppression de table",
+							String table = (String) JOptionPane.showInputDialog(fp, 
+						        "Quelle table/vue voulez vous supprimer ?",
+						        "Suppression de table/vue",
 						        JOptionPane.QUESTION_MESSAGE, 
 						        null, 
+<<<<<<< HEAD
 						        pizzas, 
 						        pizzas[0]);
 						} */
+=======
+						        lesTab, 
+						        lesTab[0]);
 
-							//nouvelleRequete.enleverTable();
+							nouvelleRequete.enleverTable(table);
+						}
+>>>>>>> f17b4edfd07952c943d3e8285182c1a5bc0e1c3f
+
+							
 					}
 					else if(jmi.getName().equals("nouvTuple")){
 						nouvelleRequete.ajouterTuple();
@@ -108,6 +118,9 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 				}
 				catch(SQLException se){
 					
+				}
+				catch(Exception ex){
+
 				}
 			}
 
