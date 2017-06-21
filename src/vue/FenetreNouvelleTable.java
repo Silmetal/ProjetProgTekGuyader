@@ -79,6 +79,7 @@ public class FenetreNouvelleTable extends JFrame{
 		mtm = new MyTableModel(data);
 		
 		jTable = new JTable(mtm);
+		jTable.getTableHeader().setReorderingAllowed(false);
 		comboBoxTable(jTable, jTable.getColumnModel().getColumn(1));
 		
 		creerTable = new JButton("Créer la table");

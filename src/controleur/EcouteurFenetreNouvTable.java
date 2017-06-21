@@ -6,6 +6,7 @@ import java.awt.event.*;
 import javax.swing.event.*;
 import java.io.*;
 import javax.swing.*;
+import java.util.ArrayList;
 import java.sql.*;
 
 /**
@@ -19,6 +20,10 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	private FenetreNouvelleTable fnt;
 	
 	private int spinnerValue;
+	
+	private ArrayList<Attribut> listeAtt;
+	
+	private String nomTable;
 	
 	/**
 	 * Le constructeur de la classe. Prend en paramètre une FenetreRequete, une Connection et une FenetrePrincipale et les associe à ses 
@@ -42,9 +47,14 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	 */
 	public void actionPerformed(ActionEvent e) {
 		
+		listeAtt = new ArrayList<Attribut>();
+		nomTable = fnt.getNomTableTF().getText();
 		
-		
-		
+		for (Object[] o :((MyTableModel)fnt.getTable().getModel()).getData()){
+			
+			Attribut att = new Attribut((String)o[0], (Type)o[1], (int)o[2], (boolean)o[3], (boolean)o[4], (boolean)o[5], (String)o[6], (String)o[7]);
+			listeAtt.add(att);
+		}		
 	}
 	
 	public void stateChanged(ChangeEvent e) {

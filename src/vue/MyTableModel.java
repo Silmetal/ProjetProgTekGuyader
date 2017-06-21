@@ -34,6 +34,10 @@ import java.util.Vector;
 	public Object getValueAt(int row, int col) {
 		return (data.get(row))[col];
 	}
+	
+	public ArrayList<Object[]> getData() {
+		return data;
+	}
 
 	/*
 	 * JTable uses this method to determine the default renderer/
