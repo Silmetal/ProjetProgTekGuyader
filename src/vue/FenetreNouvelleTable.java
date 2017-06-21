@@ -36,6 +36,11 @@ public class FenetreNouvelleTable extends JFrame{
 	private JComboBox listeType;
 	
 	/**
+	 *
+	 */
+	private JButton creerTable;
+	
+	/**
 	 * Le modèle utilisé par le JTable pour se créer et se mettre à jour correctement
 	 */
 	private MyTableModel mtm;
@@ -52,6 +57,7 @@ public class FenetreNouvelleTable extends JFrame{
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		this.setVisible(true);
+		EcouteurFenetreNouvTable efnt = new EcouteurFenetreNouvTable(this);
 	}
 	
 	/**
@@ -67,25 +73,33 @@ public class FenetreNouvelleTable extends JFrame{
 		JLabel nbColonneLabel = new JLabel("Nombre de colonne");
 		nbColonne = new JSpinner(new SpinnerNumberModel(1, 1, 99999, 1));
 		
-		mtm = new MyTableModel();
+		ArrayList<Object[]> data = new ArrayList<Object[]>();
+		data.add((new Object[]{"", model.Type.INT, 4, false, false, false, false, "", ""}));
+		
+		mtm = new MyTableModel(data);
 		
 		jTable = new JTable(mtm);
 		comboBoxTable(jTable, jTable.getColumnModel().getColumn(1));
 		
+		creerTable = new JButton("Créer la table");
+		
 		
 		// Création des sous-panneaux
 		JScrollPane scrollPane = new JScrollPane(jTable);
-		JPanel pannEnTete = new JPanel(new GridLayout(1,4, 5, 5));		
+		JPanel pannEnTete = new JPanel(new GridLayout(1,4, 5, 5));
+		JPanel pannBouton = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
 		pannEnTete.add(nomTableLabel);
 		pannEnTete.add(nomTableTF);
 		pannEnTete.add(nbColonneLabel);
 		pannEnTete.add(nbColonne);
+		pannBouton.add(creerTable);
 		
 		// Ajout des sous-panneaux dans le panneau principal
 		this.add(pannEnTete, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
+		this.add(pannBouton, BorderLayout.SOUTH);
 	}
 	
 	public void comboBoxTable(JTable jTable, TableColumn colType) {
@@ -96,4 +110,29 @@ public class FenetreNouvelleTable extends JFrame{
 	}
 	colType.setCellEditor(new DefaultCellEditor(listeType));
     }
+	
+	public JTable getTable() {
+		
+		return this.jTable;
+	}
+	
+	public JTextField getNomTableTF() {
+		
+		return this.nomTableTF;
+	}
+	
+	public JSpinner getNbColonne() {
+		
+		return this.nbColonne;
+	}
+	
+	public JButton getCreerTableBouton() {
+		
+		return this.creerTable;
+	}
+	
+	public MyTableModel getMTM() {
+		
+		return this.mtm;
+	}
 }

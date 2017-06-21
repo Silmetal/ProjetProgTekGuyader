@@ -3,21 +3,28 @@ package vue;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import model.*;
+import java.util.ArrayList;
+import java.util.Vector;
  
  public class MyTableModel extends AbstractTableModel {	 
 	
 	private String[] titre={"Nom", "Type", "Valeur", "Nul ?",  "Unique ?", "Clé Primaire ?", "Clé étrangère ?", "Table référée", "Attribut référé"};
 	
-	private Object[][] data ={{"", Type.INT, 4, false, false, false, false, "", ""}};
+	private ArrayList<Object[]> data = new ArrayList<Object[]>();
 	
 	private boolean DEBUG = false;
+	
+	public MyTableModel(ArrayList<Object[]> data) {
+		
+		this.data = data;
+	}
 	
 	public int getColumnCount() {
 		return titre.length;
 	}
 
 	public int getRowCount() {
-		return data.length;
+		return data.size();
 	}
 
 	public String getColumnName(int col) {
@@ -25,7 +32,7 @@ import model.*;
 	}
 
 	public Object getValueAt(int row, int col) {
-		return data[row][col];
+		return (data.get(row))[col];
 	}
 
 	/*
@@ -59,7 +66,7 @@ import model.*;
 							   + value.getClass() + ")");
 		}
 
-		data[row][col] = value;
+		(data.get(row))[col] = value;
 		fireTableCellUpdated(row, col);
 
 		if (DEBUG) {
@@ -67,7 +74,18 @@ import model.*;
 			printDebugData();
 		}
 	}
-
+	
+    public void addRow(Object[] rowData) {
+        
+		data.add(rowData);
+        this.fireTableDataChanged();
+    }
+	
+	public void removeRow(int row) {
+        data.remove(row);       
+        this.fireTableDataChanged();
+    }
+	
 	private void printDebugData() {
 		int numRows = getRowCount();
 		int numCols = getColumnCount();
@@ -75,7 +93,7 @@ import model.*;
 		for (int i=0; i < numRows; i++) {
 			System.out.print("    row " + i + ":");
 			for (int j=0; j < numCols; j++) {
-				System.out.print("  " + data[i][j]);
+				System.out.print("  " + (data.get(i))[j]);
 			}
 			System.out.println();
 		}
