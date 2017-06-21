@@ -71,26 +71,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						//nouvelleRequete.ajouterTable(nomTable,listeAttribut);
 					}
 					else if(jmi.getName().equals("supprTable")){
-						if(lUtilisateur.getSelection()!=-1){
-							ArrayList<String> lesTables = laBaseSelectionee.parcourirBase();
-							String[] lesTab = new String[lesTables.size()];
-
-							for(int i=0;i<lesTables.size();i++){
-								lesTab[i]=lesTables.get(i);
-							}
-
-							String table = (String) JOptionPane.showInputDialog(fp, 
-						        "Quelle table/vue voulez vous supprimer ?",
-						        "Suppression de table/vue",
-						        JOptionPane.QUESTION_MESSAGE, 
-						        null, 
-						        lesTab, 
-						        lesTab[0]);
-
-							nouvelleRequete.enleverTable(table);
-							fp.getPanneauGauche().constructionJTree();
-						}
-
+						
+						supprimerTable(laBaseSelectionee,laTableSelectionee);
 							
 					}
 					else if(jmi.getName().equals("nouvTuple")){
@@ -100,34 +82,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						}
 					}
 					else if(jmi.getName().equals("supprTuple")){
-						int k=0;
-						String attribut;
-						if(lUtilisateur.getSelection()!=-1 && !(laTableSelectionee.equals(""))){
-							ArrayList<String> lesValeurs;
-							String[] lesVal=null;
-							ArrayList<String> lesAttribut = laBaseSelectionee.parcourirTable(laTableSelectionee);
-							
-							attribut=lesAttribut.get(0);
-							lesValeurs = laBaseSelectionee.parcourirAttribut(lesAttribut.get(0),laTableSelectionee,"");
-							
-							
-							lesVal = new String[lesValeurs.size()];
-
-							for(int i=0;i<lesValeurs.size();i++){
-								lesVal[i]=lesValeurs.get(i);
-							}
-
-							String tuple = (String) JOptionPane.showInputDialog(fp, 
-						        "Quelle tuple voulez vous supprimer ?",
-						        "Suppression de tuple",
-						        JOptionPane.QUESTION_MESSAGE, 
-						        null, 
-						        lesVal, 
-						        lesVal[0]);
-							System.out.println("Attribut "+attribut);
-							System.out.println("Tuple "+tuple);
-							nouvelleRequete.enleverTuple(tuple,attribut);
-						}
+						
+						supprimerTuple(laBaseSelectionee,laTableSelectionee);
 						
 					}
 					else if(jmi.getName().equals("nouvTrigger")){
@@ -152,6 +108,70 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 			}
 
 	}
+
+
+
+	public void nouvelleTable(){
+
+	}
+
+	public void nouveauTuple(){
+
+	}
+
+	public void supprimerTable(BaseDeDonnees laBaseSelectionee,String laTableSelectionee){
+		if(lUtilisateur.getSelection()!=-1){
+			ArrayList<String> lesTables = laBaseSelectionee.parcourirBase();
+			String[] lesTab = new String[lesTables.size()];
+
+			for(int i=0;i<lesTables.size();i++){
+				lesTab[i]=lesTables.get(i);
+			}
+
+			String table = (String) JOptionPane.showInputDialog(fp, 
+		        "Quelle table/vue voulez vous supprimer ?",
+		        "Suppression de table/vue",
+		        JOptionPane.QUESTION_MESSAGE, 
+		        null, 
+		        lesTab, 
+		        lesTab[0]);
+
+			nouvelleRequete.enleverTable(table);
+			fp.getPanneauGauche().constructionJTree();
+		}
+	}
+
+	public void supprimerTuple(BaseDeDonnees laBaseSelectionee,String laTableSelectionee){
+		int k=0;
+		String attribut;
+		if(lUtilisateur.getSelection()!=-1 && !(laTableSelectionee.equals(""))){
+			ArrayList<String> lesValeurs;
+			String[] lesVal=null;
+			ArrayList<String> lesAttribut = laBaseSelectionee.parcourirTable(laTableSelectionee);
+			
+			attribut=lesAttribut.get(0);
+			lesValeurs = laBaseSelectionee.parcourirAttribut(lesAttribut.get(0),laTableSelectionee,"");
+			
+			
+			lesVal = new String[lesValeurs.size()];
+
+			for(int i=0;i<lesValeurs.size();i++){
+				lesVal[i]=lesValeurs.get(i);
+			}
+
+			String tuple = (String) JOptionPane.showInputDialog(fp, 
+		        "Quelle tuple voulez vous supprimer ?",
+		        "Suppression de tuple",
+		        JOptionPane.QUESTION_MESSAGE, 
+		        null, 
+		        lesVal, 
+		        lesVal[0]);
+			System.out.println("Attribut "+attribut);
+			System.out.println("Tuple "+tuple);
+			nouvelleRequete.enleverTuple(tuple,attribut);
+		}
+	}
+
 
 
 	
