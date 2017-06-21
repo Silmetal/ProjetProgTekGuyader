@@ -1,13 +1,11 @@
 package vue;
 import controleur.*;
-import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.*;
 import java.util.*;
 import java.sql.*;
-
 
 /**
  * Cette classe est la classe d'IHM de la fenêtre permettant la connexion à la base de donnée. Trois champs de texte sont présents, demandant
@@ -36,11 +34,6 @@ public class FenetreNouvelleTable extends JFrame{
 	 *
 	 */
 	private JComboBox listeType;
-	
-	/**
-	 * 
-	 */
-	private JComboBox listeClef;
 	
 	/**
 	 * Le modèle utilisé par le JTable pour se créer et se mettre à jour correctement
@@ -74,16 +67,14 @@ public class FenetreNouvelleTable extends JFrame{
 		JLabel nbColonneLabel = new JLabel("Nombre de colonne");
 		nbColonne = new JSpinner(new SpinnerNumberModel(1, 1, 99999, 1));
 		
-		
-		
 		mtm = new MyTableModel();
 		
 		jTable = new JTable(mtm);
-		jTable.setSize(300,400);
-		jTable.setFillsViewportHeight(true);
+		comboBoxTable(jTable, jTable.getColumnModel().getColumn(1));
 		
 		
 		// Création des sous-panneaux
+		JScrollPane scrollPane = new JScrollPane(jTable);
 		
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
@@ -91,62 +82,15 @@ public class FenetreNouvelleTable extends JFrame{
 		this.add(nomTableTF);
 		this.add(nbColonneLabel);
 		this.add(nbColonne);
-		this.add(jTable);
+		this.add(scrollPane);
 	}
 	
 	public void comboBoxTable(JTable jTable, TableColumn colType) {
 	//Set up the editor for the sport cells.
-	listeType = new JComboBox(Type.values());
-	list = new JComboBox(Type.values());
+	listeType = new JComboBox();
+	for(model.Type t : model.Type.values()) {
+		listeType.addItem(t);
+	}
 	colType.setCellEditor(new DefaultCellEditor(listeType));
     }
-
-
-	/**
-	 * Cette méthode modifie le JTable pour afficher le contenu de la table selectionnée. Cette méthode est appelée à chaque fois que l'on clique sur un élément du JTree
-	 * @param bd la BaseDeDonnees contenant la table sélectionnée
-	 * @param table la table à afficher
-	 */
-	/* public void setJTable(BaseDeDonnees bd,String table){
-		String[] lesVal=null;
-		ArrayList<String> lesValeurs;
-		String tablePrimaire="";
-		int j=0;
-		dTM.setColumnCount(0);
-		if(!table.equals("")){
-
-			try{
-				ArrayList<String> lesAttribut = bd.parcourirTable(table);
-				j=0;
-				for(String str : lesAttribut){
-					System.out.println(str);
-					if(j==0){
-						lesValeurs = bd.parcourirAttribut(str,table,"");
-						tablePrimaire=str;
-						System.out.println("passe");
-					}
-					else{
-						lesValeurs = bd.parcourirAttribut(str,table,tablePrimaire);
-						System.out.println("passage");
-					}
-					j++;
-					lesVal = new String[lesValeurs.size()];
-
-					for(int i=0;i<lesValeurs.size();i++){
-						lesVal[i]=lesValeurs.get(i);
-					}
-					dTM.setRowCount(lesVal.length);
-					dTM.addColumn(str,lesVal);
-				}		
-			}
-			catch(SQLException se){
-
-				se.printStackTrace();
-
-			}
-			catch(Exception e){
-
-			}
-		}
-	} */
 }

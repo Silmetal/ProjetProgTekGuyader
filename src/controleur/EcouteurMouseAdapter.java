@@ -69,7 +69,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						//nouvelleRequete.ajouterTable(nomTable,listeAttribut);
 					}
 					else if(jmi.getName().equals("supprTable")){
-						if(lUtilisateur.getSelection()!=-1){
+						/* if(lUtilisateur.getSelection()!=-1){
 							BaseDeDonnees base = lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection());
 
 							ArrayList<String> lesTables = base.parcourirBase();
@@ -83,7 +83,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						        null, 
 						        pizzas, 
 						        pizzas[0]);
-						}
+						} */
 
 							//nouvelleRequete.enleverTable();
 					}
