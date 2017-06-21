@@ -1,6 +1,8 @@
 package model;
+import utilitaire.*;
 import java.util.*;
 import java.sql.*;
+
 
 /**
  * Cette classe prend en paramètre un objet Connexion et créée un objet Statement avec lequel on peut effectuer des commandes SQL sur la base de données.
@@ -37,6 +39,11 @@ public class Requete {
 			System.out.println("Erreur SQL : ");
 			throw sqle;
 		}
+	}
+	
+	
+	public Requete(){
+		
 	}
 	
 	 // /**
@@ -193,10 +200,22 @@ public class Requete {
 		}
 
 		for(Attribut monAtt : listeAttribut){
-			if(monAtt.getAClePrimaire()){
-				requete = requete + "CONSTRAINT pk"+nomTable+" PRIMARY KEY ("+monAtt.getNomVariable()+")";
+			if(monAtt.getEstClePrimaire()){
+				requete = requete +"PRIMARY KEY ("+monAtt.getNomVariable()+"),";
 			}
 		}
+
+		for (Attribut monAtt : listeAttribut) {
+			if (monAtt.getACleEtrangere()) {
+				requete = requete + "\nCONSTRAINT fk"+monAtt.getNomVariable()+" FOREIGN KEY ("+monAtt.getNomVariable()+") REFERENCES ";
+				requete = requete + monAtt.getReferenceTableEtrangere()+"("+monAtt.getReferenceAttributEtranger()+"),";
+			}
+		}
+
+		requete = ModifierString.supprimerAvecPlace(requete,requete.length()-1,1);
+
+		requete = requete + "\n);";
+		
 	
 		ret = creerOuModifier(requete);
 		return ret;
