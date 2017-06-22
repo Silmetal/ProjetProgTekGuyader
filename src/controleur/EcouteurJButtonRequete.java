@@ -7,6 +7,7 @@ import java.io.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.*;
+import javax.swing.tree.*;
 
 /**
 * Cette classe est l'écouteur des boutons de la classe FenetreRequete. Elle associe à chaque bouton l'action qu'il est censé déclencher.

@@ -207,7 +207,6 @@ public class FenetreRequete extends JFrame{
 				row = new String[lesTitres.size()];
 				for(int i=0;i<lesTitres.size();i++){
 					row[i]=lesValeurs.get((j*lesTitres.size())+i);
-					System.out.println(lesValeurs.get((j*lesTitres.size())+i));
 				}
 				dTM.addRow(row);
 			}

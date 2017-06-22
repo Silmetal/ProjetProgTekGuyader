@@ -87,6 +87,7 @@ public class PanneauGauche extends JPanel{
 	 * Mets à jour le JTree en fonction des requêtes et des informations de connexion. Cette méthode est appelée à la connexion et à chaque fois qu'une requête est lancée.
 	 */
 	public void constructionJTree(){
+		TreePath tp = arborescence.getSelectionPath();
 		int i=0;
 	//	ImageIcon imgIc = new ImageIcon("../fichier/bdd.jpg");
 		try{
@@ -111,6 +112,22 @@ public class PanneauGauche extends JPanel{
 
 			((DefaultTreeModel)arborescence.getModel()).setRoot(racine);
 			arborescence.setCellRenderer(new ModificationJTree());
+
+
+			
+			
+
+			arborescence.setSelectionPath(tp);
+
+
+
+			arborescence.expandRow(1);
+			System.out.println(lUtilisateur.getSelection());
+			if(lUtilisateur.getSelection()!=-1)
+			arborescence.expandRow(2+lUtilisateur.getSelection());
+			//lUtilisateur.getSelection();
+
+
 		}
 		catch(SQLException se){
 

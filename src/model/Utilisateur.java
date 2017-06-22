@@ -110,7 +110,7 @@ public class Utilisateur {
 				lesBasesDeDonnees.add(laBase);
 			}
 
-			selection = lesBasesDeDonnees.size()-1;
+			selection = -1;
 		}
 		catch (ClassNotFoundException cnfe) {
 			throw cnfe;

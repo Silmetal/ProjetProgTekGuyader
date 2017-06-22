@@ -12,7 +12,6 @@ public class ModificationJTree extends DefaultTreeCellRenderer implements TreeCe
 
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded,
                                                   boolean leaf, int row, boolean hasFocus) {
-
         label =(JLabel) super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
         Object o = ((DefaultMutableTreeNode) value).getUserObject();
         if (o instanceof Noeud) {
@@ -39,4 +38,6 @@ public class ModificationJTree extends DefaultTreeCellRenderer implements TreeCe
 
 
     }
+
+
 }
