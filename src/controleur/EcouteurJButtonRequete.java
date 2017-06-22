@@ -85,20 +85,23 @@ public class EcouteurJButtonRequete implements ActionListener {
 			Requete maRequete = new Requete(maConnexion,fp.getUtilisateur().getLesBasesDeDonnees().get(fp.getUtilisateur().getSelection()).getNomDeLaBase(),"");
 			ResultSet rs=null;
 			int nb=0;
+			boolean bool=false;
 			Object[] res;
 			res=maRequete.manuel(fr.getChampsSaisie().getText());
 
 			rs=(ResultSet)res[1];
 			nb=(Integer)res[2];
-			System.out.println("ResultSet"+rs);
+			bool = (boolean)res[0];
 
-			if(rs!=null){
-				String affichage="";
+			if(bool){
+				/*String affichage="";
 				affichage = maRequete.retournerResultSet(rs,true);
-				fr.getConsole().setText("Requete : \n\n"+affichage);
+				fr.getConsole().setText("Requete : \n\n"+affichage);*/
+				fr.getCard().last(fr.getPanneauDuBas());
 
 			}
 			else{
+				fr.getCard().first(fr.getPanneauDuBas());
 				fr.getConsole().setText("Nombre de lignes modifiées : "+nb);
 			}
 		}
