@@ -56,7 +56,7 @@ public class FenetreNouvEtModifTuple extends JFrame{
 		// Initialisation des composants
 		
 		JLabel nbTupleLabel = new JLabel("Nombre de tuple");
-		nbColonne = new JSpinner(new SpinnerNumberModel(1, 1, 99999, 1));
+		nbTuple = new JSpinner(new SpinnerNumberModel(1, 1, 99999, 1));
 		
 		mtm = new MyTableModel();
 		

@@ -86,7 +86,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 			ResultSet rs=null;
 			int nb=0;
 			Object[] res;
-			res=maRequete.manuel(fr.getMonTextPane1().getText());
+			res=maRequete.manuel(fr.getChampsSaisie().getText());
 
 			rs=(ResultSet)res[1];
 			nb=(Integer)res[2];
@@ -95,21 +95,21 @@ public class EcouteurJButtonRequete implements ActionListener {
 			if(rs!=null){
 				String affichage="";
 				affichage = maRequete.retournerResultSet(rs,true);
-				fr.getMonTextPane2().setText("Requete : \n\n"+affichage);
+				fr.getConsole().setText("Requete : \n\n"+affichage);
 
 			}
 			else{
-				fr.getMonTextPane2().setText("Nombre de lignes modifiées : "+nb);
+				fr.getConsole().setText("Nombre de lignes modifiées : "+nb);
 			}
 		}
 		catch(SQLException se){
 			System.out.println("sqlerreur");
-			fr.getMonTextPane2().setText(se.getMessage());
+			fr.getConsole().setText(se.getMessage());
 		}
 		catch(Exception e){
 			System.out.println("erreur");
 			e.printStackTrace();
-			fr.getMonTextPane2().setText(e.getMessage());
+			fr.getConsole().setText(e.getMessage());
 		}
 
 		fp.getPanneauGauche().constructionJTree();
@@ -171,7 +171,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 		if(!file.equals("")){
 			RWFile lecture = new RWFile();
 			String res = lecture.readFile(file);
-			fr.getMonTextPane1().setText(res);
+			fr.getChampsSaisie().setText(res);
 		}
 	}
 	
@@ -179,7 +179,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 	 * Sauvegarde la saisie de l'utilisateur dans le fichier dont le chemin est contenu dans l'attribut cheminSauvegarde de l'instance.
 	 */
 	public void sauvegarde(){
-		String res = fr.getMonTextPane1().getText();
+		String res = fr.getChampsSaisie().getText();
 		RWFile ecriture = new RWFile();
 		ecriture.writeFile(res,cheminSauvegarde);
 	}

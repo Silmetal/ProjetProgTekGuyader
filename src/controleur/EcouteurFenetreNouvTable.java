@@ -126,4 +126,20 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 		fnt.getNbColonne().addChangeListener(this);
 		fnt.getCreerTableBouton().addActionListener(this);
 	}
+	
+	/**
+	 * Retourne la listeAtt créée par l'écouteur
+	 * @return la listeAtt créée par l'écouteur
+	 */
+	public ArrayList<Attribut> getListeAtt(){
+		return this.listeAtt;
+	}
+	
+	/**
+	 * Retourne le nom de la table créée
+	 * @return le nom de la table créée
+	 */
+	public String getNomTable(){
+		return this.nomTable;
+	}
 }
