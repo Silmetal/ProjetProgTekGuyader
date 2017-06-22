@@ -11,10 +11,19 @@ import java.awt.*;
 import java.util.*;
 
 
-
+/**
+ * Cette classe est l'écouteur des boutons et JPopupMenu de FenetrePrincipale. Elle associe les éléments à leurs actions.
+ */
 public class EcouteurMouseAdapter extends MouseAdapter {
-
+	
+	/**
+	 * La fenêtre principale à écouter
+	 */
 	private FenetrePrincipale fp;
+	
+	/**
+	 * L'Utilisateur qui a instancié la fenêtre écoutée par cette instance.
+	 */
 	private Utilisateur lUtilisateur;
 
 	public EcouteurMouseAdapter(FenetrePrincipale fp, Utilisateur lUtilisateur){
@@ -24,7 +33,22 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 	}
 	
-
+	/**
+	* Cette méthode associe chaque élément à son action.
+	* <P>Le bouton "Nouvelle Connexion" instancie une nouvelle FenetreConnexion
+	* <P>Le bouton "Nouvelle Requête" instance une nouvelel FenetreRequete
+	* <P>Le bouton "Table" affiche le JPopupMenu menuTable, qui propose "Créer une nouvelle table" et "Supprimer une table"
+	* <P>Le bouton "Tuple" affiche le JPopupMenu menuTuple, qui propose "Ajouter un tuple" et "Supprimer un tuple"
+	* <P>Le bouton "Trigger" affiche le JPopupMenu menuTrigger, qui propose "Créer un nouveau trigger" et "Supprimer un trigger"
+	* <P>Le bouton "Vue" affiche le JPopupMenu menuVue, qui propose "Créer une nouvelle vue" et "Supprimer une vue"
+	* <P>Cliquer sur "Créer une nouvelle table" instancie une nouvelle FenetreNouvelleTable et son écouteur.
+	* <P>Cliquer sur "Supprimer une table" ouvre un JOptionPane demandant quelle table supprimer, en proposant une liste 
+	* déroulante des tables de la base, puis supprime la table choisie par l'utilisateur.
+	* <P>Cliquer sur "Créer un nouveau tuple"... TO BE CONTINUED
+	* <P>Clique sur "Supprimer un tuple" ouvre un JOptionPane demandant quelle tuple supprimer, en proposant une liste 
+	* déroulante des clés primaires des tuples de la table sélectionnée, puis supprime le tuple choisit par l'utilisateur7
+	* TO BE CONTINUED
+	*/
 	public void mousePressed(MouseEvent e) {
 			
 		

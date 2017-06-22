@@ -33,7 +33,7 @@ public class EcouteurJTree implements TreeSelectionListener {
 
 	/**
 	 * La méthode qui modifier l'attribut selection de l'Utilisateur, qui indique quelle BaseDeDonnees est sélectionnée, en fonction de la base de données sur laquelle l'utilisateur a cliqué.
-	 * Si l'utilisateur clique sur une table, la méthode modifie également l'attribut table de l'Utilisateur, et affiche le contenu de la table sélectionnée dans la FenetrePrincipale 
+	 * Si l'utilisateur clique sur une table, la méthode modifie également l'attribut table de l'Utilisateur, et affiche le contenu de la table sélectionnée dans le JTable de la FenetrePrincipale 
 	 */
 	public void valueChanged(TreeSelectionEvent event) {
 	try{	
@@ -62,9 +62,6 @@ public class EcouteurJTree implements TreeSelectionListener {
 				lUtilisateur.setTable("");
 			}
 		}
-		
-		String retTable = DBTablePrinter.printTable(lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(), lUtilisateur.getTable());
-		// System.out.println(retTable);
 	}
 	catch(NullPointerException npe){
 		lUtilisateur.setSelection(-1);
