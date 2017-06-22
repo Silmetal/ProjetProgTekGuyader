@@ -260,9 +260,10 @@ public class BaseDeDonnees {
 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
-	public ArrayList<String> parcourirTable(String table) throws SQLException, Exception{
-		ArrayList<String> ret = new ArrayList<String>();
+	public Object[] parcourirTable(String table) throws SQLException, Exception{
+		Object[] ret = new Object[2];
 		String affichage="";
+		int i=0;
 
 		try{
 			Requete nouvelleRequete = new Requete(connexion,"","");
@@ -270,9 +271,13 @@ public class BaseDeDonnees {
 
 				ResultSet rs=(ResultSet)res[1];
 
-				ret =(ArrayList<String>) (nouvelleRequete.retournerResultSet(rs,false))[0];
+				ret = nouvelleRequete.retournerResultSet(rs,true);
+
 				
 				
+
+
+
 		} 
 		catch (SQLException se){
 			

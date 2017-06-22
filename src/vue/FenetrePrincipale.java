@@ -275,22 +275,22 @@ public class FenetrePrincipale extends JFrame{
 		String[] lesVal=null;
 		ArrayList<String> lesValeurs;
 		String tablePrimaire="";
-		int j=0;
 		dTM.setColumnCount(0);
 		if(!table.equals("")){
 
 			try{
-				ArrayList<String> lesAttribut = bd.parcourirTable(table);
-				j=0;
-				for(String str : lesAttribut){
+				Object[] lesAtt = bd.parcourirTable(table);
+				ArrayList<String> table2 = (ArrayList<String>)(lesAtt[1]);
+				ArrayList<String> valeur = (ArrayList<String>)(lesAtt[0]);
+				for(int j=0; j<table.size();j++){
 					if(j==0){
-						lesValeurs = bd.parcourirAttribut(str,table,"");
-						tablePrimaire=str;
+						lesValeurs = bd.parcourirAttribut(valeur.get(0),table.get(0),"");
+						tablePrimaire=valeur.get(0);
 					}
 					else{
-						lesValeurs = bd.parcourirAttribut(str,table,tablePrimaire);
+						lesValeurs = bd.parcourirAttribut(valeur.get(j),table.get(j),tablePrimaire);
 					}
-					j++;
+
 					lesVal = new String[lesValeurs.size()];
 
 					for(int i=0;i<lesValeurs.size();i++){
