@@ -8,9 +8,19 @@ import model.*;
 import vue.*;
 import java.util.regex.*;
 
+/**
+* Cette classe est l'écouteur du JTree de la FenetrePrincipale. Permet de savoir quelle base de données, quelle table et quel attribut est sélectionné.
+*/
 public class EcouteurJTree implements TreeSelectionListener {
-
+	
+	/**
+	 * L'Utilisateur qui a instancié la fenêtre contenant le JTree écouté par cette instance.
+	 */
 	private Utilisateur lUtilisateur;
+	
+	/**
+	 * La FenetrePrincipale qui contient le JTree écouté par cette instance.
+	 */
 	private FenetrePrincipale fp;
 
 	public EcouteurJTree(Utilisateur lUtilisateur, FenetrePrincipale fp){
@@ -46,7 +56,9 @@ public class EcouteurJTree implements TreeSelectionListener {
 	     			lUtilisateur.setTable("");
 	     		}
 	     	}
+			
 	     	String retTable = DBTablePrinter.printTable(lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(), lUtilisateur.getTable());
+			// System.out.println(retTable);
 	     }
 	     catch(NullPointerException npe){
 	     	lUtilisateur.setSelection(-1);

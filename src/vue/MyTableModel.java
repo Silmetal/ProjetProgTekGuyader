@@ -14,9 +14,9 @@ import java.util.Vector;
 	
 	private boolean DEBUG = false;
 	
-	public MyTableModel(ArrayList<Object[]> data) {
+	public MyTableModel() {
 		
-		this.data = data;
+		data.add((new Object[]{"", model.Type.INT, "", false, false, false, false, "", ""}));
 	}
 	
 	public int getColumnCount() {

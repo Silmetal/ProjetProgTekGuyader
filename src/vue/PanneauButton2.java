@@ -6,8 +6,30 @@ import java.util.*;
 
 
 public class PanneauButton2 extends JPanel{
-
-	private JButton buttonLanceur,buttonEnregistrer,buttonEnregistrerSous,buttonOuvrir;
+	
+	/**
+	 * Le JButton "Lancer" de la FenetreRequete contenant ce panneau
+	 */
+	private JButton buttonLanceur;
+	
+	/**
+	 * Le JButton "Enregistrer" de la FenetreRequete contenant ce panneau
+	 */
+	private JButton buttonEnregistrer;
+	
+	/**
+	 * Le JButton "Enregistrer Sous" de la FenetreRequete contenant ce panneau
+	 */
+	private JButton buttonEnregistrerSous ;
+	
+	/**
+	 * Le JButton "Ouvrir" de la FenetreRequete contenant ce panneau
+	 */
+	private JButton buttonOuvrir;
+	
+	/**
+	 * Le GridLayout qui indique à ce panneau quelel disposition doit avoir ses éléments.
+	 */
 	private GridLayout monGridLayout;
 
 	/**

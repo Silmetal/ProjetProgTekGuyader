@@ -6,7 +6,7 @@ public class Launcher {
 
 	public static void main(String[] args){
 
-		FenetreNouvelleTable fnt = new FenetreNouvelleTable();
+		FenetreNouvEtModifTuple fnmt = new FenetreNouvEtModifTuple();
 	
 	}
 }

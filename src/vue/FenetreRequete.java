@@ -7,13 +7,40 @@ import java.sql.*;
 
 
 public class FenetreRequete extends JFrame{
-
-	private JTextPane monTextPane1;
-	private JTextPane monTextPane2;
+	
+	/**
+	 * Le JTextPane qui correspondant au champs de saisie 
+	 */
+	private JTextPane champsSaisie;
+	
+	/**
+	 * Le JTextPane qui correspondant à la console
+	 */
+	private JTextPane console;
+	
+	/**
+	 * Le panneau contenant les boutons "Lancer", "Enregistrer", "Ouvrir" et "Enregistrer Sous".
+	 */
 	private PanneauButton2 monPanneauButton2;
+	
+	/**
+	 * L'écouteur des boutons de la fenêtre
+	 */
 	private EcouteurJButtonRequete monEcouteur;
+	
+	/**
+	 * Le JScrollPane contenant le champsSaisie
+	 */
 	private JScrollPane jspan1;
+	
+	/**
+	 * Le JScrollPane contenant la console
+	 */
 	private JScrollPane jspan2;
+	
+	/**
+	 * La FenetrePrincipale dont dépend cette fenêtre.
+	 */
 	private FenetrePrincipale fp;
 
 	/**
@@ -40,18 +67,18 @@ public class FenetreRequete extends JFrame{
 	private void miseEnPlace(){
 		JPanel panPrincipal = new JPanel();
 		panPrincipal.setLayout(new GridBagLayout());
-		monTextPane1 = new JTextPane();
-		monTextPane2 = new JTextPane();	
+		champsSaisie = new JTextPane();
+		console = new JTextPane();	
 		monPanneauButton2 = new PanneauButton2();
 
-		monTextPane2.setEditable(false);
+		console.setEditable(false);
 
-		monTextPane1.setPreferredSize(new Dimension(680,200));
-		monTextPane2.setPreferredSize(new Dimension(680,200));
+		champsSaisie.setPreferredSize(new Dimension(680,200));
+		console.setPreferredSize(new Dimension(680,200));
 
 
-		JScrollPane span1 = new JScrollPane(monTextPane1);
-		JScrollPane span2 = new JScrollPane(monTextPane2);
+		JScrollPane span1 = new JScrollPane(champsSaisie);
+		JScrollPane span2 = new JScrollPane(console);
 
 
 		//Placement boutons
@@ -94,16 +121,16 @@ public class FenetreRequete extends JFrame{
 	 * Retourne le premier JTextPane contenu dans l'instance, qui correspond au champ de saisie
 	 * @return le premier JTextPane contenu dans l'instance, qui correspond au champ de saisie
 	 */
-	public JTextPane getMonTextPane1(){
-		return this.monTextPane1;
+	public JTextPane getChampsSaisie(){
+		return this.champsSaisie;
 	}
 	
 	/**
 	 * Retourne le second JTextPane contenu dans l'instance, qui correspond à la console
 	 * @return le second JTextPane contenu dans l'instance, qui correspond à la console
 	 */
-	public JTextPane getMonTextPane2(){
-		return this.monTextPane2;
+	public JTextPane getConsole(){
+		return this.console;
 	}
 
 

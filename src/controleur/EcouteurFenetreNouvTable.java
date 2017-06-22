@@ -10,31 +10,46 @@ import java.util.ArrayList;
 import java.sql.*;
 
 /**
-* Cette classe est l'écouteur des boutons de la classe FenetreRequete. Elle associe à chaque bouton l'action qu'il est censé déclencher.
+* Cette classe est l'écouteur des boutons de la classe FenetreNouvelleTable. Elle associe au JSpinner son écouteur et au bouton son action.
 */
 public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener {
 	
 	/**
-	 * La FenetreNouvelleTable
+	 * La FenetreNouvelleTable à écouter.
 	 */
 	private FenetreNouvelleTable fnt;
 	
+	/**
+	 * La valeur du JSpinner avant sa modification par l'utilisateur. Elle est actualisée après chaque action.
+	 */
 	private int spinnerValue;
 	
+	/**
+	 * La liste des attributs de la table à créer. Initialisée par l'écouteur en récupérant les informations entrées dans la FenetreNouvelleTable
+	 */
 	private ArrayList<Attribut> listeAtt;
 	
+	/**
+	 * Le nom de la table créée
+	 */
 	private String nomTable;
 	
+	/**
+	 * L'objet Requete qui va recevoir et exécuter la requête construite grâce aux attributs récupérés par cet écouteur.
+	 */
 	private Requete requ;
 	
+	/**
+	 * L'écouteur de la FenetrePrincipale associée à la FenetreNouvelleTable. Permet l'exécution des requêtes.
+	 */
 	private EcouteurMouseAdapter ema;
 	
 	/**
-	 * Le constructeur de la classe. Prend en paramètre une FenetreRequete, une Connection et une FenetrePrincipale et les associe à ses 
+	 * Le constructeur de la classe. Prend en paramètre une FenetreNouvelleTable, une Connection et une FenetrePrincipale et les associe à ses 
 	 * attributs, puis ajoute l'écouteur à la FenetreRequete.
-	 * @param fr la FenetreRequete à écouter
-	 * @param maConnexion la Connection associée
-	 * @param fp la FenetrePrincipale dont dépend la FenetreRequete
+	 * @param fnt la FenetreNouvelleTable à écouter
+	 * @param Requete l'objet Requete qui va recevoir et exécuter la requête construite grâce aux attributs récupérés par cet écouteur.
+	 * @param ema l'écouteur de la FenetrePrincipale associée à la FenetreNouvelleTable. Permet l'exécution des requêtes.
 	 */
 	public EcouteurFenetreNouvTable(FenetreNouvelleTable fnt, Requete requ, EcouteurMouseAdapter ema){
 		this.fnt = fnt;
@@ -45,11 +60,8 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	}
 	
 	/**
-	 * La méthode qui associe chaque bouton à son action.
-	 * <P>Si le bouton est le bouton "Lancer", exécute la méthode lancer()
-	 * <P>Si le bouton est le bouton "Enregistrer", exécute la méthode enregistrer()
-	 * <P>Si le bouton est le bouton "Enregistrer Sous", exécute la méthode enregistrerSous()
-	 * <P>Si le bouton est le bouton "Ouvrir", exécute la méthode ouvrir()
+	 * La méthode qui associe au bouton créerTable son action, c'est-à-dire créer une nouvelle table. Si une erreur SQL empêche la création de la table,
+	 * affiche un message d'erreur demandant à l'utilsiateur de vérifier les informations qu'il a entré.
 	 */
 	public void actionPerformed(ActionEvent e){
 		
@@ -83,6 +95,9 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 		}
 	}
 	
+	/**
+	 * Écoute le JSpinner de la FenetreNouvelleTable pour afficher un nombre de ligne dans le tableau de cette fenêtre égal au nombre indiqué par le JSpinner.
+	 */
 	public void stateChanged(ChangeEvent e) {
 		
 		int newValue = (int)fnt.getNbColonne().getValue();
@@ -103,19 +118,12 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 		this.spinnerValue = newValue;
     }
 	
-	
-	
+	/**
+	 * Ajoute leurs écouteurs aux éléments graphiques de la FenetreNouvelleTable
+	 */
 	public void addListener() {
 		
 		fnt.getNbColonne().addChangeListener(this);
 		fnt.getCreerTableBouton().addActionListener(this);
-	}
-	
-	public String getNomTable(){
-		return this.nomTable;
-	}
-	
-	public ArrayList<Attribut> getListeAtt(){
-		return this.listeAtt;
 	}
 }

@@ -21,22 +21,22 @@ public class FenetreNouvelleTable extends JFrame{
 	private JTable jTable;
 	
 	/**
-	 *
+	 * Le JTextField dans lequel l'utilisateur entre le nom de la table
 	 */
 	private JTextField nomTableTF;
 	
 	/**
-	 *
+	 * Le JSpinner qui indique au tableau combien de lignes afficher. Valeur minimale : 1, Valeur maximale : 99999, pas : 1.
 	 */
 	private JSpinner nbColonne;
 	
 	/**
-	 *
+	 * La JComboBox qui contient les différents types d'attribut possibles. Les Types possibles sont énumérés dans l'énuméraion Type.
 	 */
 	private JComboBox listeType;
 	
 	/**
-	 *
+	 * Le JButton permettant de créer la table en fonction des données entrées par l'utilisateur dans le JTable
 	 */
 	private JButton creerTable;
 	
@@ -71,10 +71,7 @@ public class FenetreNouvelleTable extends JFrame{
 		JLabel nbColonneLabel = new JLabel("Nombre de colonne");
 		nbColonne = new JSpinner(new SpinnerNumberModel(1, 1, 99999, 1));
 		
-		ArrayList<Object[]> data = new ArrayList<Object[]>();
-		data.add((new Object[]{"", model.Type.INT, "", false, false, false, false, "", ""}));
-		
-		mtm = new MyTableModel(data);
+		mtm = new MyTableModel();
 		
 		jTable = new JTable(mtm);
 		jTable.getTableHeader().setReorderingAllowed(false);
@@ -101,35 +98,59 @@ public class FenetreNouvelleTable extends JFrame{
 		this.add(pannBouton, BorderLayout.SOUTH);
 	}
 	
-	public void comboBoxTable(JTable jTable, TableColumn colType) {
-	//Set up the editor for the sport cells.
-	listeType = new JComboBox();
-	for(model.Type t : model.Type.values()) {
-		listeType.addItem(t);
-	}
-	colType.setCellEditor(new DefaultCellEditor(listeType));
+	/**
+	 * Cette méthode modifie la colonne passée en paramètre pour que les cases soient des JComboBox. Les valeurs possibles de cette JComboBox
+	 * sont les valeurs de l'énumération Type.
+	 */
+	public void comboBoxTable(TableColumn colType) {
+		
+		listeType = new JComboBox();
+		for(model.Type t : model.Type.values()) {
+			listeType.addItem(t);
+		}
+		colType.setCellEditor(new DefaultCellEditor(listeType)); // La colonne passée en paramètre est maintenant une colonne de combo box
     }
 	
+	/**
+	 * Retourne le JTable de cette fenêtre.
+	 * @return le JTable de cette fenêtre.
+	 */
 	public JTable getTable() {
 		
 		return this.jTable;
 	}
 	
+	/**
+	 * Retourne le JTextField nomTableTF de cette fenêtre.
+	 * @return le JTextField nomTableTF de cette fenêtre.
+	 */
 	public JTextField getNomTableTF() {
 		
 		return this.nomTableTF;
 	}
 	
+	/**
+	 * Retourne le JSpinner nbColonne de cette fenêtre
+	 * @return le JSpinner nbColonne de cette fenêtre
+	 */
 	public JSpinner getNbColonne() {
 		
 		return this.nbColonne;
 	}
 	
+	/**
+	 * Retourne le JButton creerTable de cette fenêtre
+	 * @return le JButton creerTable de cette fenêtre
+	 */
 	public JButton getCreerTableBouton() {
 		
 		return this.creerTable;
 	}
 	
+	/**
+	 * Retourne le modèle du JTable de cetet instance
+	 * @return le modèle du JTable de cetet instance
+	 */
 	public MyTableModel getMTM() {
 		
 		return this.mtm;

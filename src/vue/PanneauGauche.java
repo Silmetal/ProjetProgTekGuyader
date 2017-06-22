@@ -25,13 +25,19 @@ public class PanneauGauche extends JPanel{
 	 */
 	private JTree arborescence;
 	
-
+	/**
+	 * L'Utilisateur qui a instancé ce panneau.
+	 */
 	private Utilisateur lUtilisateur;
 
-	private HashMap<String,Integer> emplacementBase;
-
+	/**
+	 * Le JPanel contenu dans ce panneau qui contient le JTree
+	 */
 	private JPanel arbre;
 	
+	/**
+	 * La FenetrePrincipale qui contient de PanneauGauche
+	 */
 	private FenetrePrincipale fp;
 
 

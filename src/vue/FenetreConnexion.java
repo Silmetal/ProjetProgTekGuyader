@@ -55,6 +55,20 @@ public class FenetreConnexion extends JFrame{
 		this.setSize(500,300);
 	}
 	
+	public FenetreConnexion(Utilisateur lUtilisateur,FenetrePrincipale fp, int l3){
+		super("Connexion");
+		this.lUtilisateur=lUtilisateur;
+		this.fp = fp;
+		this.setLayout(new BorderLayout());
+		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		miseEnPlace();
+		this.nomUtiliTF.setText("admin");
+		this.mdpPF.setText("iutvannes");
+		this.adresseTF.setText("jdbc:mysql://vps.arthurguyader.fr:3306/");
+		this.setVisible(true);
+		this.setSize(500,300);
+	}
+	
 	/**
 	 * Génère les éléments graphiques et les dispose dans la fenêtre.
 	 */
