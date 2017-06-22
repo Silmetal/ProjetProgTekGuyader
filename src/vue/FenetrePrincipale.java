@@ -280,15 +280,20 @@ public class FenetrePrincipale extends JFrame{
 
 			try{
 				Object[] lesAtt = bd.parcourirTable(table);
-				ArrayList<String> table2 = (ArrayList<String>)(lesAtt[1]);
+
+				
 				ArrayList<String> valeur = (ArrayList<String>)(lesAtt[0]);
-				for(int j=0; j<table.size();j++){
+				ArrayList<String> titre =(ArrayList<String>)(lesAtt[1]);
+
+
+
+				for(int j=0; j<valeur.size();j++){
 					if(j==0){
-						lesValeurs = bd.parcourirAttribut(valeur.get(0),table.get(0),"");
+						lesValeurs = bd.parcourirAttribut(valeur.get(0),table,"");
 						tablePrimaire=valeur.get(0);
 					}
 					else{
-						lesValeurs = bd.parcourirAttribut(valeur.get(j),table.get(j),tablePrimaire);
+						lesValeurs = bd.parcourirAttribut(valeur.get(j),table,tablePrimaire);
 					}
 
 					lesVal = new String[lesValeurs.size()];
@@ -297,7 +302,7 @@ public class FenetrePrincipale extends JFrame{
 						lesVal[i]=lesValeurs.get(i);
 					}
 					dTM.setRowCount(lesVal.length);
-					dTM.addColumn(str,lesVal);
+					dTM.addColumn(titre.get(j),lesVal);
 				}		
 			}
 			catch(SQLException se){

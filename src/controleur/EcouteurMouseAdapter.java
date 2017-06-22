@@ -174,7 +174,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		if(lUtilisateur.getSelection()!=-1 && !(laTableSelectionee.equals(""))){
 			ArrayList<String> lesValeurs;
 			String[] lesVal=null;
-			ArrayList<String> lesAttribut = laBaseSelectionee.parcourirTable(laTableSelectionee);
+			ArrayList<String> lesAttribut = (ArrayList<String>)laBaseSelectionee.parcourirTable(laTableSelectionee)[0];
 			
 			attribut=lesAttribut.get(0);
 			lesValeurs = laBaseSelectionee.parcourirAttribut(lesAttribut.get(0),laTableSelectionee,"");

@@ -256,9 +256,10 @@ public class Requete {
 		       for (int i = 1; i <= columnsNumber; i++) {
 
 		           	String columnValue = rs.getString(i);
-		           	String columnName = rsmd.getColumnName(i);
+		           	
 
 		           	if(i==1){
+		           		String columnName = rs.getString(1);
 		           		lesNomdeColonnes.add(columnName);
 		           	}
 

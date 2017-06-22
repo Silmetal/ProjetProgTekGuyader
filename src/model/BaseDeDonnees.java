@@ -273,10 +273,13 @@ public class BaseDeDonnees {
 
 				ret = nouvelleRequete.retournerResultSet(rs,true);
 
-				
-				
+				for (String s : ((ArrayList<String>)ret[1])) {
+					System.out.println("[1]"+s);
+				}
 
-
+				for (String s : ((ArrayList<String>)ret[0])) {
+					System.out.println("[0]"+s);
+				}
 
 		} 
 		catch (SQLException se){
@@ -306,9 +309,9 @@ public class BaseDeDonnees {
 		String affichage="";
 		Object[] res = null;
 		try{
-			Requete nouvelleRequete = new Requete(connexion,"","");
+			Requete nouvelleRequete = new Requete(connexion,nomDeLaBase,"");
 				if(!tablePrimaire.equals("")){
-					res = nouvelleRequete.manuel("SELECT "+attribut+"FROM (SELECT "+attribut+","+tablePrimaire+" FROM "+table+" ORDER BY "+tablePrimaire+") AS test;");
+					res = nouvelleRequete.manuel("SELECT "+attribut+" FROM (SELECT "+tablePrimaire+","+attribut+" FROM "+table+" ORDER BY "+tablePrimaire+") AS t;");
 				}
 				else{
 					res = nouvelleRequete.manuel("SELECT "+attribut+" FROM "+table+" ORDER BY "+attribut+";");
