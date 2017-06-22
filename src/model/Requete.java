@@ -241,8 +241,12 @@ public class Requete {
 
 
 
-	public String retournerResultSet(ResultSet rs,boolean withColumnName) throws SQLException,Exception{
-		String ret="";
+	public Object[] retournerResultSet(ResultSet rs,boolean avecNomDesColonnes) throws SQLException,Exception{
+		ArrayList<String> lesNomdeColonnes = new ArrayList<String>();
+		ArrayList<String> lesValeurs = new ArrayList<String>();
+		Object [] ret = new Object[2];
+
+		String ligne="";
 		try{
 		
 			
@@ -250,26 +254,23 @@ public class Requete {
 		   	int columnsNumber = rsmd.getColumnCount();
 		   	while (rs.next()) {
 		       for (int i = 1; i <= columnsNumber; i++) {
-		           	if (i > 1) ret=ret+",  ";
+
 		           	String columnValue = rs.getString(i);
 		           	String columnName = rsmd.getColumnName(i);
-		           	if(withColumnName){
-		           		if(i==1){
-		           			ret = ret +columnName+" "+ columnValue + " \n";
-		           		}
-		           		else{
-		           			ret = ret + columnValue +" \n";
-		           		}
-		           	}
-		           	else{
-		           		ret=ret+columnValue + " \n";
+
+		           	if(i==1){
+		           		lesNomdeColonnes.add(columnName);
 		           	}
 
-		         	
-		         	
+		           	lesValeurs.add(columnValue);
 		       }
 
 			}
+		ret[0]=lesValeurs;
+
+		if (avecNomDesColonnes) {
+			ret[1]=lesNomdeColonnes;	
+		}
 
 		}
 		catch(SQLException se){

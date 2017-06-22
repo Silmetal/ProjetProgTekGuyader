@@ -4,6 +4,7 @@ import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
+import javax.swing.table.*;
 
 
 public class FenetreRequete extends JFrame{
@@ -37,11 +38,47 @@ public class FenetreRequete extends JFrame{
 	 * Le JScrollPane contenant la console
 	 */
 	private JScrollPane jspan2;
+
+		/**
+	 * Le JScrollPane contenant le JTable
+	 */
+	private JScrollPane jspan3;
 	
 	/**
 	 * La FenetrePrincipale dont dépend cette fenêtre.
 	 */
 	private FenetrePrincipale fp;
+
+
+	/**
+	 * Le modèle utilisé par le JTable pour se créer et se mettre à jour correctement
+	 */
+	private DefaultTableModel dTM;
+
+
+	/**
+	  * Le Layout permettant de gérer le JTable et le JTextPane
+	  */
+	private CardLayout card;
+
+	/**
+	  * Le container contenant le JTable et le JTextPane
+	  */
+	private Container cont;
+
+
+	/**
+	  * Le Panel contenant le Container
+	  */
+	private JPanel panneauDuBas;
+
+
+	/**
+	 * La JTable qui affiche le contenu d'une table
+	 */
+	private JTable jTable;
+
+
 
 	/**
 	 * Le constructeur de la classe. Créée une nouvelle fenêtre avec le titre passé en paramètre, puis mets en place les éléments et définit la taille et la visibilité.
@@ -74,13 +111,10 @@ public class FenetreRequete extends JFrame{
 		console.setEditable(false);
 
 		champsSaisie.setPreferredSize(new Dimension(680,200));
-		console.setPreferredSize(new Dimension(680,200));
+		
 
-
-		JScrollPane span1 = new JScrollPane(champsSaisie);
-		JScrollPane span2 = new JScrollPane(console);
-
-
+		jspan1 = new JScrollPane(champsSaisie);
+		miseEnPlaceDuCardLayout();
 		//Placement boutons
 
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -96,7 +130,7 @@ public class FenetreRequete extends JFrame{
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 
-		panPrincipal.add(span1,gbc);
+		panPrincipal.add(jspan1,gbc);
 
 		//Placement TextPane
 		gbc.gridx = 0;
@@ -104,9 +138,93 @@ public class FenetreRequete extends JFrame{
 
 		gbc.gridwidth = 2;
 		gbc.gridheight = 1;
-		panPrincipal.add(span2,gbc);
+		panPrincipal.add(panneauDuBas,gbc);
 		this.add(panPrincipal);
+
 	}
+
+
+
+	public void miseEnPlaceDuCardLayout(){
+		jspan2 = new JScrollPane(console);
+
+		console.setPreferredSize(new Dimension(680,200));
+		panneauDuBas = new JPanel();
+		card = new CardLayout();
+		panneauDuBas.setLayout(card);
+
+
+
+
+		String[] titre={"Test"};
+		String[][] data = new String[1][1];
+		
+		dTM = new DefaultTableModel(data,titre) {
+
+			// Redéfinit la méthode pour rendre le tableau non éditable
+			public boolean isCellEditable(int row, int column) {
+			   return false;
+			}
+		};
+
+
+		jTable = new JTable(dTM);
+		jTable.setSize(680,200);
+
+		jspan3 = new JScrollPane(jTable);
+		panneauDuBas.setPreferredSize(new Dimension(680,200));
+
+		panneauDuBas.add("console",jspan2);
+		panneauDuBas.add("table",jspan3);
+
+
+	}
+
+
+
+	public void editerJTable(ResultSet rs){
+		/*String[] lesVal=null;
+		ArrayList<String> lesValeurs;
+		int j=0;
+		dTM.setColumnCount(0);
+
+		try{
+			ArrayList<String> lesAttribut = bd.parcourirTable(table);
+			j=0;
+			for(String str : lesAttribut){
+				if(j==0){
+					lesValeurs = bd.parcourirAttribut(str,table,"");
+					tablePrimaire=str;
+				}
+				else{
+					lesValeurs = bd.parcourirAttribut(str,table,tablePrimaire);
+				}
+				j++;
+				lesVal = new String[lesValeurs.size()];
+
+				for(int i=0;i<lesValeurs.size();i++){
+					lesVal[i]=lesValeurs.get(i);
+				}
+				dTM.setRowCount(lesVal.length);
+				dTM.addColumn(str,lesVal);
+			}		
+		}
+		catch(SQLException se){
+
+			se.printStackTrace();
+
+		}
+		catch(Exception e){
+
+		}*/
+		
+	}
+
+
+
+
+
+
 
 
 	/**
@@ -131,6 +249,15 @@ public class FenetreRequete extends JFrame{
 	 */
 	public JTextPane getConsole(){
 		return this.console;
+	}
+
+
+	public JPanel getPanneauDuBas(){
+		return this.panneauDuBas;
+	}
+
+	public CardLayout getCard(){
+		return this.card;
 	}
 
 

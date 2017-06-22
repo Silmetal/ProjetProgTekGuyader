@@ -270,11 +270,9 @@ public class BaseDeDonnees {
 
 				ResultSet rs=(ResultSet)res[1];
 
-				affichage = nouvelleRequete.retournerResultSet(rs,false);
+				ret =(ArrayList<String>) (nouvelleRequete.retournerResultSet(rs,false))[0];
 				
-				for(String str : affichage.split("[\n]")){
-					ret.add(str);
-				}
+				
 		} 
 		catch (SQLException se){
 			
@@ -314,11 +312,7 @@ public class BaseDeDonnees {
 
 				ResultSet rs=(ResultSet)res[1];
 
-				affichage = nouvelleRequete.retournerResultSet(rs,false);
-				
-				for(String str : affichage.split("[\n]")){
-					ret.add(str);
-				}
+				ret =(ArrayList<String>) (nouvelleRequete.retournerResultSet(rs,false))[0];
 		}
 		catch (SQLException se){
 			
