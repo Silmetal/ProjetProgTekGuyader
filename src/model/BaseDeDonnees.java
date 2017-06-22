@@ -273,14 +273,6 @@ public class BaseDeDonnees {
 
 				ret = nouvelleRequete.retournerResultSet(rs,true);
 
-				for (String s : ((ArrayList<String>)ret[1])) {
-					System.out.println("[1]"+s);
-				}
-
-				for (String s : ((ArrayList<String>)ret[0])) {
-					System.out.println("[0]"+s);
-				}
-
 		} 
 		catch (SQLException se){
 			

@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.table.*;
+import java.util.*;
 
 
 public class FenetreRequete extends JFrame{
@@ -183,31 +184,34 @@ public class FenetreRequete extends JFrame{
 
 
 	public void editerJTable(ResultSet rs){
-		/*String[] lesVal=null;
-		ArrayList<String> lesValeurs;
-		int j=0;
+		String[] lesVal=null;
+		String[] row;
+		Object[] res;
 		dTM.setColumnCount(0);
+		dTM.setRowCount(0);
 
 		try{
-			ArrayList<String> lesAttribut = bd.parcourirTable(table);
-			j=0;
-			for(String str : lesAttribut){
-				if(j==0){
-					lesValeurs = bd.parcourirAttribut(str,table,"");
-					tablePrimaire=str;
-				}
-				else{
-					lesValeurs = bd.parcourirAttribut(str,table,tablePrimaire);
-				}
-				j++;
-				lesVal = new String[lesValeurs.size()];
 
-				for(int i=0;i<lesValeurs.size();i++){
-					lesVal[i]=lesValeurs.get(i);
+
+			res = Requete.retournerResultSet(rs,false);
+			ArrayList<String> lesValeurs = (ArrayList<String>)(res[0]);
+			ArrayList<String> lesTitres = (ArrayList<String>)(res[1]);
+
+
+			
+			for (String s : lesTitres) {
+				dTM.addColumn(s);
+			}
+
+			for(int j=0;j<(lesValeurs.size()/lesTitres.size())+1;j++){
+				row = new String[lesTitres.size()];
+				for(int i=0;i<lesTitres.size();i++){
+					row[i]=lesValeurs.get((j*lesTitres.size())+i);
+					System.out.println(lesValeurs.get((j*lesTitres.size())+i));
 				}
-				dTM.setRowCount(lesVal.length);
-				dTM.addColumn(str,lesVal);
-			}		
+				dTM.addRow(row);
+			}
+					
 		}
 		catch(SQLException se){
 
@@ -216,7 +220,7 @@ public class FenetreRequete extends JFrame{
 		}
 		catch(Exception e){
 
-		}*/
+		}
 		
 	}
 

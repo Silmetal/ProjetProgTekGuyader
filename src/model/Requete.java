@@ -241,7 +241,7 @@ public class Requete {
 
 
 
-	public Object[] retournerResultSet(ResultSet rs,boolean avecNomDesColonnes) throws SQLException,Exception{
+	public static Object[] retournerResultSet(ResultSet rs,boolean pasUneRequeteSelect) throws SQLException,Exception{
 		ArrayList<String> lesNomdeColonnes = new ArrayList<String>();
 		ArrayList<String> lesValeurs = new ArrayList<String>();
 		Object [] ret = new Object[2];
@@ -257,21 +257,33 @@ public class Requete {
 
 		           	String columnValue = rs.getString(i);
 		           	
+		           	
+		           	if(pasUneRequeteSelect){
+			           	if(i==1){
+			           		String columnName = rs.getString(1);
+			           		lesNomdeColonnes.add(columnName);
+			           	}
+			        }
 
-		           	if(i==1){
-		           		String columnName = rs.getString(1);
-		           		lesNomdeColonnes.add(columnName);
-		           	}
 
-		           	lesValeurs.add(columnValue);
+			        lesValeurs.add(columnValue);
 		       }
-
 			}
+
+			for (int i = 1; i <= columnsNumber; i++){
+				if (!pasUneRequeteSelect) {
+			           		
+		           			String columnName = rsmd.getColumnName(i);
+		           			lesNomdeColonnes.add(columnName);
+			           		
+			    }
+			}
+
 		ret[0]=lesValeurs;
 
-		if (avecNomDesColonnes) {
-			ret[1]=lesNomdeColonnes;	
-		}
+	
+		ret[1]=lesNomdeColonnes;	
+		
 
 		}
 		catch(SQLException se){
@@ -280,6 +292,8 @@ public class Requete {
 		catch(Exception e){
 			throw e;
 		}
+
+		
 
 		return ret;
 	}

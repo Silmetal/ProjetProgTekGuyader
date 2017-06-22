@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import java.sql.*;
+import java.util.*;
 
 /**
 * Cette classe est l'écouteur des boutons de la classe FenetreRequete. Elle associe à chaque bouton l'action qu'il est censé déclencher.
@@ -98,6 +99,10 @@ public class EcouteurJButtonRequete implements ActionListener {
 				affichage = maRequete.retournerResultSet(rs,true);
 				fr.getConsole().setText("Requete : \n\n"+affichage);*/
 				fr.getCard().last(fr.getPanneauDuBas());
+
+				fr.editerJTable(rs);
+				
+
 
 			}
 			else{
