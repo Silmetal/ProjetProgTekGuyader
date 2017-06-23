@@ -91,7 +91,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 
 					if(jmi.getName().equals("nouvTable")){
-						FenetreNouvelleTable fnt = new FenetreNouvelleTable();
+						FenetreNouvelleTable fnt = new FenetreNouvelleTable(fp);
 						EcouteurFenetreNouvTable efnt = new EcouteurFenetreNouvTable(fnt, nouvelleRequete, this);
 					}
 					else if(jmi.getName().equals("supprTable")){

@@ -113,11 +113,13 @@ public class EcouteurJButtonRequete implements ActionListener {
 		}
 		catch(SQLException se){
 			System.out.println("sqlerreur");
+			fr.getCard().first(fr.getPanneauDuBas());
 			fr.getConsole().setText(se.getMessage());
 		}
 		catch(Exception e){
 			System.out.println("erreur");
 			e.printStackTrace();
+			fr.getCard().first(fr.getPanneauDuBas());
 			fr.getConsole().setText(e.getMessage());
 		}
 
