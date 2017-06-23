@@ -53,7 +53,6 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 			
 		
 			if(e.getComponent() instanceof JButton){
-				System.out.println("jb");
 				JButton jb = (JButton) e.getComponent();
 
 
@@ -105,6 +104,11 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 							nouvelleRequete.ajouterTuple();
 						}
 					}
+					else if(jmi.getName().equals("modifTuple")){
+						
+						this.modifierTuple();
+						
+					}
 					else if(jmi.getName().equals("supprTuple")){
 						
 						supprimerTuple(laBaseSelectionee,laTableSelectionee,nouvelleRequete);
@@ -143,6 +147,11 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 	}
 
 	public void nouveauTuple(){
+
+	}
+
+
+	public void modifierTuple(){
 
 	}
 
@@ -215,6 +224,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getNouvTable().addMouseListener(this);
 		fp.getSupprTable().addMouseListener(this);
 		fp.getNouvTuple().addMouseListener(this);
+		fp.getModifTuple().addMouseListener(this);
 		fp.getSupprTuple().addMouseListener(this);
 		fp.getNouvTrigger().addMouseListener(this);
 		fp.getSupprTrigger().addMouseListener(this);
