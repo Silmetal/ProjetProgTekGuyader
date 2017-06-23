@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-
+/**
+ * Ce panneau est inséré dans une FenetreRequete et contient les boutons "Lancer", "Ouvrir", "Enregistrer" et "Enregistrer Sous", qui permettent de lancer
+ * la requête SQL saisie par l'utilisateur, ouvrir un fichier SQL et enregistrer la saisie dans un fichier SQL.
+ */
 public class PanneauButton2 extends JPanel{
 	
 	/**

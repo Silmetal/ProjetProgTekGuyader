@@ -98,20 +98,8 @@ public class Requete {
 			sqle.printStackTrace();
 			throw sqle;
 		}
-		/*finally{ 
-			if(state !=null){
-				try{
-					state.close();
-				}
-				catch(Exception e){
-					System.out.println("Impossible de fermer la connexion");
-					throw e;
-				}
-			} 
-		}*/
 		return ret;
 	}	
-	
 	
 	/** 
 	  * Supprime la table dont le nom est donné en paramètre si celle-ci existe, puis créé une chaîne de caractère contenant une requête permettant de créer la table

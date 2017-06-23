@@ -8,10 +8,11 @@ import java.util.*;
 import java.sql.*;
 
 /**
- * Cette classe est la classe d'IHM de la fenêtre permettant la connexion à la base de donnée. Trois champs de texte sont présents, demandant
- * à l'utilsiateur son identifiant, son mot de passe et l'adresse de la base. Une fois ces champs remplis, l'utilsateur n'a qu'à cliquer sur le bouton de connexion pour
- * se connecter à la base, si bien sûr aucune erreur de connexion ne survient.
- * <P>Le champs de saisie du mot de passe cache les caractères saisis.
+ * Cette fenêtre est ouverte lorsque l'utilisateur appuie sur "Créer une nouvelle table" dans la fenêtre principale. Dans celle-ci, l'utilisateur peut saisir le nom
+ * de la table u'i lveut créer, et un tableau avec les colonne "Nom", "Type", "Valeur", "Nul ?",  "Unique ?", "Clé Primaire ?", "Clé étrangère ?", "Table référée", "Attribut référé" est affiché.
+ * En changeant la valeur du JSpinner nbColonne, le nombre de ligne du tableau est modifié, avec un minimum de 1 ligne t un maximum de 99999. Chaque ligne correspond à une colonne du table qui va être crée.
+ * L'utilisateur saisit les caractéristiques des colonnes à créer dans les lignes. Une fois ceci terminé, cliquer sur le bouton "Créer la table" créé et exécute la requête de création de table suivant les 
+ * données saisies.Si une erreur SQL empêche l'exécution de la requête, affiche un message d'erreur.
  */
 public class FenetreNouvelleTable extends JFrame{
 		
