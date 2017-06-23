@@ -73,6 +73,11 @@ public class FenetrePrincipale extends JFrame{
 	private JMenuItem nouvTuple;
 	
 	/**
+	 * L'élément de tupleMenu permettant de modifier les tuples d'une table
+	 */
+	private JMenuItem modifTuple;
+	
+	/**
 	 * L'élément de tupleMenu permettant de supprimer un tuple
 	 */
 	private JMenuItem supprTuple;
@@ -179,6 +184,8 @@ public class FenetrePrincipale extends JFrame{
 		supprTable.setName("supprTable");
 		nouvTuple = new JMenuItem("Ajouter un tuple");
 		nouvTuple.setName("nouvTuple");
+		supprTable = new JMenuItem("Modifier des tuples");
+		nouvTuple.setName("modifTuple");
 		supprTuple = new JMenuItem("Retirer un tuple");
 		supprTuple.setName("supprTuple");
 		nouvTrigger = new JMenuItem("Créer un nouveau trigger");
@@ -194,6 +201,7 @@ public class FenetrePrincipale extends JFrame{
 		tableMenu.add(supprTable);
 		
 		tupleMenu.add(nouvTuple);
+		tupleMenu.add(modifTuple);
 		tupleMenu.add(supprTuple);
 		
 		triggerMenu.add(nouvTrigger);
@@ -417,6 +425,14 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	public JMenuItem getNouvTuple(){
 		return this.nouvTuple;
+	}
+	
+	/**
+	 * Retourne le JMenuItem Modifier des tuples de l'instance
+	 * @return le JMenuItem Modifier des tuples de l'instance
+	 */
+	public JMenuItem getModifTuple(){
+		return this.modifTuple;
 	}
 
 	/**

@@ -7,7 +7,11 @@ import java.sql.*;
 import javax.swing.table.*;
 import java.util.*;
 
-
+/**
+ * Dans cetet fenêtre, l'utilisateur peut saisir des requêtes SQL de tout type (Sélection, mise à jour ,création etc.) et les exécuter. Si la requête est une sélection, affiche le résultat dans un JTable. 
+ * Sinon, affiche le nombre de lignes modifiées ou les erreurs provoquées dans une console.
+ * <P>L'utilisateur peut également enegistrer sa saisie dans un fichier SQL à l'endroit qu'il désire, et ouvrir un fichier SQL pour exécuter son contenu. Il peut également ouvrir, modifier puis sauvegarder un fichier SQL.
+ */
 public class FenetreRequete extends JFrame{
 	
 	/**

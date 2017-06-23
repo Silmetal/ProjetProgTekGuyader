@@ -21,12 +21,12 @@ public class FenetreNouvEtModifTuple extends JFrame{
 	private JTable jTable;
 	
 	/**
-	 *
+	 * Le JSpinner dont la valeur indique le nombre de nouvelles lignes à afficher dans le JTable
 	 */
 	private JSpinner nbTuple;
 	
 	/**
-	 *
+	 * Le bouton qui lance la requête SQL d'insertion et modification de tuple suivant ce qui a été saisi par l'utilisateur dans le JTable
 	 */
 	private JButton modifTable;
 	
