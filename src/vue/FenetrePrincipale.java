@@ -184,8 +184,8 @@ public class FenetrePrincipale extends JFrame{
 		supprTable.setName("supprTable");
 		nouvTuple = new JMenuItem("Ajouter un tuple");
 		nouvTuple.setName("nouvTuple");
-		supprTable = new JMenuItem("Modifier des tuples");
-		nouvTuple.setName("modifTuple");
+		modifTuple = new JMenuItem("Modifier des tuples");
+		modifTuple.setName("modifTuple");
 		supprTuple = new JMenuItem("Retirer un tuple");
 		supprTuple.setName("supprTuple");
 		nouvTrigger = new JMenuItem("Créer un nouveau trigger");
