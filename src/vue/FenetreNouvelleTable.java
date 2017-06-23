@@ -102,6 +102,7 @@ public class FenetreNouvelleTable extends JFrame{
 	/**
 	 * Cette méthode modifie la colonne passée en paramètre pour que les cases soient des JComboBox. Les valeurs possibles de cette JComboBox
 	 * sont les valeurs de l'énumération Type.
+	 * @param colType la colonne à modifier
 	 */
 	public void comboBoxTable(TableColumn colType) {
 		

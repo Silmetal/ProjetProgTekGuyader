@@ -32,6 +32,7 @@ public class Requete {
 	 * Constructeur de la classe. Prend en paramètre un objet Connection en paramètre et créé un objet Statement sur cette connexion. Stocke le Statement dans son attribut state.
 	 * @param connexion la connexion sur laquelle créer un Statement
 	 * @param table le nome de la table sur laquelle exécuter la requête
+	 * @param base la base contenant la table sur laquelle exécuter la requête.
 	 * @throws SQLException si la connexion est invalide, ou qu'une autre erreur SQL survient
 	 */
 	public Requete(Connection connexion,String base,String table) throws SQLException, Exception{
@@ -183,7 +184,10 @@ public class Requete {
 	
 	/**
 	 * Intègre à l'attribut state la commande SQL permettant de supprimer une nouvelle table à la base de données à laquelle l'utilisateur, puis exécute cette requête.
+	 * @param table la table à enlever
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	 * @throws SQLException si une erreur SQL empêche le retrait de la table
+	 * @throws Exception si une autre erreur empêche le retrait de la table
 	 */
 	public int enleverTable(String table) throws SQLException,Exception {
 		int ret;
@@ -193,7 +197,11 @@ public class Requete {
 	
 	/**
 	  * Intègre à l'attribut state la commande SQL permettant de supprimer un tuple à la table précisée par l'utilisateur, puis exécute cette requête.
+	  * @param val la valeur de la clé primaire du tuple à retirer
+	  * @param nomPrim le nom de l'attribut qui est clé primaire pour le tuple à retirer
 	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	  * @throws SQLException si une erreur SQL empêche le retrait du tuple
+	 ** @throws Exception si une autre erreur empêche le retrait du tuple
 	  */
 	public int enleverTuple(String val,String nomPrim) throws SQLException,Exception {
 		int ret;

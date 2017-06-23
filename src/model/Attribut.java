@@ -2,7 +2,17 @@ package model;
 import java.util.*;
 import java.sql.*;
 
-
+/**
+ * Cette classe modélise un Attribut d'une table, et contient toutes les caractéristiques de cet attribut :
+ * <P>- Son nom
+ * <P>- Son type
+ * <P>- La valeur associée à son type (ex : INT(4))
+ * <P>- Si l'attribut peut être nul ou non
+ * <P>- Si l'attribut est une clé primaire ou non
+ * <P>- Si l'attribut est une clé étrangère ou non
+ * <P>- Si c'est une clé étrangère, le nom de la table qui contient l'attribut qu'elle référence
+ * <P>- * <P>- Si c'est une clé étrangère, le nom de l'attribut qu'elle référence
+ */
 public class Attribut {
 
 

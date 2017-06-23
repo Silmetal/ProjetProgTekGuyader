@@ -25,6 +25,8 @@ public class EcouteurJTree implements TreeSelectionListener {
 	
 	/**
 	 * Le constructeur de la classe. Initialisé les attributs de la classe en fonction des données passés en paramètre.
+	 * @param lUtilisateur l'utilisateur qui a instancié la FenetrePrincipale à écouter
+	 * @param fp la FenetrePrincipale contenant le JTree à écouter
 	 */
 	public EcouteurJTree(Utilisateur lUtilisateur, FenetrePrincipale fp){
 		this.lUtilisateur=lUtilisateur;

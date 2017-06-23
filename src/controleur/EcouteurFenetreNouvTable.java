@@ -48,7 +48,7 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	 * Le constructeur de la classe. Prend en paramètre une FenetreNouvelleTable, une Connection et une FenetrePrincipale et les associe à ses 
 	 * attributs, puis ajoute l'écouteur à la FenetreRequete.
 	 * @param fnt la FenetreNouvelleTable à écouter
-	 * @param Requete l'objet Requete qui va recevoir et exécuter la requête construite grâce aux attributs récupérés par cet écouteur.
+	 * @param requ l'objet Requete qui va recevoir et exécuter la requête construite grâce aux attributs récupérés par cet écouteur.
 	 * @param ema l'écouteur de la FenetrePrincipale associée à la FenetreNouvelleTable. Permet l'exécution des requêtes.
 	 */
 	public EcouteurFenetreNouvTable(FenetreNouvelleTable fnt, Requete requ, EcouteurMouseAdapter ema){

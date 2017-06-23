@@ -19,6 +19,7 @@ public class EcouteurFenetreConnexion implements ActionListener {
 	
 	/**
 	 * Le constructeur de la classe. Initialise son attribut avec le paramètre.
+	 * @param fc la FenetreConnexion à écouter
 	 */
 	public EcouteurFenetreConnexion(FenetreConnexion fc){
 		
