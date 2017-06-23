@@ -140,16 +140,17 @@ public class Requete {
 			}
 		}
 
-		for (Attribut monAtt : listeAttribut) {
-			if (monAtt.getACleEtrangere()) {
-				requete = requete + "\nCONSTRAINT fk"+monAtt.getNomVariable()+" FOREIGN KEY ("+monAtt.getNomVariable()+") REFERENCES ";
-				requete = requete + monAtt.getReferenceTableEtrangere()+"("+monAtt.getReferenceAttributEtranger()+"),";
-			}
-		}
-
 		requete = ModifierString.supprimerAvecPlace(requete,requete.length()-1,1);
 
 		requete = requete + "\n);";
+
+
+		for (Attribut monAtt : listeAttribut) {
+			if (monAtt.getACleEtrangere()) {
+				requete = requete + "\n\nALTER TABLE "+nomTable+" ADD FOREIGN KEY ("+monAtt.getNomVariable()+") REFERENCES ";
+				requete = requete + monAtt.getReferenceTableEtrangere()+"("+monAtt.getReferenceAttributEtranger()+");";
+			}
+		}
 		
 		System.out.println(requete);
 		ret = creerOuModifier(requete);
