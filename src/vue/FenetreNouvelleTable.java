@@ -49,12 +49,8 @@ public class FenetreNouvelleTable extends JFrame{
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
 	 * et les placer dans le panneau.
 	 */
-
-	private FenetrePrincipale fp;
-
-	public FenetreNouvelleTable(FenetrePrincipale fp){
+	public FenetreNouvelleTable(){
 		super("Nouvelle Table");
-		this.fp=fp;
 		this.setLayout(new BorderLayout(10,10));
 		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		miseEnPlace();
@@ -159,11 +155,4 @@ public class FenetreNouvelleTable extends JFrame{
 		
 		return this.mtm;
 	}
-
-
-	public FenetrePrincipale getFenetrePrincipale(){
-		return this.fp;
-	}
-
-
 }

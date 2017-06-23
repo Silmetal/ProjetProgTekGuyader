@@ -122,6 +122,7 @@ public class PanneauGauche extends JPanel{
 
 
 			arborescence.expandRow(1);
+			System.out.println(lUtilisateur.getSelection());
 			if(lUtilisateur.getSelection()!=-1)
 			arborescence.expandRow(2+lUtilisateur.getSelection());
 			//lUtilisateur.getSelection();

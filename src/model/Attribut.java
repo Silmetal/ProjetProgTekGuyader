@@ -14,7 +14,6 @@ public class Attribut {
 	private boolean aCleEtrangere;
 	private String referenceTableEtrangere;
 	private String referenceAttributEtranger;
-	private boolean estUnique;
 	
 	public Attribut(String nomVariable, Type type, int valeur, boolean estNonNul,  boolean estUnique, boolean estClePrimaire, boolean aCleEtrangere, String referenceTableEtrangere,String referenceAttributEtranger){
 		if(!aCleEtrangere){
@@ -23,7 +22,7 @@ public class Attribut {
 		}
 		
 		
-		this.estUnique=estUnique;
+
 		this.nomVariable=nomVariable;
 		this.type=type;
 		this.valeur=valeur;
@@ -62,13 +61,10 @@ public class Attribut {
 		String ret="";
 
 
-		if(!estNonNul){
+		if(estNonNul){
 			ret = ret + " NOT NULL";
 		}
 
-		if(estUnique){
-			ret = ret + "";
-		}
 
 		return ret;
 	}

@@ -83,9 +83,7 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 		
 		try{
 			ema.nouvelleTable(requ, this);
-			fnt.getFenetrePrincipale().getPanneauGauche().constructionJTree();
 			fnt.dispose();
-
 		}
 		catch(SQLException sqle) {
 			JOptionPane jop = new JOptionPane();
