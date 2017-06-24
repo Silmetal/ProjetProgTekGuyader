@@ -126,6 +126,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					else if(jmi.getName().equals("supprVue")){
 						nouvelleRequete.enleverVue();
 					}
+
+					fp.getPanneauGauche().constructionJTree();
 				}
 				catch(SQLException se){
 					se.printStackTrace();
@@ -173,7 +175,6 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		        lesTab[0]);
 
 			nouvelleRequete.enleverTable(table);
-			fp.getPanneauGauche().constructionJTree();
 		}
 	}
 
