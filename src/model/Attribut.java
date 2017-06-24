@@ -56,35 +56,48 @@ public class Attribut {
 	private String referenceAttributEtranger;
 	
 	/** 
-	 *
+	 * Le constructeur de la classe. Initialise ses attributs en fonction de ses paramètres.
+	 * Si le paramètre "Clé étrangère" passé a pour valeur false, initialise referenceTableEtrangere et referenceAttributEtranger à la chaine de caractère vide,
+	 * même si l'utilisateur a entré des données pour ces champs.
+	 * @param nomVariable le nom de l'attribut
+	 * @param type le type de l'attribut
+	 * @param valeur la valeur associée au type de l'attribut
+	 * @param estNonNul true si l'attrbitu ne peut pas être nul, false sinon
+	 * @param estUnique true si l'attribut est unique, false sinon
+	 * @param estClePrimaire true si l'attribut est la clé primaire de la table, false sinon
+	 * @param aCleEtrangere true si l'attribut est une clé étrangère, false sinon
+	 * @param referenceTableEtrangere le nom de la table contentant l'attribut référencé si l'attribut est une clé étrangère
+	 * @param referenceAttributEtranger le nom de l'attribut référencé si l'attribut est une clé étrangère
 	 */
 	public Attribut(String nomVariable, Type type, int valeur, boolean estNonNul,  boolean estUnique, boolean estClePrimaire, boolean aCleEtrangere, String referenceTableEtrangere,String referenceAttributEtranger){
-		if(!aCleEtrangere){
-			referenceTableEtrangere="";
-			referenceAttributEtranger="";
-		}
-		
-		
-
 		this.nomVariable=nomVariable;
 		this.type=type;
 		this.valeur=valeur;
 		this.estNonNul=estNonNul;
 		this.estClePrimaire=estClePrimaire;
-		this.aCleEtrangere=aCleEtrangere;
-		this.referenceTableEtrangere=referenceTableEtrangere;
-		this.referenceAttributEtranger=referenceAttributEtranger;
+		this.aCleEtrangere=aCleEtrangere;		
+		
+		if(!aCleEtrangere){
+			this.referenceTableEtrangere="";
+			this.referenceAttributEtranger="";
+		}
+		else {
+			this.referenceTableEtrangere=referenceTableEtrangere;
+			this.referenceAttributEtranger=referenceAttributEtranger;
+		}
 	}
 	
 	/** 
-	 *
+	 * Retourne le nom de l'attribut
+	 * @return le nom de l'attribut
 	 */
 	public String getNomVariable(){
 		return this.nomVariable;
 	}
 	
 	/** 
-	 *
+	 * Retourne le type de l'attribut
+	 * @return le type de l'attribut
 	 */
 	public Type getType(){
 		return this.type;
@@ -92,6 +105,7 @@ public class Attribut {
 	
 	/** 
 	 * Retourne la valeur associée au type de l'attribut
+	 * @return la valeur associée au type de l'attribut
 	 */
 	public int getValeur(){
 		return this.valeur;
@@ -122,7 +136,10 @@ public class Attribut {
 	}
 	
 	/** 
-	 * 
+	 * Vérifie si l'attribut peut être nul ou non.
+	 * <P>Si c'est le cas, renvoie un string contenant un mroceau de commande SQL permettant d'empêcher l'attribut créé d'être nul.
+	 * <P>Sinon, renvoie une chaîne de caractère vide
+	 * @return une chaîne vide si l'attribut peut être nul, la chaîne " NOT NULL" sinon
 	 */
 	public String getContrainte(){
 		String ret="";

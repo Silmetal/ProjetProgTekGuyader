@@ -192,7 +192,13 @@ public class Requete {
 	 */
 	public int enleverTable(String table) throws SQLException,Exception {
 		int ret;
-		ret = (int)manuel("DROP TABLE "+table)[2];
+		
+		try {
+			ret = (int)manuel("DROP TABLE "+table)[2];
+		}
+		catch (SQLException sqle) {
+			ret = (int)manuel("DROP VIEW "+table)[2];
+		}
 		return ret;
 	}
 	
