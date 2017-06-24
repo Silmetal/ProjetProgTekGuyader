@@ -79,6 +79,9 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 				else if(jb.getName().equals("vue")){
 					fp.getVueMenu().show(e.getComponent(), e.getComponent().getX()+e.getComponent().getWidth(), e.getComponent().getY()-4*(e.getComponent().getHeight()));
 				}
+				else if(jb.getName().equals("base")){
+					fp.getBaseMenu().show(e.getComponent(), e.getComponent().getX()+e.getComponent().getWidth(), e.getComponent().getY()-5*(e.getComponent().getHeight()));
+				}
 			}
 			else if(e.getComponent() instanceof JMenuItem){
 				try{
@@ -91,7 +94,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 					if(jmi.getName().equals("nouvTable")){
 						FenetreNouvelleTable fnt = new FenetreNouvelleTable();
-						EcouteurFenetreNouvTable efnt = new EcouteurFenetreNouvTable(fnt, nouvelleRequete, this);
+						EcouteurFenetreNouvTable efnt = new EcouteurFenetreNouvTable(fnt, nouvelleRequete, this,fp);
 					}
 					else if(jmi.getName().equals("supprTable")){
 						
@@ -126,14 +129,25 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					else if(jmi.getName().equals("supprVue")){
 						nouvelleRequete.enleverVue();
 					}
+					else if(jmi.getName().equals("lireBase")){
+						//nouvelleRequete.ajouterVue();
+					}
+					else if(jmi.getName().equals("ecrireBase")){
+						System.out.println(laBaseSelectionee.ecrireCreationDeTable());
+					}
+					else if(jmi.getName().equals("genererUML")){
+						genererUML(laBaseSelectionee);
+					}
 
-					fp.getPanneauGauche().constructionJTree();
+					if(!jmi.getName().equals("nouvTable")){
+						fp.getPanneauGauche().constructionJTree();
+					}
 				}
 				catch(SQLException se){
 					se.printStackTrace();
 				}
 				catch(Exception ex){
-
+					ex.printStackTrace();
 				}
 			}
 
@@ -155,6 +169,26 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 	public void modifierTuple(){
 
+	}
+
+	public void genererUML(BaseDeDonnees laBaseSelectionee) throws SQLException,Exception{
+		
+		ArrayList<String> lesTables = laBaseSelectionee.parcourirBase();
+		
+		for(String str : lesTables){
+
+			ArrayList<String> lesAttribut = (ArrayList<String>)laBaseSelectionee.parcourirTable(str)[0];
+			for(String s : lesAttribut){
+
+				laBaseSelectionee.recupererInfo(str,s);
+			}
+		}
+
+
+
+
+
+		Process ps=Runtime.getRuntime().exec(new String[]{"java","-jar","../lib/plantuml.jar","../UML/UML.txt"});
 	}
 
 	public void supprimerTable(BaseDeDonnees laBaseSelectionee,String laTableSelectionee,Requete nouvelleRequete) throws SQLException,Exception{
@@ -219,6 +253,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getBoutonTrigger().addMouseListener(this);
 		fp.getBoutonTuple().addMouseListener(this);
 		fp.getBoutonVue().addMouseListener(this);
+		fp.getBoutonBase().addMouseListener(this);
 
 		fp.getPanneauGauche().getBoutonConnexion().addMouseListener(this);
 
@@ -231,5 +266,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getSupprTrigger().addMouseListener(this);
 		fp.getNouvVue().addMouseListener(this);
 		fp.getSupprVue().addMouseListener(this);
+		fp.getLireBase().addMouseListener(this);
+		fp.getEcrireBase().addMouseListener(this);
+		fp.getGenererUML().addMouseListener(this);
 	}
 }

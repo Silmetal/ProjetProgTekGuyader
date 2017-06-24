@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import utilitaire.*;
 
 /**
  * Cette classe établit une connexion à une base de données grâce à JDBC et les classes de java.sql.
@@ -327,6 +328,39 @@ public class BaseDeDonnees {
 
 	}
 
+
+	public Object[] recupererInfo(String table,String attribut) throws Exception,SQLException{
+		Object[] ret = new Object[3]; // [0] true si non null -- [1] true si unique --[2] type
+		Requete nouvelleRequete = new Requete(connexion,"","");
+		Object[] res = nouvelleRequete.manuel("SHOW CREATE TABLE "+table);
+		ResultSet rs=(ResultSet)res[1];
+		Requete nouvelleRequete2 = new Requete(connexion,"","");
+		ArrayList<String> res2 = (ArrayList<String>)nouvelleRequete2.retournerResultSet(rs,false)[0];
+		for (int i=1;i<res2.size();i=i+2) {
+			
+			String[] createTab = ModifierString.decomposerLigneParLigne(res2.get(i));
+
+			for(String lgn : createTab){
+
+				if((lgn.indexOf("`"+attribut+"`") >= 0) && !(lgn.indexOf("CREATE TABLE") >=0) && !(lgn.indexOf("PRIMARY") >=0) && !(lgn.indexOf("KEY") >=0) && !(lgn.indexOf("REFERENCES") >=0) && !(lgn.indexOf("UNIQUE") >=0)){
+					if(lgn.indexOf("NOT NULL")>=0){
+						ret[0]=true;
+					}
+					String operation = ModifierString.supprimerExtrait(lgn,"`"+attribut+"`");
+					ret[2] = ModifierString.decomposerEspaceParEspace(operation)[1];
+				}
+
+				if((lgn.indexOf(attribut) >= 0) && ((lgn.indexOf("UNIQUE") >=0) || (lgn.indexOf("PRIMARY") >=0))){
+					ret[1]=true;
+					System.out.println(lgn);
+				}
+			}
+		}
+		return ret;
+	}
+
+
+
 	
 	/**
 	 * Supprime de la base de données l'utilisateur dont l'identifiant est passé en paramètre
@@ -352,9 +386,38 @@ public class BaseDeDonnees {
 	 * identique à celle à laquelle l'utilsiateur est connecté.
 	 * @param fileName le nom du fichier crée
 	 */
-	public void ecrire(String fileName){
+	public void ecrire(String fileName) throws Exception,SQLException{
+		String res = ecrireCreationDeTable();
+		RWFile.writeFile(res,fileName);		
+	}
+
+
+
+	public String ecrireCreationDeTable() throws Exception, SQLException{
+		String ret="";
+
+		ArrayList<String> lesTables = this.parcourirBase();
+				
+		for(String s : lesTables){
+			Requete nouvelleRequete = new Requete(connexion,"","");
+			Object[] res = nouvelleRequete.manuel("SHOW CREATE TABLE "+s);
+			ResultSet rs=(ResultSet)res[1];
+			ArrayList<String> res2 = (ArrayList<String>)nouvelleRequete.retournerResultSet(rs,false)[0];
+			//for (String str : res2){
+			for (int i=1;i<res2.size();i=i+2) {
+				/*String str2 = str;
+				str2=ModifierString.supprimerExtrait(str2,s);*/
+				ret = ret +"\n\n"+ res2.get(i)+";";
+			}
+		}
+
+
 		
-		
+
+		return ret;
+
+
+
 	}
 	
 	/**

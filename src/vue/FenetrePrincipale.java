@@ -46,6 +46,11 @@ public class FenetrePrincipale extends JFrame{
 	 * Le bouton qui ouvre le menu permettant de créer ou supprimer une vue
 	 */
 	private JButton vue;
+
+	/**
+	 * Le bouton qui ouvre le menu permettant de lire ou ecrire un fichier sql de création de base
+	 */
+	private JButton base;
 	
 	/**
 	 * Le menu proposant de créer ou supprimer un tuple
@@ -66,6 +71,12 @@ public class FenetrePrincipale extends JFrame{
 	 * Le menu proposant de créer ou supprimer une vue
 	 */
 	private JPopupMenu vueMenu;
+
+	/**
+	 * Le menu proposant de lire ou écrire une base
+	 */
+	private JPopupMenu baseMenu;
+	
 	
 	/**
 	 * L'élément de tupleMenu permettant de créer un nouveau tuple
@@ -111,6 +122,22 @@ public class FenetrePrincipale extends JFrame{
 	 * L'élément de vueMenu permettant de supprimer une vue
 	 */
 	private JMenuItem supprVue;
+
+
+	/**
+	 * L'élément de baseMenu permettant de lire une base
+	 */
+	private JMenuItem lireBase;
+	
+	/**
+	 * L'élément de baseMenu permettant d'ecrire une base
+	 */
+	private JMenuItem ecrireBase;
+
+	/**
+	 * L'élément de baseMenu permettant de generer son diagramme UML
+	 */
+	private JMenuItem genererUML;
 	
 	/**
 	 * La JTable qui affiche le contenu d'une table
@@ -171,12 +198,15 @@ public class FenetrePrincipale extends JFrame{
 		table.setName("table");	
 		vue = new JButton("Vue");
 		vue.setName("vue");
+		base = new JButton("Base");
+		base.setName("base");
 
 		tupleMenu = new JPopupMenu();
 
 		tableMenu = new JPopupMenu();
 		triggerMenu = new JPopupMenu();
 		vueMenu = new JPopupMenu();
+		baseMenu = new JPopupMenu();
 		
 		nouvTable = new JMenuItem("Créer une nouvelle table");
 		nouvTable.setName("nouvTable");
@@ -196,6 +226,12 @@ public class FenetrePrincipale extends JFrame{
 		nouvVue.setName("nouvVue");
 		supprVue = new JMenuItem("Supprimer une vue");
 		supprVue.setName("supprVue");
+		ecrireBase = new JMenuItem("Ecrire la base dans un fichier");
+		ecrireBase.setName("ecrireBase");
+		lireBase = new JMenuItem("Lire une base dans un fichier");
+		lireBase.setName("lireBase");
+		genererUML = new JMenuItem("Générer le diagramme UML");
+		genererUML.setName("genererUML");
 		
 		tableMenu.add(nouvTable);
 		tableMenu.add(supprTable);
@@ -210,7 +246,9 @@ public class FenetrePrincipale extends JFrame{
 		vueMenu.add(nouvVue);
 		vueMenu.add(supprVue);
 		
-
+		baseMenu.add(ecrireBase);
+		baseMenu.add(lireBase);
+		baseMenu.add(genererUML);
 
 
 		String[] titre={"Selectionner la table a afficher"};
@@ -231,7 +269,7 @@ public class FenetrePrincipale extends JFrame{
 		
 		
 		// Création des sous-panneaux
-		JPanel panneauBouton = new JPanel(new GridLayout(5, 1, 5, 5));
+		JPanel panneauBouton = new JPanel(new GridLayout(6, 1, 5, 5));
 		JPanel panneauCentral = new JPanel(new BorderLayout(10,10));
 		JPanel panneauLabel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel panneauResultat = new JPanel(new BorderLayout());
@@ -242,6 +280,7 @@ public class FenetrePrincipale extends JFrame{
 		panneauBouton.add(tuple);
 		panneauBouton.add(trigger);
 		panneauBouton.add(vue);
+		panneauBouton.add(base);
 		
 		panneauLabel.add(labelConsole);
 
@@ -371,6 +410,16 @@ public class FenetrePrincipale extends JFrame{
 		return this.vue;
 	}
 	
+
+	/**
+	 * Retourne le bouton base de l'instance
+	 * @return le bouton base de l'instance
+	 */
+	public JButton getBoutonBase() {
+		
+		return this.base;
+	}
+
 	/**
 	 * Retourne le JPopupMenu associé au bouton Tuple de l'instance
 	 * @return le JPopupMenu associé au bouton Tuple de l'instance
@@ -401,6 +450,14 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	public JPopupMenu getVueMenu(){
 		return this.vueMenu;
+	}
+
+	/**
+	 * Retourne le JPopupMenu associé au bouton base de l'instance
+	 * @return le JPopupMenu associé au bouton base de l'instance
+	 */
+	public JPopupMenu getBaseMenu(){
+		return this.baseMenu;
 	}
 	
 	/**
@@ -474,6 +531,32 @@ public class FenetrePrincipale extends JFrame{
 	public JMenuItem getSupprVue(){
 		return this.supprVue;
 	}
+
+
+	/**
+	 * Retourne le JMenuItem Lire Base de l'instance
+	 * @return le JMenuItem Lire Base de l'instance
+	 */
+	public JMenuItem getLireBase(){
+		return this.lireBase;
+	}
+
+	/**
+	 * Retourne le JMenuItem Ecrire Base de l'instance
+	 * @return le JMenuItem Ecrire Base de l'instance
+	 */
+	public JMenuItem getEcrireBase(){
+		return this.ecrireBase;
+	}
+
+	/**
+	 * Retourne le JMenuItem Generer UML de l'instance
+	 * @return le JMenuItem genererUML de l'instance
+	 */
+	public JMenuItem getGenererUML(){
+		return this.genererUML;
+	}
+
 	
 	/**
 	 * Retourne le JTable de l'instance

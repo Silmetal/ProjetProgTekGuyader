@@ -43,6 +43,11 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	 * L'écouteur de la FenetrePrincipale associée à la FenetreNouvelleTable. Permet l'exécution des requêtes.
 	 */
 	private EcouteurMouseAdapter ema;
+
+	/**
+	 * La fenetre principale associé à cette fenetre
+	 */
+	private FenetrePrincipale fp;
 	
 	/**
 	 * Le constructeur de la classe. Prend en paramètre une FenetreNouvelleTable, une Connection et une FenetrePrincipale et les associe à ses 
@@ -50,8 +55,10 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 	 * @param fnt la FenetreNouvelleTable à écouter
 	 * @param requ l'objet Requete qui va recevoir et exécuter la requête construite grâce aux attributs récupérés par cet écouteur.
 	 * @param ema l'écouteur de la FenetrePrincipale associée à la FenetreNouvelleTable. Permet l'exécution des requêtes.
+	 * @param fp La fenetre principal
 	 */
-	public EcouteurFenetreNouvTable(FenetreNouvelleTable fnt, Requete requ, EcouteurMouseAdapter ema){
+	public EcouteurFenetreNouvTable(FenetreNouvelleTable fnt, Requete requ, EcouteurMouseAdapter ema, FenetrePrincipale fp){
+		this.fp = fp;
 		this.fnt = fnt;
 		this.requ=requ;
 		this.ema = ema;
@@ -83,6 +90,7 @@ public class EcouteurFenetreNouvTable implements ActionListener, ChangeListener 
 		
 		try{
 			ema.nouvelleTable(requ, this);
+			fp.getPanneauGauche().constructionJTree();
 			fnt.dispose();
 		}
 		catch(SQLException sqle) {

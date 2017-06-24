@@ -1,4 +1,5 @@
 package utilitaire;
+import java.lang.*;
 
 public class ModifierString {
 	
@@ -11,7 +12,6 @@ public class ModifierString {
 			ret1 = ret.substring(0,ret.indexOf(aSupprimer));
 			ret2 = ret.substring(ret.indexOf(aSupprimer)+aSupprimer.length(),ret.length());
 			ret=ret1+ret2;
-			System.out.println(ret);
 		}	
 		return ret;
 	}	
@@ -21,8 +21,6 @@ public class ModifierString {
 		String ret = base;
 		String ret1="";
 		String ret2="";
-		System.out.println(ret.indexOf(mot1));
-		System.out.println(ret.indexOf(mot2));
 		while(ret.indexOf(mot1)<ret.indexOf(mot2) && ret.indexOf(mot2)>0){
 			ret1 = ret.substring(0,ret.indexOf(mot1));
 			ret2= ret.substring(ret.indexOf(mot2)+mot2.length(),ret.length());
@@ -30,7 +28,7 @@ public class ModifierString {
 		}
 		return ret;
 	}
-	
+
 	
 	public static String supprimerAvecPlace(String base,int place, int tailleASup){
 		String ret="";
@@ -41,6 +39,14 @@ public class ModifierString {
 		ret = ret1 + ret2;
 		
 		return ret;
+	}
+
+	public static String[] decomposerLigneParLigne(String base){
+		return base.split("\n");
+	}
+
+	public static String[] decomposerEspaceParEspace(String base){
+		return base.split("\\s+");
 	}
 
 

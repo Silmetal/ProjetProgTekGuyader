@@ -8,7 +8,7 @@ import java.util.Vector;
  
  public class MyTableModel extends AbstractTableModel {	 
 	
-	private String[] titre={"Nom", "Type", "Valeur", "Nul ?",  "Unique ?", "Clé Primaire ?", "Clé étrangère ?", "Table référée", "Attribut référé"};
+	private String[] titre={"Nom", "Type", "Valeur", "Non Nul ?",  "Unique ?", "Clé Primaire ?", "Clé étrangère ?", "Table référée", "Attribut référé"};
 	
 	private ArrayList<Object[]> data = new ArrayList<Object[]>();
 	
