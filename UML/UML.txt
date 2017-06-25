@@ -1,604 +1,299 @@
 @startuml
 
 
-class CHARACTER_SETS {
-	CHARACTER_SET_NAME : varchar(32) NN
-	DEFAULT_COLLATE_NAME : varchar(32) NN
-	DESCRIPTION : varchar(60) NN
-	MAXLEN : bigint(3) NN
+class columns_priv {
+	Host : char 60 NN UQ
+	Db : char 64 NN UQ
+	User : char 16 NN UQ
+	Table_name : char 64 NN UQ
+	Column_name : char 64 NN UQ
+	Timestamp : timestamp NN
+	Column_priv : set 'Select','Insert','Update','References' NN
 }
 
-class COLLATIONS {
-	COLLATION_NAME : varchar(32) NN
-	CHARACTER_SET_NAME : varchar(32) NN
-	ID : bigint(11) NN
-	IS_DEFAULT : varchar(3) NN
-	IS_COMPILED : varchar(3) NN
-	SORTLEN : bigint(3) NN
+class db {
+	Host : char 60 NN UQ
+	Db : char 64 NN UQ
+	User : char 16 NN UQ
+	Select_priv : enum 'N','Y' NN
+	Insert_priv : enum 'N','Y' NN
+	Update_priv : enum 'N','Y' NN
+	Delete_priv : enum 'N','Y' NN
+	Create_priv : enum 'N','Y' NN
+	Drop_priv : enum 'N','Y' NN
+	Grant_priv : enum 'N','Y' NN
+	References_priv : enum 'N','Y' NN
+	Index_priv : enum 'N','Y' NN
+	Alter_priv : enum 'N','Y' NN
+	Create_tmp_table_priv : enum 'N','Y' NN
+	Lock_tables_priv : enum 'N','Y' NN
+	Create_view_priv : enum 'N','Y' NN
+	Show_view_priv : enum 'N','Y' NN
+	Create_routine_priv : enum 'N','Y' NN
+	Alter_routine_priv : enum 'N','Y' NN
+	Execute_priv : enum 'N','Y' NN
+	Event_priv : enum 'N','Y' NN
+	Trigger_priv : enum 'N','Y' NN
 }
 
-class COLLATION_CHARACTER_SET_APPLICABILITY {
-	COLLATION_NAME : varchar(32) NN
-	CHARACTER_SET_NAME : varchar(32) NN
+class event {
+	db : char 64 NN UQ
+	name : char 64 NN UQ
+	body : longblob NN
+	definer : char 77 NN
+	execute_at : datetime
+	interval_value : int 11
+	interval_field : enum 'YEAR','QUARTER','MONTH','DAY','HOUR','MINUTE','WEEK','SECOND','MICROSECOND','YEAR_MONTH','DAY_HOUR','DAY_MINUTE','DAY_SECOND','HOUR_MINUTE','HOUR_SECOND','MINUTE_SECOND','DAY_MICROSECOND','HOUR_MICROSECOND','MINUTE_MICROSECOND','SECOND_MICROSECOND'
+	created : timestamp NN
+	modified : timestamp NN
+	last_executed : datetime
+	starts : datetime
+	ends : datetime
+	status : enum 'ENABLED','DISABLED','SLAVESIDE_DISABLED' NN
+	on_completion : enum 'DROP','PRESERVE' NN
+	sql_mode : 
+	comment : char 64 NN
+	originator : int 10 NN
+	time_zone : char 64 NN
+	character_set_client : char 32
+	collation_connection : char 32
+	db_collation : char 32
+	body_utf8 : longblob,
 }
 
-class COLUMNS {
-	TABLE_CATALOG : varchar(512) NN
-	TABLE_SCHEMA : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	COLUMN_NAME : varchar(64) NN
-	ORDINAL_POSITION : bigint(21) NN
-	COLUMN_DEFAULT : longtext,
-	IS_NULLABLE : varchar(3) NN
-	DATA_TYPE : varchar(64) NN
-	CHARACTER_MAXIMUM_LENGTH : bigint(21)
-	CHARACTER_OCTET_LENGTH : bigint(21)
-	NUMERIC_PRECISION : bigint(21)
-	NUMERIC_SCALE : bigint(21)
-	CHARACTER_SET_NAME : varchar(32)
-	COLLATION_NAME : varchar(32)
-	COLUMN_TYPE : longtext NN
-	COLUMN_KEY : 
-	EXTRA : varchar(27) NN
-	PRIVILEGES : varchar(80) NN
-	COLUMN_COMMENT : varchar(1024) NN
+class func {
+	name : char 64 NN UQ
+	ret : tinyint 1 NN
+	dl : char 128 NN
+	type : enum 'function','aggregate' NN
 }
 
-class COLUMN_PRIVILEGES {
-	GRANTEE : varchar(81) NN
-	TABLE_CATALOG : varchar(512) NN
-	TABLE_SCHEMA : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	COLUMN_NAME : varchar(64) NN
-	PRIVILEGE_TYPE : varchar(64) NN
-	IS_GRANTABLE : varchar(3) NN
+class general_log {
+	event_time : timestamp NN
+	user_host : mediumtext NN
+	thread_id : int 11 NN
+	server_id : int 10 NN
+	command_type : varchar 64 NN
+	argument : mediumtext NN
 }
 
-class ENGINES {
-	ENGINE : varchar(64) NN
-	SUPPORT : varchar(8) NN
-	COMMENT : varchar(80) NN
-	TRANSACTIONS : varchar(3)
-	XA : varchar(3)
-	SAVEPOINTS : varchar(3)
+class help_category {
+	help_category_id : smallint 5 NN UQ
+	name : char 64 NN UQ
+	parent_category_id : smallint 5
+	url : text NN
 }
 
-class EVENTS {
-	EVENT_CATALOG : varchar(64) NN
-	EVENT_SCHEMA : varchar(64) NN
-	EVENT_NAME : varchar(64) NN
-	DEFINER : varchar(77) NN
-	TIME_ZONE : varchar(64) NN
-	EVENT_BODY : varchar(8) NN
-	EVENT_DEFINITION : longtext NN
-	EVENT_TYPE : varchar(9) NN
-	EXECUTE_AT : datetime
-	INTERVAL_VALUE : varchar(256)
-	INTERVAL_FIELD : varchar(18)
-	SQL_MODE : varchar(8192) NN
-	STARTS : datetime
-	ENDS : datetime
-	STATUS : varchar(18) NN
-	ON_COMPLETION : varchar(12) NN
-	CREATED : datetime NN
-	LAST_ALTERED : datetime NN
-	LAST_EXECUTED : datetime
-	EVENT_COMMENT : varchar(64) NN
-	ORIGINATOR : bigint(10) NN
-	CHARACTER_SET_CLIENT : varchar(32) NN
-	COLLATION_CONNECTION : varchar(32) NN
-	DATABASE_COLLATION : varchar(32) NN
+class help_keyword {
+	help_keyword_id : int 10 NN UQ
+	name : char 64 NN UQ
 }
 
-class FILES {
-	FILE_ID : bigint(4) NN
-	FILE_NAME : varchar(64)
-	FILE_TYPE : varchar(20) NN
-	TABLESPACE_NAME : varchar(64)
-	TABLE_CATALOG : varchar(64) NN
-	TABLE_SCHEMA : varchar(64)
-	TABLE_NAME : varchar(64)
-	LOGFILE_GROUP_NAME : varchar(64)
-	LOGFILE_GROUP_NUMBER : bigint(4)
-	ENGINE : varchar(64) NN
-	FULLTEXT_KEYS : 
-	DELETED_ROWS : bigint(4)
-	UPDATE_COUNT : bigint(4)
-	FREE_EXTENTS : bigint(4)
-	TOTAL_EXTENTS : bigint(4)
-	EXTENT_SIZE : bigint(4) NN
-	INITIAL_SIZE : bigint(21)
-	MAXIMUM_SIZE : bigint(21)
-	AUTOEXTEND_SIZE : bigint(21)
-	CREATION_TIME : datetime
-	LAST_UPDATE_TIME : datetime
-	LAST_ACCESS_TIME : datetime
-	RECOVER_TIME : bigint(4)
-	TRANSACTION_COUNTER : bigint(4)
-	VERSION : bigint(21)
-	ROW_FORMAT : varchar(10)
-	TABLE_ROWS : bigint(21)
-	AVG_ROW_LENGTH : bigint(21)
-	DATA_LENGTH : bigint(21)
-	MAX_DATA_LENGTH : bigint(21)
-	INDEX_LENGTH : bigint(21)
-	DATA_FREE : bigint(21)
-	CREATE_TIME : datetime
-	UPDATE_TIME : datetime
-	CHECK_TIME : datetime
-	CHECKSUM : bigint(21)
-	STATUS : varchar(20) NN
-	EXTRA : varchar(255)
+class help_relation {
+	help_topic_id : int 10 NN UQ
+	help_keyword_id : int 10 NN UQ
 }
 
-class GLOBAL_STATUS {
-	VARIABLE_NAME : varchar(64) NN
-	VARIABLE_VALUE : varchar(1024)
+class help_topic {
+	help_topic_id : int 10 NN UQ
+	name : char 64 NN UQ
+	help_category_id : smallint 5 NN
+	description : text NN
+	example : text NN
+	url : text NN
 }
 
-class GLOBAL_VARIABLES {
-	VARIABLE_NAME : varchar(64) NN
-	VARIABLE_VALUE : varchar(1024)
+class host {
+	Host : char 60 NN UQ
+	Db : char 64 NN UQ
+	Select_priv : enum 'N','Y' NN
+	Insert_priv : enum 'N','Y' NN
+	Update_priv : enum 'N','Y' NN
+	Delete_priv : enum 'N','Y' NN
+	Create_priv : enum 'N','Y' NN
+	Drop_priv : enum 'N','Y' NN
+	Grant_priv : enum 'N','Y' NN
+	References_priv : enum 'N','Y' NN
+	Index_priv : enum 'N','Y' NN
+	Alter_priv : enum 'N','Y' NN
+	Create_tmp_table_priv : enum 'N','Y' NN
+	Lock_tables_priv : enum 'N','Y' NN
+	Create_view_priv : enum 'N','Y' NN
+	Show_view_priv : enum 'N','Y' NN
+	Create_routine_priv : enum 'N','Y' NN
+	Alter_routine_priv : enum 'N','Y' NN
+	Execute_priv : enum 'N','Y' NN
+	Trigger_priv : enum 'N','Y' NN
 }
 
-class INNODB_BUFFER_PAGE {
-	POOL_ID : bigint(21) NN
-	BLOCK_ID : bigint(21) NN
-	SPACE : bigint(21) NN
-	PAGE_NUMBER : bigint(21) NN
-	PAGE_TYPE : varchar(64)
-	FLUSH_TYPE : bigint(21) NN
-	FIX_COUNT : bigint(21) NN
-	IS_HASHED : varchar(3)
-	NEWEST_MODIFICATION : bigint(21) NN
-	OLDEST_MODIFICATION : bigint(21) NN
-	ACCESS_TIME : bigint(21) NN
-	TABLE_NAME : varchar(1024)
-	INDEX_NAME : varchar(1024)
-	NUMBER_RECORDS : bigint(21) NN
-	DATA_SIZE : bigint(21) NN
-	COMPRESSED_SIZE : bigint(21) NN
-	PAGE_STATE : varchar(64)
-	IO_FIX : varchar(64)
-	IS_OLD : varchar(3)
-	FREE_PAGE_CLOCK : bigint(21) NN
+class ndb_binlog_index {
+	Position : bigint 20 NN
+	File : varchar 255 NN
+	epoch : bigint 20 NN UQ
+	inserts : bigint 20 NN
+	updates : bigint 20 NN
+	deletes : bigint 20 NN
+	schemaops : bigint 20 NN
 }
 
-class INNODB_BUFFER_PAGE_LRU {
-	POOL_ID : bigint(21) NN
-	LRU_POSITION : bigint(21) NN
-	SPACE : bigint(21) NN
-	PAGE_NUMBER : bigint(21) NN
-	PAGE_TYPE : varchar(64)
-	FLUSH_TYPE : bigint(21) NN
-	FIX_COUNT : bigint(21) NN
-	IS_HASHED : varchar(3)
-	NEWEST_MODIFICATION : bigint(21) NN
-	OLDEST_MODIFICATION : bigint(21) NN
-	ACCESS_TIME : bigint(21) NN
-	TABLE_NAME : varchar(1024)
-	INDEX_NAME : varchar(1024)
-	NUMBER_RECORDS : bigint(21) NN
-	DATA_SIZE : bigint(21) NN
-	COMPRESSED_SIZE : bigint(21) NN
-	COMPRESSED : varchar(3)
-	IO_FIX : varchar(64)
-	IS_OLD : varchar(3)
-	FREE_PAGE_CLOCK : bigint(21) NN
+class plugin {
+	name : varchar 64 NN UQ
+	dl : varchar 128 NN
 }
 
-class INNODB_BUFFER_POOL_STATS {
-	POOL_ID : bigint(21) NN
-	POOL_SIZE : bigint(21) NN
-	FREE_BUFFERS : bigint(21) NN
-	DATABASE_PAGES : bigint(21) NN
-	OLD_DATABASE_PAGES : bigint(21) NN
-	MODIFIED_DATABASE_PAGES : bigint(21) NN
-	PENDING_DECOMPRESS : bigint(21) NN
-	PENDING_READS : bigint(21) NN
-	PENDING_FLUSH_LRU : bigint(21) NN
-	PENDING_FLUSH_LIST : bigint(21) NN
-	PAGES_MADE_YOUNG : bigint(21) NN
-	PAGES_NOT_MADE_YOUNG : bigint(21) NN
-	PAGES_MADE_YOUNG_RATE : double NN
-	PAGES_MADE_NOT_YOUNG_RATE : double NN
-	NUMBER_PAGES_READ : bigint(21) NN
-	NUMBER_PAGES_CREATED : bigint(21) NN
-	NUMBER_PAGES_WRITTEN : bigint(21) NN
-	PAGES_READ_RATE : double NN
-	PAGES_CREATE_RATE : double NN
-	PAGES_WRITTEN_RATE : double NN
-	NUMBER_PAGES_GET : bigint(21) NN
-	HIT_RATE : bigint(21) NN
-	YOUNG_MAKE_PER_THOUSAND_GETS : bigint(21) NN
-	NOT_YOUNG_MAKE_PER_THOUSAND_GETS : bigint(21) NN
-	NUMBER_PAGES_READ_AHEAD : bigint(21) NN
-	NUMBER_READ_AHEAD_EVICTED : bigint(21) NN
-	READ_AHEAD_RATE : double NN
-	READ_AHEAD_EVICTED_RATE : double NN
-	LRU_IO_TOTAL : bigint(21) NN
-	LRU_IO_CURRENT : bigint(21) NN
-	UNCOMPRESS_TOTAL : bigint(21) NN
-	UNCOMPRESS_CURRENT : bigint(21) NN
+class proc {
+	db : char 64 NN UQ
+	name : char 64 NN UQ
+	type : enum 'FUNCTION','PROCEDURE' NN UQ
+	specific_name : char 64 NN
+	language : enum 'SQL' NN
+	sql_data_access : enum 'CONTAINS_SQL','NO_SQL','READS_SQL_DATA','MODIFIES_SQL_DATA' NN
+	is_deterministic : enum 'YES','NO' NN
+	security_type : enum 'INVOKER','DEFINER' NN
+	param_list : blob NN
+	returns : longblob NN
+	body : longblob NN
+	definer : char 77 NN
+	created : timestamp NN
+	modified : timestamp NN
+	sql_mode : 
+	comment : text NN
+	character_set_client : char 32
+	collation_connection : char 32
+	db_collation : char 32
+	body_utf8 : longblob,
 }
 
-class INNODB_CMP {
-	page_size : int(5) NN
-	compress_ops : int(11) NN
-	compress_ops_ok : int(11) NN
-	compress_time : int(11) NN
-	uncompress_ops : int(11) NN
-	uncompress_time : int(11) NN
+class procs_priv {
+	Host : char 60 NN UQ
+	Db : char 64 NN UQ
+	User : char 16 NN UQ
+	Routine_name : char 64 NN UQ
+	Routine_type : enum 'FUNCTION','PROCEDURE' NN UQ
+	Grantor : char 77 NN
+	Proc_priv : set 'Execute','Alter NN
+	Timestamp : timestamp NN
 }
 
-class INNODB_CMPMEM {
-	page_size : int(5) NN
-	buffer_pool_instance : int(11) NN
-	pages_used : int(11) NN
-	pages_free : int(11) NN
-	relocation_ops : bigint(21) NN
-	relocation_time : int(11) NN
+class proxies_priv {
+	Host : char 60 NN UQ
+	User : char 16 NN UQ
+	Proxied_host : char 60 NN UQ
+	Proxied_user : char 16 NN UQ
+	With_grant : tinyint 1 NN
+	Grantor : char 77 NN
+	Timestamp : timestamp NN
 }
 
-class INNODB_CMPMEM_RESET {
-	page_size : int(5) NN
-	buffer_pool_instance : int(11) NN
-	pages_used : int(11) NN
-	pages_free : int(11) NN
-	relocation_ops : bigint(21) NN
-	relocation_time : int(11) NN
+class servers {
+	Server_name : char 64 NN UQ
+	Host : char 64 NN
+	Db : char 64 NN
+	Username : char 64 NN
+	Password : char 64 NN
+	Port : int 4 NN
+	Socket : char 64 NN
+	Wrapper : char 64 NN
+	Owner : char 64 NN
 }
 
-class INNODB_CMP_RESET {
-	page_size : int(5) NN
-	compress_ops : int(11) NN
-	compress_ops_ok : int(11) NN
-	compress_time : int(11) NN
-	uncompress_ops : int(11) NN
-	uncompress_time : int(11) NN
+class slow_log {
+	start_time : timestamp NN
+	user_host : mediumtext NN
+	query_time : time NN
+	lock_time : time NN
+	rows_sent : int 11 NN
+	rows_examined : int 11 NN
+	db : varchar 512 NN
+	last_insert_id : int 11 NN
+	insert_id : int 11 NN
+	server_id : int 10 NN
+	sql_text : mediumtext NN
 }
 
-class INNODB_LOCKS {
-	lock_id : varchar(81) NN
-	lock_trx_id : varchar(18) NN
-	lock_mode : varchar(32) NN
-	lock_type : varchar(32) NN
-	lock_table : varchar(1024) NN
-	lock_index : varchar(1024)
-	lock_space : bigint(21)
-	lock_page : bigint(21)
-	lock_rec : bigint(21)
-	lock_data : varchar(8192)
+class tables_priv {
+	Host : char 60 NN UQ
+	Db : char 64 NN UQ
+	User : char 16 NN UQ
+	Table_name : char 64 NN UQ
+	Grantor : char 77 NN
+	Timestamp : timestamp NN
+	Table_priv : set 'Select','Insert','Update','Delete','Create','Drop','Grant','References','Index','Alter','Create NN
+	Column_priv : set 'Select','Insert','Update','References' NN
 }
 
-class INNODB_LOCK_WAITS {
-	requesting_trx_id : varchar(18) NN
-	requested_lock_id : varchar(81) NN
-	blocking_trx_id : varchar(18) NN
-	blocking_lock_id : varchar(81) NN
+class time_zone {
+	Time_zone_id : int 10 NN UQ
+	Use_leap_seconds : enum 'Y','N' NN
 }
 
-class INNODB_TRX {
-	trx_id : varchar(18) NN
-	trx_state : varchar(13) NN
-	trx_started : datetime NN
-	trx_requested_lock_id : varchar(81)
-	trx_wait_started : datetime
-	trx_weight : bigint(21) NN
-	trx_mysql_thread_id : bigint(21) NN
-	trx_query : varchar(1024)
-	trx_operation_state : varchar(64)
-	trx_tables_in_use : bigint(21) NN
-	trx_tables_locked : bigint(21) NN
-	trx_lock_structs : bigint(21) NN
-	trx_lock_memory_bytes : bigint(21) NN
-	trx_rows_locked : bigint(21) NN
-	trx_rows_modified : bigint(21) NN
-	trx_concurrency_tickets : bigint(21) NN
-	trx_isolation_level : varchar(16) NN
-	trx_unique_checks : int(1) NN
-	trx_foreign_key_checks : int(1) NN
-	trx_last_foreign_key_error : varchar(256)
-	trx_adaptive_hash_latched : int(1) NN
-	trx_adaptive_hash_timeout : bigint(21) NN
+class time_zone_leap_second {
+	Transition_time : bigint 20 NN UQ
+	Correction : int 11 NN
 }
 
-class KEY_COLUMN_USAGE {
-	CONSTRAINT_CATALOG : varchar(512) NN
-	CONSTRAINT_SCHEMA : varchar(64) NN
-	CONSTRAINT_NAME : varchar(64) NN
-	TABLE_CATALOG : varchar(512) NN
-	TABLE_SCHEMA : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	COLUMN_NAME : varchar(64) NN
-	ORDINAL_POSITION : bigint(10) NN
-	POSITION_IN_UNIQUE_CONSTRAINT :  UQ
-	REFERENCED_TABLE_SCHEMA : varchar(64)
-	REFERENCED_TABLE_NAME : varchar(64)
-	REFERENCED_COLUMN_NAME : varchar(64)
+class time_zone_name {
+	Name : char 64 NN UQ
+	Time_zone_id : int 10 NN
 }
 
-class PARAMETERS {
-	SPECIFIC_CATALOG : varchar(512) NN
-	SPECIFIC_SCHEMA : varchar(64) NN
-	SPECIFIC_NAME : varchar(64) NN
-	ORDINAL_POSITION : int(21) NN
-	PARAMETER_MODE : varchar(5)
-	PARAMETER_NAME : varchar(64)
-	DATA_TYPE : varchar(64) NN
-	CHARACTER_MAXIMUM_LENGTH : int(21)
-	CHARACTER_OCTET_LENGTH : int(21)
-	NUMERIC_PRECISION : int(21)
-	NUMERIC_SCALE : int(21)
-	CHARACTER_SET_NAME : varchar(64)
-	COLLATION_NAME : varchar(64)
-	DTD_IDENTIFIER : longtext NN
-	ROUTINE_TYPE : varchar(9) NN
+class time_zone_transition {
+	Time_zone_id : int 10 NN UQ
+	Transition_time : bigint 20 NN UQ
+	Transition_type_id : int 10 NN
 }
 
-class PARTITIONS {
-	TABLE_CATALOG : varchar(512) NN
-	TABLE_SCHEMA : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	PARTITION_NAME : varchar(64)
-	SUBPARTITION_NAME : varchar(64)
-	PARTITION_ORDINAL_POSITION : bigint(21)
-	SUBPARTITION_ORDINAL_POSITION : bigint(21)
-	PARTITION_METHOD : varchar(18)
-	SUBPARTITION_METHOD : varchar(12)
-	PARTITION_EXPRESSION : longtext,
-	SUBPARTITION_EXPRESSION : longtext,
-	PARTITION_DESCRIPTION : longtext,
-	TABLE_ROWS : bigint(21) NN
-	AVG_ROW_LENGTH : bigint(21) NN
-	DATA_LENGTH : bigint(21) NN
-	MAX_DATA_LENGTH : bigint(21)
-	INDEX_LENGTH : bigint(21) NN
-	DATA_FREE : bigint(21) NN
-	CREATE_TIME : datetime
-	UPDATE_TIME : datetime
-	CHECK_TIME : datetime
-	CHECKSUM : bigint(21)
-	PARTITION_COMMENT : varchar(80) NN
-	NODEGROUP : varchar(12) NN
-	TABLESPACE_NAME : varchar(64)
+class time_zone_transition_type {
+	Time_zone_id : int 10 NN UQ
+	Transition_type_id : int 10 NN UQ
+	Offset : int 11 NN
+	Is_DST : tinyint 3 NN
+	Abbreviation : char 8 NN
 }
 
-class PLUGINS {
-	PLUGIN_NAME : varchar(64) NN
-	PLUGIN_VERSION : varchar(20) NN
-	PLUGIN_STATUS : varchar(10) NN
-	PLUGIN_TYPE : varchar(80) NN
-	PLUGIN_TYPE_VERSION : varchar(20) NN
-	PLUGIN_LIBRARY : varchar(64)
-	PLUGIN_LIBRARY_VERSION : varchar(20)
-	PLUGIN_AUTHOR : varchar(64)
-	PLUGIN_DESCRIPTION : longtext,
-	PLUGIN_LICENSE : varchar(80)
-	LOAD_OPTION : varchar(64) NN
-}
-
-class PROCESSLIST {
-	ID : bigint(4) NN
-	USER : varchar(16) NN
-	HOST : varchar(64) NN
-	DB : varchar(64)
-	COMMAND : varchar(16) NN
-	TIME : int(7) NN
-	STATE : varchar(64)
-	INFO : longtext
-}
-
-class PROFILING {
-	QUERY_ID : int(20) NN
-	SEQ : int(20) NN
-	STATE : varchar(30) NN
-	DURATION : decimal(9,6) NN
-	CPU_USER : decimal(9,6)
-	CPU_SYSTEM : decimal(9,6)
-	CONTEXT_VOLUNTARY : int(20)
-	CONTEXT_INVOLUNTARY : int(20)
-	BLOCK_OPS_IN : int(20)
-	BLOCK_OPS_OUT : int(20)
-	MESSAGES_SENT : int(20)
-	MESSAGES_RECEIVED : int(20)
-	PAGE_FAULTS_MAJOR : int(20)
-	PAGE_FAULTS_MINOR : int(20)
-	SWAPS : int(20)
-	SOURCE_FUNCTION : varchar(30)
-	SOURCE_FILE : varchar(20)
-	SOURCE_LINE : int(20)
-}
-
-class REFERENTIAL_CONSTRAINTS {
-	CONSTRAINT_CATALOG : varchar(512) NN UQ
-	CONSTRAINT_SCHEMA : varchar(64) NN UQ
-	CONSTRAINT_NAME : varchar(64) NN UQ
-	UNIQUE_CONSTRAINT_CATALOG :  UQ
-	UNIQUE_CONSTRAINT_SCHEMA :  UQ
-	UNIQUE_CONSTRAINT_NAME :  UQ
-	MATCH_OPTION : varchar(64) NN
-	UPDATE_RULE : varchar(64) NN
-	DELETE_RULE : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	REFERENCED_TABLE_NAME : varchar(64) NN
-}
-
-class ROUTINES {
-	SPECIFIC_NAME : varchar(64) NN
-	ROUTINE_CATALOG : varchar(512) NN
-	ROUTINE_SCHEMA : varchar(64) NN
-	ROUTINE_NAME : varchar(64) NN
-	ROUTINE_TYPE : varchar(9) NN
-	DATA_TYPE : varchar(64) NN
-	CHARACTER_MAXIMUM_LENGTH : int(21)
-	CHARACTER_OCTET_LENGTH : int(21)
-	NUMERIC_PRECISION : int(21)
-	NUMERIC_SCALE : int(21)
-	CHARACTER_SET_NAME : varchar(64)
-	COLLATION_NAME : varchar(64)
-	DTD_IDENTIFIER : longtext,
-	ROUTINE_BODY : varchar(8) NN
-	ROUTINE_DEFINITION : longtext,
-	EXTERNAL_NAME : varchar(64)
-	EXTERNAL_LANGUAGE : varchar(64)
-	PARAMETER_STYLE : varchar(8) NN
-	IS_DETERMINISTIC : varchar(3) NN
-	SQL_DATA_ACCESS : varchar(64) NN
-	SQL_PATH : varchar(64)
-	SECURITY_TYPE : varchar(7) NN
-	CREATED : datetime NN
-	LAST_ALTERED : datetime NN
-	SQL_MODE : varchar(8192) NN
-	ROUTINE_COMMENT : longtext NN
-	DEFINER : varchar(77) NN
-	CHARACTER_SET_CLIENT : varchar(32) NN
-	COLLATION_CONNECTION : varchar(32) NN
-	DATABASE_COLLATION : varchar(32) NN
-}
-
-class SCHEMATA {
-	CATALOG_NAME : varchar(512) NN
-	SCHEMA_NAME : varchar(64) NN
-	DEFAULT_CHARACTER_SET_NAME : varchar(32) NN
-	DEFAULT_COLLATION_NAME : varchar(32) NN
-	SQL_PATH : varchar(512)
-}
-
-class SCHEMA_PRIVILEGES {
-	GRANTEE : varchar(81) NN
-	TABLE_CATALOG : varchar(512) NN
-	TABLE_SCHEMA : varchar(64) NN
-	PRIVILEGE_TYPE : varchar(64) NN
-	IS_GRANTABLE : varchar(3) NN
-}
-
-class SESSION_STATUS {
-	VARIABLE_NAME : varchar(64) NN
-	VARIABLE_VALUE : varchar(1024)
-}
-
-class SESSION_VARIABLES {
-	VARIABLE_NAME : varchar(64) NN
-	VARIABLE_VALUE : varchar(1024)
-}
-
-class STATISTICS {
-	TABLE_CATALOG : varchar(512) NN
-	TABLE_SCHEMA : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	NON_UNIQUE :  UQ
-	INDEX_SCHEMA : varchar(64) NN
-	INDEX_NAME : varchar(64) NN
-	SEQ_IN_INDEX : bigint(2) NN
-	COLUMN_NAME : varchar(64) NN
-	COLLATION : varchar(1)
-	CARDINALITY : bigint(21)
-	SUB_PART : bigint(3)
-	PACKED : varchar(10)
-	NULLABLE : varchar(3) NN
-	INDEX_TYPE : varchar(16) NN
-	COMMENT : varchar(16)
-	INDEX_COMMENT : varchar(1024) NN
-}
-
-class TABLES {
-	TABLE_CATALOG : varchar(512) NN
-	TABLE_SCHEMA : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	TABLE_TYPE : varchar(64) NN
-	ENGINE : varchar(64)
-	VERSION : bigint(21)
-	ROW_FORMAT : varchar(10)
-	TABLE_ROWS : bigint(21)
-	AVG_ROW_LENGTH : bigint(21)
-	DATA_LENGTH : bigint(21)
-	MAX_DATA_LENGTH : bigint(21)
-	INDEX_LENGTH : bigint(21)
-	DATA_FREE : bigint(21)
-	AUTO_INCREMENT : bigint(21)
-	CREATE_TIME : datetime
-	UPDATE_TIME : datetime
-	CHECK_TIME : datetime
-	TABLE_COLLATION : varchar(32)
-	CHECKSUM : bigint(21)
-	CREATE_OPTIONS : varchar(255)
-	TABLE_COMMENT : varchar(2048) NN
-}
-
-class TABLESPACES {
-	TABLESPACE_NAME : varchar(64) NN
-	ENGINE : varchar(64) NN
-	TABLESPACE_TYPE : varchar(64)
-	LOGFILE_GROUP_NAME : varchar(64)
-	EXTENT_SIZE : bigint(21)
-	AUTOEXTEND_SIZE : bigint(21)
-	MAXIMUM_SIZE : bigint(21)
-	NODEGROUP_ID : bigint(21)
-	TABLESPACE_COMMENT : varchar(2048)
-}
-
-class TABLE_CONSTRAINTS {
-	CONSTRAINT_CATALOG : varchar(512) NN
-	CONSTRAINT_SCHEMA : varchar(64) NN
-	CONSTRAINT_NAME : varchar(64) NN
-	TABLE_SCHEMA : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	CONSTRAINT_TYPE : varchar(64) NN
-}
-
-class TABLE_PRIVILEGES {
-	GRANTEE : varchar(81) NN
-	TABLE_CATALOG : varchar(512) NN
-	TABLE_SCHEMA : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	PRIVILEGE_TYPE : varchar(64) NN
-	IS_GRANTABLE : varchar(3) NN
-}
-
-class TRIGGERS {
-	TRIGGER_CATALOG : varchar(512) NN
-	TRIGGER_SCHEMA : varchar(64) NN
-	TRIGGER_NAME : varchar(64) NN
-	EVENT_MANIPULATION : varchar(6) NN
-	EVENT_OBJECT_CATALOG : varchar(512) NN
-	EVENT_OBJECT_SCHEMA : varchar(64) NN
-	EVENT_OBJECT_TABLE : varchar(64) NN
-	ACTION_ORDER : bigint(4) NN
-	ACTION_CONDITION : longtext,
-	ACTION_STATEMENT : longtext NN
-	ACTION_ORIENTATION : varchar(9) NN
-	ACTION_TIMING : varchar(6) NN
-	ACTION_REFERENCE_OLD_TABLE : varchar(64)
-	ACTION_REFERENCE_NEW_TABLE : varchar(64)
-	ACTION_REFERENCE_OLD_ROW : varchar(3) NN
-	ACTION_REFERENCE_NEW_ROW : varchar(3) NN
-	CREATED : datetime
-	SQL_MODE : varchar(8192) NN
-	DEFINER : varchar(77) NN
-	CHARACTER_SET_CLIENT : varchar(32) NN
-	COLLATION_CONNECTION : varchar(32) NN
-	DATABASE_COLLATION : varchar(32) NN
-}
-
-class USER_PRIVILEGES {
-	GRANTEE : varchar(81) NN
-	TABLE_CATALOG : varchar(512) NN
-	PRIVILEGE_TYPE : varchar(64) NN
-	IS_GRANTABLE : varchar(3) NN
-}
-
-class VIEWS {
-	TABLE_CATALOG : varchar(512) NN
-	TABLE_SCHEMA : varchar(64) NN
-	TABLE_NAME : varchar(64) NN
-	VIEW_DEFINITION : longtext NN
-	CHECK_OPTION : varchar(8) NN
-	IS_UPDATABLE : varchar(3) NN
-	DEFINER : varchar(77) NN
-	SECURITY_TYPE : varchar(7) NN
-	CHARACTER_SET_CLIENT : varchar(32) NN
-	COLLATION_CONNECTION : varchar(32) NN
+class user {
+	Host : char 60 NN UQ
+	User : char 16 NN UQ
+	Password : char 41 NN
+	Select_priv : enum 'N','Y' NN
+	Insert_priv : enum 'N','Y' NN
+	Update_priv : enum 'N','Y' NN
+	Delete_priv : enum 'N','Y' NN
+	Create_priv : enum 'N','Y' NN
+	Drop_priv : enum 'N','Y' NN
+	Reload_priv : enum 'N','Y' NN
+	Shutdown_priv : enum 'N','Y' NN
+	Process_priv : enum 'N','Y' NN
+	File_priv : enum 'N','Y' NN
+	Grant_priv : enum 'N','Y' NN
+	References_priv : enum 'N','Y' NN
+	Index_priv : enum 'N','Y' NN
+	Alter_priv : enum 'N','Y' NN
+	Show_db_priv : enum 'N','Y' NN
+	Super_priv : enum 'N','Y' NN
+	Create_tmp_table_priv : enum 'N','Y' NN
+	Lock_tables_priv : enum 'N','Y' NN
+	Execute_priv : enum 'N','Y' NN
+	Repl_slave_priv : enum 'N','Y' NN
+	Repl_client_priv : enum 'N','Y' NN
+	Create_view_priv : enum 'N','Y' NN
+	Show_view_priv : enum 'N','Y' NN
+	Create_routine_priv : enum 'N','Y' NN
+	Alter_routine_priv : enum 'N','Y' NN
+	Create_user_priv : enum 'N','Y' NN
+	Event_priv : enum 'N','Y' NN
+	Trigger_priv : enum 'N','Y' NN
+	Create_tablespace_priv : enum 'N','Y' NN
+	ssl_type : enum '','ANY','X509','SPECIFIED' NN
+	ssl_cipher : blob NN
+	x509_issuer : blob NN
+	x509_subject : blob NN
+	max_questions : int 11 NN
+	max_updates : int 11 NN
+	max_connections : int 11 NN
+	max_user_connections : int 11 NN
+	plugin : char 64
+	authentication_string : text
 }
 
 

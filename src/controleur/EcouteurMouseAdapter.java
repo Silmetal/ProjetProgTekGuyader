@@ -175,6 +175,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		
 		ArrayList<String> lesTables = laBaseSelectionee.parcourirBase();
 		ArrayList<String> diagClasse = new ArrayList<String>();
+		ArrayList<String> diagRef = new ArrayList<String>();
 		String uneClasse="";
 		Object[] tab;
 
@@ -187,9 +188,18 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 				boolean nonNull = (boolean) tab[0];
 				boolean unique = (boolean) tab[1];
 				String type = (String) tab[2];
+				String tableRef = (String) tab[3];
+				String attributRef = (String) tab[4];
+				type = ModifierString.remplacerExtrait(type,"("," ");
+				type = ModifierString.supprimerExtrait(type,")");
 				uneClasse=uneClasse+"\r\n\t"+s+" : "+type;
 				if(nonNull) uneClasse = uneClasse + " NN";
 				if(unique) uneClasse = uneClasse +" UQ";
+
+				if(!(tableRef.equals("") && attributRef.equals(""))){
+					String lien = genererLien(nonNull,unique,str,s,tableRef,attributRef);
+					diagRef.add(lien);
+				}
 			}
 			uneClasse=uneClasse+"\r\n}";
 			diagClasse.add(uneClasse);
@@ -202,6 +212,10 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 			RWFile.writeEndOfFile(diagClasse.get(i),"../UML/UML.txt");
 		}
 
+		for (String s : diagRef) {
+			RWFile.writeEndOfFile(s,"../UML/UML.txt");
+		}
+
 		RWFile.writeEndOfFile("\r\n@enduml","../UML/UML.txt");
 
 
@@ -210,6 +224,24 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		Thread.sleep(10000);
 
 		AfficherDiagrammeClasse diag = new AfficherDiagrammeClasse();
+	}
+
+	private String genererLien(boolean nonNull,boolean unique,String table,String attribut,String tableRef,String attributRef){
+		String ret="";
+		if(unique && nonNull){
+			ret = table+" \"0..1\" -- \"1\" "+tableRef+" : "+attribut;
+		}
+		else if(unique){
+			ret = table+" \"0..1\" -- \"0..1\" "+tableRef+" : "+attribut;
+		}
+		else if(nonNull){
+			ret = table+" \"1\" -- \"*\" "+tableRef+" : "+attribut;
+		}
+		else{
+			ret = table+" \"*\" -- \"0..1\" "+tableRef+" : "+attribut;
+		}
+		return ret;
+
 	}
 
 	public void supprimerTable(BaseDeDonnees laBaseSelectionee,String laTableSelectionee,Requete nouvelleRequete) throws SQLException,Exception{

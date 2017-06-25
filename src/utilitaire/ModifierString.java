@@ -17,6 +17,19 @@ public class ModifierString {
 	}	
 
 
+	public static String remplacerExtrait(String base, String aSupprimer, String aPlace){
+		String ret=base;
+		String ret1="";
+		String ret2="";
+		while(ret.indexOf(aSupprimer)>0){
+			ret1 = ret.substring(0,ret.indexOf(aSupprimer));
+			ret2 = ret.substring(ret.indexOf(aSupprimer)+aSupprimer.length(),ret.length());
+			ret=ret1+aPlace+ret2;
+		}	
+		return ret;
+	}
+
+
 	public static String supprimerMotAMot(String base,String mot1,String mot2){
 		String ret = base;
 		String ret1="";
