@@ -123,6 +123,10 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	private JMenuItem supprVue;
 
+	/**
+	 * L'élément de baseMenu permettant de creer une nouvelle base
+	 */
+	private JMenuItem nouvelleBase;
 
 	/**
 	 * L'élément de baseMenu permettant de lire une base
@@ -226,6 +230,8 @@ public class FenetrePrincipale extends JFrame{
 		nouvVue.setName("nouvVue");
 		supprVue = new JMenuItem("Supprimer une vue");
 		supprVue.setName("supprVue");
+		nouvelleBase = new JMenuItem("Nouvelle base");
+		nouvelleBase.setName("nouvelleBase");
 		ecrireBase = new JMenuItem("Ecrire la base dans un fichier");
 		ecrireBase.setName("ecrireBase");
 		lireBase = new JMenuItem("Lire une base dans un fichier");
@@ -246,6 +252,7 @@ public class FenetrePrincipale extends JFrame{
 		vueMenu.add(nouvVue);
 		vueMenu.add(supprVue);
 		
+		baseMenu.add(nouvelleBase);
 		baseMenu.add(ecrireBase);
 		baseMenu.add(lireBase);
 		baseMenu.add(genererUML);
@@ -532,6 +539,13 @@ public class FenetrePrincipale extends JFrame{
 		return this.supprVue;
 	}
 
+	/**
+	 * Retourne le JMenuItem Nouvelle Base de l'instance
+	 * @return le JMenuItem Nouvelle Base de l'instance
+	 */
+	public JMenuItem getNouvelleBase(){
+		return this.nouvelleBase;
+	}
 
 	/**
 	 * Retourne le JMenuItem Lire Base de l'instance

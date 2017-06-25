@@ -80,7 +80,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					fp.getVueMenu().show(e.getComponent(), e.getComponent().getX()+e.getComponent().getWidth(), e.getComponent().getY()-4*(e.getComponent().getHeight()));
 				}
 				else if(jb.getName().equals("base")){
-					fp.getBaseMenu().show(e.getComponent(), e.getComponent().getX()+e.getComponent().getWidth(), e.getComponent().getY()-5*(e.getComponent().getHeight()));
+					fp.getBaseMenu().show(e.getComponent(), e.getComponent().getX()+e.getComponent().getWidth(), e.getComponent().getY()-15-5*(e.getComponent().getHeight()));
 				}
 			}
 			else if(e.getComponent() instanceof JMenuItem){
@@ -129,6 +129,9 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					else if(jmi.getName().equals("supprVue")){
 						nouvelleRequete.enleverVue();
 					}
+					else if(jmi.getName().equals("nouvelleBase")){
+						nouvelleBase(nouvelleRequete,laBaseSelectionee);
+					}
 					else if(jmi.getName().equals("lireBase")){
 						//nouvelleRequete.ajouterVue();
 					}
@@ -169,6 +172,40 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 	public void modifierTuple(){
 
+	}
+
+
+	public void nouvelleBase(Requete nouvelleRequete,BaseDeDonnees laBaseSelectionee) throws SQLException, Exception{
+		String reponse;
+		String motDePasse="";
+	  	String message = "Nom de la base ?";
+	  	reponse = JOptionPane.showInputDialog(null, message);
+
+	  	JPanel panel = new JPanel();
+		JLabel label = new JLabel("Entrer le mot de passe associé à la base de données : "+laBaseSelectionee.getNomDeLaBase());
+		JPasswordField pass = new JPasswordField(10);
+		panel.add(label);
+		panel.add(pass);
+		String[] options = new String[]{"Ok", "Quitter"};
+		int option = JOptionPane.showOptionDialog(null, panel, "Mot De Passe",
+		                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+		                         null, options, options[1]);
+		if(option == 0) // pressing OK button
+		{
+		    char[] password = pass.getPassword();
+		    motDePasse = new String(password);
+		}
+
+
+	  	if(!reponse.equals("") && !motDePasse.equals("") ){
+	  		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
+	  		nouvelleRequete.manuel("CREATE DATABASE "+reponse);
+			String url = laBaseSelectionee.getAdresse();
+			url = ModifierString.supprimerExtrait(url,laBaseSelectionee.getNomDeLaBase()+"?allowMultiQueries=true");
+			BaseDeDonnees uneBase2 = new BaseDeDonnees(url+reponse+"?allowMultiQueries=true",laBaseSelectionee.getNomUtili(),motDePasse,reponse);
+			lUtilisateur.getLesBasesDeDonnees().add(uneBase2);
+
+		}
 	}
 
 	public void genererUML(BaseDeDonnees laBaseSelectionee) throws SQLException,Exception{
@@ -325,5 +362,6 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getLireBase().addMouseListener(this);
 		fp.getEcrireBase().addMouseListener(this);
 		fp.getGenererUML().addMouseListener(this);
+		fp.getNouvelleBase().addMouseListener(this);
 	}
 }
