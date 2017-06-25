@@ -8,10 +8,7 @@ import java.util.*;
 import java.sql.*;
 
 /**
- * Cette classe est la classe d'IHM de la fenêtre permettant la connexion à la base de donnée. Trois champs de texte sont présents, demandant
- * à l'utilsiateur son identifiant, son mot de passe et l'adresse de la base. Une fois ces champs remplis, l'utilsateur n'a qu'à cliquer sur le bouton de connexion pour
- * se connecter à la base, si bien sûr aucune erreur de connexion ne survient.
- * <P>Le champs de saisie du mot de passe cache les caractères saisis.
+ * 
  */
 public class FenetreNouvEtModifTuple extends JFrame{
 		
