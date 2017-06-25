@@ -27,7 +27,7 @@ public class AfficherDiagrammeClasse extends JFrame {
 				this.setSize(width,height);
 			}
 			else{
-				this.setSize(widthEcran,heightEcran);
+				this.setSize(widthEcran,heightEcran-50);
 			}
 
 			JLabel lab =new JLabel(new ImageIcon(new ImageIcon("../UML/UML.png").getImage().getScaledInstance((int)bi.getWidth(),(int)bi.getHeight(), Image.SCALE_DEFAULT)));

@@ -190,12 +190,15 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 				String type = (String) tab[2];
 				String tableRef = (String) tab[3];
 				String attributRef = (String) tab[4];
+				boolean clePrim = (boolean) tab[5];
 				type = ModifierString.remplacerExtrait(type,"("," ");
 				type = ModifierString.supprimerExtrait(type,")");
 				uneClasse=uneClasse+"\r\n\t"+s+" : "+type;
-				if(nonNull) uneClasse = uneClasse + " NN";
-				if(unique) uneClasse = uneClasse +" UQ";
-
+				if(clePrim) uneClasse = uneClasse + " [1]";
+				else{
+					if(nonNull) uneClasse = uneClasse + " NN";
+					if(unique) uneClasse = uneClasse +" UQ";
+				}
 				if(!(tableRef.equals("") && attributRef.equals(""))){
 					String lien = genererLien(nonNull,unique,str,s,tableRef,attributRef);
 					diagRef.add(lien);

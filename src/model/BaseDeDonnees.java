@@ -330,12 +330,13 @@ public class BaseDeDonnees {
 
 
 	public Object[] recupererInfo(String table,String attribut) throws Exception,SQLException{
-		Object[] ret = new Object[5]; // [0] true si non null -- [1] true si unique --[2] type -- [3] Ref. Table -- [4] Ref. Attribut
+		Object[] ret = new Object[6]; // [0] true si non null -- [1] true si unique --[2] type -- [3] Ref. Table -- [4] Ref. Attribut -- [5] true si clé primaire
 		ret[0] =false;
 		ret[1] = false;
 		ret[2] =""; 
 		ret[3]="";
 		ret[4]="";
+		ret[5]=false;
 		Requete nouvelleRequete = new Requete(connexion,"","");
 		Object[] res = nouvelleRequete.manuel("SHOW CREATE TABLE "+table);
 		ResultSet rs=(ResultSet)res[1];
@@ -372,6 +373,10 @@ public class BaseDeDonnees {
 					attributRef = ModifierString.supprimerExtrait(attributRef,"(`");
 					ret[3]=tableRef;
 					ret[4]=attributRef;
+				}
+
+				if ((lgn.indexOf(attribut) >= 0) && (lgn.indexOf("PRIMARY") >=0)) {
+					ret[5]=true;
 				}
 
 

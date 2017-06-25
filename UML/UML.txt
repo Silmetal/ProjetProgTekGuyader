@@ -2,7 +2,7 @@
 
 
 class Client {
-	id : smallint 5 NN UQ
+	id : smallint 5 [1]
 	nom : varchar 100 NN
 	prenom : varchar 60 NN
 	adresse : varchar 200
@@ -13,7 +13,7 @@ class Client {
 }
 
 class Espece {
-	id : smallint 6 NN UQ
+	id : smallint 6 [1]
 	nom_courant : varchar 40 NN
 	nom_latin : varchar 40 NN UQ
 	description : text,
@@ -21,7 +21,7 @@ class Espece {
 }
 
 class Race {
-	id : smallint 6 NN UQ
+	id : smallint 6 [1]
 	nom : varchar 40 NN
 	espece_id : smallint 6 NN
 	description : text,
@@ -33,25 +33,25 @@ class Race {
 }
 
 class devise {
-	devise : enum 'Euro','Dollar','Livre' NN UQ
+	devise : enum 'Euro','Dollar','Livre' [1]
 	valeur : decimal 6,5
 }
 
 class nouvTable {
-	valeur : int 5 NN UQ
+	valeur : int 5 [1]
 }
 
 class nouvelle {
-	val : int 4 NN UQ
+	val : int 4 [1]
 	ref : int 8
 }
 
 class nv2Table {
-	vla : int 8 NN UQ
+	vla : int 8 [1]
 }
 
 class zetzer {
-	a : int 4 NN UQ
+	a : int 4 [1]
 	b : int 5
 	c : int 2
 }
