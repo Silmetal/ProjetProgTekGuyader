@@ -182,9 +182,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 			ArrayList<String> lesAttribut = (ArrayList<String>)laBaseSelectionee.parcourirTable(str)[0];
 			uneClasse="class "+str+" {";
-			System.out.println("pass1");
 			for(String s : lesAttribut){
-				System.out.println(s);
 				tab = laBaseSelectionee.recupererInfo(str,s);
 				boolean nonNull = (boolean) tab[0];
 				boolean unique = (boolean) tab[1];
@@ -192,13 +190,11 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 				uneClasse=uneClasse+"\r\n\t"+s+" : "+type;
 				if(nonNull) uneClasse = uneClasse + " NN";
 				if(unique) uneClasse = uneClasse +" UQ";
-				System.out.println("pass2");
 			}
 			uneClasse=uneClasse+"\r\n}";
 			diagClasse.add(uneClasse);
 		}
 
-		System.out.println("pass3");
 
 		RWFile.writeFile("@startuml","../UML/UML.txt");
 
@@ -210,6 +206,10 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 
 		Process ps=Runtime.getRuntime().exec(new String[]{"java","-jar","../lib/plantuml.jar","../UML/UML.txt"});
+
+		Thread.sleep(10000);
+
+		AfficherDiagrammeClasse diag = new AfficherDiagrammeClasse();
 	}
 
 	public void supprimerTable(BaseDeDonnees laBaseSelectionee,String laTableSelectionee,Requete nouvelleRequete) throws SQLException,Exception{
