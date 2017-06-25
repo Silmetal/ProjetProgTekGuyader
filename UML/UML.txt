@@ -1,300 +1,62 @@
 @startuml
 
 
-class columns_priv {
-	Host : char 60 NN UQ
-	Db : char 64 NN UQ
-	User : char 16 NN UQ
-	Table_name : char 64 NN UQ
-	Column_name : char 64 NN UQ
-	Timestamp : timestamp NN
-	Column_priv : set 'Select','Insert','Update','References' NN
+class Client {
+	id : smallint 5 NN UQ
+	nom : varchar 100 NN
+	prenom : varchar 60 NN
+	adresse : varchar 200
+	code_postal : varchar 6
+	ville : varchar 60
+	pays : varchar 60
+	email : varbinary 100 UQ
 }
 
-class db {
-	Host : char 60 NN UQ
-	Db : char 64 NN UQ
-	User : char 16 NN UQ
-	Select_priv : enum 'N','Y' NN
-	Insert_priv : enum 'N','Y' NN
-	Update_priv : enum 'N','Y' NN
-	Delete_priv : enum 'N','Y' NN
-	Create_priv : enum 'N','Y' NN
-	Drop_priv : enum 'N','Y' NN
-	Grant_priv : enum 'N','Y' NN
-	References_priv : enum 'N','Y' NN
-	Index_priv : enum 'N','Y' NN
-	Alter_priv : enum 'N','Y' NN
-	Create_tmp_table_priv : enum 'N','Y' NN
-	Lock_tables_priv : enum 'N','Y' NN
-	Create_view_priv : enum 'N','Y' NN
-	Show_view_priv : enum 'N','Y' NN
-	Create_routine_priv : enum 'N','Y' NN
-	Alter_routine_priv : enum 'N','Y' NN
-	Execute_priv : enum 'N','Y' NN
-	Event_priv : enum 'N','Y' NN
-	Trigger_priv : enum 'N','Y' NN
+class Espece {
+	id : smallint 6 NN UQ
+	nom_courant : varchar 40 NN
+	nom_latin : varchar 40 NN UQ
+	description : text,
+	prix : decimal 7,2
 }
 
-class event {
-	db : char 64 NN UQ
-	name : char 64 NN UQ
-	body : longblob NN
-	definer : char 77 NN
-	execute_at : datetime
-	interval_value : int 11
-	interval_field : enum 'YEAR','QUARTER','MONTH','DAY','HOUR','MINUTE','WEEK','SECOND','MICROSECOND','YEAR_MONTH','DAY_HOUR','DAY_MINUTE','DAY_SECOND','HOUR_MINUTE','HOUR_SECOND','MINUTE_SECOND','DAY_MICROSECOND','HOUR_MICROSECOND','MINUTE_MICROSECOND','SECOND_MICROSECOND'
-	created : timestamp NN
-	modified : timestamp NN
-	last_executed : datetime
-	starts : datetime
-	ends : datetime
-	status : enum 'ENABLED','DISABLED','SLAVESIDE_DISABLED' NN
-	on_completion : enum 'DROP','PRESERVE' NN
-	sql_mode : 
-	comment : char 64 NN
-	originator : int 10 NN
-	time_zone : char 64 NN
-	character_set_client : char 32
-	collation_connection : char 32
-	db_collation : char 32
-	body_utf8 : longblob,
+class Race {
+	id : smallint 6 NN UQ
+	nom : varchar 40 NN
+	espece_id : smallint 6 NN
+	description : text,
+	prix : decimal 7,2
+	date_insertion : datetime
+	utilisateur_insertion : varchar 20
+	date_modification : datetime
+	utilisateur_modification : varchar 20
 }
 
-class func {
-	name : char 64 NN UQ
-	ret : tinyint 1 NN
-	dl : char 128 NN
-	type : enum 'function','aggregate' NN
+class devise {
+	devise : enum 'Euro','Dollar','Livre' NN UQ
+	valeur : decimal 6,5
 }
 
-class general_log {
-	event_time : timestamp NN
-	user_host : mediumtext NN
-	thread_id : int 11 NN
-	server_id : int 10 NN
-	command_type : varchar 64 NN
-	argument : mediumtext NN
+class nouvTable {
+	valeur : int 5 NN UQ
 }
 
-class help_category {
-	help_category_id : smallint 5 NN UQ
-	name : char 64 NN UQ
-	parent_category_id : smallint 5
-	url : text NN
+class nouvelle {
+	val : int 4 NN UQ
+	ref : int 8
 }
 
-class help_keyword {
-	help_keyword_id : int 10 NN UQ
-	name : char 64 NN UQ
+class nv2Table {
+	vla : int 8 NN UQ
 }
 
-class help_relation {
-	help_topic_id : int 10 NN UQ
-	help_keyword_id : int 10 NN UQ
+class zetzer {
+	a : int 4 NN UQ
+	b : int 5
+	c : int 2
 }
 
-class help_topic {
-	help_topic_id : int 10 NN UQ
-	name : char 64 NN UQ
-	help_category_id : smallint 5 NN
-	description : text NN
-	example : text NN
-	url : text NN
-}
-
-class host {
-	Host : char 60 NN UQ
-	Db : char 64 NN UQ
-	Select_priv : enum 'N','Y' NN
-	Insert_priv : enum 'N','Y' NN
-	Update_priv : enum 'N','Y' NN
-	Delete_priv : enum 'N','Y' NN
-	Create_priv : enum 'N','Y' NN
-	Drop_priv : enum 'N','Y' NN
-	Grant_priv : enum 'N','Y' NN
-	References_priv : enum 'N','Y' NN
-	Index_priv : enum 'N','Y' NN
-	Alter_priv : enum 'N','Y' NN
-	Create_tmp_table_priv : enum 'N','Y' NN
-	Lock_tables_priv : enum 'N','Y' NN
-	Create_view_priv : enum 'N','Y' NN
-	Show_view_priv : enum 'N','Y' NN
-	Create_routine_priv : enum 'N','Y' NN
-	Alter_routine_priv : enum 'N','Y' NN
-	Execute_priv : enum 'N','Y' NN
-	Trigger_priv : enum 'N','Y' NN
-}
-
-class ndb_binlog_index {
-	Position : bigint 20 NN
-	File : varchar 255 NN
-	epoch : bigint 20 NN UQ
-	inserts : bigint 20 NN
-	updates : bigint 20 NN
-	deletes : bigint 20 NN
-	schemaops : bigint 20 NN
-}
-
-class plugin {
-	name : varchar 64 NN UQ
-	dl : varchar 128 NN
-}
-
-class proc {
-	db : char 64 NN UQ
-	name : char 64 NN UQ
-	type : enum 'FUNCTION','PROCEDURE' NN UQ
-	specific_name : char 64 NN
-	language : enum 'SQL' NN
-	sql_data_access : enum 'CONTAINS_SQL','NO_SQL','READS_SQL_DATA','MODIFIES_SQL_DATA' NN
-	is_deterministic : enum 'YES','NO' NN
-	security_type : enum 'INVOKER','DEFINER' NN
-	param_list : blob NN
-	returns : longblob NN
-	body : longblob NN
-	definer : char 77 NN
-	created : timestamp NN
-	modified : timestamp NN
-	sql_mode : 
-	comment : text NN
-	character_set_client : char 32
-	collation_connection : char 32
-	db_collation : char 32
-	body_utf8 : longblob,
-}
-
-class procs_priv {
-	Host : char 60 NN UQ
-	Db : char 64 NN UQ
-	User : char 16 NN UQ
-	Routine_name : char 64 NN UQ
-	Routine_type : enum 'FUNCTION','PROCEDURE' NN UQ
-	Grantor : char 77 NN
-	Proc_priv : set 'Execute','Alter NN
-	Timestamp : timestamp NN
-}
-
-class proxies_priv {
-	Host : char 60 NN UQ
-	User : char 16 NN UQ
-	Proxied_host : char 60 NN UQ
-	Proxied_user : char 16 NN UQ
-	With_grant : tinyint 1 NN
-	Grantor : char 77 NN
-	Timestamp : timestamp NN
-}
-
-class servers {
-	Server_name : char 64 NN UQ
-	Host : char 64 NN
-	Db : char 64 NN
-	Username : char 64 NN
-	Password : char 64 NN
-	Port : int 4 NN
-	Socket : char 64 NN
-	Wrapper : char 64 NN
-	Owner : char 64 NN
-}
-
-class slow_log {
-	start_time : timestamp NN
-	user_host : mediumtext NN
-	query_time : time NN
-	lock_time : time NN
-	rows_sent : int 11 NN
-	rows_examined : int 11 NN
-	db : varchar 512 NN
-	last_insert_id : int 11 NN
-	insert_id : int 11 NN
-	server_id : int 10 NN
-	sql_text : mediumtext NN
-}
-
-class tables_priv {
-	Host : char 60 NN UQ
-	Db : char 64 NN UQ
-	User : char 16 NN UQ
-	Table_name : char 64 NN UQ
-	Grantor : char 77 NN
-	Timestamp : timestamp NN
-	Table_priv : set 'Select','Insert','Update','Delete','Create','Drop','Grant','References','Index','Alter','Create NN
-	Column_priv : set 'Select','Insert','Update','References' NN
-}
-
-class time_zone {
-	Time_zone_id : int 10 NN UQ
-	Use_leap_seconds : enum 'Y','N' NN
-}
-
-class time_zone_leap_second {
-	Transition_time : bigint 20 NN UQ
-	Correction : int 11 NN
-}
-
-class time_zone_name {
-	Name : char 64 NN UQ
-	Time_zone_id : int 10 NN
-}
-
-class time_zone_transition {
-	Time_zone_id : int 10 NN UQ
-	Transition_time : bigint 20 NN UQ
-	Transition_type_id : int 10 NN
-}
-
-class time_zone_transition_type {
-	Time_zone_id : int 10 NN UQ
-	Transition_type_id : int 10 NN UQ
-	Offset : int 11 NN
-	Is_DST : tinyint 3 NN
-	Abbreviation : char 8 NN
-}
-
-class user {
-	Host : char 60 NN UQ
-	User : char 16 NN UQ
-	Password : char 41 NN
-	Select_priv : enum 'N','Y' NN
-	Insert_priv : enum 'N','Y' NN
-	Update_priv : enum 'N','Y' NN
-	Delete_priv : enum 'N','Y' NN
-	Create_priv : enum 'N','Y' NN
-	Drop_priv : enum 'N','Y' NN
-	Reload_priv : enum 'N','Y' NN
-	Shutdown_priv : enum 'N','Y' NN
-	Process_priv : enum 'N','Y' NN
-	File_priv : enum 'N','Y' NN
-	Grant_priv : enum 'N','Y' NN
-	References_priv : enum 'N','Y' NN
-	Index_priv : enum 'N','Y' NN
-	Alter_priv : enum 'N','Y' NN
-	Show_db_priv : enum 'N','Y' NN
-	Super_priv : enum 'N','Y' NN
-	Create_tmp_table_priv : enum 'N','Y' NN
-	Lock_tables_priv : enum 'N','Y' NN
-	Execute_priv : enum 'N','Y' NN
-	Repl_slave_priv : enum 'N','Y' NN
-	Repl_client_priv : enum 'N','Y' NN
-	Create_view_priv : enum 'N','Y' NN
-	Show_view_priv : enum 'N','Y' NN
-	Create_routine_priv : enum 'N','Y' NN
-	Alter_routine_priv : enum 'N','Y' NN
-	Create_user_priv : enum 'N','Y' NN
-	Event_priv : enum 'N','Y' NN
-	Trigger_priv : enum 'N','Y' NN
-	Create_tablespace_priv : enum 'N','Y' NN
-	ssl_type : enum '','ANY','X509','SPECIFIED' NN
-	ssl_cipher : blob NN
-	x509_issuer : blob NN
-	x509_subject : blob NN
-	max_questions : int 11 NN
-	max_updates : int 11 NN
-	max_connections : int 11 NN
-	max_user_connections : int 11 NN
-	plugin : char 64
-	authentication_string : text
-}
+nouvelle "*" -- "0..1"   nv2Table : ref
 
 
 @enduml
