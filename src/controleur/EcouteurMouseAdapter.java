@@ -174,18 +174,39 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 	public void genererUML(BaseDeDonnees laBaseSelectionee) throws SQLException,Exception{
 		
 		ArrayList<String> lesTables = laBaseSelectionee.parcourirBase();
-		
+		ArrayList<String> diagClasse = new ArrayList<String>();
+		String uneClasse="";
+		Object[] tab;
+
 		for(String str : lesTables){
 
 			ArrayList<String> lesAttribut = (ArrayList<String>)laBaseSelectionee.parcourirTable(str)[0];
+			uneClasse="class "+str+" {";
+			System.out.println("pass1");
 			for(String s : lesAttribut){
-
-				laBaseSelectionee.recupererInfo(str,s);
+				System.out.println(s);
+				tab = laBaseSelectionee.recupererInfo(str,s);
+				boolean nonNull = (boolean) tab[0];
+				boolean unique = (boolean) tab[1];
+				String type = (String) tab[2];
+				uneClasse=uneClasse+"\r\n\t"+s+" : "+type;
+				if(nonNull) uneClasse = uneClasse + " NN";
+				if(unique) uneClasse = uneClasse +" UQ";
+				System.out.println("pass2");
 			}
+			uneClasse=uneClasse+"\r\n}";
+			diagClasse.add(uneClasse);
 		}
 
+		System.out.println("pass3");
 
+		RWFile.writeFile("@startuml","../UML/UML.txt");
 
+		for(int i=0;i<diagClasse.size();i++){
+			RWFile.writeEndOfFile(diagClasse.get(i),"../UML/UML.txt");
+		}
+
+		RWFile.writeEndOfFile("\r\n@enduml","../UML/UML.txt");
 
 
 		Process ps=Runtime.getRuntime().exec(new String[]{"java","-jar","../lib/plantuml.jar","../UML/UML.txt"});

@@ -44,5 +44,21 @@ public class RWFile {
 		catch(FileNotFoundException ex){
 			ex.printStackTrace();
 		}
+	}
+
+
+	public static void writeEndOfFile(String contenu, String fileName){
+		try{
+			FileWriter out = new FileWriter(fileName,true);
+			out.write("\r\n\r\n");
+			out.write(contenu);
+			out.close();
+		}
+		catch(FileNotFoundException ex){
+			ex.printStackTrace();
+		}
+		catch(IOException exio){
+			exio.printStackTrace();
+		}
 	}	
 }

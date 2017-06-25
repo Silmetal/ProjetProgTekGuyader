@@ -11,15 +11,11 @@ import java.util.Vector;
  */
 public class MyTableModel extends AbstractTableModel{
 	
-<<<<<<< HEAD
-	private String[] titre={"Nom", "Type", "Valeur", "Non Nul ?",  "Unique ?", "Clé Primaire ?", "Clé étrangère ?", "Table référée", "Attribut référé"};
-=======
 	/**
 	 * Le nom des colonnes du tableau. Chaque colonne correspond à un attribut de la classe Attribut.
 	 */
-	private String[] titre={"Nom", "Type", "Valeur", "Nul ?",  "Unique ?", "Clé Primaire ?", "Clé étrangère ?", "Table référée", "Attribut référé"};
->>>>>>> origin/master
-	
+	private String[] titre={"Nom", "Type", "Valeur", "Non Nul ?",  "Unique ?", "Clé Primaire ?", "Clé étrangère ?", "Table référée", "Attribut référé"};
+
 	/**
 	 * Les données entrées dans le tableau
 	 */
