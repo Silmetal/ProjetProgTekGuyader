@@ -52,6 +52,18 @@ public class BaseDeDonneesTest{
 
 
 	}
+
+
+	@Test()
+	public void testConstructeur(){
+	
+
+
+
+
+
+
+	
 	
 /*
 	@Test()

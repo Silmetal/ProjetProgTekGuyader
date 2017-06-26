@@ -257,7 +257,7 @@ public class BaseDeDonnees {
 	/**
 	 * Parcourt la table dont le nom est passé en paramètre et renvoie une ArrayList contenant les noms de toutes les colonnes de la table.
 	 * @param table le nom de la table à parcourir
-	 * @return une ArrayList contenant les noms de toutes les colonnes de la table dont le nom est passé en paramètre
+	 * @return un tableau d'objet contenant les noms de toutes les colonnes de la table dont le nom est passé en paramètre
 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
