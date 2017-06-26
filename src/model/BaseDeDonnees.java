@@ -262,7 +262,7 @@ public class BaseDeDonnees {
 	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
 	public Object[] parcourirTable(String table) throws SQLException, Exception{
-		Object[] ret = new Object[2];
+		Object[] ret = new Object[1];
 		String affichage="";
 		int i=0;
 
@@ -371,8 +371,8 @@ public class BaseDeDonnees {
 					String attributRef = ModifierString.supprimerMotAMot(recup," `","` ");
 					attributRef = ModifierString.supprimerExtrait(attributRef,"`)");
 					attributRef = ModifierString.supprimerExtrait(attributRef,"(`");
-					ret[3]=tableRef;
-					ret[4]=attributRef;
+					ret[3]=tableRef.trim();
+					ret[4]=attributRef.trim();
 				}
 
 				if ((lgn.indexOf(attribut) >= 0) && (lgn.indexOf("PRIMARY") >=0)) {
