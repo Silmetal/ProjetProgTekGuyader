@@ -109,7 +109,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					}
 					else if(jmi.getName().equals("nouvTuple")){
 						if(lUtilisateur.getSelection()!=-1 && !(lUtilisateur.getTable().equals(""))){
-							FenetreNouvEtModifTuple fnmt = new FenetreNouvEtModifTuple(fp);
+							FenetreNouvTuple fntup = new FenetreNouvTuple(fp);
+							EcouteurFenetreNouvTuple efntup = new EcouteurFenetreNouvTuple(fntup, nouvelleRequete, this, fp);
 							nouvelleRequete.ajouterTuple();
 						}
 					}

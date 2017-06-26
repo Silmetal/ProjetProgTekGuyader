@@ -11,7 +11,7 @@ import java.sql.*;
 /**
  * 
  */
-public class FenetreNouvEtModifTuple extends JFrame{
+public class FenetreNouvTuple extends JFrame{
 		
 	/**
 	 * La JTable qui affiche le contenu d'une table
@@ -42,7 +42,7 @@ public class FenetreNouvEtModifTuple extends JFrame{
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
 	 * et les placer dans le panneau.
 	 */
-	public FenetreNouvEtModifTuple(FenetrePrincipale fp){
+	public FenetreNouvTuple(FenetrePrincipale fp){
 		super("Modifier une table");
 		this.fp = fp;
 		this.setLayout(new BorderLayout(10,10));
@@ -67,7 +67,9 @@ public class FenetreNouvEtModifTuple extends JFrame{
 		for (int i = 0; i < fp.getTable().getColumnCount(); i++) {
 			dTM.addColumn(fp.getTable().getColumnName(i));
 		}
-	
+		
+		dTM.addRow(new Vector());
+		
 		jTable = new JTable(dTM);
 		
 		modifTable = new JButton("Modifier la table");
@@ -89,56 +91,6 @@ public class FenetreNouvEtModifTuple extends JFrame{
 		this.add(pannEnTete, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.add(pannBouton, BorderLayout.SOUTH);
-	}
-	
-	/**
-	 * Cette méthode modifie le JTable pour afficher le contenu de la table selectionnée. Cette méthode est appelée à chaque fois que l'on clique sur un élément du JTree
-	 * @param bd la BaseDeDonnees contenant la table sélectionnée
-	 * @param table la table à afficher
-	 */
-	public void setJTable(BaseDeDonnees bd,String table){
-		String[] lesVal=null;
-		ArrayList<String> lesValeurs;
-		String tablePrimaire="";
-		dTM.setColumnCount(0);
-		if(!table.equals("")){
-
-			try{
-				Object[] lesAtt = bd.parcourirTable(table);
-
-				
-				ArrayList<String> valeur = (ArrayList<String>)(lesAtt[0]);
-				ArrayList<String> titre =(ArrayList<String>)(lesAtt[1]);
-
-
-
-				for(int j=0; j<valeur.size();j++){
-					if(j==0){
-						lesValeurs = bd.parcourirAttribut(valeur.get(0),table,"");
-						tablePrimaire=valeur.get(0);
-					}
-					else{
-						lesValeurs = bd.parcourirAttribut(valeur.get(j),table,tablePrimaire);
-					}
-
-					lesVal = new String[lesValeurs.size()];
-
-					for(int i=0;i<lesValeurs.size();i++){
-						lesVal[i]=lesValeurs.get(i);
-					}
-					dTM.setRowCount(lesVal.length);
-					dTM.addColumn(titre.get(j),lesVal);
-				}		
-			}
-			catch(SQLException se){
-
-				se.printStackTrace();
-
-			}
-			catch(Exception e){
-
-			}
-		}
 	}
 	
 	public JTable getTable() {

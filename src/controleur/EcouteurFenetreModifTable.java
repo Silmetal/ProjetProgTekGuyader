@@ -66,7 +66,7 @@ public class EcouteurFenetreModifTable implements ActionListener, TableModelList
 	}
 	
 	public void tableChanged(TableModelEvent e) {
-				
+
 		String maj = "";
 		
 		int row = e.getFirstRow();
