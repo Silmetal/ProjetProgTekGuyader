@@ -135,6 +135,13 @@ public class Utilisateur {
 		lesBasesDeDonnees.add(uneBase2);
 	}
 
+	public void supprimerBaseDeDonnees(String motDePass,Requete nouvelleRequete){
+		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
+		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
+		nouvelleRequete.manuel("DROP DATABASE "+laBaseSelectionee.getNomDeLaBase());
+		lesBasesDeDonnees.remove(laBaseSelectionee);
+	}
+
 
 	/** Permet de se deconnecter de la base de donnée sélectionné 
 	*

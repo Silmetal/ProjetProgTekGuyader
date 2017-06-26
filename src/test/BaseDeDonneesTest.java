@@ -55,9 +55,21 @@ public class BaseDeDonneesTest{
 
 
 	@Test()
-	public void testConstructeur(){
-	
-
+	public void testCreerSupprimerBase(){
+		try{
+    		BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/TestUnitaire","admin", "iutvannes","TestUnitaire");
+    		
+    	}
+    	catch(ClassNotFoundException ce){
+			assertFalse(false);
+		}
+		catch(SQLException se){
+			assertFalse(false);
+		}
+		catch(Exception e){
+			assertFalse(false);
+		}
+	}
 
 
 
