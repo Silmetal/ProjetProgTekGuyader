@@ -13,7 +13,7 @@ import java.sql.*;
 /**
 * Cette classe est l'écouteur des boutons de la classe FenetreNouvelleTable. Elle associe au JSpinner son écouteur et au bouton son action.
 */
-public class EcouteurFenetreModifTable implements ActionListener{
+public class EcouteurFenetreModifTable implements ActionListener, TableModelListener{
 	
 	/**
 	 * La FenetreModifTable à écouter.
@@ -53,7 +53,7 @@ public class EcouteurFenetreModifTable implements ActionListener{
 		this.fmt = fmt;
 		this.requ=requ;
 		this.ema = ema;
-		// addListener();
+		addListener();
 	}
 	
 	/**
@@ -62,29 +62,33 @@ public class EcouteurFenetreModifTable implements ActionListener{
 	 */
 	public void actionPerformed(ActionEvent e){
 		
-		/* listeVal = new ArrayList<String>();
+		fmt.dispose();
+	}
+	
+	public void tableChanged(TableModelEvent e) {
 		
-		for (Object[] o :((DefaultTableModel)fmt.getTable().getModel()).getDataVector().toArray()){
+		String maj = "";
+		
+		System.out.println("test modif");
+		
+		System.out.println("test");
+	
+		int row = e.getFirstRow();
+		int column = e.getColumn();
+		
+		TableModel model = (TableModel)e.getSource();
+		Object data = model.getValueAt(row, column);
+		
+		
+		if(data==null){
 			
-			String val = "";
-			
-			for (int i = 0; i < o.length; i++) {
-				val = val+o[i]+";";
-			}
-			
+			maj = "UPDATE "+fp.getUtilisateur().getTable()+" SET "+fp.getTable().getColumnName(column)+"=\""+""+"\" WHERE "+fp.getTable().getColumnName(column)+"=\""+fp.getTable().getValueAt(row, 0)+"\"";
+		}
+		else{
+			maj = "UPDATE "+fp.getUtilisateur().getTable()+" SET "+fp.getTable().getColumnName(column)+"=\""+data+"\" WHERE "+fp.getTable().getColumnName(0)+"=\""+fp.getTable().getValueAt(row, 0)+"\"";
 		}
 		
-		try{
-			fmt.dispose();
-		}
-		catch(SQLException sqle) {
-			JOptionPane jop = new JOptionPane();
-			jop.showMessageDialog(null, "Erreur SQL, vérifiez vos informations.", "Erreur", JOptionPane.ERROR_MESSAGE);
-			sqle.printStackTrace();
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		} */
+		System.out.println(maj);
 	}
 	
 	/**
@@ -94,4 +98,14 @@ public class EcouteurFenetreModifTable implements ActionListener{
 	public ArrayList<String> getlisteVal(){
 		return this.listeVal;
 	}
+	
+	/**
+	 * Ajoute leurs écouteurs aux éléments graphiques de la FenetreNouvelleTable
+	 */
+	public void addListener() {
+		
+		fmt.getTermineBouton().addActionListener(this);
+		fmt.getTable().getModel().addTableModelListener(this);
+	}
+	
 }

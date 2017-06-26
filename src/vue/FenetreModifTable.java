@@ -22,7 +22,7 @@ public class FenetreModifTable extends JFrame{
 	/**
 	 * Le bouton qui lance la requête SQL d'insertion et modification de tuple suivant ce qui a été saisi par l'utilisateur dans le JTable
 	 */
-	private JButton modifTable;
+	private JButton termine;
 	
 	/**
 	 * Le modèle utilisé par le JTable pour se créer et se mettre à jour correctement
@@ -60,7 +60,7 @@ public class FenetreModifTable extends JFrame{
 		jTable = new JTable(dTM);
 		setJTable(fp.getUtilisateur().getLesBasesDeDonnees().get(fp.getUtilisateur().getSelection()),fp.getUtilisateur().getTable());
 		
-		modifTable = new JButton("Modifier la table");
+		termine = new JButton("Terminer");
 		
 		
 		// Création des sous-panneaux
@@ -68,7 +68,7 @@ public class FenetreModifTable extends JFrame{
 		JPanel pannBouton = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
-		pannBouton.add(modifTable);
+		pannBouton.add(termine);
 		
 		// Ajout des sous-panneaux dans le panneau principal
 		this.add(scrollPane, BorderLayout.CENTER);
@@ -130,9 +130,9 @@ public class FenetreModifTable extends JFrame{
 		return this.jTable;
 	}
 	
-	public JButton getModifTableBouton() {
+	public JButton getTermineBouton() {
 		
-		return this.modifTable;
+		return this.termine;
 	}
 	
 	public DefaultTableModel getDTM() {
