@@ -207,13 +207,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 
 	  	if(!reponse.equals("") && !motDePasse.equals("") ){
-	  		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
-	  		nouvelleRequete.manuel("CREATE DATABASE "+reponse);
-			String url = laBaseSelectionee.getAdresse();
-			url = ModifierString.supprimerExtrait(url,laBaseSelectionee.getNomDeLaBase()+"?allowMultiQueries=true");
-			BaseDeDonnees uneBase2 = new BaseDeDonnees(url+reponse+"?allowMultiQueries=true",laBaseSelectionee.getNomUtili(),motDePasse,reponse);
-			lUtilisateur.getLesBasesDeDonnees().add(uneBase2);
-
+	  		lUtilisateur.creerBaseDeDonnees(motDePasse,reponse);
 		}
 	}
 

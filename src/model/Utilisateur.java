@@ -124,16 +124,16 @@ public class Utilisateur {
 	}
 
 
-	public void miseAJourDuHashMap(){
-		int i=0;
-		association = new HashMap<String,Integer>();
-
-		for (BaseDeDonnees base : lesBasesDeDonnees) {
-			association.put(base.getNomDeLaBase(),i);
-			i++;
-		}
-
+	public void creerBaseDeDonnees(String motDePasse,String nomBase){
+		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
+		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
+	  	nouvelleRequete.manuel("CREATE DATABASE "+nomBase);
+		String url = laBaseSelectionee.getAdresse();
+		url = ModifierString.supprimerExtrait(url,laBaseSelectionee.getNomDeLaBase()+"?allowMultiQueries=true");
+		BaseDeDonnees uneBase2 = new BaseDeDonnees(url+reponse+"?allowMultiQueries=true",laBaseSelectionee.getNomUtili(),motDePasse,nomBase);
+		lesBasesDeDonnees.add(uneBase2);
 	}
+
 
 	/** Permet de se deconnecter de la base de donnée sélectionné 
 	*
