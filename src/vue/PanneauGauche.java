@@ -112,14 +112,8 @@ public class PanneauGauche extends JPanel{
 
 			((DefaultTreeModel)arborescence.getModel()).setRoot(racine);
 			arborescence.setCellRenderer(new ModificationJTree());
-
-
 			
-			
-
 			arborescence.setSelectionPath(tp);
-
-
 
 			arborescence.expandRow(1);
 			System.out.println(lUtilisateur.getSelection());

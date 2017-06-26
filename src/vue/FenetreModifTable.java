@@ -11,17 +11,13 @@ import java.sql.*;
 /**
  * 
  */
-public class FenetreNouvEtModifTuple extends JFrame{
+public class FenetreModifTable extends JFrame{
 		
 	/**
 	 * La JTable qui affiche le contenu d'une table
 	 */
 	private JTable jTable;
 	
-	/**
-	 * Le JSpinner dont la valeur indique le nombre de nouvelles lignes à afficher dans le JTable
-	 */
-	private JSpinner nbTuple;
 	
 	/**
 	 * Le bouton qui lance la requête SQL d'insertion et modification de tuple suivant ce qui a été saisi par l'utilisateur dans le JTable
@@ -42,7 +38,7 @@ public class FenetreNouvEtModifTuple extends JFrame{
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
 	 * et les placer dans le panneau.
 	 */
-	public FenetreNouvEtModifTuple(FenetrePrincipale fp){
+	public FenetreModifTable(FenetrePrincipale fp){
 		super("Modifier une table");
 		this.fp = fp;
 		this.setLayout(new BorderLayout(10,10));
@@ -59,9 +55,6 @@ public class FenetreNouvEtModifTuple extends JFrame{
 		
 		// Initialisation des composants
 		
-		JLabel nbTupleLabel = new JLabel("Nombre de tuple");
-		nbTuple = new JSpinner(new SpinnerNumberModel(1, 1, 99999, 1));
-		
 		dTM = new DefaultTableModel();
 		
 		jTable = new JTable(dTM);
@@ -72,18 +65,12 @@ public class FenetreNouvEtModifTuple extends JFrame{
 		
 		// Création des sous-panneaux
 		JScrollPane scrollPane = new JScrollPane(jTable);
-		JPanel pannEnTete = new JPanel(new GridLayout(1,4, 5, 5));
-		pannEnTete.add(new JPanel());
 		JPanel pannBouton = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
-		pannEnTete.add(nbTupleLabel);
-		pannEnTete.add(nbTuple);
-		pannEnTete.add(new JPanel());
 		pannBouton.add(modifTable);
 		
 		// Ajout des sous-panneaux dans le panneau principal
-		this.add(pannEnTete, BorderLayout.NORTH);
 		this.add(scrollPane, BorderLayout.CENTER);
 		this.add(pannBouton, BorderLayout.SOUTH);
 	}
@@ -141,11 +128,6 @@ public class FenetreNouvEtModifTuple extends JFrame{
 	public JTable getTable() {
 		
 		return this.jTable;
-	}
-	
-	public JSpinner getNbTupleSpinner() {
-		
-		return this.nbTuple;
 	}
 	
 	public JButton getModifTableBouton() {

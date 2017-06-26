@@ -115,6 +115,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					}
 					else if(jmi.getName().equals("modifTuple")){
 						
+						FenetreModifTable fmt = new FenetreModifTable(fp);
 						this.modifierTuple();
 						
 					}
@@ -172,6 +173,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 	}
 
 	public void nouveauTuple(){
+		
+		
 
 	}
 
