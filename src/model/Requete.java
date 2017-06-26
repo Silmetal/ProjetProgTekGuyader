@@ -113,6 +113,7 @@ public class Requete {
 	  */
 	 public int ajouterTable(String nomTable, ArrayList<Attribut> listeAttribut) throws SQLException,Exception {			
 		int ret = 0;
+		boolean premiereClePrimaire = true;
 	 	try{
 	 		manuel("DROP TABLE "+nomTable);
 	 	}
@@ -135,10 +136,18 @@ public class Requete {
 		}
 
 		for(Attribut monAtt : listeAttribut){
-			if(monAtt.getEstClePrimaire()){
-				requete = requete +"PRIMARY KEY ("+monAtt.getNomVariable()+"),";
+			if(monAtt.getEstClePrimaire() && premiereClePrimaire){
+				requete = requete +"PRIMARY KEY ("+monAtt.getNomVariable();
+				premiereClePrimaire = false;
+			}
+			else if(monAtt.getEstClePrimaire() && !premiereClePrimaire){
+				requete = requete +","+monAtt.getNomVariable();
 			}
 		}
+		if (!premiereClePrimaire) {
+			requete = requete + "),";	
+		}
+		
 
 		requete = ModifierString.supprimerAvecPlace(requete,requete.length()-1,1);
 
