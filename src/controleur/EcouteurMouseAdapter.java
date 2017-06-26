@@ -207,7 +207,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 
 	  	if(!reponse.equals("") && !motDePasse.equals("") ){
-	  		lUtilisateur.creerBaseDeDonnees(motDePasse,reponse);
+	  		lUtilisateur.creerBaseDeDonnees(motDePasse,reponse,nouvelleRequete);
 		}
 	}
 

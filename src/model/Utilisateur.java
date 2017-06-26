@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.util.*;
+import utilitaire.*;
 
 
 /** Cette classe permet d'instancier des utilisateurs de la base de donnée
@@ -124,13 +125,13 @@ public class Utilisateur {
 	}
 
 
-	public void creerBaseDeDonnees(String motDePasse,String nomBase){
+	public void creerBaseDeDonnees(String motDePasse,String nomBase, Requete nouvelleRequete) throws SQLException, Exception{
 		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
 		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
 	  	nouvelleRequete.manuel("CREATE DATABASE "+nomBase);
 		String url = laBaseSelectionee.getAdresse();
 		url = ModifierString.supprimerExtrait(url,laBaseSelectionee.getNomDeLaBase()+"?allowMultiQueries=true");
-		BaseDeDonnees uneBase2 = new BaseDeDonnees(url+reponse+"?allowMultiQueries=true",laBaseSelectionee.getNomUtili(),motDePasse,nomBase);
+		BaseDeDonnees uneBase2 = new BaseDeDonnees(url+nomBase+"?allowMultiQueries=true",laBaseSelectionee.getNomUtili(),motDePasse,nomBase);
 		lesBasesDeDonnees.add(uneBase2);
 	}
 
@@ -170,7 +171,6 @@ public class Utilisateur {
 	}
 
 	public int getPositionBase(String base){
-		miseAJourDuHashMap();
 		int ret = association.get(base);
 		return ret;
 	}
