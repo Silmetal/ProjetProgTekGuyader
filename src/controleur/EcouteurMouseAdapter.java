@@ -109,7 +109,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					}
 					else if(jmi.getName().equals("nouvTuple")){
 						if(lUtilisateur.getSelection()!=-1 && !(lUtilisateur.getTable().equals(""))){
-							
+							FenetreNouvEtModifTuple fnmt = new FenetreNouvEtModifTuple(fp);
 							nouvelleRequete.ajouterTuple();
 						}
 					}
@@ -179,8 +179,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 	}
 
 
-	public void modifierTuple(){
-
+	public void modifierTuple(Requete nouvelleRequete, EcouteurFenetreModifTable efmt) throws SQLException, Exception{
+		nouvelleRequete.creerOuModifier(efmt.getComm());
 	}
 
 

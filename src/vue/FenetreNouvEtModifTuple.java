@@ -63,9 +63,12 @@ public class FenetreNouvEtModifTuple extends JFrame{
 		nbTuple = new JSpinner(new SpinnerNumberModel(1, 1, 99999, 1));
 		
 		dTM = new DefaultTableModel();
-		
+	
+		for (int i = 0; i < fp.getTable().getColumnCount(); i++) {
+			dTM.addColumn(fp.getTable().getColumnName(i));
+		}
+	
 		jTable = new JTable(dTM);
-		setJTable(fp.getUtilisateur().getLesBasesDeDonnees().get(fp.getUtilisateur().getSelection()),fp.getUtilisateur().getTable());
 		
 		modifTable = new JButton("Modifier la table");
 		

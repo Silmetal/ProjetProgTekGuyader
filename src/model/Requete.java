@@ -59,13 +59,6 @@ public class Requete {
 		try {
 			
 			ret = state.executeUpdate(requete);
-			try{
-				state.close();
-			}
-			catch(Exception e){
-				System.out.println("Impossible de fermer la connexion");
-				throw e;
-			}			
 		}
 		catch(SQLException sqle) {
 			sqle.printStackTrace();

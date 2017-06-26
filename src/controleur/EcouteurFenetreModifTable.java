@@ -21,11 +21,6 @@ public class EcouteurFenetreModifTable implements ActionListener, TableModelList
 	private FenetreModifTable fmt;
 	
 	/**
-	 * La liste des valeurs de la table. Initialisée par l'écouteur en récupérant les informations entrées dans la FenetreModifTable
-	 */
-	private ArrayList<String> listeVal;
-	
-	/**
 	 * L'objet Requete qui va recevoir et exécuter la requête construite grâce aux attributs récupérés par cet écouteur.
 	 */
 	private Requete requ;
@@ -39,6 +34,11 @@ public class EcouteurFenetreModifTable implements ActionListener, TableModelList
 	 * La fenetre principale associé à cette fenetre
 	 */
 	private FenetrePrincipale fp;
+	
+	/**
+	 * Le String contenant la commande de modification de table créé par l'écouteur à partir des informations récupérées dans le tableau
+	 */
+	private String ret;
 	
 	/**
 	 * Le constructeur de la classe. Prend en paramètre une FenetreNouvelleTable, une Connection et une FenetrePrincipale et les associe à ses 
@@ -126,15 +126,28 @@ public class EcouteurFenetreModifTable implements ActionListener, TableModelList
 			}
 		}
 		
-		System.out.println(maj);
+		ret = maj;
+		
+		try{
+			ema.modifierTuple(requ, this);
+			fp.setJTable(laBase, fp.getUtilisateur().getTable());
+		}
+		catch(SQLException sqle) {
+			JOptionPane jop = new JOptionPane();
+			jop.showMessageDialog(null, "Erreur SQL, vérifiez vos informations.", "Erreur", JOptionPane.ERROR_MESSAGE);
+			sqle.printStackTrace();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Retourne la listeVal créée par l'écouteur
 	 * @return la listeVal créée par l'écouteur
 	 */
-	public ArrayList<String> getlisteVal(){
-		return this.listeVal;
+	public String getComm(){
+		return this.ret;
 	}
 	
 	/**

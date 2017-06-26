@@ -1,5 +1,5 @@
 Testsuite: test.BaseDeDonneesTest
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7,485 sec
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3,18 sec
 
 ------------- Standard Output ---------------
 Pilote oracle trouvé
@@ -10,11 +10,6 @@ Pilote oracle trouvé
 Connexion échouée ! Vérifiez vos identifiants et l'adresse de connexion
 Pilote oracle trouvé
 Connexion etablie
-false
-false
-int(4)
-TableTest
-valeurTest
 Pilote oracle trouvé
 Connexion etablie
 Pilote oracle trouvé

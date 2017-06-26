@@ -329,7 +329,6 @@ public class FenetrePrincipale extends JFrame{
 
 		panneauResultat.add(span2, BorderLayout.CENTER);
 		panneauResultat.add(panneauLabel, BorderLayout.NORTH);
-		
 
 		JPanel panneauDroite = new JPanel();
 		panneauDroite.setLayout(new GridLayout(2,1));
