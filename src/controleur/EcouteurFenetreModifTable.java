@@ -69,7 +69,7 @@ public class EcouteurFenetreModifTable implements ActionListener{
 			String val = "";
 			
 			for (int i = 0; i < o.length; i++) {
-				val = val+o[i];
+				val = val+o[i]+";";
 			}
 			
 		}

@@ -124,6 +124,15 @@ public class Utilisateur {
 		}
 	}
 
+	public void miseAJourDuHashMap(){
+		int i=0;
+		association = new HashMap<String,Integer>();
+
+		for (BaseDeDonnees base : lesBasesDeDonnees) {
+			association.put(base.getNomDeLaBase(),i);
+			i++;
+		}
+	}
 
 	public void creerBaseDeDonnees(String motDePasse,String nomBase, Requete nouvelleRequete) throws SQLException, Exception{
 		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
@@ -178,6 +187,7 @@ public class Utilisateur {
 	}
 
 	public int getPositionBase(String base){
+		miseAJourDuHashMap();
 		int ret = association.get(base);
 		return ret;
 	}
