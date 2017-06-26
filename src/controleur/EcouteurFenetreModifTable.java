@@ -66,26 +66,64 @@ public class EcouteurFenetreModifTable implements ActionListener, TableModelList
 	}
 	
 	public void tableChanged(TableModelEvent e) {
-		
+				
 		String maj = "";
 		
-		System.out.println("test modif");
-		
-		System.out.println("test");
-	
 		int row = e.getFirstRow();
 		int column = e.getColumn();
+		
+		BaseDeDonnees laBase = fp.getUtilisateur().getLesBasesDeDonnees().get(fp.getUtilisateur().getSelection());
+		
+		ArrayList<String> clePrim = new ArrayList<String>();
+		ArrayList<Integer> posClePrim = new ArrayList<Integer>();
+		
+		Object[] lesVal = null;
+		
+		System.out.println("Test1");
+		
+		for (int k = 0; k < fp.getTable().getColumnCount(); k++){
+			
+			try {
+				lesVal = laBase.recupererInfo(fp.getUtilisateur().getTable(), fp.getTable().getColumnName(k));
+				
+				if ((boolean)lesVal[5] == true) {
+					clePrim.add(fp.getTable().getColumnName(k));
+					posClePrim.add(k);
+				}
+			}
+			catch (Exception ex){
+				ex.printStackTrace();
+			}
+			
+		}		
 		
 		TableModel model = (TableModel)e.getSource();
 		Object data = model.getValueAt(row, column);
 		
-		
-		if(data==null){
-			
-			maj = "UPDATE "+fp.getUtilisateur().getTable()+" SET "+fp.getTable().getColumnName(column)+"=\""+""+"\" WHERE "+fp.getTable().getColumnName(column)+"=\""+fp.getTable().getValueAt(row, 0)+"\"";
+		if (clePrim.size() == 1) {
+			if(data==null){
+				
+				maj = "UPDATE "+fp.getUtilisateur().getTable()+" SET "+fp.getTable().getColumnName(column)+"=\""+""+"\" WHERE "+clePrim.get(0)+"=\""+fp.getTable().getValueAt(row, posClePrim.get(0))+"\"";
+			}
+			else{
+				maj = "UPDATE "+fp.getUtilisateur().getTable()+" SET "+fp.getTable().getColumnName(column)+"=\""+data+"\" WHERE "+clePrim.get(0)+"=\""+fp.getTable().getValueAt(row, posClePrim.get(0))+"\"";
+			}
 		}
-		else{
-			maj = "UPDATE "+fp.getUtilisateur().getTable()+" SET "+fp.getTable().getColumnName(column)+"=\""+data+"\" WHERE "+fp.getTable().getColumnName(0)+"=\""+fp.getTable().getValueAt(row, 0)+"\"";
+		
+		else {
+			
+			if(data==null){
+				maj = "UPDATE "+fp.getUtilisateur().getTable()+" SET "+fp.getTable().getColumnName(column)+"=\""+""+"\" WHERE "+clePrim.get(0)+"=\""+fp.getTable().getValueAt(row, posClePrim.get(0))+"\"";
+				for (int a = 1; a < clePrim.size(); a++) {
+					maj = maj+" AND "+clePrim.get(a)+"=\""+fp.getTable().getValueAt(row, posClePrim.get(a))+"\"";
+				}
+			}
+			else{
+				maj = "UPDATE "+fp.getUtilisateur().getTable()+" SET "+fp.getTable().getColumnName(column)+"=\""+data+"\" WHERE "+clePrim.get(0)+"=\""+fp.getTable().getValueAt(row, posClePrim.get(0))+"\"";
+				for (int a = 1; a < clePrim.size(); a++) {
+					maj = maj+" AND "+clePrim.get(a)+"=\""+fp.getTable().getValueAt(row, posClePrim.get(a))+"\"";
+				}
+			}
 		}
 		
 		System.out.println(maj);
