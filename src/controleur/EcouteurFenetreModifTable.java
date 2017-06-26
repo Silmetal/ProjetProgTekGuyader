@@ -6,13 +6,14 @@ import java.awt.event.*;
 import javax.swing.event.*;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.table.*;
 import java.util.ArrayList;
 import java.sql.*;
 
 /**
 * Cette classe est l'écouteur des boutons de la classe FenetreNouvelleTable. Elle associe au JSpinner son écouteur et au bouton son action.
 */
-public class EcouteurFenetreModifTable implements ActionListener, ChangeListener {
+public class EcouteurFenetreModifTable implements ActionListener{
 	
 	/**
 	 * La FenetreModifTable à écouter.
@@ -42,7 +43,7 @@ public class EcouteurFenetreModifTable implements ActionListener, ChangeListener
 	/**
 	 * Le constructeur de la classe. Prend en paramètre une FenetreNouvelleTable, une Connection et une FenetrePrincipale et les associe à ses 
 	 * attributs, puis ajoute l'écouteur à la FenetreRequete.
-	 * @param fnt la FenetreNouvelleTable à écouter
+	 * @param fmt la FenetreNouvelleTable à écouter
 	 * @param requ l'objet Requete qui va recevoir et exécuter la requête construite grâce aux attributs récupérés par cet écouteur.
 	 * @param ema l'écouteur de la FenetrePrincipale associée à la FenetreNouvelleTable. Permet l'exécution des requêtes.
 	 * @param fp La fenetre principal
@@ -52,7 +53,7 @@ public class EcouteurFenetreModifTable implements ActionListener, ChangeListener
 		this.fmt = fmt;
 		this.requ=requ;
 		this.ema = ema;
-		addListener();
+		// addListener();
 	}
 	
 	/**
@@ -61,26 +62,20 @@ public class EcouteurFenetreModifTable implements ActionListener, ChangeListener
 	 */
 	public void actionPerformed(ActionEvent e){
 		
-		listeAtt = new ArrayList<Attribut>();
-		nomTable = fnt.getNomTableTF().getText();
+		/* listeVal = new ArrayList<String>();
 		
-		for (Object[] o :((MyTableModel)fnt.getTable().getModel()).getData()){
+		for (Object[] o :((DefaultTableModel)fmt.getTable().getModel()).getDataVector().toArray()){
 			
-			int res = 0;
-			try {
-				res = Integer.parseInt((String)o[2]);
+			String val = "";
+			
+			for (int i = 0; i < o.length; i++) {
+				val = val+o[i];
 			}
-			catch(NumberFormatException nfe) {
-				res = -1;
-			}
-			Attribut att = new Attribut((String)o[0], (Type)o[1], res, (boolean)o[3], (boolean)o[4], (boolean)o[5], (boolean)o[6], (String)o[7], (String)o[8]);
-			listeAtt.add(att);
+			
 		}
 		
 		try{
-			ema.nouvelleTable(requ, this);
-			fp.getPanneauGauche().constructionJTree();
-			fnt.dispose();
+			fmt.dispose();
 		}
 		catch(SQLException sqle) {
 			JOptionPane jop = new JOptionPane();
@@ -89,22 +84,14 @@ public class EcouteurFenetreModifTable implements ActionListener, ChangeListener
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-		}
+		} */
 	}
 	
 	/**
-	 * Retourne la listeAtt créée par l'écouteur
-	 * @return la listeAtt créée par l'écouteur
+	 * Retourne la listeVal créée par l'écouteur
+	 * @return la listeVal créée par l'écouteur
 	 */
-	public ArrayList<Attribut> getListeAtt(){
-		return this.listeAtt;
-	}
-	
-	/**
-	 * Retourne le nom de la table créée
-	 * @return le nom de la table créée
-	 */
-	public String getNomTable(){
-		return this.nomTable;
+	public ArrayList<String> getlisteVal(){
+		return this.listeVal;
 	}
 }

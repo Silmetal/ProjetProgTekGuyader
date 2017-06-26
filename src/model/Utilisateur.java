@@ -135,7 +135,7 @@ public class Utilisateur {
 		lesBasesDeDonnees.add(uneBase2);
 	}
 
-	public void supprimerBaseDeDonnees(String motDePass,Requete nouvelleRequete){
+	public void supprimerBaseDeDonnees(String motDePasse,Requete nouvelleRequete)throws SQLException, Exception{
 		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
 		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
 		nouvelleRequete.manuel("DROP DATABASE "+laBaseSelectionee.getNomDeLaBase());
