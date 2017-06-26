@@ -60,12 +60,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 				if(jb.getName().equals("connexion")){
 					FenetreConnexion fenConnexion = new FenetreConnexion(lUtilisateur,fp);
 				}
-				else if(jb.getName().equals("nouvRequ")){
-					if(lUtilisateur.getLesBasesDeDonnees().size()>0 && lUtilisateur.getSelection()!=-1){
-						FenetreRequete fenRequete = new FenetreRequete("Requete",lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(),fp);
-					}else{
-
-					}
+				else if(jb.getName().equals("requete")){
+					fp.getRequeteMenu().show(e.getComponent(), e.getComponent().getX()+e.getComponent().getWidth(), e.getComponent().getY());
 				}
 				else if(jb.getName().equals("tuple")){
 					fp.getTupleMenu().show(e.getComponent(), e.getComponent().getX()+e.getComponent().getWidth(), e.getComponent().getY()-2*(e.getComponent().getHeight()));
@@ -91,8 +87,18 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					laTableSelectionee = lUtilisateur.getTable();
 					Requete nouvelleRequete = new Requete(laBaseSelectionee.getConnection(),laBaseSelectionee.getNomDeLaBase(),laTableSelectionee);
 
-
-					if(jmi.getName().equals("nouvTable")){
+					if(jmi.getName().equals("nouvRequete")){
+						if(lUtilisateur.getLesBasesDeDonnees().size()>0 && lUtilisateur.getSelection()!=-1){
+							FenetreRequete fenRequete = new FenetreRequete("Requete",lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(),fp);
+						}
+					}
+					else if(jmi.getName().equals("progRequete")){
+						
+					}
+					else if(jmi.getName().equals("choisirRequete")){
+						
+					}
+					else if(jmi.getName().equals("nouvTable")){
 						FenetreNouvelleTable fnt = new FenetreNouvelleTable();
 						EcouteurFenetreNouvTable efnt = new EcouteurFenetreNouvTable(fnt, nouvelleRequete, this,fp);
 					}
@@ -142,7 +148,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						genererUML(laBaseSelectionee);
 					}
 
-					if(!jmi.getName().equals("nouvTable")){
+					if(!jmi.getName().equals("nouvTable") && !jmi.getName().equals("nouvRequete")){
 						fp.getPanneauGauche().constructionJTree();
 					}
 				}
@@ -341,7 +347,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 	
 
 	public void addListener(){
-		fp.getBoutonNouvRequ().addMouseListener(this);
+		fp.getBoutonRequete().addMouseListener(this);
 		fp.getBoutonTable().addMouseListener(this);
 		fp.getBoutonTrigger().addMouseListener(this);
 		fp.getBoutonTuple().addMouseListener(this);
@@ -350,6 +356,9 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 		fp.getPanneauGauche().getBoutonConnexion().addMouseListener(this);
 
+		fp.getNouvRequete().addMouseListener(this);
+		fp.getProgRequete().addMouseListener(this);
+		fp.getChoisirRequete().addMouseListener(this);
 		fp.getNouvTable().addMouseListener(this);
 		fp.getSupprTable().addMouseListener(this);
 		fp.getNouvTuple().addMouseListener(this);

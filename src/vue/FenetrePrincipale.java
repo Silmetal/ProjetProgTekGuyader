@@ -25,7 +25,7 @@ public class FenetrePrincipale extends JFrame{
 	/**
 	 * Le bouton permettant à l'utilisateur d'écrire une requête. Ouvre une nouvelle FenetreRequete.
 	 */
-	private JButton nouvRequ;
+	private JButton requete;
 	
 	/**
 	 * Le bouton qui ouvre le menu permettant de créer ou supprimer un tuple
@@ -51,6 +51,11 @@ public class FenetrePrincipale extends JFrame{
 	 * Le bouton qui ouvre le menu permettant de lire ou ecrire un fichier sql de création de base
 	 */
 	private JButton base;
+
+	/**
+	 * Le menu proposant de programmer lancer de nouvelles requetes
+	 */
+	private JPopupMenu requeteMenu;
 	
 	/**
 	 * Le menu proposant de créer ou supprimer un tuple
@@ -77,6 +82,21 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	private JPopupMenu baseMenu;
 	
+
+	/**
+	 * L'élément de tupleMenu permettant de créer une nouvelle requete
+	 */
+	private JMenuItem nouvRequete;
+	
+	/**
+	 * L'élément de tupleMenu permettant de programmer une requete
+	 */
+	private JMenuItem progRequete;
+	
+	/**
+	 * L'élément de tupleMenu permettant de choisir une requete
+	 */
+	private JMenuItem choisirRequete;
 	
 	/**
 	 * L'élément de tupleMenu permettant de créer un nouveau tuple
@@ -192,8 +212,8 @@ public class FenetrePrincipale extends JFrame{
 		
 		// Initialisation des composants
 		
-		nouvRequ = new JButton("Nouvelle requête");	
-		nouvRequ.setName("nouvRequ");	
+		requete = new JButton("Requete");	
+		requete.setName("requete");	
 		tuple = new JButton("T-uple");	
 		tuple.setName("tuple");	
 		trigger = new JButton("Trigger");	
@@ -205,13 +225,19 @@ public class FenetrePrincipale extends JFrame{
 		base = new JButton("Base");
 		base.setName("base");
 
+		requeteMenu = new JPopupMenu();
 		tupleMenu = new JPopupMenu();
-
 		tableMenu = new JPopupMenu();
 		triggerMenu = new JPopupMenu();
 		vueMenu = new JPopupMenu();
 		baseMenu = new JPopupMenu();
 		
+		nouvRequete = new JMenuItem("Créer une nouvelle requete");
+		nouvRequete.setName("nouvRequete");
+		progRequete = new JMenuItem("Programmer une nouvelle requete");
+		progRequete.setName("progRequete");
+		choisirRequete = new JMenuItem("Choisir une requete programmer");
+		choisirRequete.setName("choisirRequete");
 		nouvTable = new JMenuItem("Créer une nouvelle table");
 		nouvTable.setName("nouvTable");
 		supprTable = new JMenuItem("Supprimer une table");
@@ -239,6 +265,11 @@ public class FenetrePrincipale extends JFrame{
 		genererUML = new JMenuItem("Générer le diagramme UML");
 		genererUML.setName("genererUML");
 		
+		
+		requeteMenu.add(nouvRequete);
+		requeteMenu.add(progRequete);
+		requeteMenu.add(choisirRequete);
+
 		tableMenu.add(nouvTable);
 		tableMenu.add(supprTable);
 		
@@ -282,7 +313,7 @@ public class FenetrePrincipale extends JFrame{
 		JPanel panneauResultat = new JPanel(new BorderLayout());
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
-		panneauBouton.add(nouvRequ);
+		panneauBouton.add(requete);
 		panneauBouton.add(table);
 		panneauBouton.add(tuple);
 		panneauBouton.add(trigger);
@@ -376,9 +407,9 @@ public class FenetrePrincipale extends JFrame{
 	 * Retourne le bouton Nouvelle Requête de l'instance (nouvRequ)
 	 * @return le bouton Nouvelle Requête de l'instance (nouvRequ)
 	 */
-	public JButton getBoutonNouvRequ() {
+	public JButton getBoutonRequete() {
 		
-		return this.nouvRequ;
+		return this.requete;
 	}
 	
 	/**
@@ -428,6 +459,14 @@ public class FenetrePrincipale extends JFrame{
 	}
 
 	/**
+	 * Retourne le JPopupMenu associé au bouton requete de l'instance
+	 * @return le JPopupMenu associé au bouton requete de l'instance
+	 */
+	public JPopupMenu getRequeteMenu(){
+		return this.requeteMenu;
+	}
+
+	/**
 	 * Retourne le JPopupMenu associé au bouton Tuple de l'instance
 	 * @return le JPopupMenu associé au bouton Tuple de l'instance
 	 */
@@ -465,6 +504,30 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	public JPopupMenu getBaseMenu(){
 		return this.baseMenu;
+	}
+
+	/**
+	 * Retourne le JMenuItem Nouvelle requete de l'instance
+	 * @return le JMenuItem Nouvelle requete de l'instance
+	 */
+	public JMenuItem getNouvRequete(){
+		return this.nouvRequete;
+	}
+
+	/**
+	 * Retourne le JMenuItem programmer requete de l'instance
+	 * @return le JMenuItem prog requete de l'instance
+	 */
+	public JMenuItem getProgRequete(){
+		return this.progRequete;
+	}
+
+	/**
+	 * Retourne le JMenuItem choisir requete de l'instance
+	 * @return le JMenuItem choisir requete de l'instance
+	 */
+	public JMenuItem getChoisirRequete(){
+		return this.choisirRequete;
 	}
 	
 	/**
