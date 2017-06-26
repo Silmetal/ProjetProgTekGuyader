@@ -168,16 +168,18 @@ public class BaseDeDonneesTest{
 
 	
 	
-/*
+
 	@Test()
 	public void testAjouterSupprimerUtilisateur(){
 		boolean test=true;
+		BaseDeDonnees bd=null;
 		
 		try{
-			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://arthurguyader.ddns.net:3306/","user", "pass");
-			maBase.ajouterNouvelUtilisateur("testk","root", "projet",1);
-			// BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:oracle:thin:@localhost:1521:xe","admin", "admin");
-			
+			bd = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/TestUnitaire","admin", "iutvannes","TestUnitaire");
+			bd.ajouterNouvelUtilisateur("testUtili","iutvannes","TableTest",0);
+			BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/TestUnitaire","testUtili", "iutvannes","TestUnitaire");
+			assertTrue(true);
+
 			System.out.println("test ajout fait");
 		}
 		catch(Exception e){
@@ -187,7 +189,7 @@ public class BaseDeDonneesTest{
 		}
 
 		try{
-			maBase.supprimerUtilisateur("testk");
+			bd.supprimerUtilisateur("testUtili");
 		}
 		catch(Exception e){
 
@@ -195,6 +197,5 @@ public class BaseDeDonneesTest{
 
 
 	}
-	*/
-
+	
 }

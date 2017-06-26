@@ -186,38 +186,23 @@ public class BaseDeDonnees {
 	 * @param dbName le nom de la base de données à laquelle ajouter l'utilisateur
 	 * @throws SQLException si l'utilisateur ne peut pas être créé à cause d'une erreur SQL
 	 */
-	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, String dbName, int userType) throws SQLException{
+	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, String tableName, int userType) throws SQLException, Exception{
 		
-		Statement creerSuperUser = connexion.createStatement();
-		Statement creerUser = connexion.createStatement();
+		Requete creerUser = new Requete(connexion,"","");
 		
 		if (userType == 0) {
 			
-			try {
-				creerSuperUser.executeUpdate("CREATE USER '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"'; GRANT ALL ON projet.* TO '"+nouvIdenti+"' WITH GRANT OPTION;");;
-			}
-			catch(SQLException se) {
-				throw se;
-			}
+		
+			creerUser.manuel("GRANT ALL PRIVILEGES ON "+nomDeLaBase+"."+tableName+" TO '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"' WITH GRANT OPTION;");
+			creerUser.manuel("FLUSH PRIVILEGES;");
+			
 		}
 		
 		else if (userType == 1) {
-			try {
-				creerUser.executeUpdate("use "+dbName);
-				creerUser.executeUpdate("CREATE USER '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"';");
-				
-			}
-			catch(SQLException se){
-
-			}
-
-			try{
-				creerUser.executeUpdate("GRANT ALL ON projet.* TO '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"';");
-				creerUser.executeUpdate("FLUSH PRIVILEGES;");
-			}
-			catch(SQLException se) {
-				throw se;
-			}
+						
+			creerUser.manuel("GRANT ALL PRIVILEGES ON "+nomDeLaBase+"."+tableName+" TO '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"';");
+			creerUser.manuel("FLUSH PRIVILEGES;");
+			
 		}
 	}
 	
@@ -398,7 +383,7 @@ public class BaseDeDonnees {
 		PreparedStatement supprimerUtilisateur = null;
 		
 		try {
-			supprimerUtilisateur = connexion.prepareStatement("DROP USER ?;");
+			supprimerUtilisateur = connexion.prepareStatement("DROP USER IF EXISTS ?;");
 			supprimerUtilisateur.setString(1,nomUtilis);
 		}
 		catch(SQLException se) {
@@ -437,13 +422,7 @@ public class BaseDeDonnees {
 			}
 		}
 
-
-		
-
 		return ret;
-
-
-
 	}
 	
 	/**
@@ -482,10 +461,6 @@ public class BaseDeDonnees {
 	 */	
 	public String getNomUtili(){return this.nomUtili;}
 	//public String getMotDePasse(){return this.motDePasse;}
-
-
-
-
 
 	public void deconnexion(){
 		if(connexion!=null){
