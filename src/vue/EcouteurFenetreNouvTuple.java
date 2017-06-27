@@ -24,17 +24,7 @@ public class EcouteurFenetreNouvTuple implements ActionListener, ChangeListener 
 	/**
 	 * La valeur du JSpinner avant sa modification par l'utilisateur. Elle est actualisée après chaque action.
 	 */
-	private int spinnerValue;
-	
-	/**
-	 * La liste des attributs de la table à créer. Initialisée par l'écouteur en récupérant les informations entrées dans la FenetreNouvelleTable
-	 */
-	private ArrayList<Attribut> listeAtt;
-	
-	/**
-	 * Le nom de la table créée
-	 */
-	private String nomTable;
+	private int spinnerValue;	
 	
 	/**
 	 * L'objet Requete qui va recevoir et exécuter la requête construite grâce aux attributs récupérés par cet écouteur.
@@ -50,6 +40,11 @@ public class EcouteurFenetreNouvTuple implements ActionListener, ChangeListener 
 	 * La fenetre principale associé à cette fenetre
 	 */
 	private FenetrePrincipale fp;
+	
+	/**
+	 * Le String contenant la commande de modification de table créé par l'écouteur à partir des informations récupérées dans le tableau
+	 */
+	private String ret;
 	
 	/**
 	 * Le constructeur de la classe. Prend en paramètre une FenetreNouvelleTable, une Connection et une FenetrePrincipale et les associe à ses 
@@ -74,24 +69,76 @@ public class EcouteurFenetreNouvTuple implements ActionListener, ChangeListener 
 	 */
 	public void actionPerformed(ActionEvent e){
 		
-		/* listeAtt = new ArrayList<Attribut>();
+		ret = "INSERT INTO "+fp.getUtilisateur().getTable();
+		ret = ret+"\nVALUES";
 		
-		for (Object[] o :((MyTableModel)fnt.getTable().getModel()).getData()){
+		int i = 0;
+		int j = 1;
+		
+		for(i = 0; i < fnt.getTable().getRowCount()-1; i++){
 			
-			int res = 0;
+			if (fnt.getTable().getValueAt(i,0) == null) {
+				fnt.getTable().setValueAt("",i,0);
+			}				
+			
 			try {
-				res = Integer.parseInt((String)o[2]);
+				Double.parseDouble(fnt.getTable().getValueAt(i,0).toString());
+				ret = ret+"\n	("+fnt.getTable().getValueAt(i,0);
 			}
-			catch(NumberFormatException nfe) {
-				res = -1;
+			catch (NumberFormatException nfe) {
+				ret = ret+"\n	('"+fnt.getTable().getValueAt(i,0)+"'";
 			}
-			Attribut att = new Attribut((String)o[0], (Type)o[1], res, (boolean)o[3], (boolean)o[4], (boolean)o[5], (boolean)o[6], (String)o[7], (String)o[8]);
-			listeAtt.add(att);
+			
+			for (j = 1; j < fnt.getTable().getColumnCount(); j++) {
+				
+				if (fnt.getTable().getValueAt(i,j) == null) {
+				fnt.getTable().setValueAt("",i,j);
+			}		
+				
+				try {
+					Double.parseDouble(fnt.getTable().getValueAt(i,j).toString());
+					ret = ret+","+fnt.getTable().getValueAt(i,j);
+				}
+				catch (NumberFormatException nfe) {
+					ret = ret+",'"+fnt.getTable().getValueAt(i,j)+"'";
+				}
+			}
+			ret = ret+"),";
 		}
 		
+		if (fnt.getTable().getValueAt(i,0) == null) {
+			fnt.getTable().setValueAt("",i,0);
+		}		
+		
+		try {
+			Double.parseDouble(fnt.getTable().getValueAt(i,0).toString());
+			ret = ret+"\n	("+fnt.getTable().getValueAt(i,0);
+		}
+		catch (NumberFormatException nfe) {
+			ret = ret+"\n	('"+fnt.getTable().getValueAt(i,0)+"'";
+		}
+			
+		for (j = 1; j < fnt.getTable().getColumnCount(); j++) {
+			
+			if (fnt.getTable().getValueAt(i,0) == null) {
+				fnt.getTable().setValueAt("",i,0);
+			}
+			
+			try {
+				Double.parseDouble(fnt.getTable().getValueAt(i,j).toString());
+				ret = ret+","+fnt.getTable().getValueAt(i,j);
+			}
+			catch (NumberFormatException nfe) {
+				ret = ret+",'"+fnt.getTable().getValueAt(i,j)+"'";
+			}
+		}
+		ret = ret+");";
+		
+		System.out.println(ret);
+		
 		try{
-			ema.nouvelleTable(requ, this);
-			fp.getPanneauGauche().constructionJTree();
+			ema.nouveauTuple(requ, this);
+			fp.setJTable(fp.getUtilisateur().getLesBasesDeDonnees().get(fp.getUtilisateur().getSelection()), fp.getUtilisateur().getTable());
 			fnt.dispose();
 		}
 		catch(SQLException sqle) {
@@ -101,7 +148,7 @@ public class EcouteurFenetreNouvTuple implements ActionListener, ChangeListener 
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
-		} */
+		}
 	}
 	
 	/**
@@ -136,19 +183,7 @@ public class EcouteurFenetreNouvTuple implements ActionListener, ChangeListener 
 		fnt.getModifTableBouton().addActionListener(this);
 	}
 	
-	/**
-	 * Retourne la listeAtt créée par l'écouteur
-	 * @return la listeAtt créée par l'écouteur
-	 */
-	public ArrayList<Attribut> getListeAtt(){
-		return this.listeAtt;
-	}
-	
-	/**
-	 * Retourne le nom de la table créée
-	 * @return le nom de la table créée
-	 */
-	public String getNomTable(){
-		return this.nomTable;
+	public String getComm() {
+		return this.ret;
 	}
 }

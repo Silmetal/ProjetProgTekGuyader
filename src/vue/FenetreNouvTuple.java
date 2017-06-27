@@ -43,7 +43,7 @@ public class FenetreNouvTuple extends JFrame{
 	 * et les placer dans le panneau.
 	 */
 	public FenetreNouvTuple(FenetrePrincipale fp){
-		super("Modifier une table");
+		super("Insérer des tuples");
 		this.fp = fp;
 		this.setLayout(new BorderLayout(10,10));
 		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -72,7 +72,7 @@ public class FenetreNouvTuple extends JFrame{
 		
 		jTable = new JTable(dTM);
 		
-		modifTable = new JButton("Modifier la table");
+		modifTable = new JButton("Insérer des tuples");
 		
 		
 		// Création des sous-panneaux
