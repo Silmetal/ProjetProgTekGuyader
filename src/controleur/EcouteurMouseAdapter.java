@@ -97,16 +97,30 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						
 					}
 					else if(jmi.getName().equals("choisirRequete")){
+						ArrayList<String> cache = new ArrayList<String>();
+						String[] lesCodesValid;
 						String[] lesCodes = ModifierString.decomposerLigneParLigne(DiskFileExplorer.listDirectory("../prog"));
-						String tuple = (String) JOptionPane.showInputDialog(fp, 
+						for (int i=0;i<lesCodes.length;i++) {
+							lesCodes[i] = ModifierString.supprimerExtrait(lesCodes[i],".sql");
+							if(!lesCodes[i].equals("")){
+								cache.add(lesCodes[i]);
+							}
+						}
+
+						lesCodesValid = new String[cache.size()];
+						for(int i=0;i<cache.size();i++){
+							lesCodesValid[i]=cache.get(i);
+						}
+
+						String file = (String) JOptionPane.showInputDialog(fp, 
 				        "Quel code voulez vous utilisez?",
 				        "Requete",
 				        JOptionPane.QUESTION_MESSAGE, 
 				        null, 
-				        lesCodes, 
-				        lesCodes[0]);
-						//nouvelleRequete.enleverTuple(tuple,attribut);
+				        lesCodesValid, 
+				        lesCodesValid[0]);
 
+						choisirRequete(file,laBaseSelectionee.getConnection());
 					}
 					else if(jmi.getName().equals("nouvTable")){
 						FenetreNouvelleTable fnt = new FenetreNouvelleTable();
@@ -191,7 +205,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						genererUML(laBaseSelectionee);
 					}
 
-					if(!jmi.getName().equals("nouvTable") && !jmi.getName().equals("nouvRequete")){
+					if(!jmi.getName().equals("nouvTable") && !jmi.getName().equals("nouvRequete") && !jmi.getName().equals("choisirRequete") ){
 						fp.getPanneauGauche().constructionJTree();
 					}
 				}
@@ -381,7 +395,12 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 	}
 
 
-
+	public void choisirRequete(String fichier,Connection laConnexion){
+		String adresseFichier = "../prog/" + fichier+".sql";
+		if(!fichier.equals("")){
+			FenetreRequeteProg fenetre = new FenetreRequeteProg("Requete programmée",laConnexion,fp,RWFile.readFile(adresseFichier));
+		} 
+	}
 	
 
 	public void addListener(){
