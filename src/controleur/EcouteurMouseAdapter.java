@@ -147,17 +147,62 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						supprimerTuple(laBaseSelectionee,laTableSelectionee,nouvelleRequete);
 						
 					}
-					else if(jmi.getName().equals("nouvTrigger")){
-
+					else if(jmi.getName().equals("nouvTriggerLigne")){
+						FenetreRequeteProg fenetre = new FenetreRequeteProg("Création de trigger de ligne",laBaseSelectionee.getConnection(),fp,RequeteProgramee.requeteCreationTriggerLigne(),false);
+					}
+					else if(jmi.getName().equals("nouvTriggerTable")){
+						FenetreRequeteProg fenetre = new FenetreRequeteProg("Création de trigger de table",laBaseSelectionee.getConnection(),fp,RequeteProgramee.requeteCreationTriggerTable(),false);
 					}
 					else if(jmi.getName().equals("supprTrigger")){
-						nouvelleRequete.enleverTrigger();
+						nouvelleRequete.manuel("use information_schema;");
+						ResultSet rs =(ResultSet) nouvelleRequete.manuel("SELECT TRIGGER_NAME FROM TRIGGERS WHERE TRIGGER_SCHEMA='"+laBaseSelectionee.getNomDeLaBase()+"';")[1];
+						Object[] res = nouvelleRequete.retournerResultSet(rs,false);
+						ArrayList<String> lesValeurs = (ArrayList<String>)res[0];
+						String [] lesValeursTab = new String[lesValeurs.size()];
+						for(int i=0;i<lesValeurs.size();i++){
+							lesValeursTab[i]=lesValeurs.get(i);
+						}
+
+						String leTrig = (String) JOptionPane.showInputDialog(fp, 
+				        "Quel Trigger voulez vous supprimer?",
+				        "Trigger",
+				        JOptionPane.QUESTION_MESSAGE, 
+				        null, 
+				        lesValeursTab, 
+				        lesValeursTab[0]);
+
+						nouvelleRequete.manuel("use "+laBaseSelectionee.getNomDeLaBase()+";");
+						nouvelleRequete.enleverTrigger(leTrig);
+
+
+
+
+
+					//	nouvelleRequete.enleverTrigger(leTrig);
 					}
 					else if(jmi.getName().equals("nouvVue")){
-
+						FenetreRequeteProg fenetre = new FenetreRequeteProg("Création de vue",laBaseSelectionee.getConnection(),fp,RequeteProgramee.requeteCreationVue(),false);
 					}
 					else if(jmi.getName().equals("supprVue")){
-						nouvelleRequete.enleverVue();
+						nouvelleRequete.manuel("use information_schema;");
+						ResultSet rs =(ResultSet) nouvelleRequete.manuel("SELECT TABLE_NAME FROM VIEWS WHERE TABLE_SCHEMA='"+laBaseSelectionee.getNomDeLaBase()+"';")[1];
+						Object[] res = nouvelleRequete.retournerResultSet(rs,false);
+						ArrayList<String> lesValeurs = (ArrayList<String>)res[0];
+						String [] lesValeursTab = new String[lesValeurs.size()];
+						for(int i=0;i<lesValeurs.size();i++){
+							lesValeursTab[i]=lesValeurs.get(i);
+						}
+
+						String laVue = (String) JOptionPane.showInputDialog(fp, 
+				        "Quelle vue voulez vous supprimer?",
+				        "Vue",
+				        JOptionPane.QUESTION_MESSAGE, 
+				        null, 
+				        lesValeursTab, 
+				        lesValeursTab[0]);
+
+						nouvelleRequete.manuel("use "+laBaseSelectionee.getNomDeLaBase()+";");
+						nouvelleRequete.enleverVue(laVue);
 					}
 					else if(jmi.getName().equals("nouvelleBase")){
 						nouvelleBase(nouvelleRequete,laBaseSelectionee);
@@ -398,7 +443,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 	public void choisirRequete(String fichier,Connection laConnexion){
 		String adresseFichier = "../prog/" + fichier+".sql";
 		if(!fichier.equals("")){
-			FenetreRequeteProg fenetre = new FenetreRequeteProg("Requete programmée",laConnexion,fp,RWFile.readFile(adresseFichier));
+			FenetreRequeteProg fenetre = new FenetreRequeteProg("Requete programmée",laConnexion,fp,RWFile.readFile(adresseFichier),true);
 		} 
 	}
 	
@@ -421,7 +466,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getNouvTuple().addMouseListener(this);
 		fp.getModifTuple().addMouseListener(this);
 		fp.getSupprTuple().addMouseListener(this);
-		fp.getNouvTrigger().addMouseListener(this);
+		fp.getNouvTriggerLigne().addMouseListener(this);
+		fp.getNouvTriggerTable().addMouseListener(this);
 		fp.getSupprTrigger().addMouseListener(this);
 		fp.getNouvVue().addMouseListener(this);
 		fp.getSupprVue().addMouseListener(this);

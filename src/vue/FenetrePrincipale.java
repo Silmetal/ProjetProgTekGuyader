@@ -122,9 +122,14 @@ public class FenetrePrincipale extends JFrame{
 	private JMenuItem supprTable;
 	
 	/**
-	 * L'élément de triggerMenu permettant de créer un nouveau trigger
+	 * L'élément de triggerMenu permettant de créer un nouveau trigger de ligne
 	 */
-	private JMenuItem nouvTrigger;
+	private JMenuItem nouvTriggerLigne;
+
+	/**
+	 * L'élément de triggerMenu permettant de créer un nouveau trigger de table
+	 */
+	private JMenuItem nouvTriggerTable;
 	
 	/**
 	 * L'élément de triggerMenu permettant de supprimer un trigger
@@ -233,7 +238,7 @@ public class FenetrePrincipale extends JFrame{
 		nouvRequete.setName("nouvRequete");
 		progRequete = new JMenuItem("Programmer une nouvelle requete");
 		progRequete.setName("progRequete");
-		choisirRequete = new JMenuItem("Choisir une requete programmer");
+		choisirRequete = new JMenuItem("Choisir une requete programmée");
 		choisirRequete.setName("choisirRequete");
 		nouvTable = new JMenuItem("Créer une nouvelle table");
 		nouvTable.setName("nouvTable");
@@ -245,8 +250,10 @@ public class FenetrePrincipale extends JFrame{
 		modifTuple.setName("modifTuple");
 		supprTuple = new JMenuItem("Retirer un tuple");
 		supprTuple.setName("supprTuple");
-		nouvTrigger = new JMenuItem("Créer un nouveau trigger");
-		nouvTrigger.setName("nouvTrigger");
+		nouvTriggerLigne = new JMenuItem("Créer un nouveau trigger de ligne");
+		nouvTriggerLigne.setName("nouvTriggerLigne");
+		nouvTriggerTable = new JMenuItem("Créer un nouveau trigger de table");
+		nouvTriggerTable.setName("nouvTriggerTable");
 		supprTrigger = new JMenuItem("Supprimer un trigger");
 		supprTrigger.setName("supprTrigger");
 		nouvVue = new JMenuItem("Créer une nouvelle vue");
@@ -274,7 +281,8 @@ public class FenetrePrincipale extends JFrame{
 		tupleMenu.add(modifTuple);
 		tupleMenu.add(supprTuple);
 		
-		triggerMenu.add(nouvTrigger);
+		triggerMenu.add(nouvTriggerLigne);
+		triggerMenu.add(nouvTriggerTable);
 		triggerMenu.add(supprTrigger);
 		
 		vueMenu.add(nouvVue);
@@ -564,11 +572,19 @@ public class FenetrePrincipale extends JFrame{
 	}
 	
 	/**
-	 * Retourne le JMenuItem Nouveau Trigger de l'instance
-	 * @return le JMenuItem Nouveau Trigger de l'instance
+	 * Retourne le JMenuItem Nouveau Trigger de table de l'instance
+	 * @return le JMenuItem Nouveau Trigger de table de l'instance
 	 */
-	public JMenuItem getNouvTrigger(){
-		return this.nouvTrigger;
+	public JMenuItem getNouvTriggerTable(){
+		return this.nouvTriggerTable;
+	}
+
+	/**
+	 * Retourne le JMenuItem Nouveau Trigger de ligne de l'instance
+	 * @return le JMenuItem Nouveau Trigger de ligne de l'instance
+	 */
+	public JMenuItem getNouvTriggerLigne(){
+		return this.nouvTriggerLigne;
 	}
 
 	/**

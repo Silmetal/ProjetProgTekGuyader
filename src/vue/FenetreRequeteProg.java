@@ -93,7 +93,7 @@ public class FenetreRequeteProg extends JFrame{
 	 * @param fp la FenetrePrincipale dont dépend cette fenêtre
 	 * @param requete la requete a executer
 	 */
-	public FenetreRequeteProg(String titre, Connection maConnexion,FenetrePrincipale fp,String requete){
+	public FenetreRequeteProg(String titre, Connection maConnexion,FenetrePrincipale fp,String requete,boolean executer){
 		super(titre);
 		this.miseEnPlace();
 		this.setSize(800,600);
@@ -102,7 +102,7 @@ public class FenetreRequeteProg extends JFrame{
 		
 		this.champsSaisie.setText(requete);
 		monEcouteur = new EcouteurJButtonRequeteProg(this,maConnexion,fp);
-		monEcouteur.lancer();
+		if(executer)monEcouteur.lancer();
 
 	}
 	

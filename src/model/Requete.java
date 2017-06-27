@@ -160,16 +160,18 @@ public class Requete {
 	 * Intègre à l'attribut state la commande SQL permettant de supprimer une nouvelle table à la base de données à laquelle l'utilisateur, puis exécute cette requête.
 	 * @param table la table à enlever
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 * @throws SQLException si une erreur SQL empêche le retrait de la table
 	 * @throws Exception si une autre erreur empêche le retrait de la table
 	 */
-	public int enleverTable(String table) throws SQLException,Exception {
+	public int enleverTable(String table) throws Exception {
 		int ret=-1;
 		
-		System.out.println(table);
-		ret = (int)manuel("DROP TABLE "+table+";")[2];
-		System.out.println("bip");
-		if(ret==-1) ret = (int)manuel("DROP VIEW "+table+";")[2];
+		try{
+			ret = (int)manuel("DROP TABLE "+table+";")[2];
+		}
+		catch(SQLException se){
+			ret = (int)manuel("DROP VIEW "+table+";")[2];
+		}
+		
 		
 		
 		return ret;
@@ -201,18 +203,20 @@ public class Requete {
 	  * Intègre à l'attribut state la commande SQL permettant de supprimer un trigger de la base de données à laquelle l'utilisateur, puis exécute cette requête.
 	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
 	  */
-	public int enleverTrigger() {
-		
-		return 0;
+	public int enleverTrigger(String trigger) throws SQLException,Exception{
+		int ret=-1;
+		ret = (int)manuel("DROP TRIGGER "+trigger+";")[2];
+		return ret;
 	}
 	
 	/**
 	 * Intègre à l'attribut state la commande SQL permettant de supprimer une vue à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.4
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
 	 */
-	public int enleverVue() {
-		
-		return 0;
+	public int enleverVue(String vue) throws SQLException,Exception{
+		int ret = -1;
+		ret = (int)manuel("DROP VIEW "+vue+";")[2];
+		return ret;
 	}
 
 
