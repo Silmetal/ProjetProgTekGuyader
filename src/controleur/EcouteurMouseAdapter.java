@@ -104,14 +104,12 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					}
 					else if(jmi.getName().equals("supprTable")){
 						
-						supprimerTable(laBaseSelectionee,laTableSelectionee,nouvelleRequete);
-							
+						supprimerTable(laBaseSelectionee,laTableSelectionee,nouvelleRequete);							
 					}
 					else if(jmi.getName().equals("nouvTuple")){
 						if(lUtilisateur.getSelection()!=-1 && !(lUtilisateur.getTable().equals(""))){
 							FenetreNouvTuple fntup = new FenetreNouvTuple(fp);
 							EcouteurFenetreNouvTuple efntup = new EcouteurFenetreNouvTuple(fntup, nouvelleRequete, this, fp);
-							nouvelleRequete.ajouterTuple();
 						}
 					}
 					else if(jmi.getName().equals("modifTuple")){
@@ -173,10 +171,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		nouvelleRequete.ajouterTable(nomTable,listeAtt);		
 	}
 
-	public void nouveauTuple(){
-		
-		
-
+	public void nouveauTuple(Requete nouvelleRequete, EcouteurFenetreNouvTuple efntup) throws SQLException, Exception{
+		nouvelleRequete.creerOuModifier(efntup.getComm());
 	}
 
 
