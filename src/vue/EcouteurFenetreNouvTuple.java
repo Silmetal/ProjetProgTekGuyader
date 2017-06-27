@@ -69,18 +69,57 @@ public class EcouteurFenetreNouvTuple implements ActionListener, ChangeListener 
 	 */
 	public void actionPerformed(ActionEvent e){
 		
-		ret = "INSERT INTO "+fp.getUtilisateur().getTable();
-		ret = ret+"\nVALUES";
-		
 		int i = 0;
 		int j = 1;
 		
+		ret = "INSERT INTO "+fp.getUtilisateur().getTable()+" (";
+		
+		for (j = 0; j < fnt.getTable().getColumnCount()-1; j++) {
+			ret = ret+fnt.getTable().getColumnName(j)+",";
+		}
+		ret = ret+fnt.getTable().getColumnName(j)+")";
+
+		ret = ret+"\nVALUES";
+		
+		
+		
 		for(i = 0; i < fnt.getTable().getRowCount()-1; i++){
-			
 			if (fnt.getTable().getValueAt(i,0) == null) {
-				fnt.getTable().setValueAt("",i,0);
-			}				
+				ret = ret+"\n	(NULL";
+			}
+			else { 
+				try {
+					Double.parseDouble(fnt.getTable().getValueAt(i,0).toString());
+					ret = ret+"\n	("+fnt.getTable().getValueAt(i,0);
+				}
+				catch (NumberFormatException nfe) {
+					ret = ret+"\n	('"+fnt.getTable().getValueAt(i,0)+"'";
+				}
+			}
 			
+			for (j = 1; j < fnt.getTable().getColumnCount(); j++) {
+			
+				if (fnt.getTable().getValueAt(i,j) == null) {
+					ret = ret+",NULL";
+				}
+				
+				else{
+					try {
+						Double.parseDouble(fnt.getTable().getValueAt(i,j).toString());
+						ret = ret+","+fnt.getTable().getValueAt(i,j);
+					}
+					catch (NumberFormatException nfe) {
+						ret = ret+",'"+fnt.getTable().getValueAt(i,j)+"'";
+					}
+				}
+			}
+			ret = ret+"),";
+		}
+		
+		if (fnt.getTable().getValueAt(i,0) == null) {
+			ret = ret+"\n	(NULL";
+		}
+		else {
 			try {
 				Double.parseDouble(fnt.getTable().getValueAt(i,0).toString());
 				ret = ret+"\n	("+fnt.getTable().getValueAt(i,0);
@@ -88,13 +127,13 @@ public class EcouteurFenetreNouvTuple implements ActionListener, ChangeListener 
 			catch (NumberFormatException nfe) {
 				ret = ret+"\n	('"+fnt.getTable().getValueAt(i,0)+"'";
 			}
-			
-			for (j = 1; j < fnt.getTable().getColumnCount(); j++) {
-				
-				if (fnt.getTable().getValueAt(i,j) == null) {
-				fnt.getTable().setValueAt("",i,j);
-			}		
-				
+		}
+
+		for (j = 1; j < fnt.getTable().getColumnCount(); j++) {
+			if (fnt.getTable().getValueAt(i,j) == null) {
+				ret = ret+",NULL";
+			}
+			else {
 				try {
 					Double.parseDouble(fnt.getTable().getValueAt(i,j).toString());
 					ret = ret+","+fnt.getTable().getValueAt(i,j);
@@ -103,38 +142,9 @@ public class EcouteurFenetreNouvTuple implements ActionListener, ChangeListener 
 					ret = ret+",'"+fnt.getTable().getValueAt(i,j)+"'";
 				}
 			}
-			ret = ret+"),";
 		}
 		
-		if (fnt.getTable().getValueAt(i,0) == null) {
-			fnt.getTable().setValueAt("",i,0);
-		}		
-		
-		try {
-			Double.parseDouble(fnt.getTable().getValueAt(i,0).toString());
-			ret = ret+"\n	("+fnt.getTable().getValueAt(i,0);
-		}
-		catch (NumberFormatException nfe) {
-			ret = ret+"\n	('"+fnt.getTable().getValueAt(i,0)+"'";
-		}
-			
-		for (j = 1; j < fnt.getTable().getColumnCount(); j++) {
-			
-			if (fnt.getTable().getValueAt(i,0) == null) {
-				fnt.getTable().setValueAt("",i,0);
-			}
-			
-			try {
-				Double.parseDouble(fnt.getTable().getValueAt(i,j).toString());
-				ret = ret+","+fnt.getTable().getValueAt(i,j);
-			}
-			catch (NumberFormatException nfe) {
-				ret = ret+",'"+fnt.getTable().getValueAt(i,j)+"'";
-			}
-		}
 		ret = ret+");";
-		
-		System.out.println(ret);
 		
 		try{
 			ema.nouveauTuple(requ, this);
