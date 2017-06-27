@@ -49,10 +49,9 @@ public class UtilisateurTest{
 			monUtilisateur.setSelection(0);
 			BaseDeDonnees bd = monUtilisateur.getLesBasesDeDonnees().get(monUtilisateur.getSelection());
 			Requete uneRequete = new Requete(bd.getConnection(),"TestUnitaire","");
-			System.out.println("nomDesB");
 			monUtilisateur.creerBaseDeDonnees("iutvannes","NouvelleBase",uneRequete);
  			
- 			System.out.println("nomDesBases");
+
 			String nomDesBases="";
 			Requete interogation = new Requete(bd.getConnection(),"","");
 			ResultSet rs = (ResultSet) ((interogation.manuel("SHOW DATABASES;"))[1]);
@@ -64,8 +63,7 @@ public class UtilisateurTest{
 		        }
 		    }
 
-		    System.out.println(nomDesBases);
-		    if (nomDesBases.indexOf("TestUnitaire") >= 0) {
+		    if (nomDesBases.indexOf("NouvelleBase") >= 0) {
 		    	Assert.assertTrue(true);
 		    }
 		    else{
@@ -73,6 +71,25 @@ public class UtilisateurTest{
 		    }
 		    monUtilisateur.setSelection(1);
 			monUtilisateur.supprimerBaseDeDonnees("iutvannes",uneRequete);
+
+
+			nomDesBases="";
+			interogation = new Requete(bd.getConnection(),"","");
+			rs = (ResultSet) ((interogation.manuel("SHOW DATABASES;"))[1]);
+			rsmd = rs.getMetaData();
+	   		columnsNumber = rsmd.getColumnCount();		
+	   		while (rs.next()) {
+		       for (int j = 1; j <= columnsNumber; j++) {
+		           	nomDesBases = nomDesBases + rs.getString(j);
+		        }
+		    }
+
+		    if (nomDesBases.indexOf("NouvelleBase") >= 0) {
+		    	Assert.assertTrue(false);
+		    }
+		    else{
+		    	Assert.assertTrue(true);
+		    }
 
 		}
 		catch(Exception e){
