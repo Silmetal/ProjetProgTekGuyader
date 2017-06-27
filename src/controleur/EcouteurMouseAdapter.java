@@ -124,13 +124,13 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						
 					}
 					else if(jmi.getName().equals("nouvTrigger")){
-						nouvelleRequete.ajouterTrigger();
+
 					}
 					else if(jmi.getName().equals("supprTrigger")){
 						nouvelleRequete.enleverTrigger();
 					}
 					else if(jmi.getName().equals("nouvVue")){
-						nouvelleRequete.ajouterVue();
+
 					}
 					else if(jmi.getName().equals("supprVue")){
 						nouvelleRequete.enleverVue();
@@ -139,7 +139,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						nouvelleBase(nouvelleRequete,laBaseSelectionee);
 					}
 					else if(jmi.getName().equals("lireBase")){
-						//nouvelleRequete.ajouterVue();
+
 					}
 					else if(jmi.getName().equals("ecrireBase")){
 						System.out.println(laBaseSelectionee.ecrireCreationDeTable());
