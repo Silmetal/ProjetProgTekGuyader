@@ -71,7 +71,7 @@ public class Requete {
 	 * Intègre à l'attribut state la commande SQL donnée en paramètre, puis exécute cette requête.
 	 * Cette commande est générale, elle peut être utilisée pour créer, supprimer ou modifier des éléments, mais aussi pour faire des requêtes et en récupérer le résultat.
 	 * @param requete la requete à exécuter
-	 * @return true si l'instruction renvoie un ResultSet, false sinon
+	 * @return Un tableau d'objet (ret[0] = Statement - ret[1] = ResultSet - ret[2] = Nombres de lignes)
 	 * @throws SQLException si la requete est incorrecte, que state n'est pas initialisé ou si une autre erreur SQL survient
 	 * @throws Exception si la connexion ne peut pas être fermée ou si une autre erreur survient
 	 */

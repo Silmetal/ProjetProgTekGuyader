@@ -179,8 +179,6 @@ public class BaseDeDonneesTest{
 			bd.ajouterNouvelUtilisateur("testUtili","iutvannes","TableTest",0);
 			BaseDeDonnees maBase2 = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/TestUnitaire","testUtili", "iutvannes","TestUnitaire");
 			assertTrue(true);
-
-			System.out.println("test ajout fait");
 		}
 		catch(Exception e){
 			System.out.println("test ajout échoué");
