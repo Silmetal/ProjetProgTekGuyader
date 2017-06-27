@@ -59,18 +59,8 @@ public class BaseDeDonnees {
 		this.motDePasse=motDePasse;
 		try{	
 			if (verifPilote()) {
-				
-				try{
-					boolean test = connexion(adresse, nomUtili, motDePasse);
-					this.nomDeLaBase = nomDeLaBase;
-					System.out.println("Connexion etablie");
-				}
-				catch(SQLException se){
-					throw se;
-				}
-				catch(Exception e){
-					throw e;
-				}
+				boolean test = connexion(adresse, nomUtili, motDePasse);
+				this.nomDeLaBase = nomDeLaBase;	
 			}
 
 		} catch(ClassNotFoundException ce){
@@ -91,7 +81,6 @@ public class BaseDeDonnees {
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Pilote oracle trouvé");
 			ret = true;
 		}
 		

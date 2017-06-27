@@ -124,7 +124,7 @@ public class Utilisateur {
 		}
 	}
 
-	public void miseAJourDuHashMap(){
+	private void miseAJourDuHashMap(){
 		int i=0;
 		association = new HashMap<String,Integer>();
 
@@ -155,7 +155,7 @@ public class Utilisateur {
 	/** Permet de se deconnecter de la base de donnée sélectionné 
 	*
 	*/
-	public void disconnect() throws NullPointerException {
+	/*public void disconnect() throws NullPointerException {
 		if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
 			lesBasesDeDonnees.get(this.selection).deconnexion();
 			lesBasesDeDonnees.remove(this.selection);
@@ -164,27 +164,7 @@ public class Utilisateur {
 		else{
 			throw new NullPointerException("Attention selection incorect");
 		}
-	}
-
-	/** Fait appel a la base de donnée séléctionnée pour créer une nouvelle instance
-	* de la classe requete.
-	* @throws SQLException si une erreur SQL empêche la création de la requête
-	* @throws NullPointerException si le curseur selection n'est pas à une valeur valide
-	*/
-	
-	public void nouvelleRequete() throws SQLException, NullPointerException,Exception{
-		
-		try {
-			
-			if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
-				Requete nouvelleRequete = new Requete(this.lesBasesDeDonnees.get(this.selection).getConnection(),lesBasesDeDonnees.get(this.selection).getNomDeLaBase(),table);
-			}
-			else throw new NullPointerException("Attention selection incorect");
-		}
-		catch(SQLException sqle) {	
-			throw sqle;
-		}
-	}
+	}*/
 
 	public int getPositionBase(String base){
 		miseAJourDuHashMap();
