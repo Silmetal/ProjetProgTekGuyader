@@ -154,31 +154,6 @@ public class Requete {
 	 }
 
 	
-	/** 
-	  * Intègre à l'attribut state la commande SQL permettant d'ajouter un tuple à la table précisée par l'utilisateur, puis exécute cette requête.
-	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	  */
-	public int ajouterTuple() {
-		return 0;
-	}
-	
-	/**
-	  * Intègre à l'attribut state la commande SQL permettant d'ajouter un trigger à la table précisée par l'utilisateur, puis exécute cette requête.
-	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	  */
-	public int ajouterTrigger() {
-		
-		 return 0;
-	}
-	
-	 /**
-	 * Intègre à l'attribut state la commande SQL permettant d'ajouter une vue à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.
-	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 */
-	public int ajouterVue() {
-		
-		return 0;
-	}
 	
 	/**
 	 * Intègre à l'attribut state la commande SQL permettant de supprimer une nouvelle table à la base de données à laquelle l'utilisateur, puis exécute cette requête.
