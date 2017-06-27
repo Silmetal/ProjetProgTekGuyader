@@ -28,7 +28,7 @@ public class EcouteurFenetreUtilisateur implements ActionListener {
 	public EcouteurFenetreUtilisateur(FenetreNouvelUtilisateur fu,BaseDeDonnees uneBaseDeDonnees,String table){
 		this.uneBaseDeDonnees = uneBaseDeDonnees;
 		this.table = table;
-		if(this.table.equals("")) this.table="%";
+		if(this.table.equals("")) this.table="*";
 		this.fu = fu;
 		fu.getJb().addActionListener(this);
 		
