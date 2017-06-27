@@ -71,7 +71,7 @@ public class Requete {
 	 * Intègre à l'attribut state la commande SQL donnée en paramètre, puis exécute cette requête.
 	 * Cette commande est générale, elle peut être utilisée pour créer, supprimer ou modifier des éléments, mais aussi pour faire des requêtes et en récupérer le résultat.
 	 * @param requete la requete à exécuter
-	 * @return Un tableau d'objet (ret[0] = Statement - ret[1] = ResultSet - ret[2] = Nombres de lignes)
+	 * @return Un tableau d'objet (ret[0] = boolean ResultSet ou pas - ret[1] = ResultSet - ret[2] = Nombre De ligne modifier)
 	 * @throws SQLException si la requete est incorrecte, que state n'est pas initialisé ou si une autre erreur SQL survient
 	 * @throws Exception si la connexion ne peut pas être fermée ou si une autre erreur survient
 	 */
@@ -199,7 +199,7 @@ public class Requete {
 			ret = (int)manuel("DROP TABLE "+table)[2];
 		}
 		catch (SQLException sqle) {
-			ret = (int)manuel("DROP VIEW "+table)[2];
+			ret = (int)manuel("DROP IF EXISTS VIEW "+table)[2];
 		}
 		return ret;
 	}
@@ -245,8 +245,8 @@ public class Requete {
 	}
 
 
-
-	public static Object[] retournerResultSet(ResultSet rs,boolean pasUneRequeteSelect) throws SQLException,Exception{
+	// ret[0] = Les valeurs   -   ret[1] = lesColonnes
+	public static Object[] retournerResultSet(ResultSet rs,boolean nEstPasUnSelect) throws SQLException,Exception{
 		ArrayList<String> lesNomdeColonnes = new ArrayList<String>();
 		ArrayList<String> lesValeurs = new ArrayList<String>();
 		Object [] ret = new Object[2];

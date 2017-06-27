@@ -32,7 +32,7 @@ public class UtilisateurTest{
 
 			monUtilisateur.connect("jdbc:mysql://vps.arthurguyader.fr:3306/","admin", "iutvannes","");
 
-			Assert.assertTrue(monUtilisateur.getLesBasesDeDonnees().size()>1);
+			Assert.assertTrue(monUtilisateur.getLesBasesDeDonnees().size()>2);
 		}
 		catch(Exception e){
 			Assert.assertTrue(false);
