@@ -70,7 +70,7 @@ public class RequeteTest{
 	public void testAjouterSupprimerTable(){
 		try{
 			ArrayList<Attribut> liste = new ArrayList<Attribut>();
-			Attribut att = new Attribut(var, Type.INT, 4, false,  false, true, false, "","");
+			Attribut att = new Attribut("var", Type.INT, 4, false,  false, true, false, "","");
 			liste.add(att);
 			uneRequeteBase.ajouterTable("NouvelleTable",liste);
 			
