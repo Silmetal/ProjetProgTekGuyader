@@ -263,7 +263,7 @@ public class Requete {
 		           	String columnValue = rs.getString(i);
 		           	
 		           	
-		           	if(pasUneRequeteSelect){
+		           	if(nEstPasUnSelect){
 			           	if(i==1){
 			           		String columnName = rs.getString(1);
 			           		lesNomdeColonnes.add(columnName);
@@ -276,7 +276,7 @@ public class Requete {
 			}
 
 			for (int i = 1; i <= columnsNumber; i++){
-				if (!pasUneRequeteSelect) {
+				if (!nEstPasUnSelect) {
 			           		
 		           			String columnName = rsmd.getColumnName(i);
 		           			lesNomdeColonnes.add(columnName);
