@@ -47,7 +47,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 	* déroulante des tables de la base, puis supprime la table choisie par l'utilisateur.
 	* <P>Cliquer sur "Créer un nouveau tuple"... TO BE CONTINUED
 	* <P>Clique sur "Supprimer un tuple" ouvre un JOptionPane demandant quelle tuple supprimer, en proposant une liste 
-	* déroulante des clés primaires des tuples de la table sélectionnée, puis supprime le tuple choisit par l'utilisateur7
+	* déroulante des clés primaires des tuples de la table sélectionnée, puis supprime le tuple choisit par l'utilisateur
 	* TO BE CONTINUED
 	*/
 	public void mousePressed(MouseEvent e) {
@@ -173,12 +173,6 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 						nouvelleRequete.manuel("use "+laBaseSelectionee.getNomDeLaBase()+";");
 						nouvelleRequete.enleverTrigger(leTrig);
-
-
-
-
-
-					//	nouvelleRequete.enleverTrigger(leTrig);
 					}
 					else if(jmi.getName().equals("nouvVue")){
 						FenetreRequeteProg fenetre = new FenetreRequeteProg("Création de vue",laBaseSelectionee.getConnection(),fp,RequeteProgramee.requeteCreationVue(),false);
@@ -207,6 +201,9 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					else if(jmi.getName().equals("nouvelleBase")){
 						nouvelleBase(nouvelleRequete,laBaseSelectionee);
 					}
+					else if (jmi.getName().equals("supprimerBase")) {
+						
+					}
 					else if(jmi.getName().equals("lireBase")){
 
 						String file="";
@@ -225,9 +222,6 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						if(!file.equals("")){
 							nouvelleRequete.creerOuModifier(RWFile.readFile(file));
 						}
-
-
-						
 					}
 					else if(jmi.getName().equals("ecrireBase")){
 						String cheminSauvegarde="";
@@ -249,6 +243,16 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					else if(jmi.getName().equals("genererUML")){
 						genererUML(laBaseSelectionee);
 					}
+					else if (jmi.getName().equals("nouvelUtilisateur")) {
+						FenetreNouvelUtilisateur fnu = new FenetreNouvelUtilisateur("Création d'un nouvel utilisateur",laBaseSelectionee,laTableSelectionee,fp);
+					}
+					else if (jmi.getName().equals("supprimerUtilisateur")) {
+						
+					}
+
+
+
+
 
 					if(!jmi.getName().equals("nouvTable") && !jmi.getName().equals("nouvRequete") && !jmi.getName().equals("choisirRequete") ){
 						fp.getPanneauGauche().constructionJTree();
@@ -475,5 +479,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getEcrireBase().addMouseListener(this);
 		fp.getGenererUML().addMouseListener(this);
 		fp.getNouvelleBase().addMouseListener(this);
+		fp.getSupprimerBase().addMouseListener(this);
+		fp.getNouvelUtilisateur().addMouseListener(this);
+		fp.getSupprimerUtilisateur().addMouseListener(this);
 	}
 }

@@ -152,6 +152,11 @@ public class FenetrePrincipale extends JFrame{
 	private JMenuItem nouvelleBase;
 
 	/**
+	 * L'élément de baseMenu permettant de creer une nouvelle base
+	 */
+	private JMenuItem supprimerBase;
+	
+	/**
 	 * L'élément de baseMenu permettant de lire une base
 	 */
 	private JMenuItem lireBase;
@@ -165,6 +170,16 @@ public class FenetrePrincipale extends JFrame{
 	 * L'élément de baseMenu permettant de generer le diagramme UML de la base
 	 */
 	private JMenuItem genererUML;
+
+	/**
+	 * L'élément de baseMenu permettant de creer un nouvel utilisateur
+	 */
+	private JMenuItem nouvelUtilisateur;
+
+	/**
+	 * L'élément de baseMenu permettant de supprimer un utilisateur
+	 */
+	private JMenuItem supprimerUtilisateur;
 	
 	/**
 	 * La JTable qui affiche le contenu d'une table
@@ -262,12 +277,18 @@ public class FenetrePrincipale extends JFrame{
 		supprVue.setName("supprVue");
 		nouvelleBase = new JMenuItem("Nouvelle base");
 		nouvelleBase.setName("nouvelleBase");
+		supprimerBase = new JMenuItem("Supprimer une base");
+		supprimerBase.setName("supprimerBase");
 		ecrireBase = new JMenuItem("Ecrire la base dans un fichier");
 		ecrireBase.setName("ecrireBase");
 		lireBase = new JMenuItem("Lire une base dans un fichier");
 		lireBase.setName("lireBase");
 		genererUML = new JMenuItem("Générer le diagramme UML");
 		genererUML.setName("genererUML");
+		nouvelUtilisateur = new JMenuItem("Nouvel utilisateur");
+		nouvelUtilisateur.setName("nouvelUtilisateur");
+		supprimerUtilisateur = new JMenuItem("Supprimer utilisateur");
+		supprimerUtilisateur.setName("supprimerUtilisateur");
 		
 		
 		requeteMenu.add(nouvRequete);
@@ -289,10 +310,12 @@ public class FenetrePrincipale extends JFrame{
 		vueMenu.add(supprVue);
 		
 		baseMenu.add(nouvelleBase);
+		baseMenu.add(supprimerBase);
 		baseMenu.add(ecrireBase);
 		baseMenu.add(lireBase);
 		baseMenu.add(genererUML);
-
+		baseMenu.add(nouvelUtilisateur);
+		baseMenu.add(supprimerUtilisateur);
 
 		String[] titre={"Selectionner la table a afficher"};
 		String[][] data = new String[1][1];
@@ -619,6 +642,15 @@ public class FenetrePrincipale extends JFrame{
 		return this.nouvelleBase;
 	}
 
+
+	/**
+	 * Retourne le JMenuItem Supprimer Base de l'instance
+	 * @return le JMenuItem Supprimer Base de l'instance
+	 */
+	public JMenuItem getSupprimerBase(){
+		return this.supprimerBase;
+	}
+
 	/**
 	 * Retourne le JMenuItem Lire Base de l'instance
 	 * @return le JMenuItem Lire Base de l'instance
@@ -641,6 +673,22 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	public JMenuItem getGenererUML(){
 		return this.genererUML;
+	}
+
+	/**
+	 * Retourne le JMenuItem Nouvel Utilisateur de l'instance
+	 * @return le JMenuItem Nouvel Utilisateur de l'instance
+	 */
+	public JMenuItem getNouvelUtilisateur(){
+		return this.nouvelUtilisateur;
+	}
+
+	/**
+	 * Retourne le JMenuItem Supprimer Utilisateur de l'instance
+	 * @return le JMenuItem Supprimer Utilisateur de l'instance
+	 */
+	public JMenuItem getSupprimerUtilisateur(){
+		return this.supprimerUtilisateur;
 	}
 	
 	/**
