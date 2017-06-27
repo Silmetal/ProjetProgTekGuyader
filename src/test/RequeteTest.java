@@ -18,11 +18,10 @@ public class RequeteTest{
 			Requete uneRequeteBase = new Requete(connexion,"TestUnitaire","");
 		}
 		catch(Exception e){
-			
+
 		}
-
-
 	}
+
 
 
 	@Before()

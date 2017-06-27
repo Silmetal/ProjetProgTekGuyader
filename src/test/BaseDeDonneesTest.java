@@ -74,6 +74,7 @@ public class BaseDeDonneesTest{
 		}
 		catch(Exception e){
 			assertTrue(false);
+		
 		}
 	}
 
