@@ -312,6 +312,9 @@ public class BaseDeDonnees {
 	 * <P>- Le sixième objet est un boolean indiquant si l'attribut est une clé primaire
 	 * @param table le nom de la table contenant l'attribut dont on récupère les infos
 	 * @param attribut le nom de l'attribut dont on récupère les infos
+	 * @return le tableau d'objet contenant les infos à propos de l'attribut
+	 * @throws SQLException si une erreur SQL empêche la création du tableau
+	 * @throws Exception si une autre erreur empêche la création du tableau
 	 */
 	public Object[] recupererInfo(String table,String attribut) throws Exception,SQLException{
 		Object[] ret = new Object[6]; // [0] true si non null -- [1] true si unique --[2] type -- [3] Ref. Table -- [4] Ref. Attribut -- [5] true si clé primaire
@@ -405,6 +408,8 @@ public class BaseDeDonnees {
 	 * Construit un String contenant les requêtes nécéssaires à recréer les tables de la base de données.
 	 * En revanche, les tables sont vides : le contenu des tables n'est pas écrit.
 	 * @return un string contenant les requêtes SQL pemeetant de recréer les tables de la base 
+	 * @throws SQLException si une erreur SQL empêche l'écriture de la base
+	 * @throws SQLException si une erreur SQL empêche l'écriture de la base
 	 */
 	public String ecrireCreationDeTable() throws Exception, SQLException{
 		String ret="";

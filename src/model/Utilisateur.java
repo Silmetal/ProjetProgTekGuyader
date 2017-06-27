@@ -139,6 +139,8 @@ public class Utilisateur {
 	 * @param motDePasse le mot de passe de la base sélectionnée, demandé par mesure de sécurité
 	 * @param nomBase le nom de la nouvelle base 
 	 * @param nouvelleRequete l'objet Requete qui va recevoir et exécuter la requête de création de base.
+	 * @throws SQLException si une erreur SQL empêche la création de la base
+	 * @throws Exception si une autre erreur empêche la création de la base
 	 */
 	public void creerBaseDeDonnees(String motDePasse,String nomBase, Requete nouvelleRequete) throws SQLException, Exception{
 		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
@@ -154,6 +156,8 @@ public class Utilisateur {
 	 * Supprime la base de données sélectionnée
 	 * @param motDePasse le mot de passe de la base sélectionnée, demandé par mesure de sécurité
 	 * @param nouvelleRequete l'objet Requete qui va recevoir et exécuter la requête de suppression de base.
+	 * @throws SQLException si une erreur SQL empêche la suppression de la base
+	 * @throws Exception si une autre erreur empêche la suppression de la base
 	 */
 	public void supprimerBaseDeDonnees(String motDePasse,Requete nouvelleRequete)throws SQLException, Exception{
 		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
