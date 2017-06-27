@@ -34,6 +34,12 @@ public class Attribut {
 	 * Le booléan indiquant si l'attribut peut être nul ou non
 	 */
 	private boolean estNonNul;
+
+	/** 
+	 * Le booléan indiquant si l'attribut peut être nul ou non
+	 */
+	private boolean estUnique;
+
 	
 	/** 
 	 * Le booléan indiquant si l'attribut est une clé primaire ou non
@@ -71,6 +77,7 @@ public class Attribut {
 	 */
 	public Attribut(String nomVariable, Type type, int valeur, boolean estNonNul,  boolean estUnique, boolean estClePrimaire, boolean aCleEtrangere, String referenceTableEtrangere,String referenceAttributEtranger){
 		this.nomVariable=nomVariable;
+		this.estUnique=estUnique;
 		this.type=type;
 		this.valeur=valeur;
 		this.estNonNul=estNonNul;
@@ -144,9 +151,12 @@ public class Attribut {
 	public String getContrainte(){
 		String ret="";
 
-
 		if(estNonNul){
 			ret = ret + " NOT NULL";
+		}
+
+		if (estUnique) {
+			ret = ret + " UNIQUE";
 		}
 
 

@@ -154,6 +154,7 @@ public class Requete {
 	 }
 
 	
+
 	
 	/**
 	 * Intègre à l'attribut state la commande SQL permettant de supprimer une nouvelle table à la base de données à laquelle l'utilisateur, puis exécute cette requête.
