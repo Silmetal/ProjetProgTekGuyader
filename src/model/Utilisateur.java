@@ -133,7 +133,13 @@ public class Utilisateur {
 			i++;
 		}
 	}
-
+	
+	/**
+	 * Créée une nouvelle base de données.
+	 * @param motDePasse le mot de passe de la base sélectionnée, demandé par mesure de sécurité
+	 * @param nomBase le nom de la nouvelle base 
+	 * @param nouvelleRequete l'objet Requete qui va recevoir et exécuter la requête de création de base.
+	 */
 	public void creerBaseDeDonnees(String motDePasse,String nomBase, Requete nouvelleRequete) throws SQLException, Exception{
 		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
 		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
@@ -143,62 +149,81 @@ public class Utilisateur {
 		BaseDeDonnees uneBase2 = new BaseDeDonnees(url+nomBase+"?allowMultiQueries=true",laBaseSelectionee.getNomUtili(),motDePasse,nomBase);
 		lesBasesDeDonnees.add(uneBase2);
 	}
-
+	
+	/**
+	 * Supprime la base de données sélectionnée
+	 * @param motDePasse le mot de passe de la base sélectionnée, demandé par mesure de sécurité
+	 * @param nouvelleRequete l'objet Requete qui va recevoir et exécuter la requête de suppression de base.
+	 */
 	public void supprimerBaseDeDonnees(String motDePasse,Requete nouvelleRequete)throws SQLException, Exception{
 		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
 		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
 		nouvelleRequete.manuel("DROP DATABASE "+laBaseSelectionee.getNomDeLaBase());
 		lesBasesDeDonnees.remove(laBaseSelectionee);
 	}
-
-
-	/** Permet de se deconnecter de la base de donnée sélectionné 
-	*
-	*/
-	/*public void disconnect() throws NullPointerException {
-		if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
-			lesBasesDeDonnees.get(this.selection).deconnexion();
-			lesBasesDeDonnees.remove(this.selection);
-			this.selection=-1;
-		}
-		else{
-			throw new NullPointerException("Attention selection incorect");
-		}
-	}*/
-
+	
+	/**
+	 * Retourne la position de la base dans la liste de BaseDeDonnees de l'utilisateur
+	 * @param base le nom de la base dont on veut la position
+	 * @return la position de la base dont le nom est passé en paramètre
+	 */
 	public int getPositionBase(String base){
 		miseAJourDuHashMap();
 		int ret = association.get(base);
 		return ret;
 	}
 
-
+	/**
+	 * Change la base actuellement sélectionnée
+	 * @param table le nom de la table à sélectionner
+	 */
 	public void setTable(String table){
 		this.table=table;
 	}
-
+	
+	/**
+	 * Retourne le nom de la base sélectionnée
+	 * @return le nom de la base sélectionnée
+	 */
 	public String getTable(){
 		return this.table;
 	}
 	
-	public String toString() {
+	
+	/* public String toString() {
 		
 		return "";
 		
-	}
-
+	} */
+	
+	/**
+	 * Retourne l'identifiant de l'utilisateur
+	 * @return l'identifiant de l'utilisateur
+	 */
 	public String getId(){
 		return this.id;
 	}
-
+	
+	/**
+	 * Change la base sélectionnée
+	 * @param base l'indice de la base à sélectionner
+	 */
 	public void setSelection(int base){
 		this.selection=base;
 	}
-
+	
+	/**
+	 * Retourne l'indice de la base sélectionnée
+	 * @return l'indice de la base sélectionnée
+	 */
 	public int getSelection(){
 		return this.selection;
 	}
 
+	/**
+	 * Retourne la liste de bases de données
+	 * @return la liste de bases de données
+	 */
 	public ArrayList<BaseDeDonnees> getLesBasesDeDonnees(){
 		return this.lesBasesDeDonnees;
 	}

@@ -46,7 +46,11 @@ public class RWFile {
 		}
 	}
 
-
+	/**
+	 * Cette méthode permet d'écrire le contenu passé en paramètre à la fin du fichier text passé en paramètre
+	 * @param contenu le texte à écrire
+	 * @param fileName le nom du fichier dans lequel écrire
+	 */
 	public static void writeEndOfFile(String contenu, String fileName){
 		try{
 			FileWriter out = new FileWriter(fileName,true);

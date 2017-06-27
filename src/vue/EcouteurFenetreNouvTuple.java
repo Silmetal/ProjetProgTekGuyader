@@ -193,6 +193,10 @@ public class EcouteurFenetreNouvTuple implements ActionListener, ChangeListener 
 		fnt.getModifTableBouton().addActionListener(this);
 	}
 	
+	/**
+	 * Retourne le String contenant la requête de création de tuple créée par cet écouteur 
+	 * @return le String contenant la requête de création de tuple créée par cet écouteur
+	 */
 	public String getComm() {
 		return this.ret;
 	}

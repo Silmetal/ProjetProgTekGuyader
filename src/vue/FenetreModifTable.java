@@ -9,7 +9,9 @@ import java.util.*;
 import java.sql.*;
 
 /**
- * 
+ * Cette fenêtre s'ouvre lorsque l'on clique sur "Modifier un tuple". La nouvelle fenêtre contient les tuples
+ * de la table sélectionnée. Cette table peut être modifiée à souhait. Toute modification faite à cette table est
+ * répercutée sur la base de données
  */
 public class FenetreModifTable extends JFrame{
 		
@@ -37,6 +39,7 @@ public class FenetreModifTable extends JFrame{
 	/**
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
 	 * et les placer dans le panneau.
+	 * @param fp la FenetrePrincipale dont dépend cette fenêtre
 	 */
 	public FenetreModifTable(FenetrePrincipale fp){
 		super("Modifier une table");
@@ -125,16 +128,28 @@ public class FenetreModifTable extends JFrame{
 		}
 	}
 	
+	/**
+	 * Retourne le JTable contenu dans cette fenêtre
+	 * @return le JTable contenu dans cette fenêtre
+	 */
 	public JTable getTable() {
 		
 		return this.jTable;
 	}
 	
+	/**
+	 * Retourne le JButton permettant de fermer la fenêtre
+	 * @return le JButton permettant de fermer la fenêtre
+	 */
 	public JButton getTermineBouton() {
 		
 		return this.termine;
 	}
 	
+	/**
+	 * Retourne le DefaultTableModel utilisé par le Jtable contenu dans cette fenêtre
+	 * @return le DefaultTableModel utilisé par le Jtable contenu dans cette fenêtre
+	 */
 	public DefaultTableModel getDTM() {
 		
 		return this.dTM;

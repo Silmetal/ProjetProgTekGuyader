@@ -172,7 +172,7 @@ public class BaseDeDonnees {
 	 * @param nouvIdenti l'identifiant du nouvel utilisateur
 	 * @param nouvMDP le mot de passe du nouvel utilisateur
 	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur, 1 pour un utilisateur normal
-	 * @param dbName le nom de la base de données à laquelle ajouter l'utilisateur
+	 * @param tableName le nom de la table à laquelle ajouter un utilisateur. passer '*' en paramètre ajoute l'utilisateur à toutes les tables de la base.
 	 * @throws SQLException si l'utilisateur ne peut pas être créé à cause d'une erreur SQL
 	 */
 	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, String tableName, int userType) throws SQLException, Exception{
@@ -302,7 +302,17 @@ public class BaseDeDonnees {
 
 	}
 
-
+	/**
+	 * Cette méthode construit un tableau d'objet qui contient les informations sur les colonnes d'une table.
+	 * <P>- Le premier objet est un boolean indiquant si la colonne est non-nulle
+	 * <P>- Le deuxième objet est un boolean indiquant si la colonne est unique
+	 * <P>- Le troisième objet est le type de la colonne
+	 * <P>- Le quatrième objet est le nom de la table contenant l'attribut référencé par cet attribut. Chaîne nulle si aucun
+	 * <P>- Le cinquième objet est le nom de l'attribut référencé par cet objet. Chaîne nulle si aucun
+	 * <P>- Le sixième objet est un boolean indiquant si l'attribut est une clé primaire
+	 * @param table le nom de la table contenant l'attribut dont on récupère les infos
+	 * @param attribut le nom de l'attribut dont on récupère les infos
+	 */
 	public Object[] recupererInfo(String table,String attribut) throws Exception,SQLException{
 		Object[] ret = new Object[6]; // [0] true si non null -- [1] true si unique --[2] type -- [3] Ref. Table -- [4] Ref. Attribut -- [5] true si clé primaire
 		ret[0] =false;
@@ -358,9 +368,6 @@ public class BaseDeDonnees {
 		}
 		return ret;
 	}
-
-
-
 	
 	/**
 	 * Supprime de la base de données l'utilisateur dont l'identifiant est passé en paramètre
@@ -385,6 +392,8 @@ public class BaseDeDonnees {
 	 * Le fichier contiendra toutes les requêtes SQL nécessaires pour créer une nouvelle base de données
 	 * identique à celle à laquelle l'utilsiateur est connecté.
 	 * @param fileName le nom du fichier crée
+	 * @throws SQLException si une erreur SQL empêche l'écriture de la base  
+	 * @throws Exception si une autre erreur empêche l'écriture de la base
 	 */
 	public void ecrire(String fileName) throws Exception,SQLException{
 		String res = ecrireCreationDeTable();
@@ -392,7 +401,11 @@ public class BaseDeDonnees {
 	}
 
 
-
+	/**
+	 * Construit un String contenant les requêtes nécéssaires à recréer les tables de la base de données.
+	 * En revanche, les tables sont vides : le contenu des tables n'est pas écrit.
+	 * @return un string contenant les requêtes SQL pemeetant de recréer les tables de la base 
+	 */
 	public String ecrireCreationDeTable() throws Exception, SQLException{
 		String ret="";
 
@@ -449,17 +462,5 @@ public class BaseDeDonnees {
 	 * @return Le nom d'utilsiateur utilisé pour se connecter à la base de données
 	 */	
 	public String getNomUtili(){return this.nomUtili;}
-	//public String getMotDePasse(){return this.motDePasse;}
-
-	public void deconnexion(){
-		if(connexion!=null){
-				try{
-					connexion.close();
-				}
-				catch(Exception eC){
-					eC.printStackTrace();
-				}
-		} 
-	}
 	
 }

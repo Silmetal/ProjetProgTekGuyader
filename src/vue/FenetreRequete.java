@@ -149,7 +149,10 @@ public class FenetreRequete extends JFrame{
 	}
 
 
-
+	/**
+	 * Mets en place le CardLayout pour superposer la console et le JTable qui contient le résultat de la requête.
+	 * L'un ou l'autre s'affiche suivant le type de retour de la requête.
+	 */
 	public void miseEnPlaceDuCardLayout(){
 		jspan2 = new JScrollPane(console);
 
@@ -186,7 +189,10 @@ public class FenetreRequete extends JFrame{
 	}
 
 
-
+	/**
+	 * Modifie le JTable suivant ce que renvoie la requête.
+	 * @param rs le ResultSet à afficher dans la JTable
+	 */
 	public void editerJTable(ResultSet rs){
 		String[] lesVal=null;
 		String[] row;
@@ -227,13 +233,6 @@ public class FenetreRequete extends JFrame{
 		
 	}
 
-
-
-
-
-
-
-
 	/**
 	 * Retourne le PanneauBouton2 contenu dans l'instance
 	 * @return le PanneauBouton2 contenu dans l'instance
@@ -258,11 +257,18 @@ public class FenetreRequete extends JFrame{
 		return this.console;
 	}
 
-
+	/**
+	 * Retourne le PanneauDuBas contenu dans cette fenêtre
+	 * @return le PanneauDuBas contenu dans cette fenêtre
+	 */
 	public JPanel getPanneauDuBas(){
 		return this.panneauDuBas;
 	}
-
+	
+	/**
+	 * Retourne le CardLayout utilisé dans cette fenêtre
+	 * @return le CardLayout utilisé dans cette fenêtre
+	 */
 	public CardLayout getCard(){
 		return this.card;
 	}

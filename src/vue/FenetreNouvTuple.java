@@ -9,7 +9,11 @@ import java.util.*;
 import java.sql.*;
 
 /**
- * 
+ * Cette fenêtre s'ouvre lorsque l'on clique sur "Ajouter un Tuple". Elle contient un JTable dont les colonnes sont
+ * les mêmes que la colonne sélectionnée. Un JSpinner indique le nombre de lignes du tableau. Ce JSpinner
+ * va de 1 à 99999. 
+ * <P>L'utilisateur peut remplir le tableau et, lorsqu'il clique sur le bouton "Modifier la table", une requête
+ * d'insertion de tuple, qui insère toutes les lignes du tableau.
  */
 public class FenetreNouvTuple extends JFrame{
 		
@@ -41,6 +45,7 @@ public class FenetreNouvTuple extends JFrame{
 	/**
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
 	 * et les placer dans le panneau.
+	 * @param fp la FenetrePrincipale dont dépend cette fenêtre
 	 */
 	public FenetreNouvTuple(FenetrePrincipale fp){
 		super("Insérer des tuples");
@@ -93,21 +98,37 @@ public class FenetreNouvTuple extends JFrame{
 		this.add(pannBouton, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Retourne le JTable contenu dans cette fenêtre
+	 * @return le JTable contenu dans cette fenêtre
+	 */
 	public JTable getTable() {
 		
 		return this.jTable;
 	}
 	
+	/**
+	 * Retourne le JSpinner indiquant le nombre de lignes du tableau
+	 * @return le JSpinner indiquant le nombre de lignes du tableau
+	 */
 	public JSpinner getNbTupleSpinner() {
 		
 		return this.nbTuple;
 	}
 	
+	/**
+	 * Retourne le bouton contenu dans cette fenêtre
+	 * @return le bouton contenu dans cette fenêtre
+	 */
 	public JButton getModifTableBouton() {
 		
 		return this.modifTable;
 	}
 	
+	/**
+	 * Retourne le DefaultTableModel utilisé par le JTable contenu dans cette fenêtre
+	 * @return le DefaultTableModel utilisé par le JTable contenu dans cette fenêtre
+	 */
 	public DefaultTableModel getDTM() {
 		
 		return this.dTM;

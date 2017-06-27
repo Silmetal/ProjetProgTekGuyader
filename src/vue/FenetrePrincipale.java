@@ -10,10 +10,9 @@ import java.sql.*;
 
 
 /**
- * Cette classe est la classe d'IHM de la fenêtre permettant la connexion à la base de donnée. Trois champs de texte sont présents, demandant
- * à l'utilsiateur son identifiant, son mot de passe et l'adresse de la base. Une fois ces champs remplis, l'utilsateur n'a qu'à cliquer sur le bouton de connexion pour
- * se connecter à la base, si bien sûr aucune erreur de connexion ne survient.
- * <P>Le champs de saisie du mot de passe cache les caractères saisis.
+ * Cette classe est la classe d'IHM de la fenêtre principale, qui permet l'accès aux autre fenêtres et dans laquelle est affichée l'architecture des bases de données et le contenu des tables.
+ * <P>Un bouton permet d'afficher la fenêtre de connexion, et d'autres boutons permettent d'effectuer différentes actions sur la base de données (Ajout/ supression de tuple, table, vue, trigger etc...).
+ * <P>Il y a également un bouton permettant d'accéder à la fenêtre de saisie de requête.
  */
 public class FenetrePrincipale extends JFrame{
 	
@@ -81,7 +80,6 @@ public class FenetrePrincipale extends JFrame{
 	 * Le menu proposant de lire ou écrire une base
 	 */
 	private JPopupMenu baseMenu;
-	
 
 	/**
 	 * L'élément de tupleMenu permettant de créer une nouvelle requete
@@ -159,7 +157,7 @@ public class FenetrePrincipale extends JFrame{
 	private JMenuItem ecrireBase;
 
 	/**
-	 * L'élément de baseMenu permettant de generer son diagramme UML
+	 * L'élément de baseMenu permettant de generer le diagramme UML de la base
 	 */
 	private JMenuItem genererUML;
 	
@@ -177,7 +175,6 @@ public class FenetrePrincipale extends JFrame{
 	 * L'écouteur permettant aux boutons et menus de faire ce qu'ils sont censés faire.
 	 */
 	private EcouteurMouseAdapter monEcouteur;
-	
 	
 	/**
 	 * L'utilisateur qui a instancié cette fenêtre
@@ -400,8 +397,6 @@ public class FenetrePrincipale extends JFrame{
 		}
 	}
 
-
-
 	/**
 	 * Retourne le bouton Nouvelle Requête de l'instance (nouvRequ)
 	 * @return le bouton Nouvelle Requête de l'instance (nouvRequ)
@@ -446,7 +441,6 @@ public class FenetrePrincipale extends JFrame{
 		
 		return this.vue;
 	}
-	
 
 	/**
 	 * Retourne le bouton base de l'instance
@@ -632,7 +626,6 @@ public class FenetrePrincipale extends JFrame{
 	public JMenuItem getGenererUML(){
 		return this.genererUML;
 	}
-
 	
 	/**
 	 * Retourne le JTable de l'instance
