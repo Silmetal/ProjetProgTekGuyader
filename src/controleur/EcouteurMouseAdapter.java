@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.awt.*;
 import java.util.*;
+import java.sql.SQLSyntaxErrorException;
 
 
 /**
@@ -96,7 +97,16 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						
 					}
 					else if(jmi.getName().equals("choisirRequete")){
-						
+						String[] lesCodes = ModifierString.decomposerLigneParLigne(DiskFileExplorer.listDirectory("../prog"));
+						String tuple = (String) JOptionPane.showInputDialog(fp, 
+				        "Quel code voulez vous utilisez?",
+				        "Requete",
+				        JOptionPane.QUESTION_MESSAGE, 
+				        null, 
+				        lesCodes, 
+				        lesCodes[0]);
+						//nouvelleRequete.enleverTuple(tuple,attribut);
+
 					}
 					else if(jmi.getName().equals("nouvTable")){
 						FenetreNouvelleTable fnt = new FenetreNouvelleTable();
@@ -139,10 +149,43 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						nouvelleBase(nouvelleRequete,laBaseSelectionee);
 					}
 					else if(jmi.getName().equals("lireBase")){
-						nouvelleRequete.creerOuModifier(RWFile.readFile("../Lire_Ecrire_Une_Base/base.sql"));
+
+						String file="";
+						JFileChooser filechoose = new JFileChooser();
+						filechoose.setCurrentDirectory(new File("."));  // ouvrir la boite de dialogue dans répertoire courant 
+						filechoose.setDialogTitle("Ouvrir"); // nom de la boite de dialogue 
+						 
+						 
+						String approve = new String("Ouvrir"); // Le bouton pour valider
+						int resultatEnregistrer = filechoose.showDialog(filechoose, approve); 
+						if (resultatEnregistrer == JFileChooser.APPROVE_OPTION){ // Si l’utilisateur clique sur le bouton ouvrir 
+						    file = filechoose.getSelectedFile().getAbsolutePath()+"\\"; // pour avoir le chemin absolu  
+						}
+
+
+						if(!file.equals("")){
+							nouvelleRequete.creerOuModifier(RWFile.readFile(file));
+						}
+
+
+						
 					}
 					else if(jmi.getName().equals("ecrireBase")){
-						laBaseSelectionee.ecrire("../Lire_Ecrire_Une_Base/base.sql");
+						String cheminSauvegarde="";
+						JFileChooser filechoose = new JFileChooser();
+						filechoose.setCurrentDirectory(new File("."));  
+						filechoose.setDialogTitle("Enregistrer sous"); 
+						 
+						//filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+						 
+						String approve = new String("Enregistrer"); 
+						int resultatEnregistrer = filechoose.showDialog(filechoose, approve); 
+						if (resultatEnregistrer == JFileChooser.APPROVE_OPTION){
+						    cheminSauvegarde = filechoose.getSelectedFile().getAbsolutePath();
+						    cheminSauvegarde = cheminSauvegarde +".sql";
+						    laBaseSelectionee.ecrire(cheminSauvegarde);
+						}
+						
 					}
 					else if(jmi.getName().equals("genererUML")){
 						genererUML(laBaseSelectionee);
@@ -153,7 +196,8 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 					}
 				}
 				catch(SQLException se){
-					se.printStackTrace();
+					fp.getConsole().setText(se.getMessage());
+					
 				}
 				catch(Exception ex){
 					ex.printStackTrace();

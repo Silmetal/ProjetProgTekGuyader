@@ -164,12 +164,12 @@ public class Requete {
 	 * @throws Exception si une autre erreur empêche le retrait de la table
 	 */
 	public int enleverTable(String table) throws SQLException,Exception {
-		int ret=0;
+		int ret=-1;
 		
 		System.out.println(table);
 		ret = (int)manuel("DROP TABLE "+table+";")[2];
 		System.out.println("bip");
-		if(ret==0) ret = (int)manuel("DROP VIEW "+table+";")[2];
+		if(ret==-1) ret = (int)manuel("DROP VIEW "+table+";")[2];
 		
 		
 		return ret;
