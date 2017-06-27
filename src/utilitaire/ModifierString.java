@@ -63,6 +63,12 @@ public class ModifierString {
 	}
 
 
+	public static String remplacerUnCaractere(String base,char ancien,char nouveau){
+		String ret = base.replace(ancien,nouveau);
+		return ret;
+	}
+
+
 /*	public static String supprimerEntreDeuxMots(String base,String mot1,String mot2){
 		String ret = base;
 		ret = ret.substring(ret.indexOf(mot1)+mot1.length(),ret.indexOf(mot2)-1);

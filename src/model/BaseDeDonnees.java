@@ -418,8 +418,7 @@ public class BaseDeDonnees {
 			ArrayList<String> res2 = (ArrayList<String>)nouvelleRequete.retournerResultSet(rs,false)[0];
 			//for (String str : res2){
 			for (int i=1;i<res2.size();i=i+2) {
-				/*String str2 = str;
-				str2=ModifierString.supprimerExtrait(str2,s);*/
+				String modif = ModifierString.remplacerUnCaractere(res2.get(i),'`','\'');
 				ret = ret +"\n\n"+ res2.get(i)+";";
 			}
 		}
