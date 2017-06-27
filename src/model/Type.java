@@ -12,7 +12,6 @@ public enum Type{
 	BIGINT,
 	FLOAT,
 	DOUBLE,
-	DOUBLE PRECISION,
 	REAL,
 	DECIMAL,
 	NUMERIC,
