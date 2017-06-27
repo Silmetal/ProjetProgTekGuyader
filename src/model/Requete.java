@@ -107,14 +107,8 @@ public class Requete {
 	 public int ajouterTable(String nomTable, ArrayList<Attribut> listeAttribut) throws SQLException,Exception {			
 		int ret = 0;
 		boolean premiereClePrimaire = true;
-	 	try{
-	 		manuel("DROP TABLE "+nomTable);
-	 	}
-	 	catch (SQLException se){
-	 	}
-	 	catch (Exception e){
-	 	}
-		
+	 	
+		manuel("DROP TABLE "+nomTable+";");
 		String requete = "CREATE TABLE "+nomTable+"(\n";
 		
 		for(Attribut monAtt : listeAttribut){
@@ -155,35 +149,11 @@ public class Requete {
 		}
 		
 		System.out.println(requete);
-		ret = creerOuModifier(requete);
+		ret = (int)(manuel(requete))[2];
 		return ret;
 	 }
+
 	
-	/** 
-	  * Intègre à l'attribut state la commande SQL permettant d'ajouter un tuple à la table précisée par l'utilisateur, puis exécute cette requête.
-	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	  */
-	public int ajouterTuple() {
-		return 0;
-	}
-	
-	/**
-	  * Intègre à l'attribut state la commande SQL permettant d'ajouter un trigger à la table précisée par l'utilisateur, puis exécute cette requête.
-	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	  */
-	public int ajouterTrigger() {
-		
-		 return 0;
-	}
-	
-	 /**
-	 * Intègre à l'attribut state la commande SQL permettant d'ajouter une vue à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.
-	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 */
-	public int ajouterVue() {
-		
-		return 0;
-	}
 	
 	/**
 	 * Intègre à l'attribut state la commande SQL permettant de supprimer une nouvelle table à la base de données à laquelle l'utilisateur, puis exécute cette requête.
@@ -193,14 +163,14 @@ public class Requete {
 	 * @throws Exception si une autre erreur empêche le retrait de la table
 	 */
 	public int enleverTable(String table) throws SQLException,Exception {
-		int ret;
+		int ret=0;
 		
-		try {
-			ret = (int)manuel("DROP TABLE "+table)[2];
-		}
-		catch (SQLException sqle) {
-			ret = (int)manuel("DROP IF EXISTS VIEW "+table)[2];
-		}
+		System.out.println(table);
+		ret = (int)manuel("DROP TABLE "+table+";")[2];
+		System.out.println("bip");
+		if(ret==0) ret = (int)manuel("DROP VIEW "+table+";")[2];
+		
+		
 		return ret;
 	}
 	

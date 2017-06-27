@@ -4,12 +4,15 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.sql.*;
 import java.util.*;
+import java.lang.*;
 
 
 public class RequeteTest{
 
 	private Requete uneRequete;
 	private Requete uneRequeteBase;
+	BaseDeDonnees maBase;
+	Connection connexion;
 
 	public RequeteTest(){
 		
@@ -17,13 +20,13 @@ public class RequeteTest{
 
 
 
-	@Before()
+	@Before
 	public void miseEnPlace(){		
 		try{
-			BaseDeDonnees maBase = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/TestUnitaire"+"?allowMultiQueries=true","admin", "iutvannes","TestUnitaire");
-			Connection connexion = maBase.getConnection();
-			Requete uneRequete = new Requete(connexion,"","");
-			Requete uneRequeteBase = new Requete(connexion,"TestUnitaire","");
+			maBase = new BaseDeDonnees("jdbc:mysql://vps.arthurguyader.fr:3306/TestUnitaire"+"?allowMultiQueries=true","admin", "iutvannes","TestUnitaire");
+			connexion = maBase.getConnection();
+			uneRequete = new Requete(connexion,"","");
+			uneRequeteBase = new Requete(connexion,"TestUnitaire","");
 		}
 		catch(Exception e){}
 	}
@@ -43,6 +46,8 @@ public class RequeteTest{
 
 	@Test()
 	public void testManuelEtRetourneResultSet(){
+	
+
 		try{
 			Object[] valeurs = uneRequeteBase.manuel("SELECT valeurTest FROM TableTest");
 			Assert.assertTrue((boolean) valeurs[0]);
@@ -57,8 +62,8 @@ public class RequeteTest{
 
 			Assert.assertTrue(lesCol.get(0).equals("valeurTest"));
 
-			Assert.assertTrue(lesVal.get(0).equals(1));
-			Assert.assertTrue(lesVal.get(1).equals(3));
+			Assert.assertTrue(lesVal.get(0).equals("1"));
+			Assert.assertTrue(lesVal.get(1).equals("3"));
 
 		}
 		catch(Exception e){
@@ -66,16 +71,46 @@ public class RequeteTest{
 	}
 
 
+	//Impossible de faire fonctionner ce test a cause des exceptions qui se créent
+
 	@Test()
 	public void testAjouterSupprimerTable(){
+
 		try{
 			ArrayList<Attribut> liste = new ArrayList<Attribut>();
 			Attribut att = new Attribut("var", Type.INT, 4, false,  false, true, false, "","");
+			Attribut att2 = new Attribut("var2", Type.INT, 4, false,  false, false, false, "","");
 			liste.add(att);
+			liste.add(att2);
 			uneRequeteBase.ajouterTable("NouvelleTable",liste);
+			
+			ArrayList<String> lesTables = maBase.parcourirBase();
+			boolean presence=false;
+			for (String s : lesTables) {
+				System.out.println(s);
+				if(s.equals("NouvelleTable")) {
+					presence=true;
+				}
+			}
+			
+			Assert.assertTrue(presence);
+
+
+			uneRequeteBase.enleverTable("NouvelleTable");
+
+			lesTables = maBase.parcourirBase();
+			presence=false;
+			for (String s : lesTables) {
+				if(s.equals("NouvelleTable")) {
+					presence=true;
+				}
+			}
+
+			Assert.assertFalse(presence);
 			
 		}
 		catch(Exception e){
+		
 		}
 	}
 
