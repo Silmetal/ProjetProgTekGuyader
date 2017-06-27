@@ -1,5 +1,5 @@
 Testsuite: test.RequeteTest
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2,492 sec
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1,159 sec
 
 ------------- Standard Error -----------------
 com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown table 'NouvelleTable'

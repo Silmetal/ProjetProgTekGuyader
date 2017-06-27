@@ -139,7 +139,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						nouvelleBase(nouvelleRequete,laBaseSelectionee);
 					}
 					else if(jmi.getName().equals("lireBase")){
-
+						nouvelleRequete.creerOuModifier(RWFile.readFile("../Lire_Ecrire_Une_Base/base.sql"));
 					}
 					else if(jmi.getName().equals("ecrireBase")){
 						laBaseSelectionee.ecrire("../Lire_Ecrire_Une_Base/base.sql");

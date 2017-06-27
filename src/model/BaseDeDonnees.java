@@ -408,6 +408,7 @@ public class BaseDeDonnees {
 	 */
 	public String ecrireCreationDeTable() throws Exception, SQLException{
 		String ret="";
+		String sep ="";
 
 		ArrayList<String> lesTables = this.parcourirBase();
 				
@@ -418,7 +419,7 @@ public class BaseDeDonnees {
 			ArrayList<String> res2 = (ArrayList<String>)nouvelleRequete.retournerResultSet(rs,false)[0];
 			//for (String str : res2){
 			for (int i=1;i<res2.size();i=i+2) {
-				String modif = ModifierString.remplacerUnCaractere(res2.get(i),'`','\'');
+				String modif = ModifierString.supprimerExtrait(res2.get(i),"`");
 				ret = ret +"\n\n"+ modif+";";
 			}
 		}

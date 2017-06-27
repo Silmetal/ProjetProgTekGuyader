@@ -18,6 +18,11 @@ class Espece {
 	nom_latin : varchar 40 NN UQ
 	description : text,
 	prix : decimal 7,2
+	id : smallint 6 [1]
+	nom_courant : varchar 40 NN
+	nom_latin : varchar 40 NN UQ
+	description : text,
+	prix : decimal 7,2
 }
 
 class Race {
@@ -30,6 +35,15 @@ class Race {
 	utilisateur_insertion : varchar 20
 	date_modification : datetime
 	utilisateur_modification : varchar 20
+}
+
+class TableDeuxCle {
+	val : int 4 [1]
+	cle2 : int 8 [1]
+}
+
+class TableDeuxPrim {
+	cle1 : int 4 [1]
 }
 
 class devise {
@@ -56,7 +70,7 @@ class zetzer {
 	c : int 2
 }
 
-nouvelle "*" -- "0..1"   nv2Table : ref
+nouvelle "*" -- "0..1" nv2Table : ref
 
 
 @enduml
