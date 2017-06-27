@@ -142,7 +142,7 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 
 					}
 					else if(jmi.getName().equals("ecrireBase")){
-						System.out.println(laBaseSelectionee.ecrireCreationDeTable());
+						laBaseSelectionee.ecrire("../Lire_Ecrire_Une_Base/base.sql");
 					}
 					else if(jmi.getName().equals("genererUML")){
 						genererUML(laBaseSelectionee);
