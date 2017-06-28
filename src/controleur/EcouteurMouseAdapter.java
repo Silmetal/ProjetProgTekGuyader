@@ -300,6 +300,10 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						fp.getPanneauGauche().constructionJTree();
 					}
 				}
+				catch (ArrayIndexOutOfBoundsException aib){
+					JOptionPane jop2 = new JOptionPane();
+					jop2.showMessageDialog(null, "Vous n'avez pas selectionné une base de données", "Attention", JOptionPane.WARNING_MESSAGE);
+				}
 				catch(SQLException se){
 					fp.getConsole().setText(se.getMessage());
 					
