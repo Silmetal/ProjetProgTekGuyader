@@ -87,12 +87,14 @@
   	</target>
 
 
-
 	<target name="jar" depends="test">
 		<mkdir dir="${exe}"/>
-		<jar destfile="${exe}/HelloWorld.jar" basedir="${class}">
+		<jar destfile="${exe}/Lanceur.jar" 
+			basedir="${class}"
+			includes = "*"
+			excludes = "test">
 			<manifest>
-				<attribute name="Main-Class" value="BaseDeDonnees"/>
+				<attribute name="Main-Class" value="launcher.Launcher"/>
 			</manifest>
 		</jar>
 	</target>

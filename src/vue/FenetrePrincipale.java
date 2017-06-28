@@ -415,7 +415,7 @@ public class FenetrePrincipale extends JFrame{
 
 			}
 			catch(Exception e){
-
+				e.printStackTrace();
 			}
 		}
 	}
