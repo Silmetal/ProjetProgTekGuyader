@@ -16,7 +16,10 @@ public class ModificationJTree extends DefaultTreeCellRenderer implements TreeCe
         label = new JLabel();
     }
 
-	
+	/** Cette méthode permet de définir la valeur par défault de nos label placés dans le JTree.
+      * C'est une méthode qui redefinit la méthode de DefaultTreeCellRenderer 
+      *
+      */
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded,
                                                   boolean leaf, int row, boolean hasFocus) {
         label =(JLabel) super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);

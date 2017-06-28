@@ -1,5 +1,6 @@
 package controleur;
 import java.util.*;
+import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.event.*;
 import model.*;
@@ -28,6 +29,7 @@ public class EcouteurFenetreUtilisateur implements ActionListener {
 	 * @param table La table séléctionnée
 	 */
 	public EcouteurFenetreUtilisateur(FenetreNouvelUtilisateur fu,BaseDeDonnees uneBaseDeDonnees,String table){
+		
 		this.uneBaseDeDonnees = uneBaseDeDonnees;
 		this.table = table;
 		if(this.table.equals("")) this.table="*";
@@ -41,6 +43,8 @@ public class EcouteurFenetreUtilisateur implements ActionListener {
 	 * <P> Si les informations sont incorrectes, affiche un message d'erreur.
 	 */
 	public void actionPerformed(ActionEvent e){
+		JOptionPane jop3 = new JOptionPane();
+
 		int num=0;
 		if(!(fu.getJtf1().getText().equals("") || String.valueOf(fu.getJpf2().getPassword()).equals("")) && (fu.getJrb1().isSelected() || fu.getJrb2().isSelected())){
 
@@ -52,14 +56,16 @@ public class EcouteurFenetreUtilisateur implements ActionListener {
 				fu.dispose();
 			}
 			catch(SQLException se){
-				
+				jop3.showMessageDialog(null, "Erreur", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 			catch(Exception ex){
-	
+				jop3.showMessageDialog(null, "Erreur", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		else{
-			System.out.println("Des champs ne sont pas remplis");
+
+			
+			jop3.showMessageDialog(null, "Toutes les informations n'ont pas été saisies", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
 	}
  }
