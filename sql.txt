@@ -1,7 +1,0 @@
-mysql> use projet
-Database changed
-mysql> GRANT ALL PRIVILEGES ON projet.* TO 'admin'@'%' IDENTIFIED BY 'admin';
-Query OK, 0 rows affected (0.01 sec)
-
-mysql> FLUSH PRIVILEGES;
-Query OK, 0 rows affected (0.00 sec)

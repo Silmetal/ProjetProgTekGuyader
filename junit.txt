@@ -1,2 +1,0 @@
-http://www.objis.com/formation-java/tutoriel-ant-automatiser-tests-unitaires.html
-https://github.com/junit-team/junit4/wiki/Getting-started-%E2%80%93-Ant
