@@ -108,7 +108,7 @@ public class Requete {
 		int ret = 0;
 		boolean premiereClePrimaire = true;
 	 	
-		manuel("DROP TABLE "+nomTable+";");
+		manuel("DROP TABLE IF EXISTS "+nomTable+";");
 		String requete = "CREATE TABLE "+nomTable+"(\n";
 		
 		for(Attribut monAtt : listeAttribut){
