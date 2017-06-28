@@ -374,17 +374,11 @@ public class BaseDeDonnees {
 	 * @param nomUtilis l'identifiant de l'utilisateur à supprimer
 	 * @throws SQLException si l'utilisateur ne peut pas être supprimé à cause d'une erreur SQL
 	 */
-	public void supprimerUtilisateur(String nomUtilis) throws SQLException{
+	public void supprimerUtilisateur(String nomUtilis) throws SQLException, Exception{
 		
-		PreparedStatement supprimerUtilisateur = null;
+		Requete supprimerUtilisateur = new Requete(connexion,"","");
 		
-		try {
-			supprimerUtilisateur = connexion.prepareStatement("DROP USER IF EXISTS ?;");
-			supprimerUtilisateur.setString(1,nomUtilis);
-		}
-		catch(SQLException se) {
-			throw se;
-		}
+		supprimerUtilisateur.manuel("DROP USER '"+nomUtilis+"';");
 	}
 	
 	/**
