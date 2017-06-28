@@ -202,7 +202,26 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						nouvelleBase(nouvelleRequete,laBaseSelectionee);
 					}
 					else if (jmi.getName().equals("supprimerBase")) {
-						
+					
+						String motDePasse="";
+						JPanel panel = new JPanel();
+						JLabel label = new JLabel("Entrer le mot de passe associé à la base de données : "+laBaseSelectionee.getNomDeLaBase());
+						JPasswordField pass = new JPasswordField(10);
+						panel.add(label);
+						panel.add(pass);
+						String[] options = new String[]{"Ok", "Quitter"};
+						int option = JOptionPane.showOptionDialog(null, panel, "Mot De Passe",
+						                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+						                         null, options, options[1]);
+						if(option == 0) // pressing OK button
+						{
+						    char[] password = pass.getPassword();
+						    motDePasse = new String(password);
+						}
+
+						lUtilisateur.supprimerBaseDeDonnees(motDePasse,nouvelleRequete);
+
+
 					}
 					else if(jmi.getName().equals("lireBase")){
 
@@ -247,6 +266,29 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 						FenetreNouvelUtilisateur fnu = new FenetreNouvelUtilisateur("Création d'un nouvel utilisateur",laBaseSelectionee,laTableSelectionee,fp);
 					}
 					else if (jmi.getName().equals("supprimerUtilisateur")) {
+						nouvelleRequete.manuel("use mysql;");
+			
+						ResultSet rs =(ResultSet) nouvelleRequete.manuel("SELECT user FROM user;")[1];
+						Object[] res = nouvelleRequete.retournerResultSet(rs,false);
+						ArrayList<String> lesValeurs = (ArrayList<String>)res[0];
+						String [] lesValeursTab = new String[lesValeurs.size()];
+						for(int i=0;i<lesValeurs.size();i++){
+							lesValeursTab[i]=lesValeurs.get(i);
+						}
+
+						String lUtilisateur = (String) JOptionPane.showInputDialog(fp, 
+				        "Quelle utilisateur voulez vous supprimer?",
+				        "Utilisateur",
+				        JOptionPane.QUESTION_MESSAGE, 
+				        null, 
+				        lesValeursTab, 
+				        lesValeursTab[0]);
+
+						nouvelleRequete.manuel("use "+laBaseSelectionee.getNomDeLaBase()+";");
+
+
+
+						laBaseSelectionee.supprimerUtilisateur(lUtilisateur);
 						
 					}
 

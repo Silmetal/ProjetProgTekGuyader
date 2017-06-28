@@ -220,6 +220,7 @@ public class Requete {
 	}
 
 
+
 	// ret[0] = Les valeurs   -   ret[1] = lesColonnes
 	public static Object[] retournerResultSet(ResultSet rs,boolean nEstPasUnSelect) throws SQLException,Exception{
 		ArrayList<String> lesNomdeColonnes = new ArrayList<String>();
