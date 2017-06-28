@@ -1,3 +1,0 @@
-CREATE TABLE TEST(
-	var NUMBER(4);
-)

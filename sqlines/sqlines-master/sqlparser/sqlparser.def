@@ -1,8 +1,0 @@
-LIBRARY
-EXPORTS
-	CreateParserObject
-	SetParserTypes
-	SetParserOption
-	ConvertSql
-	FreeOutput
-    CreateAssessmentReport

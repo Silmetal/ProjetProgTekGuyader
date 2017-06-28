@@ -2,11 +2,15 @@ package launcher;
 import model.*;
 import vue.*;
 
-public class Launcher {
+public class Launcher2 {
 
 	public static void main(String[] args){
+		
 
-		//FenetreNouvEtModifTuple fnmt = new FenetreNouvEtModifTuple();
+
+		FenetrePrincipale fen = new FenetrePrincipale();
+		FenetreConnexion fenConnexion = new FenetreConnexion(fen.getUtilisateur(),fen, 1);
+
 	
 	}
 }
