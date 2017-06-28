@@ -1,5 +1,5 @@
 Testsuite: test.RequeteTest
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1,321 sec
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1,832 sec
 
 ------------- Standard Output ---------------
 CREATE TABLE NouvelleTable(

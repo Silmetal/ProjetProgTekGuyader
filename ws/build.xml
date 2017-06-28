@@ -91,7 +91,7 @@
 		<mkdir dir="${exe}"/>
 		<jar destfile="${exe}/Lanceur.jar" 
 			basedir="${class}"
-			includes = "*"
+			includes = "*/*.class"
 			excludes = "test">
 			<manifest>
 				<attribute name="Main-Class" value="launcher.Launcher"/>
