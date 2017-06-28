@@ -162,17 +162,11 @@ public class Requete {
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
 	 * @throws Exception si une autre erreur empêche le retrait de la table
 	 */
-	public int enleverTable(String table) throws Exception {
+	public int enleverTable(String table) throws Exception, SQLException {
+		
 		int ret=-1;
 		
-		try{
-			ret = (int)manuel("DROP TABLE "+table+";")[2];
-		}
-		catch(SQLException se){
-			ret = (int)manuel("DROP VIEW "+table+";")[2];
-		}
-		
-		
+		ret = (int)manuel("DROP TABLE "+table+";")[2];
 		
 		return ret;
 	}
