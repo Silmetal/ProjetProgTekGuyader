@@ -93,9 +93,6 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 							FenetreRequete fenRequete = new FenetreRequete("Requete",lUtilisateur.getLesBasesDeDonnees().get(lUtilisateur.getSelection()).getConnection(),fp);
 						}
 					}
-					else if(jmi.getName().equals("progRequete")){
-						
-					}
 					else if(jmi.getName().equals("choisirRequete")){
 						ArrayList<String> cache = new ArrayList<String>();
 						String[] lesCodesValid;
@@ -509,7 +506,6 @@ public class EcouteurMouseAdapter extends MouseAdapter {
 		fp.getPanneauGauche().getBoutonConnexion().addMouseListener(this);
 
 		fp.getNouvRequete().addMouseListener(this);
-		fp.getProgRequete().addMouseListener(this);
 		fp.getChoisirRequete().addMouseListener(this);
 		fp.getNouvTable().addMouseListener(this);
 		fp.getSupprTable().addMouseListener(this);

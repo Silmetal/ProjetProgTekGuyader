@@ -87,11 +87,6 @@ public class FenetrePrincipale extends JFrame{
 	private JMenuItem nouvRequete;
 	
 	/**
-	 * L'élément de tupleMenu permettant de programmer une requete
-	 */
-	private JMenuItem progRequete;
-	
-	/**
 	 * L'élément de tupleMenu permettant de choisir une requete
 	 */
 	private JMenuItem choisirRequete;
@@ -251,8 +246,6 @@ public class FenetrePrincipale extends JFrame{
 		
 		nouvRequete = new JMenuItem("Créer une nouvelle requete");
 		nouvRequete.setName("nouvRequete");
-		progRequete = new JMenuItem("Programmer une nouvelle requete");
-		progRequete.setName("progRequete");
 		choisirRequete = new JMenuItem("Choisir une requete programmée");
 		choisirRequete.setName("choisirRequete");
 		nouvTable = new JMenuItem("Créer une nouvelle table");
@@ -292,7 +285,6 @@ public class FenetrePrincipale extends JFrame{
 		
 		
 		requeteMenu.add(nouvRequete);
-		requeteMenu.add(progRequete);
 		requeteMenu.add(choisirRequete);
 
 		tableMenu.add(nouvTable);
@@ -536,14 +528,6 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	public JMenuItem getNouvRequete(){
 		return this.nouvRequete;
-	}
-
-	/**
-	 * Retourne le JMenuItem programmer requete de l'instance
-	 * @return le JMenuItem prog requete de l'instance
-	 */
-	public JMenuItem getProgRequete(){
-		return this.progRequete;
 	}
 
 	/**

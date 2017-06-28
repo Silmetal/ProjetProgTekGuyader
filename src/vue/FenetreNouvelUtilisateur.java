@@ -33,6 +33,7 @@ public class FenetreNouvelUtilisateur extends JFrame{
 		this.setSize(300,200);
 		this.setVisible(true);
 		this.fp = fp;
+		this.getRootPane().setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		EcouteurFenetreUtilisateur ecouteur = new EcouteurFenetreUtilisateur(this,bd,table);
 	}
 
