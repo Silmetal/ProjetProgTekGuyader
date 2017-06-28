@@ -5,6 +5,134 @@ Gestionnaire de base
      de données
 --------------------
 
+     Demarrage
+.....................
+
+L'exécutable .jar ainsi que toute l'application sont construient à partir du fichier build.xml executable avec ant.
+
+L'application peut être lancé manuellement grâce à la commande java launcher.Launcher depuis le dossier ws.
+
+--- Attention ---
+
+Pour utiliser la commande "Générer diagramme de classe" sur une Base de données, il est nécessaire d'installer
+l'application Graphviz :
+
+- Windows : L'installateur se situe dans le dossier UML/graphviz-2.38.msi , il suffit d'executer le programme.
+- MacOS : De la meme façon dans le dossier UML/Installation/MacOS cependant cette fois il existe différentes versions
+mais un fichier Version.txt permet de savoir lequel installer.
+- Linux : Le nombre de fichier étant trop important et varié, nous vous recommandons de vous rendre à l'adresse suivante
+afin de télécharger le bon fichier : http://www.graphviz.org/Download..php
 
 
-L'exécutable .jar ainsi que toutes l'application gestionnaire de base de données
+
+     Utilisation
+.....................
+
+Pour commencer à utiliser le logiciel, il faut se connecter à une base de données (mySql)
+Exemple d'adresse : jdbc:mysql://vps.arthurguyader.fr:3306/
+
+
+Une fois connecté au serveur, il est possible de parcourir les bases de données du serveur et leurs tables
+et d'afficher leur contenu dans le tableau de droite.
+
+
+
+1 - Requete
+
+	a) Créer une nouvelle requete
+
+		Cette commande permet d'ouvrir une fenetre qui permet de taper des requetes, de les enregistrer, d'ouvrir un fichier
+		et de les lancer.
+
+	b) Choisir une requete programée
+		
+		Cette commande permet de lancer des requetes qui ont déjà été programmé par le developpeur de votre entreprise ou par
+		vous même et de les trouver facilement (elles se trouvent dans le dossier prog)
+
+2- Table
+
+	a) Créer une nouvelle table
+
+		Ce bouton permet de créer une nouvelle table. Une fenetre sera ouverte et il sera nécessaire de compléter de la 
+		bonne facon cette page pour créer la table.
+
+	b) Supprimer une table
+
+		Cette commande permet de supprimer une table. Une popup demandera la table qu'il faut supprimer.
+
+3- Tuple
+
+	a) Ajouter un tuple
+
+		Cette commande permet d'ajouter un tuple à la base et la table séléctionnée. Une fenetre sera ouverte
+		il faudra alors remplir correctement les cases du tableau.
+
+	b) Modifier des tuple
+	
+		Cette commande permet de modifier les valeurs déjà présentes dans le tableau.
+	
+	c) Retirer un tuple
+
+		Cette commande permet de retirer un tuple grâce à sa clé primaire.
+
+
+4- Trigger
+
+	a) Créer un nouveau Trigger de ligne
+
+		Cette commande permet d'ouvrir une fenetre de requete avec un trigger de ligne partiellement généré.
+
+	b) Créer un nouveau Trigger de table		
+
+		Cette commande permet d'ouvrir une fenetre de requete avec un trigger de table partiellement généré.
+
+	c) Supprimer un Trigger
+
+		Cette commande propose à l'utilisateur de supprimer un Trigger de la base selectionnée.
+
+5 - Vue
+
+	a) Créer une nouvelle vue	
+
+		Cette commande permet d'ouvrir une fenetre de requete avec une vue partiellement générée.
+
+	b) Supprimer une Vue
+
+		Cette commande propose à l'utilisateur de supprimer une Vue de la base selectionnée.
+
+
+6 - Base
+
+	a) Nouvelle base
+
+		Cette commande permet de créer une nouvelle base de données sur le même serveur que la base séléctionnée,
+		il est cependant nécéssaire de connaitre le mot de passe de la base séléctionnée pour vérifier les droits
+
+	b) Supprimer une base
+
+		Cette commande permet de supprimer une base de données à laquelle l'utilisateur est déjà connécté.
+		Un mot de passe et demander pour confirmer la supression de la base.
+
+	c) Ecrire la base dans un fichier
+
+		Cette commande permet de générer la structure d'une base de données et de l'écrire dans un fichier au choix.
+
+	d) Lire la base dans un fichier
+
+		Cette commande permet de créer une base de données entière si le fichier est correct.
+
+	e) Générer le diagramme UML
+
+		Cette commande permet de générer le diagramme UML de la base séléctionnée.
+		Il est cependant nécéssaire d'avoir installer Graphviz (voir Demmarage).
+	
+	f) Nouvel utilisateur
+
+		Cette commande permet de créer un nouvel utilisateur. Il existe deux types d'utilisateur :
+		Le super utilisateur et les droits en GRANT.
+
+	g) Supprimer utilisateur
+
+		Cette commande permet de supprimer un utilisateur.
+
+
