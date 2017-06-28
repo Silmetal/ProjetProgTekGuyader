@@ -86,12 +86,14 @@ public class FenetreRequeteProg extends JFrame{
 
 
 	/**
-	 * Le constructeur de la classe. Créée une nouvelle fenêtre avec le titre passé en paramètre, puis mets en place les éléments et définit la taille et la visibilité.
-	 * Initialise également son attribut fp avec la FenetrePrincipale passée en paramètre, et son écouteur avec la Connection passée en paramètre.
+	 * Le constructeur de la classe. Crée une nouvelle fenêtre avec le titre passé en paramètre, puis mets en place les éléments et définit la taille et la visibilité.
+	 * Initialise également son attribut fp avec la FenetrePrincipale passée en paramètre, et son écouteur avec la Connection passée en paramètre. Dans ce constructeur
+	 * la requete est executée directement.
 	 * @param titre le titre de la fenêtre
 	 * @param maConnexion la Connection associée à la fenêtre
 	 * @param fp la FenetrePrincipale dont dépend cette fenêtre
 	 * @param requete la requete a executer
+	 * @param executer Le constructeur execute la requete passer en paramètre
 	 */
 	public FenetreRequeteProg(String titre, Connection maConnexion,FenetrePrincipale fp,String requete,boolean executer){
 		super(titre);

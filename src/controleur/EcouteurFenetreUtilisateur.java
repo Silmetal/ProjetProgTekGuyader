@@ -24,6 +24,8 @@ public class EcouteurFenetreUtilisateur implements ActionListener {
 	/**
 	 * Le constructeur de la classe. Initialise ses attributs avec les paramètres.
 	 * @param fu la FenetreNouvelUtilisateur à écouter
+	 * @param uneBaseDeDonnees La Base De Donnee selectionnée
+	 * @param table La table séléctionnée
 	 */
 	public EcouteurFenetreUtilisateur(FenetreNouvelUtilisateur fu,BaseDeDonnees uneBaseDeDonnees,String table){
 		this.uneBaseDeDonnees = uneBaseDeDonnees;

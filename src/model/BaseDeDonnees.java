@@ -269,7 +269,7 @@ public class BaseDeDonnees {
 	 * @param tablePrimaire la clé primaire de la table passée en paramètre
 	 * @return une ArrayList contenant les noms de toutes les valeurs de l'attribut passé en paramètre
 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
-	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
 	public ArrayList<String> parcourirAttribut(String attribut,String table, String tablePrimaire) throws SQLException, Exception{
 		ArrayList<String> ret = new ArrayList<String>();
@@ -312,9 +312,12 @@ public class BaseDeDonnees {
 	 * <P>- Le sixième objet est un boolean indiquant si l'attribut est une clé primaire
 	 * @param table le nom de la table contenant l'attribut dont on récupère les infos
 	 * @param attribut le nom de l'attribut dont on récupère les infos
+ 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @return Object[] --  [0] true si non null -- [1] true si unique --[2] type -- [3] Ref. Table -- [4] Ref. Attribut -- [5] true si clé primaire
 	 */
 	public Object[] recupererInfo(String table,String attribut) throws Exception,SQLException{
-		Object[] ret = new Object[6]; // [0] true si non null -- [1] true si unique --[2] type -- [3] Ref. Table -- [4] Ref. Attribut -- [5] true si clé primaire
+		Object[] ret = new Object[6];
 		ret[0] =false;
 		ret[1] = false;
 		ret[2] =""; 
@@ -372,7 +375,8 @@ public class BaseDeDonnees {
 	/**
 	 * Supprime de la base de données l'utilisateur dont l'identifiant est passé en paramètre
 	 * @param nomUtilis l'identifiant de l'utilisateur à supprimer
-	 * @throws SQLException si l'utilisateur ne peut pas être supprimé à cause d'une erreur SQL
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
 	public void supprimerUtilisateur(String nomUtilis) throws SQLException, Exception{
 		
@@ -386,8 +390,8 @@ public class BaseDeDonnees {
 	 * Le fichier contiendra toutes les requêtes SQL nécessaires pour créer une nouvelle base de données
 	 * identique à celle à laquelle l'utilsiateur est connecté.
 	 * @param fileName le nom du fichier crée
-	 * @throws SQLException si une erreur SQL empêche l'écriture de la base  
-	 * @throws Exception si une autre erreur empêche l'écriture de la base
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
 	public void ecrire(String fileName) throws Exception,SQLException{
 		String res = ecrireCreationDeTable();
@@ -398,6 +402,8 @@ public class BaseDeDonnees {
 	/**
 	 * Construit un String contenant les requêtes nécéssaires à recréer les tables de la base de données.
 	 * En revanche, les tables sont vides : le contenu des tables n'est pas écrit.
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 * @return un string contenant les requêtes SQL pemeetant de recréer les tables de la base 
 	 */
 	public String ecrireCreationDeTable() throws Exception, SQLException{

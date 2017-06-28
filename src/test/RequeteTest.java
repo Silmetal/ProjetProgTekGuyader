@@ -41,8 +41,7 @@ public class RequeteTest{
 		catch(Exception e){
 		}
 	}
-
-
+	
 
 	@Test()
 	public void testManuelEtRetourneResultSet(){

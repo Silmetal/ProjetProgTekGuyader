@@ -160,7 +160,8 @@ public class Requete {
 	 * Intègre à l'attribut state la commande SQL permettant de supprimer une nouvelle table à la base de données à laquelle l'utilisateur, puis exécute cette requête.
 	 * @param table la table à enlever
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
-	 * @throws Exception si une autre erreur empêche le retrait de la table
+	 * @throws SQLException si une erreur SQL empêche le retrait du tuple
+	 * @throws Exception si une autre erreur empêche le retrait du tuple
 	 */
 	public int enleverTable(String table) throws Exception, SQLException {
 		
@@ -195,7 +196,10 @@ public class Requete {
 	
 	/**
 	  * Intègre à l'attribut state la commande SQL permettant de supprimer un trigger de la base de données à laquelle l'utilisateur, puis exécute cette requête.
+	  * @param trigger Le trigger qui doit être supprimé
 	  * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	  * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	  * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	  */
 	public int enleverTrigger(String trigger) throws SQLException,Exception{
 		int ret=-1;
@@ -205,7 +209,10 @@ public class Requete {
 	
 	/**
 	 * Intègre à l'attribut state la commande SQL permettant de supprimer une vue à la base de données à laquelle l'utilisateur est connecté, puis exécute cette requête.4
+	 * @param vue La vue qui doit être supprimée
 	 * @return le nombre de ligne insérées et/ou modifiées et/ou supprimées
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
 	public int enleverVue(String vue) throws SQLException,Exception{
 		int ret = -1;
@@ -214,8 +221,15 @@ public class Requete {
 	}
 
 
+	/**
+	 * Permet de traiter un resultSet que ce soit une méthode Select ou non
+	 * @param rs Le ResultSet qui doit être traité
+	 * @param nEstPasUnSelect False si la requete est un Select - True sinon
+	 * @return ret[0] = Les valeurs - ret[1] = lesColonnes
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 */
 
-	// ret[0] = Les valeurs   -   ret[1] = lesColonnes
 	public static Object[] retournerResultSet(ResultSet rs,boolean nEstPasUnSelect) throws SQLException,Exception{
 		ArrayList<String> lesNomdeColonnes = new ArrayList<String>();
 		ArrayList<String> lesValeurs = new ArrayList<String>();
