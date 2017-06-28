@@ -2,7 +2,7 @@ package launcher;
 import model.*;
 import vue.*;
 
-public class Launcher2 {
+public class Launcher {
 
 	public static void main(String[] args){
 		
