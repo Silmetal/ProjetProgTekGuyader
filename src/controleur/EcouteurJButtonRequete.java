@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import java.sql.*;
+import java.util.*;
+import javax.swing.tree.*;
 
 /**
 * Cette classe est l'écouteur des boutons de la classe FenetreRequete. Elle associe à chaque bouton l'action qu'il est censé déclencher.
@@ -82,34 +84,41 @@ public class EcouteurJButtonRequete implements ActionListener {
 	 */
 	public void lancer(){
 		try{
-			Requete maRequete = new Requete(maConnexion,"");
+			Requete maRequete = new Requete(maConnexion,fp.getUtilisateur().getLesBasesDeDonnees().get(fp.getUtilisateur().getSelection()).getNomDeLaBase(),"");
 			ResultSet rs=null;
 			int nb=0;
+			boolean bool=false;
 			Object[] res;
-			res=maRequete.manuel(fr.getMonTextPane1().getText());
+			res=maRequete.manuel(fr.getChampsSaisie().getText());
 
 			rs=(ResultSet)res[1];
 			nb=(Integer)res[2];
-			System.out.println("ResultSet"+rs);
+			bool = (boolean)res[0];
 
-			if(rs!=null){
-				String affichage="";
+			if(bool){
+				/*String affichage="";
 				affichage = maRequete.retournerResultSet(rs,true);
-				fr.getMonTextPane2().setText("Requete : \n\n"+affichage);
+				fr.getConsole().setText("Requete : \n\n"+affichage);*/
+				fr.getCard().last(fr.getPanneauDuBas());
+
+				fr.editerJTable(rs);
+				
+
 
 			}
 			else{
-				fr.getMonTextPane2().setText("Nombre de lignes modifiées : "+nb);
+				fr.getCard().first(fr.getPanneauDuBas());
+				fr.getConsole().setText("Nombre de lignes modifiées : "+nb);
 			}
 		}
 		catch(SQLException se){
 			System.out.println("sqlerreur");
-			fr.getMonTextPane2().setText(se.getMessage());
+			fr.getConsole().setText(se.getMessage());
 		}
 		catch(Exception e){
 			System.out.println("erreur");
 			e.printStackTrace();
-			fr.getMonTextPane2().setText(e.getMessage());
+			fr.getConsole().setText(e.getMessage());
 		}
 
 		fp.getPanneauGauche().constructionJTree();
@@ -171,7 +180,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 		if(!file.equals("")){
 			RWFile lecture = new RWFile();
 			String res = lecture.readFile(file);
-			fr.getMonTextPane1().setText(res);
+			fr.getChampsSaisie().setText(res);
 		}
 	}
 	
@@ -179,7 +188,7 @@ public class EcouteurJButtonRequete implements ActionListener {
 	 * Sauvegarde la saisie de l'utilisateur dans le fichier dont le chemin est contenu dans l'attribut cheminSauvegarde de l'instance.
 	 */
 	public void sauvegarde(){
-		String res = fr.getMonTextPane1().getText();
+		String res = fr.getChampsSaisie().getText();
 		RWFile ecriture = new RWFile();
 		ecriture.writeFile(res,cheminSauvegarde);
 	}

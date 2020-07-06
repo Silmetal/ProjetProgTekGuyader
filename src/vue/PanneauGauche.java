@@ -25,13 +25,19 @@ public class PanneauGauche extends JPanel{
 	 */
 	private JTree arborescence;
 	
-
+	/**
+	 * L'Utilisateur qui a instancé ce panneau.
+	 */
 	private Utilisateur lUtilisateur;
 
-	private HashMap<String,Integer> emplacementBase;
-
+	/**
+	 * Le JPanel contenu dans ce panneau qui contient le JTree
+	 */
 	private JPanel arbre;
 	
+	/**
+	 * La FenetrePrincipale qui contient de PanneauGauche
+	 */
 	private FenetrePrincipale fp;
 
 
@@ -81,31 +87,48 @@ public class PanneauGauche extends JPanel{
 	 * Mets à jour le JTree en fonction des requêtes et des informations de connexion. Cette méthode est appelée à la connexion et à chaque fois qu'une requête est lancée.
 	 */
 	public void constructionJTree(){
+		TreePath tp = arborescence.getSelectionPath();
 		int i=0;
 	//	ImageIcon imgIc = new ImageIcon("../fichier/bdd.jpg");
-
-		DefaultMutableTreeNode racine = new DefaultMutableTreeNode(lUtilisateur.getId());
-		DefaultMutableTreeNode tableVue = new DefaultMutableTreeNode("TABLES ET VUES");
-		for(BaseDeDonnees base : lUtilisateur.getLesBasesDeDonnees()){
-			DefaultMutableTreeNode rep = new DefaultMutableTreeNode(base.getNomDeLaBase());
-			ArrayList<String> lesTables = base.parcourirBase();
-			for(String s : lesTables){
-				DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(s);
-				
-				ArrayList<String> lesAttributs = base.parcourirTable(s);
-				for(String str : lesAttributs){
-					DefaultMutableTreeNode rep3 = new DefaultMutableTreeNode(str);
-					rep2.add(rep3);
+		try{
+			DefaultMutableTreeNode racine = new DefaultMutableTreeNode(lUtilisateur.getId());
+			DefaultMutableTreeNode tableVue = new DefaultMutableTreeNode("TABLES ET VUES");
+			for(BaseDeDonnees base : lUtilisateur.getLesBasesDeDonnees()){
+				DefaultMutableTreeNode rep = new DefaultMutableTreeNode(new Noeud(base.getNomDeLaBase(),"base"));
+				ArrayList<String> lesTables = base.parcourirBase();
+				for(String s : lesTables){
+					DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode(new Noeud(s,"table"));
+					
+					ArrayList<String> lesAttributs = (ArrayList<String>) (base.parcourirTable(s))[0];
+					for(String str : lesAttributs){
+						DefaultMutableTreeNode rep3 = new DefaultMutableTreeNode(new Noeud(str,"attribut"));
+						rep2.add(rep3);
+					}
+					rep.add(rep2);
 				}
-				//CustomTreeNode rep22= new CustomTreeNode(imgIc,rep2);
-				rep.add(rep2);
+				tableVue.add(rep);
+				racine.add(tableVue);		
 			}
-			tableVue.add(rep);
-			racine.add(tableVue);		
-		}
 
-		((DefaultTreeModel)arborescence.getModel()).setRoot(racine);
-		
+			((DefaultTreeModel)arborescence.getModel()).setRoot(racine);
+			arborescence.setCellRenderer(new ModificationJTree());
+			
+			arborescence.setSelectionPath(tp);
+
+			arborescence.expandRow(1);
+			System.out.println(lUtilisateur.getSelection());
+			if(lUtilisateur.getSelection()!=-1)
+			arborescence.expandRow(2+lUtilisateur.getSelection());
+			//lUtilisateur.getSelection();
+
+
+		}
+		catch(SQLException se){
+
+		}
+		catch(Exception e){
+
+		}
 	}
 	
 	/**

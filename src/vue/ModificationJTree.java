@@ -1,18 +1,28 @@
 package vue;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.*;
+import javax.swing.*;
+import java.awt.*;
 
-public class ModificationJTree implements TreeCellRenderer {
+/**
+ * Cette classe permet de modifier les icônes des noeuds du JTree.
+ */ 
+public class ModificationJTree extends DefaultTreeCellRenderer implements TreeCellRenderer {
     private JLabel label;
-
+	
+	/**
+	 * Le cosntructeur de la classe. Créé le JLabel qui contient le nom et l'image du noeud.
+	 */
     ModificationJTree() {
         label = new JLabel();
     }
 
+	/** Cette méthode permet de définir la valeur par défault de nos label placés dans le JTree.
+      * C'est une méthode qui redefinit la méthode de DefaultTreeCellRenderer 
+      *
+      */
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded,
                                                   boolean leaf, int row, boolean hasFocus) {
-
-
+        label =(JLabel) super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
         Object o = ((DefaultMutableTreeNode) value).getUserObject();
         if (o instanceof Noeud) {
             Noeud nd = (Noeud) o;
@@ -26,15 +36,18 @@ public class ModificationJTree implements TreeCellRenderer {
             }
 
 
-            label.setIcon(new ImageIcon(chemin));
+            label.setIcon(new ImageIcon(new ImageIcon(chemin).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
             label.setText(nd.getName());
         }
         else {
             label.setIcon(null);
             label.setText("" + value);
         }
+        
         return label;
 
 
     }
+
+
 }

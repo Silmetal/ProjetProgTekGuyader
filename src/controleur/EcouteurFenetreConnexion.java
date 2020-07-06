@@ -7,16 +7,30 @@ import vue.*;
 import java.sql.*;
 import java.util.regex.*;
 
+/**
+ * Cette classe est l'écouteur Du bouton "Connexion" de FenetreConnexion. Elle associe le bouton à son action.
+ */
 public class EcouteurFenetreConnexion implements ActionListener {
-
+	
+	/**
+	 * La FenetreConnexion à écouter
+	 */
 	private FenetreConnexion fc;
-
+	
+	/**
+	 * Le constructeur de la classe. Initialise son attribut avec le paramètre.
+	 * @param fc la FenetreConnexion à écouter
+	 */
 	public EcouteurFenetreConnexion(FenetreConnexion fc){
 		
 		this.fc = fc;
 		
 	}
-
+	
+	/**
+	 * Lorsque le bouton Connexion est pressé, récupère les informations entrées par l'utilisateur et essaye d'établir une connexion avec ces informations.
+	 * <P> Si les informations sont incorrectes, affiche un message d'erreur.
+	 */
 	public void actionPerformed(ActionEvent e){
 		if(!(fc.getNomUtiliTF().getText().equals("") || fc.getAdresseTF().getText().equals("") || String.valueOf(fc.getMdpPF().getPassword()).equals(""))){
 

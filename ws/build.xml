@@ -42,17 +42,17 @@
 	</target>
 
 
-	<target name="compile-model" depends="javaDoc">
-		<mkdir dir="${class.model}"/>
-		<javac srcdir="${src.model}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
-	</target>
-
-	<target name="compile-utilitaire" depends="compile-model">
+	<target name="compile-utilitaire" depends="javaDoc">
 		<mkdir dir="${class.utilitaire}"/>
 		<javac srcdir="${src.utilitaire}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
 	</target>
+
+	<target name="compile-model" depends="compile-utilitaire">
+		<mkdir dir="${class.model}"/>
+		<javac srcdir="${src.model}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
+	</target>
 	
-	<target name="compile-controleurAndVue" depends="compile-utilitaire">
+	<target name="compile-controleurAndVue" depends="compile-model">
 		<mkdir dir="${class.controleur}"/>
 		<mkdir dir="${class.vue}"/>
 		<javac srcdir="${src.controleur};${src.vue}" encoding="utf8" destdir="${class}" includeantruntime="false"/>
@@ -87,12 +87,14 @@
   	</target>
 
 
-
 	<target name="jar" depends="test">
 		<mkdir dir="${exe}"/>
-		<jar destfile="${exe}/HelloWorld.jar" basedir="${class}">
+		<jar destfile="${exe}/Lanceur.jar" 
+			basedir="${class}"
+			includes = "*/*.class"
+			excludes = "test">
 			<manifest>
-				<attribute name="Main-Class" value="BaseDeDonnees"/>
+				<attribute name="Main-Class" value="launcher.Launcher"/>
 			</manifest>
 		</jar>
 	</target>

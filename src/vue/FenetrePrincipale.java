@@ -6,53 +6,200 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.*;
 import java.util.*;
+import java.sql.*;
 
 
 /**
- * Cette classe est la classe d'IHM de la fenêtre permettant la connexion à la base de donnée. Trois champs de texte sont présents, demandant
- * à l'utilsiateur son identifiant, son mot de passe et l'adresse de la base. Une fois ces champs remplis, l'utilsateur n'a qu'à cliquer sur le bouton de connexion pour
- * se connecter à la base, si bien sûr aucune erreur de connexion ne survient.
- * <P>Le champs de saisie du mot de passe cache les caractères saisis.
+ * Cette classe est la classe d'IHM de la fenêtre principale, qui permet l'accès aux autre fenêtres et dans laquelle est affichée l'architecture des bases de données et le contenu des tables.
+ * <P>Un bouton permet d'afficher la fenêtre de connexion, et d'autres boutons permettent d'effectuer différentes actions sur la base de données (Ajout/ supression de tuple, table, vue, trigger etc...).
+ * <P>Il y a également un bouton permettant d'accéder à la fenêtre de saisie de requête.
  */
 public class FenetrePrincipale extends JFrame{
 	
 	/**
-	 *
+	 * Le panneau qui constitue la partie gauche la fenêtre principale. Contient le JTree et le bouton de connexion
 	 */
 	private PanneauGauche panneauGauche;
 	
-	private JButton nouvRequ;
+	/**
+	 * Le bouton permettant à l'utilisateur d'écrire une requête. Ouvre une nouvelle FenetreRequete.
+	 */
+	private JButton requete;
 	
+	/**
+	 * Le bouton qui ouvre le menu permettant de créer ou supprimer un tuple
+	 */
 	private JButton tuple;
+	
+	/**
+	 * Le bouton qui ouvre le menu permettant de créer ou supprimer un trigger
+	 */
 	private JButton trigger;
+	
+	/**
+	 * Le bouton qui ouvre le menu permettant de créer ou supprimer une table
+	 */
 	private JButton table;
+	
+	/**
+	 * Le bouton qui ouvre le menu permettant de créer ou supprimer une vue
+	 */
 	private JButton vue;
+
+	/**
+	 * Le bouton qui ouvre le menu permettant de lire ou ecrire un fichier sql de création de base
+	 */
+	private JButton base;
+
+	/**
+	 * Le menu proposant de programmer lancer de nouvelles requetes
+	 */
+	private JPopupMenu requeteMenu;
 	
+	/**
+	 * Le menu proposant de créer ou supprimer un tuple
+	 */
 	private JPopupMenu tupleMenu;
+	
+	/**
+	 * Le menu proposant de créer ou supprimer une table
+	 */
 	private JPopupMenu tableMenu;
+	
+	/**
+	 * Le menu proposant de créer ou supprimer un trigger
+	 */
 	private JPopupMenu triggerMenu;
+	
+	/**
+	 * Le menu proposant de créer ou supprimer une vue
+	 */
 	private JPopupMenu vueMenu;
+
+	/**
+	 * Le menu proposant de lire ou écrire une base
+	 */
+	private JPopupMenu baseMenu;
+
+	/**
+	 * L'élément de tupleMenu permettant de créer une nouvelle requete
+	 */
+	private JMenuItem nouvRequete;
 	
+	/**
+	 * L'élément de tupleMenu permettant de choisir une requete
+	 */
+	private JMenuItem choisirRequete;
+	
+	/**
+	 * L'élément de tupleMenu permettant de créer un nouveau tuple
+	 */
 	private JMenuItem nouvTuple;
-	private JMenuItem supprTuple;
-	private JMenuItem nouvTable;
-	private JMenuItem supprTable;
-	private JMenuItem nouvTrigger;
-	private JMenuItem supprTrigger;
-	private JMenuItem nouvVue;
-	private JMenuItem supprVue;
 	
+	/**
+	 * L'élément de tupleMenu permettant de modifier les tuples d'une table
+	 */
+	private JMenuItem modifTuple;
+	
+	/**
+	 * L'élément de tupleMenu permettant de supprimer un tuple
+	 */
+	private JMenuItem supprTuple;
+	
+	/**
+	 * L'élément de tableMenu permettant de créer une nouvelle table
+	 */
+	private JMenuItem nouvTable;
+	
+	/**
+	 * L'élément de tableMenu permettant de supprimer une table
+	 */
+	private JMenuItem supprTable;
+	
+	/**
+	 * L'élément de triggerMenu permettant de créer un nouveau trigger de ligne
+	 */
+	private JMenuItem nouvTriggerLigne;
+
+	/**
+	 * L'élément de triggerMenu permettant de créer un nouveau trigger de table
+	 */
+	private JMenuItem nouvTriggerTable;
+	
+	/**
+	 * L'élément de triggerMenu permettant de supprimer un trigger
+	 */
+	private JMenuItem supprTrigger;
+	
+	/**
+	 * L'élément de vueMenu permettant de créer une nouvelle vue
+	 */
+	private JMenuItem nouvVue;
+	
+	/**
+	 * L'élément de vueMenu permettant de supprimer une vue
+	 */
+	private JMenuItem supprVue;
+
+	/**
+	 * L'élément de baseMenu permettant de creer une nouvelle base
+	 */
+	private JMenuItem nouvelleBase;
+
+	/**
+	 * L'élément de baseMenu permettant de creer une nouvelle base
+	 */
+	private JMenuItem supprimerBase;
+	
+	/**
+	 * L'élément de baseMenu permettant de lire une base
+	 */
+	private JMenuItem lireBase;
+	
+	/**
+	 * L'élément de baseMenu permettant d'ecrire une base
+	 */
+	private JMenuItem ecrireBase;
+
+	/**
+	 * L'élément de baseMenu permettant de generer le diagramme UML de la base
+	 */
+	private JMenuItem genererUML;
+
+	/**
+	 * L'élément de baseMenu permettant de creer un nouvel utilisateur
+	 */
+	private JMenuItem nouvelUtilisateur;
+
+	/**
+	 * L'élément de baseMenu permettant de supprimer un utilisateur
+	 */
+	private JMenuItem supprimerUtilisateur;
+	
+	/**
+	 * La JTable qui affiche le contenu d'une table
+	 */
 	private JTable jTable;
 	
+	/**
+	 * La console qui affiche le résultat d'une requête ainsi que les erreurs qui se sont produites lors de l'exécution d'une commande SQL
+	 */
 	private JTextArea console;
-
+	
+	/**
+	 * L'écouteur permettant aux boutons et menus de faire ce qu'ils sont censés faire.
+	 */
 	private EcouteurMouseAdapter monEcouteur;
 	
+	/**
+	 * L'utilisateur qui a instancié cette fenêtre
+	 */
 	private Utilisateur lUtilisateur;
 
+	/**
+	 * Le modèle utilisé par le JTable pour se créer et se mettre à jour correctement
+	 */
 	private DefaultTableModel dTM;
-	private String [][] data;
-
 	
 	/**
 	 * Le constructeur de la classe. Créé le panneau avec le constructeur de sa super-classe JPanel et lui applique un BorderLayout. Appelle ensuite sa méthode miseEnPlace() pour générer les éléments
@@ -77,8 +224,8 @@ public class FenetrePrincipale extends JFrame{
 		
 		// Initialisation des composants
 		
-		nouvRequ = new JButton("Nouvelle requête");	
-		nouvRequ.setName("nouvRequ");	
+		requete = new JButton("Requete");	
+		requete.setName("requete");	
 		tuple = new JButton("T-uple");	
 		tuple.setName("tuple");	
 		trigger = new JButton("Trigger");	
@@ -87,47 +234,83 @@ public class FenetrePrincipale extends JFrame{
 		table.setName("table");	
 		vue = new JButton("Vue");
 		vue.setName("vue");
+		base = new JButton("Base");
+		base.setName("base");
 
+		requeteMenu = new JPopupMenu();
 		tupleMenu = new JPopupMenu();
-
 		tableMenu = new JPopupMenu();
 		triggerMenu = new JPopupMenu();
 		vueMenu = new JPopupMenu();
+		baseMenu = new JPopupMenu();
 		
+		nouvRequete = new JMenuItem("Créer une nouvelle requete");
+		nouvRequete.setName("nouvRequete");
+		choisirRequete = new JMenuItem("Choisir une requete programmée");
+		choisirRequete.setName("choisirRequete");
 		nouvTable = new JMenuItem("Créer une nouvelle table");
 		nouvTable.setName("nouvTable");
 		supprTable = new JMenuItem("Supprimer une table");
 		supprTable.setName("supprTable");
 		nouvTuple = new JMenuItem("Ajouter un tuple");
 		nouvTuple.setName("nouvTuple");
+		modifTuple = new JMenuItem("Modifier des tuples");
+		modifTuple.setName("modifTuple");
 		supprTuple = new JMenuItem("Retirer un tuple");
 		supprTuple.setName("supprTuple");
-		nouvTrigger = new JMenuItem("Créer un nouveau trigger");
-		nouvTrigger.setName("nouvTrigger");
+		nouvTriggerLigne = new JMenuItem("Créer un nouveau trigger de ligne");
+		nouvTriggerLigne.setName("nouvTriggerLigne");
+		nouvTriggerTable = new JMenuItem("Créer un nouveau trigger de table");
+		nouvTriggerTable.setName("nouvTriggerTable");
 		supprTrigger = new JMenuItem("Supprimer un trigger");
 		supprTrigger.setName("supprTrigger");
 		nouvVue = new JMenuItem("Créer une nouvelle vue");
 		nouvVue.setName("nouvVue");
 		supprVue = new JMenuItem("Supprimer une vue");
 		supprVue.setName("supprVue");
+		nouvelleBase = new JMenuItem("Nouvelle base");
+		nouvelleBase.setName("nouvelleBase");
+		supprimerBase = new JMenuItem("Supprimer une base");
+		supprimerBase.setName("supprimerBase");
+		ecrireBase = new JMenuItem("Ecrire la base dans un fichier");
+		ecrireBase.setName("ecrireBase");
+		lireBase = new JMenuItem("Lire une base dans un fichier");
+		lireBase.setName("lireBase");
+		genererUML = new JMenuItem("Générer le diagramme UML");
+		genererUML.setName("genererUML");
+		nouvelUtilisateur = new JMenuItem("Nouvel utilisateur");
+		nouvelUtilisateur.setName("nouvelUtilisateur");
+		supprimerUtilisateur = new JMenuItem("Supprimer utilisateur");
+		supprimerUtilisateur.setName("supprimerUtilisateur");
 		
+		
+		requeteMenu.add(nouvRequete);
+		requeteMenu.add(choisirRequete);
+
 		tableMenu.add(nouvTable);
 		tableMenu.add(supprTable);
 		
 		tupleMenu.add(nouvTuple);
+		tupleMenu.add(modifTuple);
 		tupleMenu.add(supprTuple);
 		
-		triggerMenu.add(nouvTrigger);
+		triggerMenu.add(nouvTriggerLigne);
+		triggerMenu.add(nouvTriggerTable);
 		triggerMenu.add(supprTrigger);
 		
 		vueMenu.add(nouvVue);
 		vueMenu.add(supprVue);
 		
-
-
+		baseMenu.add(nouvelleBase);
+		baseMenu.add(supprimerBase);
+		baseMenu.add(ecrireBase);
+		baseMenu.add(lireBase);
+		baseMenu.add(genererUML);
+		baseMenu.add(nouvelUtilisateur);
+		baseMenu.add(supprimerUtilisateur);
 
 		String[] titre={"Selectionner la table a afficher"};
-		data = new String[1][1];
+		String[][] data = new String[1][1];
 		
 		dTM = new DefaultTableModel(data,titre) {
 
@@ -144,17 +327,18 @@ public class FenetrePrincipale extends JFrame{
 		
 		
 		// Création des sous-panneaux
-		JPanel panneauBouton = new JPanel(new GridLayout(5, 1, 5, 5));
+		JPanel panneauBouton = new JPanel(new GridLayout(6, 1, 5, 5));
 		JPanel panneauCentral = new JPanel(new BorderLayout(10,10));
 		JPanel panneauLabel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel panneauResultat = new JPanel(new BorderLayout());
 		
 		// Ajout des composants dans leurs sous-panneaux respectifs
-		panneauBouton.add(nouvRequ);
+		panneauBouton.add(requete);
 		panneauBouton.add(table);
 		panneauBouton.add(tuple);
 		panneauBouton.add(trigger);
 		panneauBouton.add(vue);
+		panneauBouton.add(base);
 		
 		panneauLabel.add(labelConsole);
 
@@ -165,7 +349,6 @@ public class FenetrePrincipale extends JFrame{
 
 		panneauResultat.add(span2, BorderLayout.CENTER);
 		panneauResultat.add(panneauLabel, BorderLayout.NORTH);
-		
 
 		JPanel panneauDroite = new JPanel();
 		panneauDroite.setLayout(new GridLayout(2,1));
@@ -194,36 +377,56 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	public void setJTable(BaseDeDonnees bd,String table){
 		String[] lesVal=null;
+		ArrayList<String> lesValeurs;
+		String tablePrimaire="";
 		dTM.setColumnCount(0);
 		if(!table.equals("")){
 
+			try{
+				Object[] lesAtt = bd.parcourirTable(table);
 
-			ArrayList<String> lesAttribut = bd.parcourirTable(table);
-			for(String str : lesAttribut){
-				ArrayList<String> lesValeurs = bd.parcourirAttribut(str,table);
-				lesVal = new String[lesValeurs.size()];
+				
+				ArrayList<String> valeur = (ArrayList<String>)(lesAtt[0]);
+				ArrayList<String> titre =(ArrayList<String>)(lesAtt[1]);
 
-				for(int i=0;i<lesValeurs.size();i++){
-	//				System.out.println(lesValeurs.get(i));
-					lesVal[i]=lesValeurs.get(i);
 
-				}
-				dTM.setRowCount(lesVal.length);
-				dTM.addColumn(str,lesVal);
 
-			}		
+				for(int j=0; j<valeur.size();j++){
+					if(j==0){
+						lesValeurs = bd.parcourirAttribut(valeur.get(0),table,"");
+						tablePrimaire=valeur.get(0);
+					}
+					else{
+						lesValeurs = bd.parcourirAttribut(valeur.get(j),table,tablePrimaire);
+					}
+
+					lesVal = new String[lesValeurs.size()];
+
+					for(int i=0;i<lesValeurs.size();i++){
+						lesVal[i]=lesValeurs.get(i);
+					}
+					dTM.setRowCount(lesVal.length);
+					dTM.addColumn(titre.get(j),lesVal);
+				}		
+			}
+			catch(SQLException se){
+
+				se.printStackTrace();
+
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 	}
-
-
 
 	/**
 	 * Retourne le bouton Nouvelle Requête de l'instance (nouvRequ)
 	 * @return le bouton Nouvelle Requête de l'instance (nouvRequ)
 	 */
-	public JButton getBoutonNouvRequ() {
+	public JButton getBoutonRequete() {
 		
-		return this.nouvRequ;
+		return this.requete;
 	}
 	
 	/**
@@ -261,7 +464,24 @@ public class FenetrePrincipale extends JFrame{
 		
 		return this.vue;
 	}
-	
+
+	/**
+	 * Retourne le bouton base de l'instance
+	 * @return le bouton base de l'instance
+	 */
+	public JButton getBoutonBase() {
+		
+		return this.base;
+	}
+
+	/**
+	 * Retourne le JPopupMenu associé au bouton requete de l'instance
+	 * @return le JPopupMenu associé au bouton requete de l'instance
+	 */
+	public JPopupMenu getRequeteMenu(){
+		return this.requeteMenu;
+	}
+
 	/**
 	 * Retourne le JPopupMenu associé au bouton Tuple de l'instance
 	 * @return le JPopupMenu associé au bouton Tuple de l'instance
@@ -293,6 +513,30 @@ public class FenetrePrincipale extends JFrame{
 	public JPopupMenu getVueMenu(){
 		return this.vueMenu;
 	}
+
+	/**
+	 * Retourne le JPopupMenu associé au bouton base de l'instance
+	 * @return le JPopupMenu associé au bouton base de l'instance
+	 */
+	public JPopupMenu getBaseMenu(){
+		return this.baseMenu;
+	}
+
+	/**
+	 * Retourne le JMenuItem Nouvelle requete de l'instance
+	 * @return le JMenuItem Nouvelle requete de l'instance
+	 */
+	public JMenuItem getNouvRequete(){
+		return this.nouvRequete;
+	}
+
+	/**
+	 * Retourne le JMenuItem choisir requete de l'instance
+	 * @return le JMenuItem choisir requete de l'instance
+	 */
+	public JMenuItem getChoisirRequete(){
+		return this.choisirRequete;
+	}
 	
 	/**
 	 * Retourne le JMenuItem Nouvelle Table de l'instance
@@ -317,6 +561,14 @@ public class FenetrePrincipale extends JFrame{
 	public JMenuItem getNouvTuple(){
 		return this.nouvTuple;
 	}
+	
+	/**
+	 * Retourne le JMenuItem Modifier des tuples de l'instance
+	 * @return le JMenuItem Modifier des tuples de l'instance
+	 */
+	public JMenuItem getModifTuple(){
+		return this.modifTuple;
+	}
 
 	/**
 	 * Retourne le JMenuItem Supprimer Tuple de l'instance
@@ -327,11 +579,19 @@ public class FenetrePrincipale extends JFrame{
 	}
 	
 	/**
-	 * Retourne le JMenuItem Nouveau Trigger de l'instance
-	 * @return le JMenuItem Nouveau Trigger de l'instance
+	 * Retourne le JMenuItem Nouveau Trigger de table de l'instance
+	 * @return le JMenuItem Nouveau Trigger de table de l'instance
 	 */
-	public JMenuItem getNouvTrigger(){
-		return this.nouvTrigger;
+	public JMenuItem getNouvTriggerTable(){
+		return this.nouvTriggerTable;
+	}
+
+	/**
+	 * Retourne le JMenuItem Nouveau Trigger de ligne de l'instance
+	 * @return le JMenuItem Nouveau Trigger de ligne de l'instance
+	 */
+	public JMenuItem getNouvTriggerLigne(){
+		return this.nouvTriggerLigne;
 	}
 
 	/**
@@ -356,6 +616,63 @@ public class FenetrePrincipale extends JFrame{
 	 */
 	public JMenuItem getSupprVue(){
 		return this.supprVue;
+	}
+
+	/**
+	 * Retourne le JMenuItem Nouvelle Base de l'instance
+	 * @return le JMenuItem Nouvelle Base de l'instance
+	 */
+	public JMenuItem getNouvelleBase(){
+		return this.nouvelleBase;
+	}
+
+
+	/**
+	 * Retourne le JMenuItem Supprimer Base de l'instance
+	 * @return le JMenuItem Supprimer Base de l'instance
+	 */
+	public JMenuItem getSupprimerBase(){
+		return this.supprimerBase;
+	}
+
+	/**
+	 * Retourne le JMenuItem Lire Base de l'instance
+	 * @return le JMenuItem Lire Base de l'instance
+	 */
+	public JMenuItem getLireBase(){
+		return this.lireBase;
+	}
+
+	/**
+	 * Retourne le JMenuItem Ecrire Base de l'instance
+	 * @return le JMenuItem Ecrire Base de l'instance
+	 */
+	public JMenuItem getEcrireBase(){
+		return this.ecrireBase;
+	}
+
+	/**
+	 * Retourne le JMenuItem Generer UML de l'instance
+	 * @return le JMenuItem genererUML de l'instance
+	 */
+	public JMenuItem getGenererUML(){
+		return this.genererUML;
+	}
+
+	/**
+	 * Retourne le JMenuItem Nouvel Utilisateur de l'instance
+	 * @return le JMenuItem Nouvel Utilisateur de l'instance
+	 */
+	public JMenuItem getNouvelUtilisateur(){
+		return this.nouvelUtilisateur;
+	}
+
+	/**
+	 * Retourne le JMenuItem Supprimer Utilisateur de l'instance
+	 * @return le JMenuItem Supprimer Utilisateur de l'instance
+	 */
+	public JMenuItem getSupprimerUtilisateur(){
+		return this.supprimerUtilisateur;
 	}
 	
 	/**

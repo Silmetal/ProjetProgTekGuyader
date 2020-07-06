@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.util.*;
+import utilitaire.*;
 
 
 /** Cette classe permet d'instancier des utilisateurs de la base de donnée
@@ -14,9 +15,25 @@ public class Utilisateur {
 	 * chaques utilisateurs.
 	 */
 	private String id;
+	
+	/**
+	 * La liste de bases de données à laquelle l'utilisateur est actuellement connecté
+	 */
 	private ArrayList<BaseDeDonnees> lesBasesDeDonnees;
+	
+	/**
+	 * L'indice de la base de données actuellement selectionné
+	 */
 	private int selection;
+	
+	/**
+	 * La table actuellement sélectionnée
+	 */
 	private String table;
+	
+	/**
+	 * Associe les bases de données contenue dans l'ArrayList à des clés.
+	 */
 	private HashMap<String,Integer> association;
 
 
@@ -62,7 +79,7 @@ public class Utilisateur {
 			if(lesTables.size()==0){
 				try{
 					
-					Requete interogation = new Requete(laBase.getConnection(),table);
+					Requete interogation = new Requete(laBase.getConnection(),nomDeLaBase,table);
 					ResultSet rs = (ResultSet) ((interogation.manuel("SHOW DATABASES;"))[1]);
 					ResultSetMetaData rsmd = rs.getMetaData();
 			   		int columnsNumber = rsmd.getColumnCount();		
@@ -94,7 +111,7 @@ public class Utilisateur {
 				lesBasesDeDonnees.add(laBase);
 			}
 
-			selection = lesBasesDeDonnees.size()-1;
+			selection = -1;
 		}
 		catch (ClassNotFoundException cnfe) {
 			throw cnfe;
@@ -107,8 +124,7 @@ public class Utilisateur {
 		}
 	}
 
-
-	public void miseAJourDuHashMap(){
+	private void miseAJourDuHashMap(){
 		int i=0;
 		association = new HashMap<String,Integer>();
 
@@ -116,98 +132,102 @@ public class Utilisateur {
 			association.put(base.getNomDeLaBase(),i);
 			i++;
 		}
-
 	}
 	
-
-
-	/* //Recupere le nom des tables de la base
-	public ArrayList<String> parcourirBase(BaseDeDonnees laBase){
-		DatabaseMetaData dmd;
-		ResultSet tables;
-		int i=0;
-		ArrayList<String> ret = new ArrayList<String>();
-		try{
-			dmd = laBase.getConnection().getMetaData();
-			tables = dmd.getTables(laBase.getConnection().getCatalog(),null,"%",null);
-			i=0;
-			while(tables.next()){
-				ret.add(tables.getString(3));
-				i++;
-			}
-		} catch(SQLException e){
-			System.out.println("Impossible de parcourir la base");
-		}
-		return ret;
-	} */
-
-	/** Permet de se deconnecter de la base de donnée sélectionné 
-	*
-	*/
-	public void disconnect() throws NullPointerException {
-		if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
-			lesBasesDeDonnees.get(this.selection).deconnexion();
-			lesBasesDeDonnees.remove(this.selection);
-			this.selection=-1;
-		}
-		else{
-			throw new NullPointerException("Attention selection incorect");
-		}
+	/**
+	 * Créée une nouvelle base de données.
+	 * @param motDePasse le mot de passe de la base sélectionnée, demandé par mesure de sécurité
+	 * @param nomBase le nom de la nouvelle base 
+	 * @param nouvelleRequete l'objet Requete qui va recevoir et exécuter la requête de création de base.
+	 * @throws SQLException si une erreur SQL empêche la création de la base
+	 * @throws Exception si une autre erreur empêche la création de la base
+	 */
+	public void creerBaseDeDonnees(String motDePasse,String nomBase, Requete nouvelleRequete) throws SQLException, Exception{
+		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
+		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
+	  	nouvelleRequete.manuel("CREATE DATABASE "+nomBase);
+		String url = laBaseSelectionee.getAdresse();
+		url = ModifierString.supprimerExtrait(url,laBaseSelectionee.getNomDeLaBase()+"?allowMultiQueries=true");
+		BaseDeDonnees uneBase2 = new BaseDeDonnees(url+nomBase+"?allowMultiQueries=true",laBaseSelectionee.getNomUtili(),motDePasse,nomBase);
+		lesBasesDeDonnees.add(uneBase2);
 	}
-
-	/** Fait appel a la base de donnée séléctionnée pour créer une nouvelle instance
-	* de la classe requete.
-	* @throws SQLException si une erreur SQL empêche la création de la requête
-	* @throws NullPointerException si le curseur selection n'est pas à une valeur valide
-	*/
 	
-	public void nouvelleRequete() throws SQLException, NullPointerException{
-		
-		try {
-			
-			if(this.selection!=-1 && this.selection>=0 && this.selection<lesBasesDeDonnees.size()){
-				Requete nouvelleRequete = new Requete(this.lesBasesDeDonnees.get(this.selection).getConnection(),table);
-			}
-			else throw new NullPointerException("Attention selection incorect");
-		}
-		catch(SQLException sqle) {	
-			throw sqle;
-		}
+	/**
+	 * Supprime la base de données sélectionnée
+	 * @param motDePasse le mot de passe de la base sélectionnée, demandé par mesure de sécurité
+	 * @param nouvelleRequete l'objet Requete qui va recevoir et exécuter la requête de suppression de base.
+	 * @throws SQLException si une erreur SQL empêche la suppression de la base
+	 * @throws Exception si une autre erreur empêche la suppression de la base
+	 */
+	public void supprimerBaseDeDonnees(String motDePasse,Requete nouvelleRequete)throws SQLException, Exception{
+		BaseDeDonnees laBaseSelectionee = lesBasesDeDonnees.get(selection);
+		BaseDeDonnees uneBase = new BaseDeDonnees(laBaseSelectionee.getAdresse(),laBaseSelectionee.getNomUtili(),motDePasse,laBaseSelectionee.getNomDeLaBase());
+		nouvelleRequete.manuel("DROP DATABASE "+laBaseSelectionee.getNomDeLaBase());
+		lesBasesDeDonnees.remove(laBaseSelectionee);
 	}
-
+	
+	/**
+	 * Retourne la position de la base dans la liste de BaseDeDonnees de l'utilisateur
+	 * @param base le nom de la base dont on veut la position
+	 * @return la position de la base dont le nom est passé en paramètre
+	 */
 	public int getPositionBase(String base){
 		miseAJourDuHashMap();
 		int ret = association.get(base);
 		return ret;
 	}
 
-
+	/**
+	 * Change la base actuellement sélectionnée
+	 * @param table le nom de la table à sélectionner
+	 */
 	public void setTable(String table){
 		this.table=table;
 	}
-
+	
+	/**
+	 * Retourne le nom de la base sélectionnée
+	 * @return le nom de la base sélectionnée
+	 */
 	public String getTable(){
 		return this.table;
 	}
 	
-	public String toString() {
+	
+	/* public String toString() {
 		
 		return "";
 		
-	}
-
+	} */
+	
+	/**
+	 * Retourne l'identifiant de l'utilisateur
+	 * @return l'identifiant de l'utilisateur
+	 */
 	public String getId(){
 		return this.id;
 	}
-
+	
+	/**
+	 * Change la base sélectionnée
+	 * @param base l'indice de la base à sélectionner
+	 */
 	public void setSelection(int base){
 		this.selection=base;
 	}
-
+	
+	/**
+	 * Retourne l'indice de la base sélectionnée
+	 * @return l'indice de la base sélectionnée
+	 */
 	public int getSelection(){
 		return this.selection;
 	}
 
+	/**
+	 * Retourne la liste de bases de données
+	 * @return la liste de bases de données
+	 */
 	public ArrayList<BaseDeDonnees> getLesBasesDeDonnees(){
 		return this.lesBasesDeDonnees;
 	}

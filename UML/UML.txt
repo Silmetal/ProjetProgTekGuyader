@@ -1,0 +1,76 @@
+@startuml
+
+
+class Client {
+	id : smallint 5 [1]
+	nom : varchar 100 NN
+	prenom : varchar 60 NN
+	adresse : varchar 200
+	code_postal : varchar 6
+	ville : varchar 60
+	pays : varchar 60
+	email : varbinary 100 UQ
+}
+
+class Espece {
+	id : smallint 6 [1]
+	nom_courant : varchar 40 NN
+	nom_latin : varchar 40 NN UQ
+	description : text,
+	prix : decimal 7,2
+	id : smallint 6 [1]
+	nom_courant : varchar 40 NN
+	nom_latin : varchar 40 NN UQ
+	description : text,
+	prix : decimal 7,2
+}
+
+class Race {
+	id : smallint 6 [1]
+	nom : varchar 40 NN
+	espece_id : smallint 6 NN
+	description : text,
+	prix : decimal 7,2
+	date_insertion : datetime
+	utilisateur_insertion : varchar 20
+	date_modification : datetime
+	utilisateur_modification : varchar 20
+}
+
+class TableDeuxCle {
+	val : int 4 [1]
+	cle2 : int 8 [1]
+}
+
+class TableDeuxPrim {
+	cle1 : int 4 [1]
+}
+
+class devise {
+	devise : enum 'Euro','Dollar','Livre' [1]
+	valeur : decimal 6,5
+}
+
+class nouvTable {
+	valeur : int 5 [1]
+}
+
+class nouvelle {
+	val : int 4 [1]
+	ref : int 8
+}
+
+class nv2Table {
+	vla : int 8 [1]
+}
+
+class zetzer {
+	a : int 4 [1]
+	b : int 5
+	c : int 2
+}
+
+nouvelle "*" -- "0..1" nv2Table : ref
+
+
+@enduml

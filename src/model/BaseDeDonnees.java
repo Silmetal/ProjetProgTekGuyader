@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.util.ArrayList;
+import utilitaire.*;
 
 /**
  * Cette classe établit une connexion à une base de données grâce à JDBC et les classes de java.sql.
@@ -20,10 +21,27 @@ public class BaseDeDonnees {
 	 * L'objet Connection représente le lien entre l'application et la base de données. Il est défini lors de l'appel à la méthode connexion.
 	 */
 	private Connection connexion;
+	
+	/**
+	 * Le nom de la base de données
+	 */
 	private String nomDeLaBase;
+	
+	/**
+	 * L'adresse de la base de données utilisée pour se connecter
+	 */
 	private String adresse;
+	
+	/**
+	 * Le nom d'utilisateur utilisé pour se connecter
+	 */
 	private String nomUtili;
+	
+	/**
+	 * Le mot de passe utilisé pour se connecter
+	 */
 	private String motDePasse;
+	
 	/**
 	 * Constructeur de la classe. Utilise les paramètres pour créer l'objet connexion avec la méthode connexion, puis utilise la
 	 * méthode créerRequete pour créer l'objet requete.
@@ -41,18 +59,8 @@ public class BaseDeDonnees {
 		this.motDePasse=motDePasse;
 		try{	
 			if (verifPilote()) {
-				
-				try{
-					boolean test = connexion(adresse, nomUtili, motDePasse);
-					this.nomDeLaBase = nomDeLaBase;
-					System.out.println("Connexion etablie");
-				}
-				catch(SQLException se){
-					throw se;
-				}
-				catch(Exception e){
-					throw e;
-				}
+				boolean test = connexion(adresse, nomUtili, motDePasse);
+				this.nomDeLaBase = nomDeLaBase;	
 			}
 
 		} catch(ClassNotFoundException ce){
@@ -73,7 +81,6 @@ public class BaseDeDonnees {
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Pilote oracle trouvé");
 			ret = true;
 		}
 		
@@ -165,41 +172,26 @@ public class BaseDeDonnees {
 	 * @param nouvIdenti l'identifiant du nouvel utilisateur
 	 * @param nouvMDP le mot de passe du nouvel utilisateur
 	 * @param userType définit le type d'utilisateur créé. 0 pour un super utilisateur, 1 pour un utilisateur normal
-	 * @param dbName le nom de la base de données à laquelle ajouter l'utilisateur
+	 * @param tableName le nom de la table à laquelle ajouter un utilisateur. passer '*' en paramètre ajoute l'utilisateur à toutes les tables de la base.
 	 * @throws SQLException si l'utilisateur ne peut pas être créé à cause d'une erreur SQL
 	 */
-	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, String dbName, int userType) throws SQLException{
+	public void ajouterNouvelUtilisateur(String nouvIdenti, String nouvMDP, String tableName, int userType) throws SQLException, Exception{
 		
-		Statement creerSuperUser = connexion.createStatement();
-		Statement creerUser = connexion.createStatement();
+		Requete creerUser = new Requete(connexion,"","");
 		
 		if (userType == 0) {
 			
-			try {
-				creerSuperUser.executeUpdate("CREATE USER '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"'; GRANT ALL ON projet.* TO '"+nouvIdenti+"' WITH GRANT OPTION;");;
-			}
-			catch(SQLException se) {
-				throw se;
-			}
+		
+			creerUser.manuel("GRANT ALL PRIVILEGES ON "+nomDeLaBase+"."+tableName+" TO '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"' WITH GRANT OPTION;");
+			creerUser.manuel("FLUSH PRIVILEGES;");
+			
 		}
 		
 		else if (userType == 1) {
-			try {
-				creerUser.executeUpdate("use "+dbName);
-				creerUser.executeUpdate("CREATE USER '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"';");
-				
-			}
-			catch(SQLException se){
-
-			}
-
-			try{
-				creerUser.executeUpdate("GRANT ALL ON projet.* TO '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"';");
-				creerUser.executeUpdate("FLUSH PRIVILEGES;");
-			}
-			catch(SQLException se) {
-				throw se;
-			}
+						
+			creerUser.manuel("GRANT ALL PRIVILEGES ON "+nomDeLaBase+"."+tableName+" TO '"+nouvIdenti+"' IDENTIFIED BY '"+nouvMDP+"';");
+			creerUser.manuel("FLUSH PRIVILEGES;");
+			
 		}
 	}
 	
@@ -239,25 +231,23 @@ public class BaseDeDonnees {
 	/**
 	 * Parcourt la table dont le nom est passé en paramètre et renvoie une ArrayList contenant les noms de toutes les colonnes de la table.
 	 * @param table le nom de la table à parcourir
-	 * @return une ArrayList contenant les noms de toutes les colonnes de la table dont le nom est passé en paramètre
+	 * @return un tableau d'objet contenant les noms de toutes les colonnes de la table dont le nom est passé en paramètre
 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
-	public ArrayList<String> parcourirTable(String table) throws SQLException, Exception{
-		ArrayList<String> ret = new ArrayList<String>();
+	public Object[] parcourirTable(String table) throws SQLException, Exception{
+		Object[] ret = new Object[1];
 		String affichage="";
+		int i=0;
 
 		try{
-			Requete nouvelleRequete = new Requete(connexion,"");
+			Requete nouvelleRequete = new Requete(connexion,"","");
 				Object[] res = nouvelleRequete.manuel("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '"+table+"'");
 
 				ResultSet rs=(ResultSet)res[1];
 
-				affichage = nouvelleRequete.retournerResultSet(rs,false);
-				
-				for(String str : affichage.split("[\n]")){
-					ret.add(str);
-				}
+				ret = nouvelleRequete.retournerResultSet(rs,true);
+
 		} 
 		catch (SQLException se){
 			
@@ -271,31 +261,33 @@ public class BaseDeDonnees {
 		return ret;
 
 	}
-
+	
 	/**
 	 * Parcourt la colonne dont le nom et la table sont passés en paramètre et retourne les valeurs contenues dans cette colonne
 	 * @param attribut le nom de l'attribut dont on veut les valeurs.
 	 * @param table le nom de la table contenant l'attribut
+	 * @param tablePrimaire la clé primaire de la table passée en paramètre
 	 * @return une ArrayList contenant les noms de toutes les valeurs de l'attribut passé en paramètre
 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
-	 * @throws SQLException si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
-	//Recuperer le valeurs des attribut
-	public ArrayList<String> parcourirAttribut(String attribut,String table) throws SQLException, Exception{
+	public ArrayList<String> parcourirAttribut(String attribut,String table, String tablePrimaire) throws SQLException, Exception{
 		ArrayList<String> ret = new ArrayList<String>();
 		String affichage="";
-
+		Object[] res = null;
 		try{
-			Requete nouvelleRequete = new Requete(connexion,"");
-				Object[] res = nouvelleRequete.manuel("SELECT "+attribut+" FROM "+table+";");
+			Requete nouvelleRequete = new Requete(connexion,nomDeLaBase,"");
+				if(!tablePrimaire.equals("")){
+					res = nouvelleRequete.manuel("SELECT "+attribut+" FROM (SELECT "+tablePrimaire+","+attribut+" FROM "+table+" ORDER BY "+tablePrimaire+") AS t;");
+				}
+				else{
+					res = nouvelleRequete.manuel("SELECT "+attribut+" FROM "+table+" ORDER BY "+attribut+";");
+				}
+				
 
 				ResultSet rs=(ResultSet)res[1];
 
-				affichage = nouvelleRequete.retournerResultSet(rs,false);
-				
-				for(String str : affichage.split("[\n]")){
-					ret.add(str);
-				}
+				ret =(ArrayList<String>) (nouvelleRequete.retournerResultSet(rs,false))[0];
 		}
 		catch (SQLException se){
 			
@@ -310,23 +302,87 @@ public class BaseDeDonnees {
 
 	}
 
+	/**
+	 * Cette méthode construit un tableau d'objet qui contient les informations sur les colonnes d'une table.
+	 * <P>- Le premier objet est un boolean indiquant si la colonne est non-nulle
+	 * <P>- Le deuxième objet est un boolean indiquant si la colonne est unique
+	 * <P>- Le troisième objet est le type de la colonne
+	 * <P>- Le quatrième objet est le nom de la table contenant l'attribut référencé par cet attribut. Chaîne nulle si aucun
+	 * <P>- Le cinquième objet est le nom de l'attribut référencé par cet objet. Chaîne nulle si aucun
+	 * <P>- Le sixième objet est un boolean indiquant si l'attribut est une clé primaire
+	 * @param table le nom de la table contenant l'attribut dont on récupère les infos
+	 * @param attribut le nom de l'attribut dont on récupère les infos
+ 	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @return Object[] --  [0] true si non null -- [1] true si unique --[2] type -- [3] Ref. Table -- [4] Ref. Attribut -- [5] true si clé primaire
+	 */
+	public Object[] recupererInfo(String table,String attribut) throws Exception,SQLException{
+		Object[] ret = new Object[6];
+		ret[0] =false;
+		ret[1] = false;
+		ret[2] =""; 
+		ret[3]="";
+		ret[4]="";
+		ret[5]=false;
+		Requete nouvelleRequete = new Requete(connexion,"","");
+		Object[] res = nouvelleRequete.manuel("SHOW CREATE TABLE "+table);
+		ResultSet rs=(ResultSet)res[1];
+		Requete nouvelleRequete2 = new Requete(connexion,"","");
+		ArrayList<String> res2 = (ArrayList<String>)nouvelleRequete2.retournerResultSet(rs,false)[0];
+		for (int i=1;i<res2.size();i=i+2) {
+			
+			String[] createTab = ModifierString.decomposerLigneParLigne(res2.get(i));
+
+			for(String lgn : createTab){
+				//System.out.println(lgn);
+
+				if((lgn.indexOf("`"+attribut+"`") >= 0) && !(lgn.indexOf("CREATE TABLE") >=0) && !(lgn.indexOf("PRIMARY") >=0) && !(lgn.indexOf("KEY") >=0) && !(lgn.indexOf("REFERENCES") >=0) && !(lgn.indexOf("UNIQUE") >=0)){
+					if(lgn.indexOf("NOT NULL")>=0){
+						ret[0]=true;
+					}
+					String operation = ModifierString.supprimerExtrait(lgn,"`"+attribut+"`");
+					ret[2] = ModifierString.decomposerEspaceParEspace(operation)[1];
+				}
+
+				if((lgn.indexOf(attribut) >= 0) && ((lgn.indexOf("UNIQUE") >=0) || (lgn.indexOf("PRIMARY") >=0))){
+					ret[1]=true;
+				}
+
+				if((lgn.indexOf("FOREIGN KEY (`"+attribut+"`)") >= 0) && (lgn.indexOf("REFERENCES") >=0)){
+					String recup = ModifierString.supprimerMotAMot(lgn,"CONSTRAINT","REFERENCES");
+				
+					String tableRef = ModifierString.supprimerMotAMot(recup,"` (","`)");
+				
+					tableRef = ModifierString.supprimerExtrait(tableRef," `");
+				
+					String attributRef = ModifierString.supprimerMotAMot(recup," `","` ");
+					attributRef = ModifierString.supprimerExtrait(attributRef,"`)");
+					attributRef = ModifierString.supprimerExtrait(attributRef,"(`");
+					ret[3]=tableRef.trim();
+					ret[4]=attributRef.trim();
+				}
+
+				if ((lgn.indexOf(attribut) >= 0) && (lgn.indexOf("PRIMARY") >=0)) {
+					ret[5]=true;
+				}
+
+
+			}
+		}
+		return ret;
+	}
 	
 	/**
 	 * Supprime de la base de données l'utilisateur dont l'identifiant est passé en paramètre
 	 * @param nomUtilis l'identifiant de l'utilisateur à supprimer
-	 * @throws SQLException si l'utilisateur ne peut pas être supprimé à cause d'une erreur SQL
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
-	public void supprimerUtilisateur(String nomUtilis) throws SQLException{
+	public void supprimerUtilisateur(String nomUtilis) throws SQLException, Exception{
 		
-		PreparedStatement supprimerUtilisateur = null;
+		Requete supprimerUtilisateur = new Requete(connexion,"","");
 		
-		try {
-			supprimerUtilisateur = connexion.prepareStatement("DROP USER ?;");
-			supprimerUtilisateur.setString(1,nomUtilis);
-		}
-		catch(SQLException se) {
-			throw se;
-		}
+		supprimerUtilisateur.manuel("DROP USER '"+nomUtilis+"';");
 	}
 	
 	/**
@@ -334,10 +390,41 @@ public class BaseDeDonnees {
 	 * Le fichier contiendra toutes les requêtes SQL nécessaires pour créer une nouvelle base de données
 	 * identique à celle à laquelle l'utilsiateur est connecté.
 	 * @param fileName le nom du fichier crée
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
 	 */
-	public void ecrire(String fileName){
-		
-		
+	public void ecrire(String fileName) throws Exception,SQLException{
+		String res = ecrireCreationDeTable();
+		RWFile.writeFile(res,fileName);		
+	}
+
+
+	/**
+	 * Construit un String contenant les requêtes nécéssaires à recréer les tables de la base de données.
+	 * En revanche, les tables sont vides : le contenu des tables n'est pas écrit.
+	 * @throws SQLException si une erreur SQL empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @throws Exception si une autre erreur empêche la méthode de fonctionner. Renvoie l'erreur à la méthode appelante.
+	 * @return un string contenant les requêtes SQL pemeetant de recréer les tables de la base 
+	 */
+	public String ecrireCreationDeTable() throws Exception, SQLException{
+		String ret="";
+		String sep ="";
+
+		ArrayList<String> lesTables = this.parcourirBase();
+				
+		for(String s : lesTables){
+			Requete nouvelleRequete = new Requete(connexion,"","");
+			Object[] res = nouvelleRequete.manuel("SHOW CREATE TABLE "+s);
+			ResultSet rs=(ResultSet)res[1];
+			ArrayList<String> res2 = (ArrayList<String>)nouvelleRequete.retournerResultSet(rs,false)[0];
+			//for (String str : res2){
+			for (int i=1;i<res2.size();i=i+2) {
+				String modif = ModifierString.supprimerExtrait(res2.get(i),"`");
+				ret = ret +"\n\n"+ modif+";";
+			}
+		}
+
+		return ret;
 	}
 	
 	/**
@@ -355,28 +442,25 @@ public class BaseDeDonnees {
 	public Connection getConnection(){
 		return this.connexion;
 	}
-
+	
+	/**
+	 * Retourne le nom de la base de données
+	 * @return Le nom de la base de données
+	 */	
 	public String getNomDeLaBase(){
 		return this.nomDeLaBase;
 	}
-
+	
+	/**
+	 * Retourne l'adresse de la base de données
+	 * @return l'adresse de la base de données
+	 */	
 	public String getAdresse(){return this.adresse;}
+	
+	/**
+	 * Retourne l'adresse de la base de données
+	 * @return Le nom d'utilsiateur utilisé pour se connecter à la base de données
+	 */	
 	public String getNomUtili(){return this.nomUtili;}
-	public String getMotDePasse(){return this.motDePasse;}
-
-
-
-
-
-	public void deconnexion(){
-		if(connexion!=null){
-				try{
-					connexion.close();
-				}
-				catch(Exception eC){
-					eC.printStackTrace();
-				}
-		} 
-	}
 	
 }
